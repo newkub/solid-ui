@@ -1,0 +1,70 @@
+{
+	"name": "@wrikka/command-palette",
+	"version": "0.1.0",
+	"private": true,
+	"type": "module",
+	"description": "A Raycast-like command palette with Clean Architecture for SolidJS",
+	"exports": {
+		".": {
+			"import": "./src/index.ts",
+			"types": "./src/index.ts"
+		},
+		"./components": {
+			"import": "./src/adapters/solid/components/index.ts",
+			"types": "./src/adapters/solid/components/index.ts"
+		},
+		"./composables": {
+			"import": "./src/adapters/solid/composables/index.ts",
+			"types": "./src/adapters/solid/composables/index.ts"
+		},
+		"./solid": {
+			"import": "./src/adapters/solid/runtime/module.ts",
+			"types": "./src/adapters/solid/runtime/module.ts"
+		}
+	},
+	"main": "./src/index.ts",
+	"module": "./src/index.ts",
+	"types": "./src/index.ts",
+	"files": [
+		"src"
+	],
+	"keywords": [
+		"command-palette",
+		"launcher",
+		"productivity",
+		"clean-architecture",
+		"typescript",
+		"solidjs",
+		"solid-js",
+		"solid-module"
+	],
+	"author": "Wrikka",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/newkub/solid-ui",
+		"directory": "packages/command-palette"
+	},
+	"dependencies": {
+		"@effect/schema": "^0.75.5",
+		"@tauri-apps/api": "^2.11.1",
+		"effect": "^3.22.1",
+		"solid-js": "catalog:"
+	},
+	"devDependencies": {
+		"tsdown": "catalog:",
+		"typescript": "catalog:",
+		"vitest": "^4.1.11"
+	},
+	"scripts": {
+		"dev": "tsdown --watch",
+		"build": "tsdown",
+		"typecheck": "tsc --noEmit",
+		"lint": "biome check src",
+		"format": "biome format --write src",
+		"test": "vitest run",
+		"scan": "echo 'scan skipped for command-palette'",
+		"verify": "bun run lint && bun run typecheck && bun run test",
+		"ci": "bun run verify && bun run build"
+	}
+}

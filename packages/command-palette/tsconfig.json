@@ -1,0 +1,32 @@
+{
+	"extends": "../../tsconfig.base.json",
+	"compilerOptions": {
+		"composite": true,
+		"outDir": "./dist",
+		"jsx": "preserve",
+		"jsxImportSource": "solid-js",
+		"exactOptionalPropertyTypes": false,
+		"paths": {
+			"#modules/command-palette": ["./src/modules/command-palette"],
+			"#modules/command-palette/*": ["./src/modules/command-palette/*"],
+			"#application": ["./src/modules/command-palette/application"],
+			"#application/*": ["./src/modules/command-palette/application/*"],
+			"#domain": ["./src/modules/command-palette/domain"],
+			"#domain/*": ["./src/modules/command-palette/domain/*"],
+			"#ports": ["./src/modules/command-palette/ports"],
+			"#ports/*": ["./src/modules/command-palette/ports/*"],
+			"#types": ["./src/modules/command-palette/types"],
+			"#types/*": ["./src/modules/command-palette/types/*"],
+			"#adapters": ["./src/adapters"],
+			"#adapters/*": ["./src/adapters/*"],
+			"#presentation": ["./src/presentation"],
+			"#presentation/*": ["./src/presentation/*"],
+			"#shared": ["./src/shared"],
+			"#shared/*": ["./src/shared/*"],
+			"#": ["./src"],
+			"#/*": ["./src/*"]
+		}
+	},
+	"include": ["src/**/*", "test/**/*"],
+	"exclude": ["node_modules", "dist"]
+}
