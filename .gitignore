@@ -5,3 +5,5 @@ dist
 .DS_Store
 *.tsbuildinfo
 .bun
+review-report.json
+*.report.json

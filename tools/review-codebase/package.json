@@ -1,0 +1,21 @@
+{
+	"name": "@wrikka/review-codebase",
+	"version": "0.0.1",
+	"private": true,
+	"type": "module",
+	"description": "CLI to review the solid-ui codebase",
+	"bin": {
+		"review-codebase": "./src/cli.ts"
+	},
+	"scripts": {
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@wrikka/analyze": "workspace:*"
+	},
+	"devDependencies": {
+		"@types/bun": "^1.4.0",
+		"@types/node": "^26.4.0",
+		"typescript": "catalog:"
+	}
+}

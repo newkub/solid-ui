@@ -2,6 +2,7 @@
 	"name": "@wrikka/image",
 	"version": "0.0.0",
 	"private": true,
+	"description": "Image and media components for Solid UI",
 	"type": "module",
 	"exports": {
 		".": {

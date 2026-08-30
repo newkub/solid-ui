@@ -8,7 +8,8 @@
 	"workspaces": {
 		"packages": [
 			"packages/*",
-			"apps/*"
+			"apps/*",
+			"tools/*"
 		],
 		"catalog": {
 			"arktype": "^2.2.3",
@@ -21,8 +22,10 @@
 		"dev": "bun run --filter @wrikka/website dev",
 		"build": "bun run --filter @wrikka/website build",
 		"typecheck": "bun run --filter '*' typecheck",
-		"lint": "biome check packages apps",
-		"format": "biome format --write packages apps",
+		"lint": "biome check packages apps tools",
+		"format": "biome format --write packages apps tools",
+		"review-codebase": "bun run tools/review-codebase/src/cli.ts",
+		"review-codebase:json": "bun run tools/review-codebase/src/cli.ts --json",
 		"deploy": "bun run --filter @wrikka/website deploy",
 		"cf-typegen": "bun run --filter @wrikka/website cf-typegen"
 	},

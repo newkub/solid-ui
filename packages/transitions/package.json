@@ -2,6 +2,7 @@
 	"name": "@wrikka/transitions",
 	"version": "0.0.0",
 	"private": true,
+	"description": "Transition and animation utilities for Solid UI",
 	"type": "module",
 	"exports": {
 		".": {

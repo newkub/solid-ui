@@ -2,6 +2,7 @@
 	"name": "@wrikka/table",
 	"version": "0.0.0",
 	"private": true,
+	"description": "Table and data-grid components for Solid UI",
 	"type": "module",
 	"exports": {
 		".": {

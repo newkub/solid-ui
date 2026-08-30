@@ -142,6 +142,30 @@
         "typescript": "catalog:",
       },
     },
+    "tools/analyze": {
+      "name": "@wrikka/analyze",
+      "version": "0.0.1",
+      "devDependencies": {
+        "@types/bun": "^1.4.0",
+        "@types/node": "^26.4.0",
+        "typescript": "catalog:",
+      },
+    },
+    "tools/review-codebase": {
+      "name": "@wrikka/review-codebase",
+      "version": "0.0.1",
+      "bin": {
+        "review-codebase": "./src/cli.ts",
+      },
+      "dependencies": {
+        "@wrikka/analyze": "workspace:*",
+      },
+      "devDependencies": {
+        "@types/bun": "^1.4.0",
+        "@types/node": "^26.4.0",
+        "typescript": "catalog:",
+      },
+    },
   },
   "catalog": {
     "arktype": "^2.2.3",
@@ -462,6 +486,8 @@
 
     "@vitest/utils": ["@vitest/utils@4.1.11", "", { "dependencies": { "@vitest/pretty-format": "4.1.11", "convert-source-map": "^2.0.0", "tinyrainbow": "^3.1.0" } }, "sha512-zTCVGpyFsGWBhllOyKlTw/vnr6D9qxsfSDyfbyZmTyjHw5N/VuvzHpHoQjm2ZJzn4RJgx5w4r7V0er69CmLgPQ=="],
 
+    "@wrikka/analyze": ["@wrikka/analyze@workspace:tools/analyze"],
+
     "@wrikka/cli": ["@wrikka/cli@workspace:apps/cli"],
 
     "@wrikka/command-palette": ["@wrikka/command-palette@workspace:packages/command-palette"],
@@ -471,6 +497,8 @@
     "@wrikka/image": ["@wrikka/image@workspace:packages/image"],
 
     "@wrikka/mcp": ["@wrikka/mcp@workspace:apps/mcp"],
+
+    "@wrikka/review-codebase": ["@wrikka/review-codebase@workspace:tools/review-codebase"],
 
     "@wrikka/solid-ui": ["@wrikka/solid-ui@workspace:packages/solid-ui"],
 
