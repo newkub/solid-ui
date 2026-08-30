@@ -1,7 +1,9 @@
 import { createSignal, Show } from "solid-js";
+import { highlightCode } from "../lib/highlight";
 
 export function CodeBlock(props: { code: string; language?: string }) {
 	const [copied, setCopied] = createSignal(false);
+	const html = () => highlightCode(props.code, props.language ?? "tsx");
 
 	async function copy() {
 		try {
@@ -21,7 +23,7 @@ export function CodeBlock(props: { code: string; language?: string }) {
 				</Show>
 			</button>
 			<pre>
-				<code class={`language-${props.language ?? "tsx"}`}>{props.code}</code>
+				<code class={`language-${props.language ?? "tsx"}`} innerHTML={html()} />
 			</pre>
 		</div>
 	);

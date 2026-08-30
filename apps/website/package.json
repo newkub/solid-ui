@@ -12,8 +12,11 @@
 		"cf-typegen": "wrangler types"
 	},
 	"dependencies": {
-		"@wrikka/solid-ui": "workspace:*",
 		"@tanstack/solid-router": "^1.15.0",
+		"@wrikka/solid-ui": "workspace:*",
+		"highlight.js": "^11.12.0",
+		"marked": "^18.0.11",
+		"marked-highlight": "^2.2.4",
 		"solid-js": "catalog:"
 	},
 	"devDependencies": {
