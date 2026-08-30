@@ -1,0 +1,36 @@
+{
+	"name": "@wrikka/image",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+	"exports": {
+		".": {
+			"import": "./src/index.ts",
+			"types": "./dist/index.d.ts"
+		}
+	},
+	"scripts": {
+		"dev": "tsdown --watch",
+		"build": "NODE_OPTIONS=--max-old-space-size=8192 tsdown",
+		"typecheck": "tsc --noEmit",
+		"lint": "biome check src",
+		"format": "biome format --write src",
+		"test": "echo 'test skipped for image'",
+		"scan": "ast-grep scan",
+		"verify": "bun run scan && bun run lint && bun run typecheck && bun run test",
+		"ci": "bun run verify && bun run build"
+	},
+	"dependencies": {
+		"arktype": "catalog:",
+		"solid-js": "catalog:"
+	},
+	"devDependencies": {
+		"tsdown": "catalog:",
+		"typescript": "catalog:"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/newkub/solid-ui",
+		"directory": "packages/image"
+	}
+}

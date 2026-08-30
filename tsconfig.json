@@ -1,0 +1,19 @@
+{
+	"extends": "./tsconfig.base.json",
+	"compilerOptions": {
+		"noEmit": true,
+		"types": ["vite/client", "node"],
+		"baseUrl": ".",
+		"paths": {
+			"#form/*": ["packages/form/src/*"],
+			"#image/*": ["packages/image/src/*"],
+			"#table/*": ["packages/table/src/modules/table/*"],
+			"#transitions/*": ["packages/transitions/src/*"],
+			"@wrikka/form": ["packages/form/src"],
+			"@wrikka/image": ["packages/image/src"],
+			"@wrikka/table": ["packages/table/src"],
+			"@wrikka/transitions": ["packages/transitions/src"]
+		}
+	},
+	"include": ["src"]
+}
