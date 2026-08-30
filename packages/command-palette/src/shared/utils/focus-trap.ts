@@ -23,9 +23,7 @@ export interface FocusTrapOptions {
 /**
  * Get all focusable elements within a container
  */
-export function getFocusableElements(
-	container: HTMLElement,
-): readonly HTMLElement[] {
+export function getFocusableElements(container: HTMLElement): readonly HTMLElement[] {
 	const focusableSelectors = [
 		"a[href]",
 		"button:not([disabled])",
@@ -36,9 +34,7 @@ export function getFocusableElements(
 		"[contenteditable]",
 	].join(", ");
 
-	return Array.from(
-		container.querySelectorAll<HTMLElement>(focusableSelectors),
-	).filter((el) => {
+	return Array.from(container.querySelectorAll<HTMLElement>(focusableSelectors)).filter((el) => {
 		const style = window.getComputedStyle(el);
 		return style.display !== "none" && style.visibility !== "hidden";
 	});
@@ -47,9 +43,7 @@ export function getFocusableElements(
 /**
  * Get first focusable element
  */
-export function getFirstFocusableElement(
-	container: HTMLElement,
-): HTMLElement | undefined {
+export function getFirstFocusableElement(container: HTMLElement): HTMLElement | undefined {
 	const elements = getFocusableElements(container);
 	return elements[0];
 }
@@ -57,9 +51,7 @@ export function getFirstFocusableElement(
 /**
  * Get last focusable element
  */
-export function getLastFocusableElement(
-	container: HTMLElement,
-): HTMLElement | undefined {
+export function getLastFocusableElement(container: HTMLElement): HTMLElement | undefined {
 	const elements = getFocusableElements(container);
 	return elements[elements.length - 1];
 }
@@ -82,9 +74,7 @@ export function createFocusTrap(
 	const handleKeyDown = (event: KeyboardEvent) => {
 		if (event.key !== "Tab") return;
 
-		const focusableElements = getFocusableElements(container).filter(
-			(el) => !exclude.includes(el),
-		);
+		const focusableElements = getFocusableElements(container).filter((el) => !exclude.includes(el));
 
 		if (focusableElements.length === 0) return;
 

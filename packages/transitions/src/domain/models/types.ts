@@ -1,12 +1,5 @@
 // Transition Types
-export type TransitionMode =
-	| "fade"
-	| "slide"
-	| "zoom"
-	| "scale"
-	| "fade-slide"
-	| "fade-zoom"
-	| "none";
+export type TransitionMode = "fade" | "slide" | "zoom" | "scale" | "fade-slide" | "fade-zoom" | "none";
 
 export interface TransitionOptions {
 	mode?: TransitionMode;

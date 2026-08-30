@@ -19,9 +19,7 @@ export function SettingsSummary(props: SettingsSummaryProps) {
 					</div>
 					<div class="summary-item">
 						<span class="summary-label">API Key:</span>
-						<span class="summary-value">
-							{config().apiKey ? "••••••••" : "Not set"}
-						</span>
+						<span class="summary-value">{config().apiKey ? "••••••••" : "Not set"}</span>
 					</div>
 					<Show when={config().endpoint}>
 						<div class="summary-item">
@@ -37,9 +35,7 @@ export function SettingsSummary(props: SettingsSummaryProps) {
 					</Show>
 					<div class="summary-item">
 						<span class="summary-label">Sync Interval:</span>
-						<span class="summary-value">
-							{formatSyncInterval(config().syncInterval ?? 60000)}
-						</span>
+						<span class="summary-value">{formatSyncInterval(config().syncInterval ?? 60000)}</span>
 					</div>
 				</div>
 			)}

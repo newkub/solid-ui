@@ -9,9 +9,7 @@ import {
 	transitionOptionsSchema,
 } from "./schemas";
 
-export const validateTransitionMode = (
-	mode: string,
-): mode is TransitionMode => {
+export const validateTransitionMode = (mode: string): mode is TransitionMode => {
 	const result = transitionModeSchema(mode);
 	return !(result instanceof type.errors);
 };
@@ -26,9 +24,7 @@ export const validateTransitionEasing = (easing: string): boolean => {
 	return !(result instanceof type.errors);
 };
 
-export const validateTransitionOptions = (
-	options: TransitionOptions,
-): boolean => {
+export const validateTransitionOptions = (options: TransitionOptions): boolean => {
 	const result = transitionOptionsSchema(options);
 	return !(result instanceof type.errors);
 };

@@ -1,9 +1,6 @@
 // Table Domain Operations - Selection Helpers
 
-export function toggleRowSelection(
-	key: string | number,
-	selectedRows: Set<string | number>,
-): Set<string | number> {
+export function toggleRowSelection(key: string | number, selectedRows: Set<string | number>): Set<string | number> {
 	const newSet = new Set(selectedRows);
 	if (newSet.has(key)) {
 		newSet.delete(key);

@@ -45,22 +45,17 @@ export const mergeSyncData = (local: SyncData, remote: SyncData): SyncData => {
 	for (const conflict of conflicts) {
 		switch (conflict.type) {
 			case "command": {
-				const localIndex = mergedCommands.findIndex(
-					(c: any) => c.id === conflict.itemId,
-				);
+				const localIndex = mergedCommands.findIndex((c: any) => c.id === conflict.itemId);
 				if (localIndex >= 0) {
 					mergedCommands[localIndex] = conflict.remoteVersion as any;
 				}
 				break;
 			}
 			case "settings":
-				(mergedSettings as any)[conflict.itemId as string] =
-					conflict.remoteVersion;
+				(mergedSettings as any)[conflict.itemId as string] = conflict.remoteVersion;
 				break;
 			case "history": {
-				const historyIndex = mergedHistory.findIndex(
-					(h: any) => h.id === conflict.itemId,
-				);
+				const historyIndex = mergedHistory.findIndex((h: any) => h.id === conflict.itemId);
 				if (historyIndex >= 0) {
 					mergedHistory[historyIndex] = conflict.remoteVersion as any;
 				}
@@ -78,10 +73,7 @@ export const mergeSyncData = (local: SyncData, remote: SyncData): SyncData => {
 };
 
 // Detect sync conflicts
-export const detectConflicts = (
-	local: SyncData,
-	remote: SyncData,
-): readonly SyncConflict[] => {
+export const detectConflicts = (local: SyncData, remote: SyncData): readonly SyncConflict[] => {
 	const conflicts: SyncConflict[] = [];
 
 	// Check for command conflicts
@@ -108,10 +100,7 @@ export const detectConflicts = (
 };
 
 // Resolve conflict
-export const resolveConflict = (
-	_conflict: SyncConflict,
-	resolution: ConflictResolution,
-): SyncData => {
+export const resolveConflict = (_conflict: SyncConflict, resolution: ConflictResolution): SyncData => {
 	switch (resolution.strategy) {
 		case "local":
 			return resolution.localData as SyncData;
@@ -124,12 +113,8 @@ export const resolveConflict = (
 			return resolution.remoteData as SyncData;
 		case "newest": {
 			const localDate = new Date((resolution.localData as any).lastSyncAt || 0);
-			const remoteDate = new Date(
-				(resolution.remoteData as any).lastSyncAt || 0,
-			);
-			return localDate > remoteDate
-				? (resolution.localData as SyncData)
-				: (resolution.remoteData as SyncData);
+			const remoteDate = new Date((resolution.remoteData as any).lastSyncAt || 0);
+			return localDate > remoteDate ? (resolution.localData as SyncData) : (resolution.remoteData as SyncData);
 		}
 		default:
 			return resolution.remoteData as SyncData;
@@ -137,11 +122,7 @@ export const resolveConflict = (
 };
 
 // Create sync result
-export const createSyncResult = (
-	success: boolean,
-	itemsSynced?: number,
-	error?: string,
-): SyncResult => ({
+export const createSyncResult = (success: boolean, itemsSynced?: number, error?: string): SyncResult => ({
 	success,
 	syncedAt: new Date(),
 	error,

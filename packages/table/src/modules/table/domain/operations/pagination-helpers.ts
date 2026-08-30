@@ -8,11 +8,7 @@ export function isValidPage(page: number, totalPages: number): boolean {
 	return page >= 1 && page <= totalPages;
 }
 
-export function getPageRange(
-	currentPage: number,
-	totalPages: number,
-	maxVisible = 7,
-): number[] {
+export function getPageRange(currentPage: number, totalPages: number, maxVisible = 7): number[] {
 	const pages: number[] = [];
 	const half = Math.floor(maxVisible / 2);
 

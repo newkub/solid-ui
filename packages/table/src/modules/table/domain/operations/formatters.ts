@@ -11,9 +11,7 @@ const formatRelativeDate = (date: Date): string => {
 	const days = Math.floor(hours / 24);
 
 	if (days > 7) {
-		return new Intl.DateTimeFormat("en-US", { dateStyle: "short" }).format(
-			date,
-		);
+		return new Intl.DateTimeFormat("en-US", { dateStyle: "short" }).format(date);
 	}
 	if (days > 0) return `${days} day${days > 1 ? "s" : ""} ago`;
 	if (hours > 0) return `${hours} hour${hours > 1 ? "s" : ""} ago`;
@@ -25,8 +23,7 @@ export const formatNumber = (value: number, column: NumberColumn): string => {
 	if (value === null || value === undefined) return "";
 
 	const locale = column.locale || "en-US";
-	const minDigits =
-		column.minFractionDigits ?? (column.format === "decimal" ? 0 : 2);
+	const minDigits = column.minFractionDigits ?? (column.format === "decimal" ? 0 : 2);
 	const maxDigits = column.maxFractionDigits ?? 2;
 
 	return new Intl.NumberFormat(locale, {
@@ -35,10 +32,7 @@ export const formatNumber = (value: number, column: NumberColumn): string => {
 	}).format(value);
 };
 
-export const formatDate = (
-	value: string | Date,
-	column: DateColumn,
-): string => {
+export const formatDate = (value: string | Date, column: DateColumn): string => {
 	if (!value) return "";
 
 	const date = typeof value === "string" ? new Date(value) : value;

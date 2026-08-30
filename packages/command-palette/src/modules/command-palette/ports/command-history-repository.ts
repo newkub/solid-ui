@@ -3,10 +3,7 @@
  * Defines contract for command history storage operations
  */
 
-import type {
-	CommandHistory,
-	CommandHistoryEntry,
-} from "#modules/command-palette/types";
+import type { CommandHistory, CommandHistoryEntry } from "#modules/command-palette/types";
 import type { Result } from "#shared/types";
 
 export interface CommandHistoryRepository {
@@ -19,12 +16,8 @@ export interface CommandHistoryRepository {
 
 	// Query operations
 	findById(entryId: string): Promise<Result<CommandHistoryEntry | null>>;
-	findByCommandId(
-		commandId: string,
-	): Promise<Result<readonly CommandHistoryEntry[]>>;
-	findBySuccess(
-		success: boolean,
-	): Promise<Result<readonly CommandHistoryEntry[]>>;
+	findByCommandId(commandId: string): Promise<Result<readonly CommandHistoryEntry[]>>;
+	findBySuccess(success: boolean): Promise<Result<readonly CommandHistoryEntry[]>>;
 	search(query: string): Promise<Result<readonly CommandHistoryEntry[]>>;
 
 	// Count operations

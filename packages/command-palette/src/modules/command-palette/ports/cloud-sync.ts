@@ -15,8 +15,5 @@ export interface CloudSync {
 	pull(): Promise<SyncData>;
 	push(data: SyncData): Promise<SyncResult>;
 	getStatus(): SyncStatus;
-	resolveConflict(
-		conflict: SyncConflict,
-		resolution: ConflictResolution,
-	): Promise<boolean>;
+	resolveConflict(conflict: SyncConflict, resolution: ConflictResolution): Promise<boolean>;
 }

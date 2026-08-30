@@ -26,12 +26,7 @@ export function CommandPreviewPanel(props: CommandPreviewPanelProps) {
 			<div class="command-preview-panel">
 				<div class="preview-header">
 					<h3 class="preview-title">Preview</h3>
-					<button
-						class="preview-close-button"
-						onClick={local.onClose}
-						type="button"
-						aria-label="Close preview"
-					>
+					<button class="preview-close-button" onClick={local.onClose} type="button" aria-label="Close preview">
 						✕
 					</button>
 				</div>
@@ -64,9 +59,7 @@ export function CommandPreviewPanel(props: CommandPreviewPanelProps) {
 						<div class="preview-tags">
 							<span class="tags-label">Tags:</span>
 							<div class="tags-list">
-								<For each={command.tags}>
-									{(tag) => <span class="tag">{tag}</span>}
-								</For>
+								<For each={command.tags}>{(tag) => <span class="tag">{tag}</span>}</For>
 							</div>
 						</div>
 					</Show>
@@ -90,9 +83,7 @@ export function CommandPreviewPanel(props: CommandPreviewPanelProps) {
 										<li class="subcommand-item">
 											<span class="subcommand-label">{subcommand.label}</span>
 											<Show when={subcommand.description}>
-												<span class="subcommand-description">
-													{subcommand.description}
-												</span>
+												<span class="subcommand-description">{subcommand.description}</span>
 											</Show>
 										</li>
 									)}
@@ -109,12 +100,7 @@ export function CommandPreviewPanel(props: CommandPreviewPanelProps) {
 		<div class="command-preview-panel">
 			<div class="preview-header">
 				<h3 class="preview-title">Preview</h3>
-				<button
-					class="preview-close-button"
-					onClick={local.onClose}
-					type="button"
-					aria-label="Close preview"
-				>
+				<button class="preview-close-button" onClick={local.onClose} type="button" aria-label="Close preview">
 					✕
 				</button>
 			</div>
@@ -148,9 +134,7 @@ export function CommandPreviewPanel(props: CommandPreviewPanelProps) {
 					<div class="preview-tags">
 						<span class="tags-label">Tags:</span>
 						<div class="tags-list">
-							<For each={command.tags}>
-								{(tag) => <span class="tag">{tag}</span>}
-							</For>
+							<For each={command.tags}>{(tag) => <span class="tag">{tag}</span>}</For>
 						</div>
 					</div>
 				</Show>
@@ -174,11 +158,7 @@ export function CommandPreviewPanel(props: CommandPreviewPanelProps) {
 							<pre class="preview-text">{preview.content}</pre>
 						</Show>
 						<Show when={preview.type === "image"}>
-							<img
-								src={preview.content}
-								alt={preview.title || "Preview"}
-								class="preview-image"
-							/>
+							<img src={preview.content} alt={preview.title || "Preview"} class="preview-image" />
 						</Show>
 						<Show when={preview.type === "component"}>
 							<div class="preview-component" innerHTML={preview.content} />
@@ -195,9 +175,7 @@ export function CommandPreviewPanel(props: CommandPreviewPanelProps) {
 									<li class="subcommand-item">
 										<span class="subcommand-label">{subcommand.label}</span>
 										<Show when={subcommand.description}>
-											<span class="subcommand-description">
-												{subcommand.description}
-											</span>
+											<span class="subcommand-description">{subcommand.description}</span>
 										</Show>
 									</li>
 								)}

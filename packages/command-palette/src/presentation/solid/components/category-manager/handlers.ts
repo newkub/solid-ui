@@ -14,10 +14,7 @@ export function createCategoryHandlers(
 	setNewCategoryColor: (color: string) => void,
 	setIsCreating: (creating: boolean) => void,
 	onCreateCategory?: (category: Omit<CommandCategory, "id">) => void,
-	onUpdateCategory?: (
-		categoryId: string,
-		updates: Partial<CommandCategory>,
-	) => void,
+	onUpdateCategory?: (categoryId: string, updates: Partial<CommandCategory>) => void,
 	onDeleteCategory?: (categoryId: string) => void,
 ) {
 	const handleCreateCategory = () => {
@@ -29,13 +26,10 @@ export function createCategoryHandlers(
 			};
 
 			if (newCategoryDescription) {
-				(
-					categoryData as CommandCategory & { description: string }
-				).description = newCategoryDescription;
+				(categoryData as CommandCategory & { description: string }).description = newCategoryDescription;
 			}
 			if (newCategoryIcon) {
-				(categoryData as CommandCategory & { icon: string }).icon =
-					newCategoryIcon;
+				(categoryData as CommandCategory & { icon: string }).icon = newCategoryIcon;
 			}
 
 			onCreateCategory?.(categoryData);
@@ -55,8 +49,7 @@ export function createCategoryHandlers(
 			};
 
 			if (newCategoryDescription) {
-				(updates as CommandCategory & { description: string }).description =
-					newCategoryDescription;
+				(updates as CommandCategory & { description: string }).description = newCategoryDescription;
 			}
 			if (newCategoryIcon) {
 				(updates as CommandCategory & { icon: string }).icon = newCategoryIcon;

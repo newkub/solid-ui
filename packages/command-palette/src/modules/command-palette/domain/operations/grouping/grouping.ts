@@ -14,9 +14,7 @@ export interface CommandGroup {
 /**
  * Group commands by category
  */
-export const groupCommandsByCategory = (
-	commands: readonly Command[],
-): readonly CommandGroup[] => {
+export const groupCommandsByCategory = (commands: readonly Command[]): readonly CommandGroup[] => {
 	const categoryMap = new Map<string, Command[]>();
 
 	for (const command of commands) {
@@ -37,9 +35,7 @@ export const groupCommandsByCategory = (
 /**
  * Get all unique categories
  */
-export const getUniqueCategories = (
-	commands: readonly Command[],
-): readonly string[] => {
+export const getUniqueCategories = (commands: readonly Command[]): readonly string[] => {
 	const categories = new Set<string>();
 	for (const command of commands) {
 		if (command.category) {
@@ -52,28 +48,21 @@ export const getUniqueCategories = (
 /**
  * Filter commands by category
  */
-export const filterCommandsByCategory = (
-	commands: readonly Command[],
-	category: string,
-): readonly Command[] => {
+export const filterCommandsByCategory = (commands: readonly Command[], category: string): readonly Command[] => {
 	return commands.filter((cmd) => cmd.category === category);
 };
 
 /**
  * Sort groups by command count (descending)
  */
-export const sortGroupsByCount = (
-	groups: readonly CommandGroup[],
-): readonly CommandGroup[] => {
+export const sortGroupsByCount = (groups: readonly CommandGroup[]): readonly CommandGroup[] => {
 	return [...groups].sort((a, b) => b.count - a.count);
 };
 
 /**
  * Sort groups by category name (alphabetical)
  */
-export const sortGroupsByName = (
-	groups: readonly CommandGroup[],
-): readonly CommandGroup[] => {
+export const sortGroupsByName = (groups: readonly CommandGroup[]): readonly CommandGroup[] => {
 	return [...groups].sort((a, b) => a.category.localeCompare(b.category));
 };
 
@@ -87,29 +76,20 @@ export const getCommandCategory = (command: Command): string => {
 /**
  * Check if command belongs to category
  */
-export const isCommandInCategory = (
-	command: Command,
-	category: string,
-): boolean => {
+export const isCommandInCategory = (command: Command, category: string): boolean => {
 	return command.category === category;
 };
 
 /**
  * Get commands with category
  */
-export const getCommandsWithCategory = (
-	commands: readonly Command[],
-): readonly Command[] => {
-	return commands.filter(
-		(cmd) => cmd.category !== undefined && cmd.category !== "",
-	);
+export const getCommandsWithCategory = (commands: readonly Command[]): readonly Command[] => {
+	return commands.filter((cmd) => cmd.category !== undefined && cmd.category !== "");
 };
 
 /**
  * Get commands without category
  */
-export const getCommandsWithoutCategory = (
-	commands: readonly Command[],
-): readonly Command[] => {
+export const getCommandsWithoutCategory = (commands: readonly Command[]): readonly Command[] => {
 	return commands.filter((cmd) => !cmd.category || cmd.category === "");
 };

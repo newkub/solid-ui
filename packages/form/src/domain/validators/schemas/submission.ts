@@ -7,8 +7,7 @@ import { type } from "arktype";
  * Form Submission Schema
  */
 export const formSubmissionSchema = type({
-	values:
-		"Record<string, string | number | boolean | File | File[] | string[] | null | undefined>",
+	values: "Record<string, string | number | boolean | File | File[] | string[] | null | undefined>",
 	errors: "Record<string, string[]>",
 	isValid: "boolean",
 	isSubmitting: "boolean",

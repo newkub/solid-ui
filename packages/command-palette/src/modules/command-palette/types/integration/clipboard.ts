@@ -28,10 +28,7 @@ export const addClipboardEntry = (
 	...history,
 ];
 
-export const getRecentClipboardEntries = (
-	history: ClipboardHistory,
-	limit?: number,
-): readonly ClipboardEntry[] => {
+export const getRecentClipboardEntries = (history: ClipboardHistory, limit?: number): readonly ClipboardEntry[] => {
 	if (!limit) return history;
 	return history.slice(0, limit);
 };

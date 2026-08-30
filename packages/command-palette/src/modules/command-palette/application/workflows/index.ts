@@ -20,12 +20,8 @@ export const searchCommandsWorkflow = async (
 
 	for (const command of commands) {
 		const labelMatch = command.label.toLowerCase().includes(searchTerm);
-		const descriptionMatch = command.description
-			?.toLowerCase()
-			.includes(searchTerm);
-		const keywordsMatch = command.keywords?.some((keyword: string) =>
-			keyword.toLowerCase().includes(searchTerm),
-		);
+		const descriptionMatch = command.description?.toLowerCase().includes(searchTerm);
+		const keywordsMatch = command.keywords?.some((keyword: string) => keyword.toLowerCase().includes(searchTerm));
 
 		if (labelMatch || descriptionMatch || keywordsMatch) {
 			results.push(command);
@@ -46,16 +42,10 @@ export const executeCommandWorkflow = async (
 ): Promise<{ success: boolean; result?: unknown; error?: string }> => {
 	try {
 		// Execute command based on action type
-		if (
-			command.action.type === "url" &&
-			typeof command.action.payload === "string"
-		) {
+		if (command.action.type === "url" && typeof command.action.payload === "string") {
 			window.open(command.action.payload, "_blank");
 			return { success: true, result: "URL opened" };
-		} else if (
-			command.action.type === "function" &&
-			typeof command.action.payload === "function"
-		) {
+		} else if (command.action.type === "function" && typeof command.action.payload === "function") {
 			const result = await command.action.payload();
 			return { success: true, result };
 		} else if (command.action.type === "plugin") {
@@ -76,17 +66,13 @@ export const executeCommandWorkflow = async (
 	} catch (error) {
 		return {
 			success: false,
-			error:
-				error instanceof Error ? error.message : "Command execution failed",
+			error: error instanceof Error ? error.message : "Command execution failed",
 		};
 	}
 };
 
 // Workflow for getting recently used commands
-export const getRecentCommandsWorkflow = async (
-	commands: Command[],
-	maxCount: number = 5,
-): Promise<Command[]> => {
+export const getRecentCommandsWorkflow = async (commands: Command[], maxCount: number = 5): Promise<Command[]> => {
 	try {
 		// Fetch recent command IDs from localStorage
 		const recentIds = localStorage.getItem("recentCommands");
@@ -115,9 +101,7 @@ export const getRecentCommandsWorkflow = async (
 };
 
 // Workflow for saving a recently used command
-export const saveRecentCommandWorkflow = async (
-	commandId: string,
-): Promise<void> => {
+export const saveRecentCommandWorkflow = async (commandId: string): Promise<void> => {
 	try {
 		const recentIds = localStorage.getItem("recentCommands");
 		const ids = recentIds ? (JSON.parse(recentIds) as string[]) : [];

@@ -10,9 +10,7 @@ import { validateCommandHotkey } from "./hotkey";
 import { validateCommandKeywords } from "./keywords";
 import { validateCommandLabel } from "./label";
 
-export const validateCommandRequest = (
-	request: CommandRequest,
-): Result<CommandRequest> => {
+export const validateCommandRequest = (request: CommandRequest): Result<CommandRequest> => {
 	// Validate each field with its dedicated validator
 	const labelResult = validateCommandLabel(request.label);
 	if (!labelResult.success) {

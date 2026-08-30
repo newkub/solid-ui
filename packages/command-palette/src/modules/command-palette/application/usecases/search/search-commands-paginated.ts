@@ -1,13 +1,7 @@
 // Paginated search use case
 
-import type {
-	CommandRepository,
-	EventDispatcher,
-} from "#modules/command-palette/ports";
-import type {
-	Command,
-	CommandSearchQuery,
-} from "#modules/command-palette/types";
+import type { CommandRepository, EventDispatcher } from "#modules/command-palette/ports";
+import type { Command, CommandSearchQuery } from "#modules/command-palette/types";
 import { UseCaseError, ValidationError } from "#shared/errors";
 import type { Result } from "#shared/types";
 import { createCommandSearchedEvent } from "../../../domain/events/command-events";
@@ -22,9 +16,7 @@ export interface SearchCommandsResponse {
 
 export const searchCommandsPaginatedUseCase =
 	(commandRepository: CommandRepository, eventDispatcher: EventDispatcher) =>
-	async (
-		query: CommandSearchQuery,
-	): Promise<Result<SearchCommandsResponse>> => {
+	async (query: CommandSearchQuery): Promise<Result<SearchCommandsResponse>> => {
 		const startTime = Date.now();
 
 		try {
@@ -38,17 +30,11 @@ export const searchCommandsPaginatedUseCase =
 			}
 
 			// Step 2: Perform paginated search
-			const searchResult = await commandRepository.searchPaginated(
-				validationResult.data,
-			);
+			const searchResult = await commandRepository.searchPaginated(validationResult.data);
 			if (!searchResult.success) {
 				return {
 					success: false,
-					error: UseCaseError(
-						"searchCommandsPaginated",
-						"Paginated search failed",
-						searchResult.error,
-					),
+					error: UseCaseError("searchCommandsPaginated", "Paginated search failed", searchResult.error),
 				};
 			}
 
@@ -56,11 +42,7 @@ export const searchCommandsPaginatedUseCase =
 			const executionTime = Date.now() - startTime;
 
 			// Step 4: Dispatch search event
-			const event = createCommandSearchedEvent(
-				query.query || "",
-				searchResult.data.items.length,
-				executionTime,
-			);
+			const event = createCommandSearchedEvent(query.query || "", searchResult.data.items.length, executionTime);
 
 			const dispatchResult = await eventDispatcher.dispatch(event);
 			if (!dispatchResult.success) {

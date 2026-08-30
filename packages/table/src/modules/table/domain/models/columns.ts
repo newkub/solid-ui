@@ -79,23 +79,13 @@ export interface ImageColumn extends BaseColumn {
 
 export interface BadgeColumn extends BaseColumn {
 	readonly type: "badge";
-	readonly variants?: Readonly<
-		Record<
-			string,
-			Readonly<{ label: string; color?: string; bgColor?: string }>
-		>
-	>;
+	readonly variants?: Readonly<Record<string, Readonly<{ label: string; color?: string; bgColor?: string }>>>;
 	readonly defaultVariant?: string;
 }
 
 export interface TagColumn extends BaseColumn {
 	readonly type: "tag";
-	readonly variants?: Readonly<
-		Record<
-			string,
-			Readonly<{ label: string; color?: string; bgColor?: string }>
-		>
-	>;
+	readonly variants?: Readonly<Record<string, Readonly<{ label: string; color?: string; bgColor?: string }>>>;
 	readonly defaultVariant?: string;
 }
 
@@ -121,10 +111,7 @@ export interface ActionsColumn extends BaseColumn {
 
 export interface CustomColumn extends BaseColumn {
 	readonly type: "custom";
-	readonly render: (
-		value: unknown,
-		row: Readonly<Record<string, unknown>>,
-	) => unknown;
+	readonly render: (value: unknown, row: Readonly<Record<string, unknown>>) => unknown;
 }
 
 export type ColumnDef =

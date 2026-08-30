@@ -12,10 +12,7 @@ export interface CommandNotFoundError extends BaseError {
 	readonly commandId: string;
 }
 
-export const CommandNotFoundError = (
-	commandId: string,
-	context?: Record<string, unknown>,
-): CommandNotFoundError =>
+export const CommandNotFoundError = (commandId: string, context?: Record<string, unknown>): CommandNotFoundError =>
 	({
 		...createError(
 			"CommandNotFoundError",

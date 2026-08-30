@@ -5,9 +5,7 @@
 import type { Result } from "#shared/types";
 import type { MemoryCommandRepositoryState } from "./memory-command-repository";
 
-export const countCommands = (
-	state: MemoryCommandRepositoryState,
-): Result<number> => {
+export const countCommands = (state: MemoryCommandRepositoryState): Result<number> => {
 	try {
 		return { success: true, data: state.commands.size };
 	} catch (error) {
@@ -18,14 +16,9 @@ export const countCommands = (
 	}
 };
 
-export const countByCategory = (
-	state: MemoryCommandRepositoryState,
-	category: string,
-): Result<number> => {
+export const countByCategory = (state: MemoryCommandRepositoryState, category: string): Result<number> => {
 	try {
-		const count = Array.from(state.commands.values()).filter(
-			(command) => command.category === category,
-		).length;
+		const count = Array.from(state.commands.values()).filter((command) => command.category === category).length;
 		return { success: true, data: count };
 	} catch (error) {
 		return {
@@ -35,13 +28,9 @@ export const countByCategory = (
 	}
 };
 
-export const countEnabled = (
-	state: MemoryCommandRepositoryState,
-): Result<number> => {
+export const countEnabled = (state: MemoryCommandRepositoryState): Result<number> => {
 	try {
-		const count = Array.from(state.commands.values()).filter(
-			(command) => command.enabled,
-		).length;
+		const count = Array.from(state.commands.values()).filter((command) => command.enabled).length;
 		return { success: true, data: count };
 	} catch (error) {
 		return {
@@ -51,13 +40,9 @@ export const countEnabled = (
 	}
 };
 
-export const countDisabled = (
-	state: MemoryCommandRepositoryState,
-): Result<number> => {
+export const countDisabled = (state: MemoryCommandRepositoryState): Result<number> => {
 	try {
-		const count = Array.from(state.commands.values()).filter(
-			(command) => !command.enabled,
-		).length;
+		const count = Array.from(state.commands.values()).filter((command) => !command.enabled).length;
 		return { success: true, data: count };
 	} catch (error) {
 		return {

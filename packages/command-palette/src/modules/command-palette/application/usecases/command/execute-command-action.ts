@@ -2,11 +2,7 @@
  * Execute Command Action - Handles different action types
  */
 
-import type {
-	Command,
-	CommandExecutionContext,
-	CommandExecutionResult,
-} from "#modules/command-palette/types";
+import type { Command, CommandExecutionContext, CommandExecutionResult } from "#modules/command-palette/types";
 
 export const executeCommandAction = async (
 	command: Command,

@@ -42,27 +42,10 @@ export {
 	RequiredFieldError,
 } from "./validation-errors";
 
-import type {
-	AuthorizationError,
-	UseCaseError,
-	ValidationError,
-} from "./application-errors";
-import type {
-	CommandAlreadyExistsError,
-	CommandNotFoundError,
-	InvalidCommandActionError,
-} from "./domain-errors";
-import type {
-	ConfigurationError,
-	DatabaseError,
-	FileSystemError,
-	NetworkError,
-} from "./infrastructure-errors";
-import type {
-	InvalidFormatError,
-	InvalidLengthError,
-	RequiredFieldError,
-} from "./validation-errors";
+import type { AuthorizationError, UseCaseError, ValidationError } from "./application-errors";
+import type { CommandAlreadyExistsError, CommandNotFoundError, InvalidCommandActionError } from "./domain-errors";
+import type { ConfigurationError, DatabaseError, FileSystemError, NetworkError } from "./infrastructure-errors";
+import type { InvalidFormatError, InvalidLengthError, RequiredFieldError } from "./validation-errors";
 
 export type CommandPaletteError =
 	| CommandNotFoundError

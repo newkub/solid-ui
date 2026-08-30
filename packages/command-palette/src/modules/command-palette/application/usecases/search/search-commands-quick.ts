@@ -1,19 +1,13 @@
 // Quick search use case (for autocomplete/suggestions)
 
 import type { CommandRepository } from "#modules/command-palette/ports";
-import type {
-	Command,
-	CommandSearchQuery,
-} from "#modules/command-palette/types";
+import type { Command, CommandSearchQuery } from "#modules/command-palette/types";
 import { UseCaseError, ValidationError } from "#shared/errors";
 import type { Result } from "#shared/types";
 
 export const quickSearchUseCase =
 	(commandRepository: CommandRepository) =>
-	async (
-		query: string,
-		limit: number = 5,
-	): Promise<Result<readonly Command[]>> => {
+	async (query: string, limit: number = 5): Promise<Result<readonly Command[]>> => {
 		try {
 			// Step 1: Validate quick search parameters
 			if (!query || query.trim().length === 0) {
@@ -42,11 +36,7 @@ export const quickSearchUseCase =
 			if (!searchResult.success) {
 				return {
 					success: false,
-					error: UseCaseError(
-						"quickSearch",
-						"Quick search failed",
-						searchResult.error,
-					),
+					error: UseCaseError("quickSearch", "Quick search failed", searchResult.error),
 				};
 			}
 

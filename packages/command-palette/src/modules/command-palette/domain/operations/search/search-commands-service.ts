@@ -3,22 +3,12 @@
  * Pure business logic without external dependencies
  */
 
-import type {
-	SearchOptions,
-	SearchResult,
-} from "#ports/search/command-searcher";
+import type { SearchOptions, SearchResult } from "#ports/search/command-searcher";
 import type { Command } from "#types";
 import { DEFAULT_MAX_RESULTS, DEFAULT_SEARCH_THRESHOLD } from "../../constants";
 
-export const searchCommands = (
-	commands: readonly Command[],
-	options: SearchOptions,
-): SearchResult => {
-	const {
-		query,
-		limit = DEFAULT_MAX_RESULTS,
-		threshold = DEFAULT_SEARCH_THRESHOLD,
-	} = options;
+export const searchCommands = (commands: readonly Command[], options: SearchOptions): SearchResult => {
+	const { query, limit = DEFAULT_MAX_RESULTS, threshold = DEFAULT_SEARCH_THRESHOLD } = options;
 
 	if (!query || query.trim().length === 0) {
 		return {

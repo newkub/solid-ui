@@ -3,10 +3,7 @@
  * Pure event definitions without handlers
  */
 
-import type {
-	Command,
-	CommandExecutionResult,
-} from "#modules/command-palette/types";
+import type { Command, CommandExecutionResult } from "#modules/command-palette/types";
 import type { DomainEvent } from "#shared/types";
 
 // Command created event
@@ -75,9 +72,7 @@ export interface CommandHotkeyChangedEvent extends DomainEvent {
 }
 
 // Event factory functions
-export const createCommandCreatedEvent = (
-	command: Command,
-): CommandCreatedEvent => ({
+export const createCommandCreatedEvent = (command: Command): CommandCreatedEvent => ({
 	id: generateEventId(),
 	timestamp: new Date(),
 	type: "command.created",
@@ -97,10 +92,7 @@ export const createCommandUpdatedEvent = (
 	updatedCommand,
 });
 
-export const createCommandDeletedEvent = (
-	commandId: string,
-	deletedCommand: Command,
-): CommandDeletedEvent => ({
+export const createCommandDeletedEvent = (commandId: string, deletedCommand: Command): CommandDeletedEvent => ({
 	id: generateEventId(),
 	timestamp: new Date(),
 	type: "command.deleted",
@@ -119,10 +111,7 @@ export const createCommandExecutedEvent = (
 	executionResult,
 });
 
-export const createCommandEnabledEvent = (
-	commandId: string,
-	command: Command,
-): CommandEnabledEvent => ({
+export const createCommandEnabledEvent = (commandId: string, command: Command): CommandEnabledEvent => ({
 	id: generateEventId(),
 	timestamp: new Date(),
 	type: "command.enabled",
@@ -130,10 +119,7 @@ export const createCommandEnabledEvent = (
 	command,
 });
 
-export const createCommandDisabledEvent = (
-	commandId: string,
-	command: Command,
-): CommandDisabledEvent => ({
+export const createCommandDisabledEvent = (commandId: string, command: Command): CommandDisabledEvent => ({
 	id: generateEventId(),
 	timestamp: new Date(),
 	type: "command.disabled",

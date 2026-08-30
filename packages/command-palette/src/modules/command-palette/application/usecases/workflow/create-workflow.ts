@@ -5,10 +5,7 @@
 
 import { createWorkflowDeletedEvent } from "#modules/command-palette/domain/events/workflow-events";
 import { validateWorkflow } from "#modules/command-palette/domain/operations/workflow";
-import type {
-	EventDispatcher,
-	WorkflowRepository,
-} from "#modules/command-palette/ports";
+import type { EventDispatcher, WorkflowRepository } from "#modules/command-palette/ports";
 import type { Workflow, WorkflowRequest } from "#modules/command-palette/types";
 import { UseCaseError, ValidationError } from "#shared/errors";
 import type { Result } from "#shared/types";
@@ -22,9 +19,7 @@ export interface CreateWorkflowResponse {
 
 export const createWorkflowUseCase =
 	(workflowRepository: WorkflowRepository, _eventDispatcher: EventDispatcher) =>
-	async (
-		request: CreateWorkflowRequest,
-	): Promise<Result<CreateWorkflowResponse>> => {
+	async (request: CreateWorkflowRequest): Promise<Result<CreateWorkflowResponse>> => {
 		try {
 			// Step 1: Create workflow domain object
 			const workflow: Workflow = {
@@ -47,17 +42,11 @@ export const createWorkflowUseCase =
 			}
 
 			// Step 3: Check if workflow already exists
-			const existingWorkflowResult = await workflowRepository.findById(
-				workflow.id,
-			);
+			const existingWorkflowResult = await workflowRepository.findById(workflow.id);
 			if (!existingWorkflowResult.success) {
 				return {
 					success: false,
-					error: UseCaseError(
-						"createWorkflow",
-						"Failed to check existing workflow",
-						existingWorkflowResult.error,
-					),
+					error: UseCaseError("createWorkflow", "Failed to check existing workflow", existingWorkflowResult.error),
 				};
 			}
 
@@ -73,11 +62,7 @@ export const createWorkflowUseCase =
 			if (!saveResult.success) {
 				return {
 					success: false,
-					error: UseCaseError(
-						"createWorkflow",
-						"Failed to save workflow",
-						saveResult.error,
-					),
+					error: UseCaseError("createWorkflow", "Failed to save workflow", saveResult.error),
 				};
 			}
 
@@ -105,21 +90,14 @@ export const createWorkflowUseCase =
 
 export const updateWorkflowUseCase =
 	(workflowRepository: WorkflowRepository, _eventDispatcher: EventDispatcher) =>
-	async (
-		workflowId: string,
-		updates: Partial<Workflow>,
-	): Promise<Result<CreateWorkflowResponse>> => {
+	async (workflowId: string, updates: Partial<Workflow>): Promise<Result<CreateWorkflowResponse>> => {
 		try {
 			// Step 1: Get existing workflow
 			const existingResult = await workflowRepository.findById(workflowId);
 			if (!existingResult.success) {
 				return {
 					success: false,
-					error: UseCaseError(
-						"updateWorkflow",
-						"Failed to get existing workflow",
-						existingResult.error,
-					),
+					error: UseCaseError("updateWorkflow", "Failed to get existing workflow", existingResult.error),
 				};
 			}
 
@@ -151,11 +129,7 @@ export const updateWorkflowUseCase =
 			if (!saveResult.success) {
 				return {
 					success: false,
-					error: UseCaseError(
-						"updateWorkflow",
-						"Failed to save workflow",
-						saveResult.error,
-					),
+					error: UseCaseError("updateWorkflow", "Failed to save workflow", saveResult.error),
 				};
 			}
 
@@ -189,11 +163,7 @@ export const deleteWorkflowUseCase =
 			if (!deleteResult.success) {
 				return {
 					success: false,
-					error: UseCaseError(
-						"deleteWorkflow",
-						"Failed to delete workflow",
-						deleteResult.error,
-					),
+					error: UseCaseError("deleteWorkflow", "Failed to delete workflow", deleteResult.error),
 				};
 			}
 

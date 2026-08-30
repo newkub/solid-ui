@@ -7,10 +7,7 @@ import { DEFAULT_MAX_RESULTS } from "#modules/command-palette/domain/constants";
 import type { CommandRepository } from "#modules/command-palette/ports";
 import type { Command } from "#modules/command-palette/types";
 
-export const searchCommands = async (
-	commandRepository: CommandRepository,
-	query: string,
-): Promise<Command[]> => {
+export const searchCommands = async (commandRepository: CommandRepository, query: string): Promise<Command[]> => {
 	const allCommandsResult = await commandRepository.findAll();
 	if (!allCommandsResult.success) return [];
 

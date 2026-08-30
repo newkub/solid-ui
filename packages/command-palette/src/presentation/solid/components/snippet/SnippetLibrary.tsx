@@ -8,9 +8,7 @@ import { CreateSnippetForm, EditSnippetForm } from "./SnippetLibraryForms";
 
 interface SnippetLibraryProps {
 	snippets: readonly Snippet[];
-	onCreateSnippet?: (
-		snippet: Omit<Snippet, "id" | "createdAt" | "updatedAt">,
-	) => void;
+	onCreateSnippet?: (snippet: Omit<Snippet, "id" | "createdAt" | "updatedAt">) => void;
 	onEditSnippet?: (snippet: Snippet) => void;
 	onDeleteSnippet?: (snippetId: string) => void;
 	onSearchSnippets?: (query: string) => void;
@@ -28,9 +26,7 @@ export function SnippetLibrary(props: SnippetLibraryProps) {
 	const [searchQuery, setSearchQuery] = createSignal("");
 	const [selectedCategory, setSelectedCategory] = createSignal<string>("all");
 	const [isCreating, setIsCreating] = createSignal(false);
-	const [editingSnippet, setEditingSnippet] = createSignal<Snippet | null>(
-		null,
-	);
+	const [editingSnippet, setEditingSnippet] = createSignal<Snippet | null>(null);
 
 	const filteredSnippets = createMemo(() => {
 		return local.snippets.filter((snippet) => {
@@ -38,12 +34,9 @@ export function SnippetLibrary(props: SnippetLibraryProps) {
 				!searchQuery() ||
 				snippet.name.toLowerCase().includes(searchQuery().toLowerCase()) ||
 				snippet.content.toLowerCase().includes(searchQuery().toLowerCase()) ||
-				snippet.keywords?.some((k) =>
-					k.toLowerCase().includes(searchQuery().toLowerCase()),
-				);
+				snippet.keywords?.some((k) => k.toLowerCase().includes(searchQuery().toLowerCase()));
 
-			const matchesCategory =
-				selectedCategory() === "all" || snippet.category === selectedCategory();
+			const matchesCategory = selectedCategory() === "all" || snippet.category === selectedCategory();
 
 			return matchesSearch && matchesCategory;
 		});
@@ -54,9 +47,7 @@ export function SnippetLibrary(props: SnippetLibraryProps) {
 		return Array.from(cats);
 	});
 
-	const handleCreateSnippet = (
-		snippet: Omit<Snippet, "id" | "createdAt" | "updatedAt">,
-	) => {
+	const handleCreateSnippet = (snippet: Omit<Snippet, "id" | "createdAt" | "updatedAt">) => {
 		local.onCreateSnippet?.(snippet);
 		setIsCreating(false);
 	};
@@ -74,11 +65,7 @@ export function SnippetLibrary(props: SnippetLibraryProps) {
 		<div class="snippet-library">
 			<div class="snippet-header">
 				<h2 class="snippet-title">Snippet Library</h2>
-				<button
-					class="create-button"
-					onClick={() => setIsCreating(true)}
-					type="button"
-				>
+				<button class="create-button" onClick={() => setIsCreating(true)} type="button">
 					+ New Snippet
 				</button>
 			</div>
@@ -97,9 +84,7 @@ export function SnippetLibrary(props: SnippetLibraryProps) {
 					class="category-select"
 				>
 					<option value="all">All Categories</option>
-					<For each={categories()}>
-						{(category) => <option value={category}>{category}</option>}
-					</For>
+					<For each={categories()}>{(category) => <option value={category}>{category}</option>}</For>
 				</select>
 			</div>
 
@@ -129,25 +114,15 @@ export function SnippetLibrary(props: SnippetLibraryProps) {
 
 							<Show when={snippet.keywords && snippet.keywords.length > 0}>
 								<div class="snippet-keywords">
-									<For each={snippet.keywords}>
-										{(keyword) => <span class="keyword-tag">{keyword}</span>}
-									</For>
+									<For each={snippet.keywords}>{(keyword) => <span class="keyword-tag">{keyword}</span>}</For>
 								</div>
 							</Show>
 
 							<div class="snippet-actions">
-								<button
-									class="action-button edit"
-									onClick={() => setEditingSnippet(snippet)}
-									type="button"
-								>
+								<button class="action-button edit" onClick={() => setEditingSnippet(snippet)} type="button">
 									Edit
 								</button>
-								<button
-									class="action-button delete"
-									onClick={() => handleDeleteSnippet(snippet.id)}
-									type="button"
-								>
+								<button class="action-button delete" onClick={() => handleDeleteSnippet(snippet.id)} type="button">
 									Delete
 								</button>
 							</div>
@@ -166,10 +141,7 @@ export function SnippetLibrary(props: SnippetLibraryProps) {
 			<Show when={isCreating()}>
 				<div class="snippet-modal">
 					<h3 class="modal-title">Create New Snippet</h3>
-					<CreateSnippetForm
-						onSubmit={handleCreateSnippet}
-						onCancel={() => setIsCreating(false)}
-					/>
+					<CreateSnippetForm onSubmit={handleCreateSnippet} onCancel={() => setIsCreating(false)} />
 				</div>
 			</Show>
 

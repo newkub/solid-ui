@@ -1,0 +1,14 @@
+// Generated component — customize as needed
+import { type JSX, splitProps } from "solid-js";
+
+export interface CardProps extends JSX.HTMLAttributes<HTMLDivElement> {}
+
+export function Card(props: CardProps) {
+	const [local, rest] = splitProps(props, ["class", "children"]);
+	const base = "solidui-card";
+	return (
+		<div class={`solidui-card ${local.class || ""}`.trim()} {...rest}>
+			{local.children}
+		</div>
+	);
+}

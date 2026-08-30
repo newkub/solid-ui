@@ -5,10 +5,7 @@
 import { createSignal, onCleanup, onMount } from "solid-js";
 import { createCommandRepository } from "#adapters/db/command-repository-adapter";
 import { createMemoryCommandRepository } from "#adapters/db/memory-command-repository";
-import {
-	createEventDispatcher,
-	createMemoryEventDispatcher,
-} from "#adapters/events/memory-event-dispatcher";
+import { createEventDispatcher, createMemoryEventDispatcher } from "#adapters/events/memory-event-dispatcher";
 import { searchCommandsUseCase } from "#modules/command-palette/application/usecases/search";
 import { DEFAULT_MAX_RESULTS } from "#modules/command-palette/domain/constants";
 import type { CommandRepository } from "#modules/command-palette/ports";
@@ -75,10 +72,7 @@ export function useCommandPalette(repository?: CommandRepository) {
 				return;
 			}
 
-			const searchUseCase = searchCommandsUseCase(
-				commandRepository,
-				eventDispatcher,
-			);
+			const searchUseCase = searchCommandsUseCase(commandRepository, eventDispatcher);
 			const result = await searchUseCase({ query, limit: DEFAULT_MAX_RESULTS });
 			if (result.success) {
 				setFilteredCommands([...result.data.commands] as Command[]);
@@ -93,15 +87,9 @@ export function useCommandPalette(repository?: CommandRepository) {
 	const execute = async (command: Command) => {
 		try {
 			// Execute command action based on type
-			if (
-				command.action.type === "url" &&
-				typeof command.action.payload === "string"
-			) {
+			if (command.action.type === "url" && typeof command.action.payload === "string") {
 				window.open(command.action.payload, "_blank");
-			} else if (
-				command.action.type === "function" &&
-				typeof command.action.payload === "function"
-			) {
+			} else if (command.action.type === "function" && typeof command.action.payload === "function") {
 				await command.action.payload();
 			}
 			close();
@@ -114,9 +102,7 @@ export function useCommandPalette(repository?: CommandRepository) {
 		if (event.key === "Escape") {
 			close();
 		} else if (event.key === "ArrowDown") {
-			setSelectedIndex(
-				Math.min(selectedIndex() + 1, filteredCommands().length - 1),
-			);
+			setSelectedIndex(Math.min(selectedIndex() + 1, filteredCommands().length - 1));
 		} else if (event.key === "ArrowUp") {
 			setSelectedIndex(Math.max(selectedIndex() - 1, 0));
 		} else if (event.key === "Enter") {

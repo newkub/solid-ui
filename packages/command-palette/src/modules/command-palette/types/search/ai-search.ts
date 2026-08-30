@@ -44,11 +44,7 @@ export interface AISuggestion {
 
 // AI search error types
 export interface AISearchError {
-	readonly type:
-		| "api_error"
-		| "rate_limit"
-		| "invalid_response"
-		| "network_error";
+	readonly type: "api_error" | "rate_limit" | "invalid_response" | "network_error";
 	readonly message: string;
 	readonly retryable: boolean;
 }

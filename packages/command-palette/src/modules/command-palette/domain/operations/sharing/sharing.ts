@@ -28,10 +28,7 @@ export const deserializeCommand = (json: string): Command => {
 /**
  * Generate shareable URL for a command
  */
-export const generateShareUrl = (
-	command: Command,
-	baseUrl: string = "https://example.com/command",
-): string => {
+export const generateShareUrl = (command: Command, baseUrl: string = "https://example.com/command"): string => {
 	const params = new URLSearchParams({
 		id: command.id,
 		label: command.label,
@@ -59,10 +56,7 @@ export const generateShareText = (command: Command): string => {
 /**
  * Generate share data
  */
-export const generateShareData = (
-	command: Command,
-	format: ShareData["format"],
-): ShareData => ({
+export const generateShareData = (command: Command, format: ShareData["format"]): ShareData => ({
 	command,
 	format,
 	timestamp: new Date(),
@@ -86,9 +80,7 @@ export const validateShareData = (data: unknown): data is ShareData => {
 /**
  * Copy command to clipboard (text format)
  */
-export const copyCommandToClipboard = async (
-	command: Command,
-): Promise<boolean> => {
+export const copyCommandToClipboard = async (command: Command): Promise<boolean> => {
 	try {
 		const text = generateShareText(command);
 		await navigator.clipboard.writeText(text);

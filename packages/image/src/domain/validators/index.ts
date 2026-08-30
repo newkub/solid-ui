@@ -50,9 +50,7 @@ export const validateImageUrl = (url: string): boolean => {
 /**
  * Validate preset definition using Arktype
  */
-export const validatePresetDefinition = (preset: {
-	transforms: ImageTransform;
-}): boolean => {
+export const validatePresetDefinition = (preset: { transforms: ImageTransform }): boolean => {
 	const result = presetDefinitionSchema(preset);
 	return !(result instanceof type.errors);
 };

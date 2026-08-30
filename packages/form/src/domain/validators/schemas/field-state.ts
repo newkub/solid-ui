@@ -6,9 +6,7 @@ import { type } from "arktype";
 /**
  * Field Value Schema
  */
-export const fieldValueSchema = type(
-	"string | number | boolean | object | null | undefined",
-);
+export const fieldValueSchema = type("string | number | boolean | object | null | undefined");
 
 /**
  * Field State Schema

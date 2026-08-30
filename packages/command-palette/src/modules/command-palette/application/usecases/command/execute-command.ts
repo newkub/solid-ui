@@ -3,21 +3,10 @@
  * Handles command execution workflow with validation and tracking
  */
 
-import type {
-	CommandRepository,
-	EventDispatcher,
-} from "#modules/command-palette/ports";
-import type {
-	Command,
-	CommandExecutionContext,
-	CommandExecutionResult,
-} from "#modules/command-palette/types";
+import type { CommandRepository, EventDispatcher } from "#modules/command-palette/ports";
+import type { Command, CommandExecutionContext, CommandExecutionResult } from "#modules/command-palette/types";
 // Application errors
-import {
-	CommandNotFoundError,
-	UseCaseError,
-	ValidationError,
-} from "#shared/errors";
+import { CommandNotFoundError, UseCaseError, ValidationError } from "#shared/errors";
 import type { Result } from "#shared/types";
 // Domain imports
 import { createCommandExecutedEvent } from "../../../domain/events/command-events";
@@ -38,9 +27,7 @@ export interface ExecuteCommandResponse {
 
 export const executeCommandUseCase =
 	(commandRepository: CommandRepository, eventDispatcher: EventDispatcher) =>
-	async (
-		request: ExecuteCommandRequest,
-	): Promise<Result<ExecuteCommandResponse>> => {
+	async (request: ExecuteCommandRequest): Promise<Result<ExecuteCommandResponse>> => {
 		// const _startTime = Date.now();
 
 		try {
@@ -58,11 +45,7 @@ export const executeCommandUseCase =
 			if (!commandResult.success) {
 				return {
 					success: false,
-					error: UseCaseError(
-						"executeCommand",
-						"Failed to find command",
-						commandResult.error,
-					),
+					error: UseCaseError("executeCommand", "Failed to find command", commandResult.error),
 				};
 			}
 
@@ -94,10 +77,7 @@ export const executeCommandUseCase =
 			const executionResult = await executeCommandAction(command, context);
 
 			// Step 6: Update command if needed (e.g., execution count)
-			const updateResult = await updateCommandExecutionStats(
-				commandRepository,
-				command.id,
-			);
+			const updateResult = await updateCommandExecutionStats(commandRepository, command.id);
 			if (!updateResult.success) {
 				// Stats update failed - continue with execution
 			}
@@ -132,18 +112,13 @@ export const executeCommandUseCase =
 // Execute multiple commands use case
 export const executeCommandsUseCase =
 	(commandRepository: CommandRepository, eventDispatcher: EventDispatcher) =>
-	async (
-		requests: readonly ExecuteCommandRequest[],
-	): Promise<Result<readonly ExecuteCommandResponse[]>> => {
+	async (requests: readonly ExecuteCommandRequest[]): Promise<Result<readonly ExecuteCommandResponse[]>> => {
 		try {
 			const results: ExecuteCommandResponse[] = [];
 			const errors: Error[] = [];
 
 			for (const request of requests) {
-				const result = await executeCommandUseCase(
-					commandRepository,
-					eventDispatcher,
-				)(request);
+				const result = await executeCommandUseCase(commandRepository, eventDispatcher)(request);
 
 				if (result.success) {
 					results.push(result.data);

@@ -6,17 +6,13 @@
 import type { CommandAction } from "#modules/command-palette/types";
 import type { Result } from "#shared/types";
 
-export const validateCommandAction = (
-	action: CommandAction,
-): Result<CommandAction> => {
+export const validateCommandAction = (action: CommandAction): Result<CommandAction> => {
 	const validTypes = ["url", "function", "plugin", "system"] as const;
 
 	if (!validTypes.includes(action.type)) {
 		return {
 			success: false,
-			error: new Error(
-				`Invalid action type: ${action.type}. Must be one of: ${validTypes.join(", ")}`,
-			),
+			error: new Error(`Invalid action type: ${action.type}. Must be one of: ${validTypes.join(", ")}`),
 		};
 	}
 
@@ -30,10 +26,7 @@ export const validateCommandAction = (
 };
 
 // Helper function to validate action payload
-const validateActionPayload = (
-	type: string,
-	payload: unknown,
-): Result<unknown> => {
+const validateActionPayload = (type: string, payload: unknown): Result<unknown> => {
 	switch (type) {
 		case "url":
 			if (typeof payload !== "string") {
@@ -57,9 +50,7 @@ const validateActionPayload = (
 			if (typeof payload !== "string" && typeof payload !== "object") {
 				return {
 					success: false,
-					error: new Error(
-						"Function action payload must be a string or object",
-					),
+					error: new Error("Function action payload must be a string or object"),
 				};
 			}
 			return { success: true, data: payload };

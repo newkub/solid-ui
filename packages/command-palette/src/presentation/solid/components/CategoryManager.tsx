@@ -22,8 +22,7 @@ export function CategoryManager(props: CategoryManagerProps) {
 	]);
 
 	const [isCreating, setIsCreating] = createSignal(false);
-	const [editingCategory, setEditingCategory] =
-		createSignal<CommandCategory | null>(null);
+	const [editingCategory, setEditingCategory] = createSignal<CommandCategory | null>(null);
 	const [newCategoryName, setNewCategoryName] = createSignal("");
 	const [newCategoryDescription, setNewCategoryDescription] = createSignal("");
 	const [newCategoryIcon, setNewCategoryIcon] = createSignal("");
@@ -33,39 +32,30 @@ export function CategoryManager(props: CategoryManagerProps) {
 		return [...(local.categories ?? [])].sort((a, b) => a.order - b.order);
 	});
 
-	const {
-		handleCreateCategory,
-		handleUpdateCategory,
-		handleDeleteCategory,
-		handleEditCategory,
-		handleCancelEdit,
-	} = createCategoryHandlers(
-		local.categories,
-		editingCategory(),
-		newCategoryName(),
-		newCategoryDescription(),
-		newCategoryIcon(),
-		newCategoryColor(),
-		setEditingCategory,
-		setNewCategoryName,
-		setNewCategoryDescription,
-		setNewCategoryIcon,
-		setNewCategoryColor,
-		setIsCreating,
-		local.onCreateCategory,
-		local.onUpdateCategory,
-		local.onDeleteCategory,
-	);
+	const { handleCreateCategory, handleUpdateCategory, handleDeleteCategory, handleEditCategory, handleCancelEdit } =
+		createCategoryHandlers(
+			local.categories,
+			editingCategory(),
+			newCategoryName(),
+			newCategoryDescription(),
+			newCategoryIcon(),
+			newCategoryColor(),
+			setEditingCategory,
+			setNewCategoryName,
+			setNewCategoryDescription,
+			setNewCategoryIcon,
+			setNewCategoryColor,
+			setIsCreating,
+			local.onCreateCategory,
+			local.onUpdateCategory,
+			local.onDeleteCategory,
+		);
 
 	return (
 		<div class="category-manager">
 			<div class="manager-header">
 				<h2 class="manager-title">Categories</h2>
-				<button
-					class="action-button create"
-					onClick={() => setIsCreating(true)}
-					type="button"
-				>
+				<button class="action-button create" onClick={() => setIsCreating(true)} type="button">
 					Create Category
 				</button>
 			</div>
@@ -82,9 +72,7 @@ export function CategoryManager(props: CategoryManagerProps) {
 					onIconChange={setNewCategoryIcon}
 					onColorChange={setNewCategoryColor}
 					onCancel={handleCancelEdit}
-					onSave={
-						editingCategory() ? handleUpdateCategory : handleCreateCategory
-					}
+					onSave={editingCategory() ? handleUpdateCategory : handleCreateCategory}
 				/>
 			</Show>
 
@@ -93,10 +81,7 @@ export function CategoryManager(props: CategoryManagerProps) {
 					{(category) => (
 						<CategoryCard
 							category={category}
-							commandCount={getCategoryCommandCount(
-								category.id,
-								local.categoryGroups,
-							)}
+							commandCount={getCategoryCommandCount(category.id, local.categoryGroups)}
 							onEdit={handleEditCategory}
 							onDelete={handleDeleteCategory}
 						/>

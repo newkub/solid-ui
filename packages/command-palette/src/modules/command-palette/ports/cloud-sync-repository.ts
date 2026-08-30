@@ -3,11 +3,7 @@
  * Defines contract for cloud sync storage operations
  */
 
-import type {
-	CloudSyncConfig,
-	SyncData,
-	SyncStatus,
-} from "#modules/command-palette/types";
+import type { CloudSyncConfig, SyncData, SyncStatus } from "#modules/command-palette/types";
 import type { Result } from "#shared/types";
 
 export interface CloudSyncRepository {
@@ -20,10 +16,7 @@ export interface CloudSyncRepository {
 	saveLocalData(data: SyncData): Promise<Result<SyncData>>;
 	getLocalData(): Promise<Result<SyncData>>;
 	fetchRemoteData(config: CloudSyncConfig): Promise<Result<SyncData>>;
-	pushRemoteData(
-		config: CloudSyncConfig,
-		data: SyncData,
-	): Promise<Result<void>>;
+	pushRemoteData(config: CloudSyncConfig, data: SyncData): Promise<Result<void>>;
 
 	// Status operations
 	updateSyncStatus(status: Partial<SyncStatus>): Promise<Result<SyncStatus>>;

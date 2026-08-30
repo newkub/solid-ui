@@ -6,14 +6,9 @@ import type { Command } from "#modules/command-palette/types";
 import type { Result } from "#shared/types";
 import type { MemoryCommandRepositoryState } from "./memory-command-repository";
 
-export const findByCategory = (
-	state: MemoryCommandRepositoryState,
-	category: string,
-): Result<readonly Command[]> => {
+export const findByCategory = (state: MemoryCommandRepositoryState, category: string): Result<readonly Command[]> => {
 	try {
-		const commands = Array.from(state.commands.values()).filter(
-			(command) => command.category === category,
-		);
+		const commands = Array.from(state.commands.values()).filter((command) => command.category === category);
 		return { success: true, data: commands };
 	} catch (error) {
 		return {
@@ -23,9 +18,7 @@ export const findByCategory = (
 	}
 };
 
-export const getAllCategories = (
-	state: MemoryCommandRepositoryState,
-): Result<readonly string[]> => {
+export const getAllCategories = (state: MemoryCommandRepositoryState): Result<readonly string[]> => {
 	try {
 		const categories = Array.from(state.commands.values())
 			.map((command) => command.category)

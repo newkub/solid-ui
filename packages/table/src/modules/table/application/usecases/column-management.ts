@@ -12,9 +12,7 @@ export interface GetVisibleColumnsOutput {
 /**
  * Get only visible columns from column definitions
  */
-export function getVisibleColumns(
-	input: GetVisibleColumnsInput,
-): GetVisibleColumnsOutput {
+export function getVisibleColumns(input: GetVisibleColumnsInput): GetVisibleColumnsOutput {
 	const { columns } = input;
 	const visibleColumns = columns.filter((col) => !col.hidden);
 	return { visibleColumns };

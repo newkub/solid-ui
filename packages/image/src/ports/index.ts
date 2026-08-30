@@ -10,15 +10,7 @@ import type {
 	PresetDefinition,
 } from "#image/domain/models";
 
-export type {
-	ImageCrop,
-	ImageFit,
-	ImageFormat,
-	ImageOptions,
-	ImagePreset,
-	ImageTransform,
-	PresetDefinition,
-};
+export type { ImageCrop, ImageFit, ImageFormat, ImageOptions, ImagePreset, ImageTransform, PresetDefinition };
 
 export interface ProviderConfig {
 	readonly baseURL?: string;
@@ -35,9 +27,5 @@ export interface ImagekitConfig extends ProviderConfig {
 
 export interface ImageServicePort {
 	getImageUrl(src: string, options?: ImageTransform): string;
-	generateSrcset(
-		src: string,
-		sizes: number[],
-		options?: ImageTransform,
-	): string;
+	generateSrcset(src: string, sizes: number[], options?: ImageTransform): string;
 }

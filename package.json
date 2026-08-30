@@ -3,11 +3,12 @@
 	"version": "0.0.1",
 	"private": true,
 	"type": "module",
-	"description": "Solid UI demo and packages for wrikka",
+	"description": "Solid UI monorepo: design system, website, mcp, cli, and skills",
 	"packageManager": "bun@1.3.14",
 	"workspaces": {
 		"packages": [
-			"packages/*"
+			"packages/*",
+			"apps/*"
 		],
 		"catalog": {
 			"arktype": "^2.2.3",
@@ -17,27 +18,19 @@
 		}
 	},
 	"scripts": {
-		"dev": "vite",
-		"build": "vite build",
-		"typecheck": "tsc --noEmit",
-		"typecheck:packages": "bun --filter '@wrikka/*' run typecheck",
-		"lint": "biome check src packages",
-		"format": "biome format --write src packages",
-		"deploy": "bun run build && wrangler deploy",
-		"cf-typegen": "wrangler types"
-	},
-	"dependencies": {
-		"solid-js": "catalog:",
-		"arktype": "catalog:"
+		"dev": "bun run --filter @wrikka/website dev",
+		"build": "bun run --filter @wrikka/website build",
+		"typecheck": "bun run --filter '*' typecheck",
+		"lint": "biome check packages apps",
+		"format": "biome format --write packages apps",
+		"deploy": "bun run --filter @wrikka/website deploy",
+		"cf-typegen": "bun run --filter @wrikka/website cf-typegen"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^2.5.10",
 		"@types/bun": "^1.4.0",
 		"@types/node": "^26.4.0",
-		"typescript": "catalog:",
 		"tsdown": "catalog:",
-		"vite": "^8.2.2",
-		"vite-plugin-solid": "^2.11.14",
-		"wrangler": "^4.127.1"
+		"typescript": "catalog:"
 	}
 }

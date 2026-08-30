@@ -3,19 +3,9 @@
  * Handles category management with validation and persistence
  */
 
-import {
-	createCategory,
-	groupCommandsByCategory,
-} from "#modules/command-palette/domain/operations/category";
-import type {
-	CategoryRepository,
-	EventDispatcher,
-} from "#modules/command-palette/ports";
-import type {
-	CategoryGroup,
-	Command,
-	CommandCategory,
-} from "#modules/command-palette/types";
+import { createCategory, groupCommandsByCategory } from "#modules/command-palette/domain/operations/category";
+import type { CategoryRepository, EventDispatcher } from "#modules/command-palette/ports";
+import type { CategoryGroup, Command, CommandCategory } from "#modules/command-palette/types";
 import { UseCaseError, ValidationError } from "#shared/errors";
 import type { Result } from "#shared/types";
 
@@ -55,11 +45,7 @@ export const createCategoryUseCase =
 			if (!existingResult.success) {
 				return {
 					success: false,
-					error: UseCaseError(
-						"createCategory",
-						"Failed to check existing category",
-						existingResult.error,
-					),
+					error: UseCaseError("createCategory", "Failed to check existing category", existingResult.error),
 				};
 			}
 
@@ -75,11 +61,7 @@ export const createCategoryUseCase =
 			if (!saveResult.success) {
 				return {
 					success: false,
-					error: UseCaseError(
-						"createCategory",
-						"Failed to save category",
-						saveResult.error,
-					),
+					error: UseCaseError("createCategory", "Failed to save category", saveResult.error),
 				};
 			}
 
@@ -103,21 +85,14 @@ export const createCategoryUseCase =
 
 export const updateCategoryUseCase =
 	(categoryRepository: CategoryRepository, _eventDispatcher: EventDispatcher) =>
-	async (
-		categoryId: string,
-		updates: Partial<CommandCategory>,
-	): Promise<Result<CommandCategory>> => {
+	async (categoryId: string, updates: Partial<CommandCategory>): Promise<Result<CommandCategory>> => {
 		try {
 			// Step 1: Get existing category
 			const existingResult = await categoryRepository.findById(categoryId);
 			if (!existingResult.success) {
 				return {
 					success: false,
-					error: UseCaseError(
-						"updateCategory",
-						"Failed to get existing category",
-						existingResult.error,
-					),
+					error: UseCaseError("updateCategory", "Failed to get existing category", existingResult.error),
 				};
 			}
 
@@ -139,11 +114,7 @@ export const updateCategoryUseCase =
 			if (!saveResult.success) {
 				return {
 					success: false,
-					error: UseCaseError(
-						"updateCategory",
-						"Failed to save category",
-						saveResult.error,
-					),
+					error: UseCaseError("updateCategory", "Failed to save category", saveResult.error),
 				};
 			}
 
@@ -174,11 +145,7 @@ export const deleteCategoryUseCase =
 			if (!deleteResult.success) {
 				return {
 					success: false,
-					error: UseCaseError(
-						"deleteCategory",
-						"Failed to delete category",
-						deleteResult.error,
-					),
+					error: UseCaseError("deleteCategory", "Failed to delete category", deleteResult.error),
 				};
 			}
 
@@ -205,28 +172,19 @@ export const deleteCategoryUseCase =
 
 export const getCategoryGroupsUseCase =
 	(categoryRepository: CategoryRepository) =>
-	async (
-		commands: readonly unknown[],
-	): Promise<Result<readonly CategoryGroup[]>> => {
+	async (commands: readonly unknown[]): Promise<Result<readonly CategoryGroup[]>> => {
 		try {
 			// Step 1: Get all categories
 			const categoriesResult = await categoryRepository.findAll();
 			if (!categoriesResult.success) {
 				return {
 					success: false,
-					error: UseCaseError(
-						"getCategoryGroups",
-						"Failed to get categories",
-						categoriesResult.error,
-					),
+					error: UseCaseError("getCategoryGroups", "Failed to get categories", categoriesResult.error),
 				};
 			}
 
 			// Step 2: Group commands by category
-			const groups = groupCommandsByCategory(
-				commands as readonly Command[],
-				categoriesResult.data,
-			);
+			const groups = groupCommandsByCategory(commands as readonly Command[], categoriesResult.data);
 
 			return { success: true, data: groups };
 		} catch (error) {

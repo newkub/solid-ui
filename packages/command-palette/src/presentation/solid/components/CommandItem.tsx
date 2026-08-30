@@ -35,20 +35,11 @@ export function CommandItem(props: CommandItemProps) {
 		>
 			<div class="command-content">
 				<div class="command-text">
-					<div
-						class="command-label"
-						innerHTML={getHighlightedText(
-							props.command.label,
-							props.searchQuery,
-						)}
-					/>
+					<div class="command-label" innerHTML={getHighlightedText(props.command.label, props.searchQuery)} />
 					<Show when={props.command.description}>
 						<div
 							class="command-description"
-							innerHTML={getHighlightedText(
-								props.command.description ?? "",
-								props.searchQuery,
-							)}
+							innerHTML={getHighlightedText(props.command.description ?? "", props.searchQuery)}
 						/>
 					</Show>
 				</div>
@@ -62,11 +53,7 @@ export function CommandItem(props: CommandItemProps) {
 						class="command-favorite-button"
 						onClick={(e) => props.onToggleFavorite(e, props.command)}
 						type="button"
-						aria-label={
-							props.command.isFavorite
-								? "Remove from favorites"
-								: "Add to favorites"
-						}
+						aria-label={props.command.isFavorite ? "Remove from favorites" : "Add to favorites"}
 					>
 						{props.command.isFavorite ? "★" : "☆"}
 					</button>

@@ -33,20 +33,14 @@ export const deepEqual = (a: unknown, b: unknown): boolean => {
 	return true;
 };
 
-export const maybeTrim = (
-	value: FieldValue,
-	shouldTrim?: boolean,
-): FieldValue => {
+export const maybeTrim = (value: FieldValue, shouldTrim?: boolean): FieldValue => {
 	if (shouldTrim && typeof value === "string") {
 		return value.trim();
 	}
 	return value;
 };
 
-export const coerceValue = (
-	value: FieldValue,
-	type: FieldDef["type"],
-): FieldValue => {
+export const coerceValue = (value: FieldValue, type: FieldDef["type"]): FieldValue => {
 	switch (type) {
 		case "number":
 		case "range": {
@@ -70,9 +64,7 @@ export const coerceValue = (
 	}
 };
 
-export const getFirstError = (
-	errors: Record<string, string[]>,
-): string | null => {
+export const getFirstError = (errors: Record<string, string[]>): string | null => {
 	const entries = Object.entries(errors);
 	for (const [, errorList] of entries) {
 		if (errorList.length > 0) {

@@ -14,9 +14,7 @@ export interface NavigationState {
 /**
  * Create initial navigation state
  */
-export const createInitialNavigationState = (
-	commands: readonly Command[],
-): NavigationState => ({
+export const createInitialNavigationState = (commands: readonly Command[]): NavigationState => ({
 	currentPath: [],
 	currentCommands: commands,
 	parentCommand: null,
@@ -25,10 +23,7 @@ export const createInitialNavigationState = (
 /**
  * Navigate to subcommands
  */
-export const navigateToSubcommands = (
-	state: NavigationState,
-	command: Command,
-): NavigationState => {
+export const navigateToSubcommands = (state: NavigationState, command: Command): NavigationState => {
 	if (!command.subcommands || command.subcommands.length === 0) {
 		return state;
 	}
@@ -43,10 +38,7 @@ export const navigateToSubcommands = (
 /**
  * Navigate back to parent
  */
-export const navigateToParent = (
-	state: NavigationState,
-	commands: readonly Command[],
-): NavigationState => {
+export const navigateToParent = (state: NavigationState, commands: readonly Command[]): NavigationState => {
 	if (state.currentPath.length === 0) {
 		return state;
 	}
@@ -61,10 +53,7 @@ export const navigateToParent = (
 	}
 
 	// Find parent command in original commands
-	const findCommandById = (
-		cmds: readonly Command[],
-		id: string,
-	): Command | null => {
+	const findCommandById = (cmds: readonly Command[], id: string): Command | null => {
 		for (const cmd of cmds) {
 			if (cmd.id === id) return cmd;
 			if (cmd.subcommands) {
@@ -75,9 +64,7 @@ export const navigateToParent = (
 		return null;
 	};
 
-	const parentCommand = parentCommandId
-		? findCommandById(commands, parentCommandId)
-		: null;
+	const parentCommand = parentCommandId ? findCommandById(commands, parentCommandId) : null;
 
 	if (!parentCommand) {
 		return createInitialNavigationState(commands);
@@ -93,14 +80,12 @@ export const navigateToParent = (
 /**
  * Navigate to root
  */
-export const navigateToRoot = (commands: readonly Command[]): NavigationState =>
-	createInitialNavigationState(commands);
+export const navigateToRoot = (commands: readonly Command[]): NavigationState => createInitialNavigationState(commands);
 
 /**
  * Check if navigation is at root
  */
-export const isAtRoot = (state: NavigationState): boolean =>
-	state.currentPath.length === 0;
+export const isAtRoot = (state: NavigationState): boolean => state.currentPath.length === 0;
 
 /**
  * Check if command has subcommands
@@ -111,16 +96,10 @@ export const hasSubcommands = (command: Command): boolean =>
 /**
  * Get breadcrumb items from navigation state
  */
-export const getBreadcrumbs = (
-	state: NavigationState,
-	commands: readonly Command[],
-): readonly Command[] => {
+export const getBreadcrumbs = (state: NavigationState, commands: readonly Command[]): readonly Command[] => {
 	const breadcrumbs: Command[] = [];
 
-	const findCommandById = (
-		cmds: readonly Command[],
-		id: string,
-	): Command | null => {
+	const findCommandById = (cmds: readonly Command[], id: string): Command | null => {
 		for (const cmd of cmds) {
 			if (cmd.id === id) return cmd;
 			if (cmd.subcommands) {

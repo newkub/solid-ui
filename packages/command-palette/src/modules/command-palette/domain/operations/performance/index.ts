@@ -38,10 +38,7 @@ export const createCacheState = (config: CacheConfig): SearchCacheState => ({
 });
 
 // Get from cache
-export const getFromCache = (
-	state: SearchCacheState,
-	query: string,
-): SearchResult | undefined => {
+export const getFromCache = (state: SearchCacheState, query: string): SearchResult | undefined => {
 	const now = Date.now();
 	const entry = state.entries.find((e) => e.query === query);
 
@@ -56,11 +53,7 @@ export const getFromCache = (
 };
 
 // Set to cache
-export const setToCache = (
-	state: SearchCacheState,
-	query: string,
-	result: SearchResult,
-): SearchCacheState => {
+export const setToCache = (state: SearchCacheState, query: string, result: SearchResult): SearchCacheState => {
 	const now = Date.now();
 	const newEntry: CacheEntry = {
 		query,
@@ -69,9 +62,7 @@ export const setToCache = (
 	};
 
 	// Remove expired entries
-	const validEntries = state.entries.filter(
-		(e) => now - e.timestamp <= state.ttl,
-	);
+	const validEntries = state.entries.filter((e) => now - e.timestamp <= state.ttl);
 
 	// Add new entry
 	const updatedEntries = [newEntry, ...validEntries];
@@ -96,9 +87,7 @@ export const createDebounce = (config: DebounceConfig) => {
 	let timeoutId: ReturnType<typeof setTimeout> | null = null;
 	let lastCallTime = 0;
 
-	return <T extends (...args: unknown[]) => unknown>(
-		fn: T,
-	): ((...args: Parameters<T>) => void) => {
+	return <T extends (...args: unknown[]) => unknown>(fn: T): ((...args: Parameters<T>) => void) => {
 		return (...args: Parameters<T>) => {
 			const now = Date.now();
 			const timeSinceLastCall = now - lastCallTime;
@@ -108,9 +97,7 @@ export const createDebounce = (config: DebounceConfig) => {
 			}
 
 			// Calculate delay (respect maxWait)
-			const delay = config.maxWait
-				? Math.min(config.delay, config.maxWait - timeSinceLastCall)
-				: config.delay;
+			const delay = config.maxWait ? Math.min(config.delay, config.maxWait - timeSinceLastCall) : config.delay;
 
 			timeoutId = setTimeout(
 				() => {
@@ -130,9 +117,7 @@ export const createThrottle = (delay: number) => {
 	let lastCallTime = 0;
 	let timeoutId: ReturnType<typeof setTimeout> | null = null;
 
-	return <T extends (...args: unknown[]) => unknown>(
-		fn: T,
-	): ((...args: Parameters<T>) => void) => {
+	return <T extends (...args: unknown[]) => unknown>(fn: T): ((...args: Parameters<T>) => void) => {
 		return (...args: Parameters<T>) => {
 			const now = Date.now();
 			const timeSinceLastCall = now - lastCallTime;

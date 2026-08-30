@@ -3,11 +3,7 @@
  */
 
 import { createMemo } from "solid-js";
-import type {
-	AutoCompleteContext,
-	AutoCompleteSuggestion,
-	Command,
-} from "#modules/command-palette/types";
+import type { AutoCompleteContext, AutoCompleteSuggestion, Command } from "#modules/command-palette/types";
 
 export function useAutoComplete(
 	commands: () => readonly Command[],

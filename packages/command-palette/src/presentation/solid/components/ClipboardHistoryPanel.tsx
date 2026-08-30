@@ -3,10 +3,7 @@
  */
 
 import { createMemo, createSignal, For, Show, splitProps } from "solid-js";
-import type {
-	ClipboardEntry,
-	ClipboardHistory,
-} from "#modules/command-palette/types";
+import type { ClipboardEntry, ClipboardHistory } from "#modules/command-palette/types";
 
 interface ClipboardHistoryPanelProps {
 	history: ClipboardHistory;
@@ -17,13 +14,7 @@ interface ClipboardHistoryPanelProps {
 }
 
 export function ClipboardHistoryPanel(props: ClipboardHistoryPanelProps) {
-	const [local] = splitProps(props, [
-		"history",
-		"onCopyEntry",
-		"onDeleteEntry",
-		"onClearAll",
-		"maxEntries",
-	]);
+	const [local] = splitProps(props, ["history", "onCopyEntry", "onDeleteEntry", "onClearAll", "maxEntries"]);
 
 	const displayHistory = createMemo(() => {
 		const limit = local.maxEntries ?? 50;
@@ -85,12 +76,7 @@ export function ClipboardHistoryPanel(props: ClipboardHistoryPanelProps) {
 			</div>
 
 			<div class="panel-actions">
-				<button
-					class="action-button clear"
-					onClick={handleClearAll}
-					disabled={entryCount() === 0}
-					type="button"
-				>
+				<button class="action-button clear" onClick={handleClearAll} disabled={entryCount() === 0} type="button">
 					Clear All
 				</button>
 			</div>
@@ -125,14 +111,7 @@ interface ClipboardEntryCardProps {
 }
 
 function ClipboardEntryCard(props: ClipboardEntryCardProps) {
-	const [local] = splitProps(props, [
-		"entry",
-		"icon",
-		"truncateContent",
-		"formatTimestamp",
-		"onCopy",
-		"onDelete",
-	]);
+	const [local] = splitProps(props, ["entry", "icon", "truncateContent", "formatTimestamp", "onCopy", "onDelete"]);
 
 	const [isExpanded, setIsExpanded] = createSignal(false);
 
@@ -154,25 +133,13 @@ function ClipboardEntryCard(props: ClipboardEntryCardProps) {
 				<div class="entry-info">
 					<span class="entry-icon">{local.icon}</span>
 					<span class="entry-type">{local.entry.type}</span>
-					<span class="entry-time">
-						{local.formatTimestamp(local.entry.timestamp)}
-					</span>
+					<span class="entry-time">{local.formatTimestamp(local.entry.timestamp)}</span>
 				</div>
 				<div class="entry-actions">
-					<button
-						class="action-button copy"
-						onClick={handleCopy}
-						type="button"
-						title="Copy to clipboard"
-					>
+					<button class="action-button copy" onClick={handleCopy} type="button" title="Copy to clipboard">
 						Copy
 					</button>
-					<button
-						class="action-button delete"
-						onClick={handleDelete}
-						type="button"
-						title="Delete entry"
-					>
+					<button class="action-button delete" onClick={handleDelete} type="button" title="Delete entry">
 						Delete
 					</button>
 				</div>
@@ -181,11 +148,7 @@ function ClipboardEntryCard(props: ClipboardEntryCardProps) {
 			<div class="entry-content">
 				<Show
 					when={isExpanded()}
-					fallback={
-						<p class="content-preview">
-							{local.truncateContent(local.entry.content)}
-						</p>
-					}
+					fallback={<p class="content-preview">{local.truncateContent(local.entry.content)}</p>}
 				>
 					<pre class="content-full">{local.entry.content}</pre>
 				</Show>
@@ -197,11 +160,7 @@ function ClipboardEntryCard(props: ClipboardEntryCardProps) {
 				</button>
 			</Show>
 
-			<Show
-				when={
-					local.entry.metadata && Object.keys(local.entry.metadata).length > 0
-				}
-			>
+			<Show when={local.entry.metadata && Object.keys(local.entry.metadata).length > 0}>
 				<div class="entry-metadata">
 					<For each={Object.entries(local.entry.metadata ?? {})}>
 						{([key, value]) => (

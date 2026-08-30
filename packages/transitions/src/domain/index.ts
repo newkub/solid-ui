@@ -6,9 +6,7 @@ import { DEFAULT_TRANSITION } from "./models";
 /**
  * Merge user options with defaults
  */
-export function mergeTransitionOptions(
-	options?: TransitionOptions,
-): Required<TransitionOptions> {
+export function mergeTransitionOptions(options?: TransitionOptions): Required<TransitionOptions> {
 	return {
 		...DEFAULT_TRANSITION,
 		...options,
@@ -18,9 +16,7 @@ export function mergeTransitionOptions(
 /**
  * Generate CSS classes for enter transition
  */
-export function getEnterClasses(
-	options: Required<TransitionOptions>,
-): string[] {
+export function getEnterClasses(options: Required<TransitionOptions>): string[] {
 	const classes: string[] = [];
 
 	if (options.css) {
@@ -38,9 +34,7 @@ export function getEnterClasses(
 /**
  * Generate CSS classes for leave transition
  */
-export function getLeaveClasses(
-	options: Required<TransitionOptions>,
-): string[] {
+export function getLeaveClasses(options: Required<TransitionOptions>): string[] {
 	const classes: string[] = [];
 
 	if (options.css) {
@@ -66,9 +60,7 @@ export function getTransitionEndTime(duration: number): number {
 /**
  * Build CSS transition string
  */
-export function buildCssTransition(
-	options: Required<TransitionOptions>,
-): string {
+export function buildCssTransition(options: Required<TransitionOptions>): string {
 	return `all ${options.duration}ms ${options.easing}`;
 }
 
@@ -85,10 +77,7 @@ export function isSameTransition(
 /**
  * Get transition mode direction (for slide modes)
  */
-export function getTransitionDirection(
-	mode: TransitionMode,
-	isForward: boolean,
-): "left" | "right" | "none" {
+export function getTransitionDirection(mode: TransitionMode, isForward: boolean): "left" | "right" | "none" {
 	switch (mode) {
 		case "slide":
 			return isForward ? "left" : "right";

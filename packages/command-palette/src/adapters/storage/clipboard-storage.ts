@@ -3,11 +3,7 @@
  */
 
 import type { ClipboardHistory } from "#modules/command-palette/types";
-import {
-	addClipboardEntry,
-	createClipboardHistory,
-	getRecentClipboardEntries,
-} from "#modules/command-palette/types";
+import { addClipboardEntry, createClipboardHistory, getRecentClipboardEntries } from "#modules/command-palette/types";
 import type { ClipboardEntry } from "#modules/command-palette/types/integration/clipboard";
 import type { IStorage } from "./local-storage-adapter";
 
@@ -26,9 +22,7 @@ export const createClipboardStorage = (
 	storage,
 });
 
-export const getClipboardHistory = (
-	state: ClipboardStorageState,
-): ClipboardHistory => state.history;
+export const getClipboardHistory = (state: ClipboardStorageState): ClipboardHistory => state.history;
 
 export const addClipboardEntryToStorage = (
 	state: ClipboardStorageState,
@@ -40,9 +34,7 @@ export const addClipboardEntryToStorage = (
 	return { ...state, history: newHistory };
 };
 
-export const clearClipboardHistory = (
-	state: ClipboardStorageState,
-): ClipboardStorageState => {
+export const clearClipboardHistory = (state: ClipboardStorageState): ClipboardStorageState => {
 	const newHistory = createClipboardHistory();
 	saveHistory(state.storage, state.storageKey, newHistory);
 	return { ...state, history: newHistory };
@@ -63,10 +55,7 @@ export const copyToClipboard = async (
 	return addClipboardEntryToStorage(state, content);
 };
 
-const loadHistory = (
-	storage: IStorage,
-	storageKey: string,
-): ClipboardHistory => {
+const loadHistory = (storage: IStorage, storageKey: string): ClipboardHistory => {
 	const stored = storage.get(storageKey);
 	if (stored.success && stored.data) {
 		return stored.data as ClipboardHistory;
@@ -74,10 +63,6 @@ const loadHistory = (
 	return createClipboardHistory();
 };
 
-const saveHistory = (
-	storage: IStorage,
-	storageKey: string,
-	history: ClipboardHistory,
-): void => {
+const saveHistory = (storage: IStorage, storageKey: string, history: ClipboardHistory): void => {
 	storage.set(storageKey, history);
 };

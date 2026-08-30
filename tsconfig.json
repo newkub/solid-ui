@@ -12,8 +12,10 @@
 			"@wrikka/form": ["packages/form/src"],
 			"@wrikka/image": ["packages/image/src"],
 			"@wrikka/table": ["packages/table/src"],
-			"@wrikka/transitions": ["packages/transitions/src"]
+			"@wrikka/transitions": ["packages/transitions/src"],
+			"@wrikka/solid-ui": ["packages/solid-ui/src"],
+			"@wrikka/solid-ui/*": ["packages/solid-ui/src/*"]
 		}
 	},
-	"include": ["src"]
+	"include": ["apps/website/src", "packages/solid-ui/src"]
 }

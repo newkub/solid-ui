@@ -4,11 +4,7 @@
 import type { ImageTransform } from "#image/domain/models";
 import { normalizeTransform } from "./transforms-normalize";
 
-export const buildCloudinaryUrl = (
-	src: string,
-	options: ImageTransform,
-	cloudName?: string,
-): string => {
+export const buildCloudinaryUrl = (src: string, options: ImageTransform, cloudName?: string): string => {
 	const normalized = normalizeTransform(options);
 	const transforms: string[] = [];
 
@@ -20,8 +16,7 @@ export const buildCloudinaryUrl = (
 	if (normalized.blur) transforms.push(`e_blur:${normalized.blur}`);
 	if (normalized.sharpen) transforms.push(`e_sharpen:${normalized.sharpen}`);
 
-	const transformString =
-		transforms.length > 0 ? `${transforms.join(",")}/` : "";
+	const transformString = transforms.length > 0 ? `${transforms.join(",")}/` : "";
 	const cloud = cloudName || "demo";
 
 	// Check if src is already a full URL

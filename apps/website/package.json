@@ -1,0 +1,27 @@
+{
+	"name": "@wrikka/website",
+	"version": "0.0.1",
+	"private": true,
+	"type": "module",
+	"description": "Solid UI documentation and showcase website",
+	"scripts": {
+		"dev": "vite",
+		"build": "vite build",
+		"typecheck": "tsc --noEmit",
+		"deploy": "bun run build && wrangler deploy",
+		"cf-typegen": "wrangler types"
+	},
+	"dependencies": {
+		"@wrikka/solid-ui": "workspace:*",
+		"@tanstack/solid-router": "^1.15.0",
+		"solid-js": "catalog:"
+	},
+	"devDependencies": {
+		"@types/bun": "^1.4.0",
+		"@types/node": "^26.4.0",
+		"typescript": "catalog:",
+		"vite": "^8.2.2",
+		"vite-plugin-solid": "^2.11.14",
+		"wrangler": "^4.127.1"
+	}
+}

@@ -5,22 +5,12 @@
 
 import { createCommandCreatedEvent } from "#modules/command-palette/domain/events/command-events";
 // Domain imports
-import {
-	createCommand as createCommandDomain,
-	validateCommand,
-} from "#modules/command-palette/domain/models/command";
+import { createCommand as createCommandDomain, validateCommand } from "#modules/command-palette/domain/models/command";
 import { validateCommandRequest } from "#modules/command-palette/domain/operations/validation";
-import type {
-	CommandRepository,
-	EventDispatcher,
-} from "#modules/command-palette/ports";
+import type { CommandRepository, EventDispatcher } from "#modules/command-palette/ports";
 import type { Command, CommandRequest } from "#modules/command-palette/types";
 // Application errors
-import {
-	CommandAlreadyExistsError,
-	UseCaseError,
-	ValidationError,
-} from "#shared/errors";
+import { CommandAlreadyExistsError, UseCaseError, ValidationError } from "#shared/errors";
 import type { Result } from "#shared/types";
 
 export type CreateCommandRequest = CommandRequest;
@@ -32,9 +22,7 @@ export interface CreateCommandResponse {
 
 export const createCommandUseCase =
 	(commandRepository: CommandRepository, eventDispatcher: EventDispatcher) =>
-	async (
-		request: CreateCommandRequest,
-	): Promise<Result<CreateCommandResponse>> => {
+	async (request: CreateCommandRequest): Promise<Result<CreateCommandResponse>> => {
 		try {
 			// Step 1: Validate request
 			const validationResult = validateCommandRequest(request);
@@ -61,25 +49,16 @@ export const createCommandUseCase =
 			if (!domainValidationResult.success) {
 				return {
 					success: false,
-					error: ValidationError(
-						"domain",
-						domainValidationResult.error.message,
-					),
+					error: ValidationError("domain", domainValidationResult.error.message),
 				};
 			}
 
 			// Step 4: Check if command already exists
-			const existingCommandResult = await commandRepository.findById(
-				command.id,
-			);
+			const existingCommandResult = await commandRepository.findById(command.id);
 			if (!existingCommandResult.success) {
 				return {
 					success: false,
-					error: UseCaseError(
-						"createCommand",
-						"Failed to check existing command",
-						existingCommandResult.error,
-					),
+					error: UseCaseError("createCommand", "Failed to check existing command", existingCommandResult.error),
 				};
 			}
 
@@ -95,11 +74,7 @@ export const createCommandUseCase =
 			if (!saveResult.success) {
 				return {
 					success: false,
-					error: UseCaseError(
-						"createCommand",
-						"Failed to save command",
-						saveResult.error,
-					),
+					error: UseCaseError("createCommand", "Failed to save command", saveResult.error),
 				};
 			}
 
@@ -133,18 +108,13 @@ export const createCommandUseCase =
 // Batch create command use case
 export const createCommandsUseCase =
 	(commandRepository: CommandRepository, eventDispatcher: EventDispatcher) =>
-	async (
-		requests: readonly CreateCommandRequest[],
-	): Promise<Result<readonly CreateCommandResponse[]>> => {
+	async (requests: readonly CreateCommandRequest[]): Promise<Result<readonly CreateCommandResponse[]>> => {
 		try {
 			const results: CreateCommandResponse[] = [];
 			const errors: Error[] = [];
 
 			for (const request of requests) {
-				const result = await createCommandUseCase(
-					commandRepository,
-					eventDispatcher,
-				)(request);
+				const result = await createCommandUseCase(commandRepository, eventDispatcher)(request);
 
 				if (result.success) {
 					results.push(result.data);

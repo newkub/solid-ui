@@ -12,18 +12,9 @@ export interface RequiredFieldError extends BaseError {
 	readonly field: string;
 }
 
-export const RequiredFieldError = (
-	field: string,
-	context?: Record<string, unknown>,
-): RequiredFieldError =>
+export const RequiredFieldError = (field: string, context?: Record<string, unknown>): RequiredFieldError =>
 	({
-		...createError(
-			"RequiredFieldError",
-			"REQUIRED_FIELD",
-			"VALIDATION",
-			`Field "${field}" is required`,
-			context,
-		),
+		...createError("RequiredFieldError", "REQUIRED_FIELD", "VALIDATION", `Field "${field}" is required`, context),
 		field,
 	}) as RequiredFieldError;
 

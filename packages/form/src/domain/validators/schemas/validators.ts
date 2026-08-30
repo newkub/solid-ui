@@ -6,9 +6,7 @@ import { type } from "arktype";
 /**
  * Required Validator Schema
  */
-export const requiredSchema = type(
-	"string | number | boolean | File | File[] | string[]",
-);
+export const requiredSchema = type("string | number | boolean | File | File[] | string[]");
 
 /**
  * Email Validator Schema
@@ -18,14 +16,12 @@ export const emailSchema = type("string.email");
 /**
  * Min Length Validator Schema
  */
-export const minLengthSchema = (min: number) =>
-	type(`string >= ${min} | unknown[] >= ${min}`);
+export const minLengthSchema = (min: number) => type(`string >= ${min} | unknown[] >= ${min}`);
 
 /**
  * Max Length Validator Schema
  */
-export const maxLengthSchema = (max: number) =>
-	type(`string <= ${max} | unknown[] <= ${max}`);
+export const maxLengthSchema = (max: number) => type(`string <= ${max} | unknown[] <= ${max}`);
 
 /**
  * Min Validator Schema

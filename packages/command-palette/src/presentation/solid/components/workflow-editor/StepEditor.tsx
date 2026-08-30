@@ -1,8 +1,5 @@
 import { For } from "solid-js";
-import type {
-	WorkflowCondition,
-	WorkflowErrorHandling,
-} from "#modules/command-palette/types";
+import type { WorkflowCondition, WorkflowErrorHandling } from "#modules/command-palette/types";
 import type { StepEditorProps } from "./types";
 
 export function StepEditor(props: StepEditorProps) {
@@ -16,15 +13,11 @@ export function StepEditor(props: StepEditorProps) {
 				<select
 					id="step-command"
 					value={props.step.commandId ?? ""}
-					onChange={(e) =>
-						props.onStepChange(props.index, "commandId", e.currentTarget.value)
-					}
+					onChange={(e) => props.onStepChange(props.index, "commandId", e.currentTarget.value)}
 					class="form-select"
 				>
 					<option value="">Select a command</option>
-					<For each={props.commands ?? []}>
-						{(command) => <option value={command.id}>{command.label}</option>}
-					</For>
+					<For each={props.commands ?? []}>{(command) => <option value={command.id}>{command.label}</option>}</For>
 				</select>
 			</div>
 
@@ -36,13 +29,7 @@ export function StepEditor(props: StepEditorProps) {
 					id="step-delay"
 					type="number"
 					value={props.step.delay ?? 0}
-					onChange={(e) =>
-						props.onStepChange(
-							props.index,
-							"delay",
-							Number.parseInt(e.currentTarget.value, 10),
-						)
-					}
+					onChange={(e) => props.onStepChange(props.index, "delay", Number.parseInt(e.currentTarget.value, 10))}
 					class="form-input"
 					min="0"
 				/>

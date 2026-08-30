@@ -11,10 +11,7 @@ export interface CategoryRepository {
 	save(category: CommandCategory): Promise<Result<CommandCategory>>;
 	findById(id: string): Promise<Result<CommandCategory | null>>;
 	findAll(): Promise<Result<readonly CommandCategory[]>>;
-	update(
-		id: string,
-		updates: Partial<CommandCategory>,
-	): Promise<Result<CommandCategory>>;
+	update(id: string, updates: Partial<CommandCategory>): Promise<Result<CommandCategory>>;
 	delete(id: string): Promise<Result<void>>;
 
 	// Query operations

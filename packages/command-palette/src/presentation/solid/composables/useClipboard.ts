@@ -15,12 +15,9 @@ import { DEFAULT_HISTORY_LIMIT } from "#modules/command-palette/domain/constants
 export function useClipboard() {
 	const storage = createLocalStorageAdapter();
 	let clipboardState = createClipboardStorage(storage);
-	const [history, setHistory] = createSignal<
-		{ content: string; timestamp: Date }[]
-	>([]);
+	const [history, setHistory] = createSignal<{ content: string; timestamp: Date }[]>([]);
 
-	const recentEntries = () =>
-		getRecentClipboardEntriesFromStorage(clipboardState, DEFAULT_HISTORY_LIMIT);
+	const recentEntries = () => getRecentClipboardEntriesFromStorage(clipboardState, DEFAULT_HISTORY_LIMIT);
 
 	const copyToClipboard = async (content: string) => {
 		clipboardState = await storageCopyToClipboard(clipboardState, content);

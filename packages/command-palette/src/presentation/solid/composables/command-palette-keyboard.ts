@@ -11,10 +11,7 @@ export interface KeyboardHandlers {
 	execute: (command: Command) => void;
 }
 
-export const handleKeyDown = (
-	event: KeyboardEvent,
-	handlers: KeyboardHandlers,
-): void => {
+export const handleKeyDown = (event: KeyboardEvent, handlers: KeyboardHandlers): void => {
 	if (event.key === "Escape") {
 		handlers.close();
 	} else if (event.key === "ArrowDown") {

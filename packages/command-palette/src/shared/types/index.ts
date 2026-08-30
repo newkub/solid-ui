@@ -3,9 +3,7 @@
  */
 
 // Result type for error handling
-export type Result<T, E = Error> =
-	| { success: true; data: T }
-	| { success: false; error: E };
+export type Result<T, E = Error> = { success: true; data: T } | { success: false; error: E };
 
 // Option type for nullable handling
 export type Option<T> = { _tag: "Some"; value: T } | { _tag: "None" };
@@ -15,9 +13,7 @@ export const Some = <T>(value: T): Option<T> => ({ _tag: "Some", value });
 export const None = (): Option<never> => ({ _tag: "None" });
 
 // Either type for error handling
-export type Either<L, R> =
-	| { _tag: "Left"; left: L }
-	| { _tag: "Right"; right: R };
+export type Either<L, R> = { _tag: "Left"; left: L } | { _tag: "Right"; right: R };
 
 // Helper functions for Either
 export const Left = <L, R>(left: L): Either<L, R> => ({ _tag: "Left", left });

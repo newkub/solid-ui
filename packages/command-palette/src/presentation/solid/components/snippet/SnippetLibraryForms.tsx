@@ -117,14 +117,10 @@ interface EditSnippetFormProps {
 export function EditSnippetForm(props: EditSnippetFormProps) {
 	const [name, setName] = createSignal(props.snippet.name);
 	const [content, setContent] = createSignal(props.snippet.content);
-	const [description, setDescription] = createSignal(
-		props.snippet.description || "",
-	);
+	const [description, setDescription] = createSignal(props.snippet.description || "");
 	const [category, setCategory] = createSignal(props.snippet.category || "");
 	const [language, setLanguage] = createSignal(props.snippet.language || "");
-	const [keywords, setKeywords] = createSignal(
-		props.snippet.keywords?.join(", ") || "",
-	);
+	const [keywords, setKeywords] = createSignal(props.snippet.keywords?.join(", ") || "");
 
 	const handleSubmit = (e: Event) => {
 		e.preventDefault();

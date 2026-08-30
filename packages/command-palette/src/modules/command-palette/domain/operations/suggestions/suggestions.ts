@@ -34,10 +34,7 @@ export const generateContextualSuggestions = (
 /**
  * Generate suggestions based on recent usage
  */
-export const generateRecentSuggestions = (
-	commands: readonly Command[],
-	limit: number = 5,
-): readonly Suggestion[] => {
+export const generateRecentSuggestions = (commands: readonly Command[], limit: number = 5): readonly Suggestion[] => {
 	const recentCommands = getRecentlyUsedCommands(commands, limit);
 
 	return recentCommands.map((cmd) => ({
@@ -50,10 +47,7 @@ export const generateRecentSuggestions = (
 /**
  * Generate suggestions based on most used
  */
-export const generatePopularSuggestions = (
-	commands: readonly Command[],
-	limit: number = 5,
-): readonly Suggestion[] => {
+export const generatePopularSuggestions = (commands: readonly Command[], limit: number = 5): readonly Suggestion[] => {
 	const popularCommands = getMostUsedCommands(commands, limit);
 
 	return popularCommands.map((cmd) => ({
@@ -66,13 +60,8 @@ export const generatePopularSuggestions = (
 /**
  * Generate suggestions based on favorites
  */
-export const generateFavoriteSuggestions = (
-	commands: readonly Command[],
-	limit: number = 5,
-): readonly Suggestion[] => {
-	const favoriteCommands = commands
-		.filter((cmd) => cmd.isFavorite)
-		.slice(0, limit);
+export const generateFavoriteSuggestions = (commands: readonly Command[], limit: number = 5): readonly Suggestion[] => {
+	const favoriteCommands = commands.filter((cmd) => cmd.isFavorite).slice(0, limit);
 
 	return favoriteCommands.map((cmd) => ({
 		command: cmd,
@@ -135,23 +124,17 @@ export const getEmptyStateSuggestions = (
 /**
  * Filter suggestions by query
  */
-export const filterSuggestionsByQuery = (
-	suggestions: readonly Suggestion[],
-	query: string,
-): readonly Suggestion[] => {
+export const filterSuggestionsByQuery = (suggestions: readonly Suggestion[], query: string): readonly Suggestion[] => {
 	if (!query) return suggestions;
 
 	const lowerQuery = query.toLowerCase();
 	return suggestions.filter((suggestion) => {
 		const label = suggestion.command.label.toLowerCase();
 		const description = suggestion.command.description?.toLowerCase() || "";
-		const keywords =
-			suggestion.command.keywords?.map((k) => k.toLowerCase()) || [];
+		const keywords = suggestion.command.keywords?.map((k) => k.toLowerCase()) || [];
 
 		return (
-			label.includes(lowerQuery) ||
-			description.includes(lowerQuery) ||
-			keywords.some((k) => k.includes(lowerQuery))
+			label.includes(lowerQuery) || description.includes(lowerQuery) || keywords.some((k) => k.includes(lowerQuery))
 		);
 	});
 };

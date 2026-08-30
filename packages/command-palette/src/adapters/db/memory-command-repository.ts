@@ -18,13 +18,10 @@ export const createMemoryCommandRepository = (
 });
 
 // Utility: Clear all commands
-export const clearRepository = (): MemoryCommandRepositoryState =>
-	createMemoryCommandRepository(new Map());
+export const clearRepository = (): MemoryCommandRepositoryState => createMemoryCommandRepository(new Map());
 
 // Utility: Get size
-export const getRepositorySize = (
-	state: MemoryCommandRepositoryState,
-): number => state.commands.size;
+export const getRepositorySize = (state: MemoryCommandRepositoryState): number => state.commands.size;
 
 // Utility: Seed with sample data
 export const seedRepository = (

@@ -35,10 +35,7 @@ export const searchCommandHistoryUseCase =
 			if (!searchResult.success) {
 				return {
 					success: false,
-					error: ValidationError(
-						"command-history",
-						(searchResult as { success: false; error: Error }).error.message,
-					),
+					error: ValidationError("command-history", (searchResult as { success: false; error: Error }).error.message),
 				};
 			}
 
@@ -106,17 +103,11 @@ export const filterCommandHistoryBySuccessUseCase =
 			}
 
 			// Step 2: Filter by success
-			const filterResult = filterCommandHistoryBySuccess(
-				historyResult.data,
-				success,
-			);
+			const filterResult = filterCommandHistoryBySuccess(historyResult.data, success);
 			if (!filterResult.success) {
 				return {
 					success: false,
-					error: ValidationError(
-						"command-history",
-						(filterResult as { success: false; error: Error }).error.message,
-					),
+					error: ValidationError("command-history", (filterResult as { success: false; error: Error }).error.message),
 				};
 			}
 

@@ -10,14 +10,8 @@ import {
 	removeFromCommandHistory,
 	validateCommandHistoryEntry,
 } from "#modules/command-palette/domain/operations/history";
-import type {
-	CommandHistoryRepository,
-	EventDispatcher,
-} from "#modules/command-palette/ports";
-import type {
-	CommandHistory,
-	CommandHistoryEntry,
-} from "#modules/command-palette/types";
+import type { CommandHistoryRepository, EventDispatcher } from "#modules/command-palette/ports";
+import type { CommandHistory, CommandHistoryEntry } from "#modules/command-palette/types";
 import { UseCaseError, ValidationError } from "#shared/errors";
 import type { Result } from "#shared/types";
 
@@ -30,13 +24,8 @@ export interface AddCommandHistoryEntryRequest {
 }
 
 export const addCommandHistoryEntryUseCase =
-	(
-		commandHistoryRepository: CommandHistoryRepository,
-		_eventDispatcher: EventDispatcher,
-	) =>
-	async (
-		request: AddCommandHistoryEntryRequest,
-	): Promise<Result<CommandHistoryEntry>> => {
+	(commandHistoryRepository: CommandHistoryRepository, _eventDispatcher: EventDispatcher) =>
+	async (request: AddCommandHistoryEntryRequest): Promise<Result<CommandHistoryEntry>> => {
 		try {
 			// Step 1: Create history entry
 			const createResult = createCommandHistoryEntry(
@@ -60,10 +49,7 @@ export const addCommandHistoryEntryUseCase =
 			if (!validationResult.success) {
 				return {
 					success: false,
-					error: ValidationError(
-						"command-history",
-						validationResult.error.message,
-					),
+					error: ValidationError("command-history", validationResult.error.message),
 				};
 			}
 
@@ -85,17 +71,12 @@ export const addCommandHistoryEntryUseCase =
 			if (!addResult.success) {
 				return {
 					success: false,
-					error: ValidationError(
-						"command-history",
-						(addResult as { success: false; error: Error }).error.message,
-					),
+					error: ValidationError("command-history", (addResult as { success: false; error: Error }).error.message),
 				};
 			}
 
 			// Step 5: Save updated history
-			const saveResult = await commandHistoryRepository.saveHistory(
-				addResult.data,
-			);
+			const saveResult = await commandHistoryRepository.saveHistory(addResult.data);
 			if (!saveResult.success) {
 				return {
 					success: false,
@@ -126,10 +107,7 @@ export const addCommandHistoryEntryUseCase =
 	};
 
 export const removeCommandHistoryEntryUseCase =
-	(
-		commandHistoryRepository: CommandHistoryRepository,
-		_eventDispatcher: EventDispatcher,
-	) =>
+	(commandHistoryRepository: CommandHistoryRepository, _eventDispatcher: EventDispatcher) =>
 	async (entryId: string): Promise<Result<CommandHistory>> => {
 		try {
 			// Step 1: Get current history
@@ -146,24 +124,16 @@ export const removeCommandHistoryEntryUseCase =
 			}
 
 			// Step 2: Remove entry from history
-			const removeResult = removeFromCommandHistory(
-				historyResult.data,
-				entryId,
-			);
+			const removeResult = removeFromCommandHistory(historyResult.data, entryId);
 			if (!removeResult.success) {
 				return {
 					success: false,
-					error: ValidationError(
-						"command-history",
-						(removeResult as { success: false; error: Error }).error.message,
-					),
+					error: ValidationError("command-history", (removeResult as { success: false; error: Error }).error.message),
 				};
 			}
 
 			// Step 3: Save updated history
-			const saveResult = await commandHistoryRepository.saveHistory(
-				removeResult.data,
-			);
+			const saveResult = await commandHistoryRepository.saveHistory(removeResult.data);
 			if (!saveResult.success) {
 				return {
 					success: false,
@@ -194,10 +164,7 @@ export const removeCommandHistoryEntryUseCase =
 	};
 
 export const clearCommandHistoryUseCase =
-	(
-		commandHistoryRepository: CommandHistoryRepository,
-		_eventDispatcher: EventDispatcher,
-	) =>
+	(commandHistoryRepository: CommandHistoryRepository, _eventDispatcher: EventDispatcher) =>
 	async (): Promise<Result<CommandHistory>> => {
 		try {
 			// Step 1: Clear history
@@ -205,17 +172,12 @@ export const clearCommandHistoryUseCase =
 			if (!clearResult.success) {
 				return {
 					success: false,
-					error: ValidationError(
-						"command-history",
-						(clearResult as { success: false; error: Error }).error.message,
-					),
+					error: ValidationError("command-history", (clearResult as { success: false; error: Error }).error.message),
 				};
 			}
 
 			// Step 2: Save cleared history
-			const saveResult = await commandHistoryRepository.saveHistory(
-				clearResult.data,
-			);
+			const saveResult = await commandHistoryRepository.saveHistory(clearResult.data);
 			if (!saveResult.success) {
 				return {
 					success: false,

@@ -23,20 +23,14 @@ export const createAriaAttributes = (
 });
 
 // Create focus state
-export const createFocusState = (
-	focusedIndex: number,
-	focusableElements: readonly string[],
-): FocusState => ({
+export const createFocusState = (focusedIndex: number, focusableElements: readonly string[]): FocusState => ({
 	focusedIndex,
 	isFocused: focusedIndex >= 0,
 	focusableElements,
 });
 
 // Move focus
-export const moveFocus = (
-	state: FocusState,
-	strategy: FocusStrategy,
-): FocusState => {
+export const moveFocus = (state: FocusState, strategy: FocusStrategy): FocusState => {
 	const { focusedIndex, focusableElements } = state;
 	let newIndex = focusedIndex;
 
@@ -62,9 +56,7 @@ export const moveFocus = (
 };
 
 // Create announcement queue
-export const createAnnouncementQueue = (
-	maxSize: number = 10,
-): AnnouncementQueue => ({
+export const createAnnouncementQueue = (maxSize: number = 10): AnnouncementQueue => ({
 	announcements: [],
 	maxSize,
 });
@@ -81,10 +73,7 @@ export const addAnnouncement = (
 		timestamp: Date.now(),
 	};
 
-	const updatedAnnouncements = [announcement, ...queue.announcements].slice(
-		0,
-		queue.maxSize,
-	);
+	const updatedAnnouncements = [announcement, ...queue.announcements].slice(0, queue.maxSize);
 
 	return {
 		...queue,
@@ -93,17 +82,13 @@ export const addAnnouncement = (
 };
 
 // Clear announcements
-export const clearAnnouncements = (
-	queue: AnnouncementQueue,
-): AnnouncementQueue => ({
+export const clearAnnouncements = (queue: AnnouncementQueue): AnnouncementQueue => ({
 	...queue,
 	announcements: [],
 });
 
 // Get latest announcement
-export const getLatestAnnouncement = (
-	queue: AnnouncementQueue,
-): Announcement | undefined => {
+export const getLatestAnnouncement = (queue: AnnouncementQueue): Announcement | undefined => {
 	return queue.announcements[0];
 };
 

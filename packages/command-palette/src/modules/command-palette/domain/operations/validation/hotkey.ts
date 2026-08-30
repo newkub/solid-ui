@@ -19,9 +19,7 @@ export const validateCommandHotkey = (hotkey: string): Result<string> => {
 	if (!hotkeyPattern.test(hotkey)) {
 		return {
 			success: false,
-			error: new Error(
-				'Invalid hotkey format. Use format like "cmd+k" or "ctrl+shift+a"',
-			),
+			error: new Error('Invalid hotkey format. Use format like "cmd+k" or "ctrl+shift+a"'),
 		};
 	}
 

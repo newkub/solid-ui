@@ -3,10 +3,7 @@
  */
 
 import { createSignal, For, Show, splitProps } from "solid-js";
-import type {
-	CommandPaletteSettings,
-	CommandPaletteTheme,
-} from "#modules/command-palette/types";
+import type { CommandPaletteSettings, CommandPaletteTheme } from "#modules/command-palette/types";
 
 interface CommandPaletteSettingsProps {
 	settings: CommandPaletteSettings;
@@ -16,9 +13,7 @@ interface CommandPaletteSettingsProps {
 	onShortcutChange?: (shortcuts: Record<string, string>) => void;
 }
 
-export function CommandPaletteSettingsComponent(
-	props: CommandPaletteSettingsProps,
-) {
+export function CommandPaletteSettingsComponent(props: CommandPaletteSettingsProps) {
 	const [local] = splitProps(props, [
 		"settings",
 		"availableThemes",
@@ -27,18 +22,13 @@ export function CommandPaletteSettingsComponent(
 		"onShortcutChange",
 	]);
 
-	const [editingShortcut, setEditingShortcut] = createSignal<string | null>(
-		null,
-	);
+	const [editingShortcut, setEditingShortcut] = createSignal<string | null>(null);
 
 	const handleThemeChange = (themeId: string) => {
 		local.onThemeChange?.(themeId);
 	};
 
-	const handleSettingChange = (
-		key: keyof CommandPaletteSettings,
-		value: any,
-	) => {
+	const handleSettingChange = (key: keyof CommandPaletteSettings, value: any) => {
 		local.onSettingsChange?.({
 			...local.settings,
 			[key]: value,
@@ -83,9 +73,7 @@ export function CommandPaletteSettingsComponent(
 						onChange={(e) => handleThemeChange(e.currentTarget.value)}
 						class="setting-select"
 					>
-						<For each={local.availableThemes}>
-							{(theme) => <option value={theme.id}>{theme.name}</option>}
-						</For>
+						<For each={local.availableThemes}>{(theme) => <option value={theme.id}>{theme.name}</option>}</For>
 					</select>
 				</div>
 				<div class="setting-item">
@@ -96,12 +84,7 @@ export function CommandPaletteSettingsComponent(
 						id="max-visible"
 						type="number"
 						value={local.settings.maxVisibleCommands}
-						onChange={(e) =>
-							handleSettingChange(
-								"maxVisibleCommands",
-								parseInt(e.currentTarget.value, 10),
-							)
-						}
+						onChange={(e) => handleSettingChange("maxVisibleCommands", parseInt(e.currentTarget.value, 10))}
 						class="setting-input"
 						min="1"
 						max="20"
@@ -116,9 +99,7 @@ export function CommandPaletteSettingsComponent(
 						<input
 							type="checkbox"
 							checked={local.settings.enableHistory}
-							onChange={(e) =>
-								handleSettingChange("enableHistory", e.currentTarget.checked)
-							}
+							onChange={(e) => handleSettingChange("enableHistory", e.currentTarget.checked)}
 							class="setting-checkbox"
 						/>
 						Enable History
@@ -129,9 +110,7 @@ export function CommandPaletteSettingsComponent(
 						<input
 							type="checkbox"
 							checked={local.settings.enableAnimations}
-							onChange={(e) =>
-								handleSettingChange("enableAnimations", e.currentTarget.checked)
-							}
+							onChange={(e) => handleSettingChange("enableAnimations", e.currentTarget.checked)}
 							class="setting-checkbox"
 						/>
 						Enable Animations
@@ -142,9 +121,7 @@ export function CommandPaletteSettingsComponent(
 						<input
 							type="checkbox"
 							checked={local.settings.autoClose}
-							onChange={(e) =>
-								handleSettingChange("autoClose", e.currentTarget.checked)
-							}
+							onChange={(e) => handleSettingChange("autoClose", e.currentTarget.checked)}
 							class="setting-checkbox"
 						/>
 						Auto Close After Selection
@@ -158,12 +135,7 @@ export function CommandPaletteSettingsComponent(
 						id="debounce-delay"
 						type="number"
 						value={local.settings.debounceDelay}
-						onChange={(e) =>
-							handleSettingChange(
-								"debounceDelay",
-								parseInt(e.currentTarget.value, 10),
-							)
-						}
+						onChange={(e) => handleSettingChange("debounceDelay", parseInt(e.currentTarget.value, 10))}
 						class="setting-input"
 						min="0"
 						max="500"
@@ -189,11 +161,7 @@ export function CommandPaletteSettingsComponent(
 								</Show>
 								<Show when={editingShortcut() !== action}>
 									<span class="shortcut-value">{shortcut}</span>
-									<button
-										class="shortcut-edit-button"
-										onClick={() => handleShortcutEdit(action)}
-										type="button"
-									>
+									<button class="shortcut-edit-button" onClick={() => handleShortcutEdit(action)} type="button">
 										Edit
 									</button>
 								</Show>

@@ -1,13 +1,7 @@
 // Main search commands use case
 
-import type {
-	CommandRepository,
-	EventDispatcher,
-} from "#modules/command-palette/ports";
-import type {
-	Command,
-	CommandSearchQuery,
-} from "#modules/command-palette/types";
+import type { CommandRepository, EventDispatcher } from "#modules/command-palette/ports";
+import type { Command, CommandSearchQuery } from "#modules/command-palette/types";
 import { UseCaseError, ValidationError } from "#shared/errors";
 import type { Result } from "#shared/types";
 import { createCommandSearchedEvent } from "../../../domain/events/command-events";
@@ -23,9 +17,7 @@ export interface SearchCommandsResponse {
 
 export const searchCommandsUseCase =
 	(commandRepository: CommandRepository, eventDispatcher: EventDispatcher) =>
-	async (
-		query: CommandSearchQuery,
-	): Promise<Result<SearchCommandsResponse>> => {
+	async (query: CommandSearchQuery): Promise<Result<SearchCommandsResponse>> => {
 		const startTime = Date.now();
 
 		try {
@@ -43,30 +35,19 @@ export const searchCommandsUseCase =
 			if (!allCommandsResult.success) {
 				return {
 					success: false,
-					error: UseCaseError(
-						"searchCommands",
-						"Failed to fetch commands",
-						allCommandsResult.error,
-					),
+					error: UseCaseError("searchCommands", "Failed to fetch commands", allCommandsResult.error),
 				};
 			}
 
 			// Step 3: Perform domain search
-			const searchResult = searchCommandsService(
-				allCommandsResult.data,
-				validationResult.data,
-			);
+			const searchResult = searchCommandsService(allCommandsResult.data, validationResult.data);
 
 			// Step 4: Calculate metrics
 			const executionTime = Date.now() - startTime;
 			const totalCount = allCommandsResult.data.length;
 
 			// Step 5: Dispatch search event
-			const event = createCommandSearchedEvent(
-				query.query || "",
-				searchResult.commands.length,
-				executionTime,
-			);
+			const event = createCommandSearchedEvent(query.query || "", searchResult.commands.length, executionTime);
 
 			const dispatchResult = await eventDispatcher.dispatch(event);
 			if (!dispatchResult.success) {

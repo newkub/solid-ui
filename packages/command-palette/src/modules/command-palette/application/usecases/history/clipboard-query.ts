@@ -31,10 +31,7 @@ export const searchClipboardHistoryUseCase =
 			if (!searchResult.success) {
 				return {
 					success: false,
-					error: ValidationError(
-						"clipboard",
-						(searchResult as { success: false; error: Error }).error.message,
-					),
+					error: ValidationError("clipboard", (searchResult as { success: false; error: Error }).error.message),
 				};
 			}
 

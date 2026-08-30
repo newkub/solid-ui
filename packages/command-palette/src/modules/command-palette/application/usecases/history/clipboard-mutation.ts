@@ -10,14 +10,8 @@ import {
 	removeFromClipboardHistory,
 	validateClipboardEntry,
 } from "#modules/command-palette/domain/operations/clipboard";
-import type {
-	ClipboardRepository,
-	EventDispatcher,
-} from "#modules/command-palette/ports";
-import type {
-	ClipboardEntry,
-	ClipboardHistory,
-} from "#modules/command-palette/types";
+import type { ClipboardRepository, EventDispatcher } from "#modules/command-palette/ports";
+import type { ClipboardEntry, ClipboardHistory } from "#modules/command-palette/types";
 import { UseCaseError, ValidationError } from "#shared/errors";
 import type { Result } from "#shared/types";
 
@@ -28,20 +22,11 @@ export interface AddClipboardEntryRequest {
 }
 
 export const addClipboardEntryUseCase =
-	(
-		clipboardRepository: ClipboardRepository,
-		_eventDispatcher: EventDispatcher,
-	) =>
-	async (
-		request: AddClipboardEntryRequest,
-	): Promise<Result<ClipboardEntry>> => {
+	(clipboardRepository: ClipboardRepository, _eventDispatcher: EventDispatcher) =>
+	async (request: AddClipboardEntryRequest): Promise<Result<ClipboardEntry>> => {
 		try {
 			// Step 1: Create clipboard entry
-			const createResult = createClipboardEntry(
-				request.content,
-				request.type,
-				request.metadata,
-			);
+			const createResult = createClipboardEntry(request.content, request.type, request.metadata);
 			if (!createResult.success) {
 				return {
 					success: false,
@@ -78,10 +63,7 @@ export const addClipboardEntryUseCase =
 			if (!addResult.success) {
 				return {
 					success: false,
-					error: ValidationError(
-						"clipboard",
-						(addResult as { success: false; error: Error }).error.message,
-					),
+					error: ValidationError("clipboard", (addResult as { success: false; error: Error }).error.message),
 				};
 			}
 
@@ -117,10 +99,7 @@ export const addClipboardEntryUseCase =
 	};
 
 export const removeClipboardEntryUseCase =
-	(
-		clipboardRepository: ClipboardRepository,
-		_eventDispatcher: EventDispatcher,
-	) =>
+	(clipboardRepository: ClipboardRepository, _eventDispatcher: EventDispatcher) =>
 	async (entryId: string): Promise<Result<ClipboardHistory>> => {
 		try {
 			// Step 1: Get current history
@@ -137,24 +116,16 @@ export const removeClipboardEntryUseCase =
 			}
 
 			// Step 2: Remove entry from history
-			const removeResult = removeFromClipboardHistory(
-				historyResult.data,
-				entryId,
-			);
+			const removeResult = removeFromClipboardHistory(historyResult.data, entryId);
 			if (!removeResult.success) {
 				return {
 					success: false,
-					error: ValidationError(
-						"clipboard",
-						(removeResult as { success: false; error: Error }).error.message,
-					),
+					error: ValidationError("clipboard", (removeResult as { success: false; error: Error }).error.message),
 				};
 			}
 
 			// Step 3: Save updated history
-			const saveResult = await clipboardRepository.saveHistory(
-				removeResult.data,
-			);
+			const saveResult = await clipboardRepository.saveHistory(removeResult.data);
 			if (!saveResult.success) {
 				return {
 					success: false,
@@ -185,10 +156,7 @@ export const removeClipboardEntryUseCase =
 	};
 
 export const clearClipboardHistoryUseCase =
-	(
-		clipboardRepository: ClipboardRepository,
-		_eventDispatcher: EventDispatcher,
-	) =>
+	(clipboardRepository: ClipboardRepository, _eventDispatcher: EventDispatcher) =>
 	async (): Promise<Result<ClipboardHistory>> => {
 		try {
 			// Step 1: Clear history
@@ -196,17 +164,12 @@ export const clearClipboardHistoryUseCase =
 			if (!clearResult.success) {
 				return {
 					success: false,
-					error: ValidationError(
-						"clipboard",
-						(clearResult as { success: false; error: Error }).error.message,
-					),
+					error: ValidationError("clipboard", (clearResult as { success: false; error: Error }).error.message),
 				};
 			}
 
 			// Step 2: Save cleared history
-			const saveResult = await clipboardRepository.saveHistory(
-				clearResult.data,
-			);
+			const saveResult = await clipboardRepository.saveHistory(clearResult.data);
 			if (!saveResult.success) {
 				return {
 					success: false,

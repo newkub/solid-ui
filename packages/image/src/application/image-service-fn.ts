@@ -25,27 +25,18 @@ export interface ImageServiceConfig {
 }
 
 // Create image service config
-export const createImageServiceConfig = (
-	config: Partial<ImageServiceConfig> = {},
-): ImageServiceConfig => {
+export const createImageServiceConfig = (config: Partial<ImageServiceConfig> = {}): ImageServiceConfig => {
 	const imageConfig: ImageServiceConfig = {
 		provider: config.provider || "ipx",
 	};
-	if (config.cloudName)
-		(imageConfig as { cloudName: string }).cloudName = config.cloudName;
-	if (config.accountId)
-		(imageConfig as { accountId: string }).accountId = config.accountId;
-	if (config.baseURL)
-		(imageConfig as { baseURL: string }).baseURL = config.baseURL;
+	if (config.cloudName) (imageConfig as { cloudName: string }).cloudName = config.cloudName;
+	if (config.accountId) (imageConfig as { accountId: string }).accountId = config.accountId;
+	if (config.baseURL) (imageConfig as { baseURL: string }).baseURL = config.baseURL;
 	return imageConfig;
 };
 
 // Get image URL
-export const getImageUrl = (
-	config: ImageServiceConfig,
-	src: string,
-	options?: ImageTransform,
-): string => {
+export const getImageUrl = (config: ImageServiceConfig, src: string, options?: ImageTransform): string => {
 	const normalized = normalizeTransform(options || {});
 
 	switch (config.provider) {
@@ -70,28 +61,17 @@ export const generateSrcset = (
 	const providerConfig: { cloudName?: string; accountId?: string } = {};
 	if (config.cloudName) providerConfig.cloudName = config.cloudName;
 	if (config.accountId) providerConfig.accountId = config.accountId;
-	return generateSrcsetForProvider(
-		src,
-		sizes,
-		options || {},
-		config.provider,
-		providerConfig,
-	);
+	return generateSrcsetForProvider(src, sizes, options || {}, config.provider, providerConfig);
 };
 
 // Generate default srcset
-export const generateDefaultSrcset = (
-	config: ImageServiceConfig,
-	src: string,
-	baseWidth: number = 640,
-): string => {
+export const generateDefaultSrcset = (config: ImageServiceConfig, src: string, baseWidth: number = 640): string => {
 	const widths = generateWidths(baseWidth);
 	return generateSrcset(config, src, widths);
 };
 
 // Generate blurhash placeholder
-export const generateBlurhash = (src: string): string =>
-	generateBlurPlaceholder(src, 10, 10);
+export const generateBlurhash = (src: string): string => generateBlurPlaceholder(src, 10, 10);
 
 // Generate preset srcset
 export const generatePresetSrcset = (
@@ -111,26 +91,15 @@ export const generatePresetSrcset = (
 	const providerConfig: { cloudName?: string; accountId?: string } = {};
 	if (config.cloudName) providerConfig.cloudName = config.cloudName;
 	if (config.accountId) providerConfig.accountId = config.accountId;
-	return generateSrcsetForProvider(
-		src,
-		widths,
-		options,
-		config.provider,
-		providerConfig,
-	);
+	return generateSrcsetForProvider(src, widths, options, config.provider, providerConfig);
 };
 
 // Get provider config
-export const getProviderConfig = (
-	config: ImageServiceConfig,
-): ImageServiceConfig => config;
+export const getProviderConfig = (config: ImageServiceConfig): ImageServiceConfig => config;
 
 // Create image URL (alias for getImageUrl)
-export const createImageUrl = (
-	config: ImageServiceConfig,
-	src: string,
-	options: ImageTransform,
-): string => getImageUrl(config, src, options);
+export const createImageUrl = (config: ImageServiceConfig, src: string, options: ImageTransform): string =>
+	getImageUrl(config, src, options);
 
 // Create responsive image
 export const createResponsiveImage = (

@@ -3,10 +3,7 @@
  */
 
 import { createCommandUseCase } from "#modules/command-palette/application";
-import type {
-	CommandRepository,
-	EventDispatcher,
-} from "#modules/command-palette/ports";
+import type { CommandRepository, EventDispatcher } from "#modules/command-palette/ports";
 import type { Command } from "#modules/command-palette/types";
 import type { CreateCommandRequest, HttpResponse } from "./http-types";
 
@@ -24,10 +21,7 @@ export const createCommandHandler =
 				hotkey: request.hotkey,
 			};
 
-			const result = await createCommandUseCase(
-				commandRepository,
-				eventDispatcher,
-			)(createCommandRequest);
+			const result = await createCommandUseCase(commandRepository, eventDispatcher)(createCommandRequest);
 
 			if (!result.success) {
 				return {
@@ -99,10 +93,7 @@ export const getCommandHandler =
 
 export const updateCommandHandler =
 	(commandRepository: CommandRepository) =>
-	async (
-		commandId: string,
-		request: Partial<CreateCommandRequest>,
-	): Promise<HttpResponse<Command>> => {
+	async (commandId: string, request: Partial<CreateCommandRequest>): Promise<HttpResponse<Command>> => {
 		try {
 			// First check if command exists
 			const existingResult = await commandRepository.findById(commandId);

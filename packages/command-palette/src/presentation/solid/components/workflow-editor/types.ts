@@ -11,9 +11,5 @@ export interface StepEditorProps {
 	step: WorkflowStep;
 	index: number;
 	commands?: readonly { id: string; label: string }[];
-	onStepChange: (
-		index: number,
-		field: keyof WorkflowStep,
-		value: unknown,
-	) => void;
+	onStepChange: (index: number, field: keyof WorkflowStep, value: unknown) => void;
 }

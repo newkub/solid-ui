@@ -3,10 +3,7 @@
  */
 
 import type { Result } from "#shared/types";
-import type {
-	CommandHistory,
-	CommandHistoryEntry,
-} from "#types/integration/history";
+import type { CommandHistory, CommandHistoryEntry } from "#types/integration/history";
 
 // Create command history entry
 export const createCommandHistoryEntry = (
@@ -50,10 +47,7 @@ export const addToCommandHistory = (
 };
 
 // Remove entry from history
-export const removeFromCommandHistory = (
-	history: CommandHistory,
-	entryId: string,
-): Result<CommandHistory> => {
+export const removeFromCommandHistory = (history: CommandHistory, entryId: string): Result<CommandHistory> => {
 	const newHistory = history.filter((entry) => entry.id !== entryId);
 	return { success: true, data: newHistory };
 };
@@ -73,9 +67,7 @@ export const searchCommandHistory = (
 	}
 
 	const lowerQuery = query.toLowerCase();
-	const results = history.filter((entry) =>
-		entry.commandId.toLowerCase().includes(lowerQuery),
-	);
+	const results = history.filter((entry) => entry.commandId.toLowerCase().includes(lowerQuery));
 
 	return { success: true, data: results };
 };
@@ -103,10 +95,7 @@ export const getCommandHistoryStats = (history: CommandHistory) => {
 	const total = history.length;
 	const successful = history.filter((entry) => entry.success).length;
 	const failed = total - successful;
-	const avgExecutionTime =
-		total > 0
-			? history.reduce((sum, entry) => sum + entry.executionTime, 0) / total
-			: 0;
+	const avgExecutionTime = total > 0 ? history.reduce((sum, entry) => sum + entry.executionTime, 0) / total : 0;
 
 	return {
 		total,
@@ -118,9 +107,7 @@ export const getCommandHistoryStats = (history: CommandHistory) => {
 };
 
 // Validate command history entry
-export const validateCommandHistoryEntry = (
-	entry: CommandHistoryEntry,
-): Result<CommandHistoryEntry> => {
+export const validateCommandHistoryEntry = (entry: CommandHistoryEntry): Result<CommandHistoryEntry> => {
 	if (!entry.id || entry.id.trim().length === 0) {
 		return { success: false, error: new Error("Entry ID is required") };
 	}

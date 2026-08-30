@@ -3,21 +3,11 @@
  */
 
 import type { Command } from "../types";
-import type {
-	CommandContext,
-	ContextFilter,
-	ContextMatchResult,
-} from "../types/integration/context";
+import type { CommandContext, ContextFilter, ContextMatchResult } from "../types/integration/context";
 
 export interface ContextProvider {
 	getCurrentContext(): CommandContext;
 	setContext(context: CommandContext): void;
-	matchCommandContext(
-		command: Command,
-		filter: ContextFilter,
-	): ContextMatchResult;
-	filterCommandsByContext(
-		commands: readonly Command[],
-		filter: ContextFilter,
-	): readonly Command[];
+	matchCommandContext(command: Command, filter: ContextFilter): ContextMatchResult;
+	filterCommandsByContext(commands: readonly Command[], filter: ContextFilter): readonly Command[];
 }

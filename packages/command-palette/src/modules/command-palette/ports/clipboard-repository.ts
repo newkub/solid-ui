@@ -3,10 +3,7 @@
  * Defines contract for clipboard storage operations
  */
 
-import type {
-	ClipboardEntry,
-	ClipboardHistory,
-} from "#modules/command-palette/types";
+import type { ClipboardEntry, ClipboardHistory } from "#modules/command-palette/types";
 import type { Result } from "#shared/types";
 
 export interface ClipboardRepository {
@@ -19,9 +16,7 @@ export interface ClipboardRepository {
 
 	// Query operations
 	findById(entryId: string): Promise<Result<ClipboardEntry | null>>;
-	findByType(
-		type: ClipboardEntry["type"],
-	): Promise<Result<readonly ClipboardEntry[]>>;
+	findByType(type: ClipboardEntry["type"]): Promise<Result<readonly ClipboardEntry[]>>;
 	search(query: string): Promise<Result<readonly ClipboardEntry[]>>;
 
 	// Count operations

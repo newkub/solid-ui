@@ -8,10 +8,7 @@ import type { HighlightRange, SearchHighlight } from "../types";
 /**
  * Find all occurrences of a query in text
  */
-export function findHighlightRanges(
-	text: string,
-	query: string,
-): readonly HighlightRange[] {
+export function findHighlightRanges(text: string, query: string): readonly HighlightRange[] {
 	if (!query || !text) return [];
 
 	const ranges: HighlightRange[] = [];
@@ -32,10 +29,7 @@ export function findHighlightRanges(
 /**
  * Create a search highlight with ranges
  */
-export function createSearchHighlight(
-	text: string,
-	query: string,
-): SearchHighlight {
+export function createSearchHighlight(text: string, query: string): SearchHighlight {
 	return {
 		text,
 		highlights: findHighlightRanges(text, query),
@@ -45,10 +39,7 @@ export function createSearchHighlight(
 /**
  * Render highlighted text with markup
  */
-export function renderHighlightedText(
-	highlight: SearchHighlight,
-	highlightClass: string = "highlight",
-): string {
+export function renderHighlightedText(highlight: SearchHighlight, highlightClass: string = "highlight"): string {
 	if (highlight.highlights.length === 0) {
 		return highlight.text;
 	}
@@ -73,10 +64,7 @@ export function renderHighlightedText(
 /**
  * Get highlighted text for command label or description
  */
-export function getHighlightedText(
-	text: string | undefined,
-	query: string,
-): string {
+export function getHighlightedText(text: string | undefined, query: string): string {
 	if (!text) return "";
 	const highlight = createSearchHighlight(text, query);
 	return renderHighlightedText(highlight);

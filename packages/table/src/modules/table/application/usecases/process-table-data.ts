@@ -1,15 +1,6 @@
 // Table Data Processing Use Case
-import type {
-	FilterState,
-	PaginationState,
-	SortState,
-} from "#table/domain/models";
-import {
-	applyGlobalFilter,
-	filterData,
-	paginateData,
-	sortData,
-} from "#table/domain/operations";
+import type { FilterState, PaginationState, SortState } from "#table/domain/models";
+import { applyGlobalFilter, filterData, paginateData, sortData } from "#table/domain/operations";
 
 export interface ProcessTableDataInput<T> {
 	readonly data: ReadonlyArray<T>;
@@ -29,9 +20,7 @@ export interface ProcessTableDataOutput<T> {
  * Process table data through the full pipeline: filter -> sort -> paginate
  * This is a pure function that orchestrates domain operations
  */
-export function processTableData<T>(
-	input: ProcessTableDataInput<T>,
-): ProcessTableDataOutput<T> {
+export function processTableData<T>(input: ProcessTableDataInput<T>): ProcessTableDataOutput<T> {
 	const { data, filters, sort, globalFilter, pagination } = input;
 
 	// Step 1: Apply global filter

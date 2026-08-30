@@ -4,11 +4,7 @@
 
 import { createMemo, createSignal, onCleanup, onMount } from "solid-js";
 import type { Theme } from "#modules/command-palette/types";
-import {
-	createTheme,
-	isDarkTheme,
-	isSystemTheme,
-} from "#modules/command-palette/types";
+import { createTheme, isDarkTheme, isSystemTheme } from "#modules/command-palette/types";
 
 const THEME_STORAGE_KEY = "command-palette-theme";
 
@@ -47,9 +43,7 @@ export function useTheme() {
 	};
 
 	const toggleTheme = () => {
-		const newTheme = isDarkTheme(currentTheme())
-			? createTheme("light")
-			: createTheme("dark");
+		const newTheme = isDarkTheme(currentTheme()) ? createTheme("light") : createTheme("dark");
 		setTheme(newTheme);
 	};
 

@@ -27,11 +27,7 @@ export function SettingsForm(props: SettingsFormProps) {
 				<select
 					id="sync-provider"
 					value={props.provider}
-					onChange={(e) =>
-						props.onProviderChange(
-							e.currentTarget.value as CloudSyncConfig["provider"],
-						)
-					}
+					onChange={(e) => props.onProviderChange(e.currentTarget.value as CloudSyncConfig["provider"])}
 					class="form-select"
 				>
 					<option value="supabase">Supabase</option>
@@ -94,26 +90,16 @@ export function SettingsForm(props: SettingsFormProps) {
 					id="sync-interval"
 					type="number"
 					value={props.syncInterval}
-					onChange={(e) =>
-						props.onSyncIntervalChange(
-							Number.parseInt(e.currentTarget.value, 10),
-						)
-					}
+					onChange={(e) => props.onSyncIntervalChange(Number.parseInt(e.currentTarget.value, 10))}
 					class="form-input"
 					min="1000"
 					step="1000"
 				/>
-				<span class="form-hint">
-					Current: {formatSyncInterval(props.syncInterval)}
-				</span>
+				<span class="form-hint">Current: {formatSyncInterval(props.syncInterval)}</span>
 			</div>
 
 			<div class="form-actions">
-				<button
-					class="action-button cancel"
-					onClick={props.onCancel}
-					type="button"
-				>
+				<button class="action-button cancel" onClick={props.onCancel} type="button">
 					Cancel
 				</button>
 				<button class="action-button save" onClick={props.onSave} type="button">

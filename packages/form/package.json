@@ -10,9 +10,9 @@
 		}
 	},
 	"scripts": {
-		"dev": "tsdown --watch",
-		"build": "tsdown",
-		"typecheck": "tsc --noEmit",
+		"dev": "bunx tsdown --watch",
+		"build": "bunx tsdown",
+		"typecheck": "bunx tsc --noEmit",
 		"lint": "biome check src",
 		"format": "biome format --write src",
 		"test": "echo 'test skipped for form'",

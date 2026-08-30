@@ -2,15 +2,7 @@
 
 import type { FieldType } from "./field-types";
 
-export type FieldValue =
-	| string
-	| number
-	| boolean
-	| File
-	| File[]
-	| string[]
-	| undefined
-	| null;
+export type FieldValue = string | number | boolean | File | File[] | string[] | undefined | null;
 
 export interface FieldState {
 	value: FieldValue;

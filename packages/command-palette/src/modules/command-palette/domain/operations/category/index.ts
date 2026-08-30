@@ -40,10 +40,7 @@ export const createCategory = (
 };
 
 // Categorize command
-export const categorizeCommand = (
-	command: Command,
-	category: CommandCategory,
-): CategorizedCommand => ({
+export const categorizeCommand = (command: Command, category: CommandCategory): CategorizedCommand => ({
 	command,
 	categoryData: category,
 });
@@ -58,9 +55,7 @@ export const groupCommandsByCategory = (
 	for (const category of categories) {
 		if (category.hidden) continue;
 
-		const categoryCommands = commands.filter(
-			(cmd) => cmd.category === category.id,
-		);
+		const categoryCommands = commands.filter((cmd) => cmd.category === category.id);
 
 		if (categoryCommands.length > 0) {
 			groups.push({
@@ -76,48 +71,33 @@ export const groupCommandsByCategory = (
 };
 
 // Filter commands by category
-export const filterCommandsByCategory = (
-	commands: readonly Command[],
-	filter: CategoryFilter,
-): readonly Command[] => {
+export const filterCommandsByCategory = (commands: readonly Command[], filter: CategoryFilter): readonly Command[] => {
 	if (filter.showAll) {
 		return commands;
 	}
 
-	return commands.filter((cmd) =>
-		filter.categoryIds.includes(cmd.category || ""),
-	);
+	return commands.filter((cmd) => filter.categoryIds.includes(cmd.category || ""));
 };
 
 // Get commands for category
-export const getCommandsForCategory = (
-	commands: readonly Command[],
-	categoryId: string,
-): readonly Command[] => {
+export const getCommandsForCategory = (commands: readonly Command[], categoryId: string): readonly Command[] => {
 	return commands.filter((cmd) => cmd.category === categoryId);
 };
 
 // Create category state
-export const createCategoryState = (
-	categories: readonly CommandCategory[],
-): CategoryState => ({
+export const createCategoryState = (categories: readonly CommandCategory[]): CategoryState => ({
 	categories,
 	activeCategoryIds: categories.map((c) => c.id),
 	showAll: true,
 });
 
 // Toggle category
-export const toggleCategory = (
-	state: CategoryState,
-	categoryId: string,
-): CategoryState => {
+export const toggleCategory = (state: CategoryState, categoryId: string): CategoryState => {
 	const isActive = state.activeCategoryIds.includes(categoryId);
 
 	if (isActive) {
 		// Remove from active
-		const newActiveIds = state.activeCategoryIds.filter(
-			(id) => id !== categoryId,
-		);
+		const newActiveIds = state.activeCategoryIds.filter((id) => id !== categoryId);
 		return {
 			...state,
 			activeCategoryIds: newActiveIds,

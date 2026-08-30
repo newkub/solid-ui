@@ -2,12 +2,7 @@ import { Show, splitProps } from "solid-js";
 import type { CategoryCardProps } from "./types";
 
 export function CategoryCard(props: CategoryCardProps) {
-	const [local] = splitProps(props, [
-		"category",
-		"commandCount",
-		"onEdit",
-		"onDelete",
-	]);
+	const [local] = splitProps(props, ["category", "commandCount", "onEdit", "onDelete"]);
 
 	return (
 		<div class="category-card">
@@ -20,18 +15,10 @@ export function CategoryCard(props: CategoryCardProps) {
 					<span class="category-count">{local.commandCount} commands</span>
 				</div>
 				<div class="category-actions">
-					<button
-						class="action-button edit"
-						onClick={() => local.onEdit(local.category)}
-						type="button"
-					>
+					<button class="action-button edit" onClick={() => local.onEdit(local.category)} type="button">
 						Edit
 					</button>
-					<button
-						class="action-button delete"
-						onClick={() => local.onDelete(local.category.id)}
-						type="button"
-					>
+					<button class="action-button delete" onClick={() => local.onDelete(local.category.id)} type="button">
 						Delete
 					</button>
 				</div>
@@ -43,10 +30,7 @@ export function CategoryCard(props: CategoryCardProps) {
 
 			<div class="category-meta">
 				<Show when={local.category.color}>
-					<div
-						class="color-indicator"
-						style={{ "background-color": local.category.color }}
-					/>
+					<div class="color-indicator" style={{ "background-color": local.category.color }} />
 				</Show>
 				<span class="category-order">Order: {local.category.order}</span>
 			</div>

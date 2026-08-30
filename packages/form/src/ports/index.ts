@@ -1,11 +1,6 @@
 // Form Ports - Module interfaces
 
-import type {
-	FieldDef,
-	FieldValue,
-	FormConfig,
-	FormSubmission,
-} from "../domain/models";
+import type { FieldDef, FieldValue, FormConfig, FormSubmission } from "../domain/models";
 
 // Form manager port
 export interface FormManager {
@@ -57,7 +52,5 @@ export interface FormSubmitter {
 
 // Async form validation port
 export interface AsyncValidator {
-	validate: (
-		value: FieldValue,
-	) => Promise<{ valid: boolean; message?: string }>;
+	validate: (value: FieldValue) => Promise<{ valid: boolean; message?: string }>;
 }

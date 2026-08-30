@@ -3,12 +3,7 @@
  */
 
 import type { Command } from "#types/command";
-import type {
-	Workflow,
-	WorkflowExecution,
-	WorkflowStep,
-	WorkflowStepResult,
-} from "#types/integration/workflow";
+import type { Workflow, WorkflowExecution, WorkflowStep, WorkflowStepResult } from "#types/integration/workflow";
 
 export const executeWorkflowStep = async (
 	step: WorkflowStep,
@@ -57,14 +52,10 @@ export const executeWorkflowStep = async (
 	}
 };
 
-export const executeWorkflow = async (
-	workflow: Workflow,
-	commands: readonly Command[],
-): Promise<WorkflowExecution> => {
+export const executeWorkflow = async (workflow: Workflow, commands: readonly Command[]): Promise<WorkflowExecution> => {
 	let currentStepIndex = 0;
 	const results: WorkflowStepResult[] = [];
-	let status: "pending" | "running" | "completed" | "failed" | "cancelled" =
-		"running";
+	let status: "pending" | "running" | "completed" | "failed" | "cancelled" = "running";
 	let error: string | undefined;
 	let completedAt: Date | undefined;
 
@@ -113,10 +104,7 @@ export const executeWorkflow = async (
 	return execution;
 };
 
-export const evaluateCondition = (
-	condition: WorkflowStep["condition"],
-	result: WorkflowStepResult,
-): boolean => {
+export const evaluateCondition = (condition: WorkflowStep["condition"], result: WorkflowStepResult): boolean => {
 	if (!condition) return true;
 
 	switch (condition.type) {
@@ -129,9 +117,7 @@ export const evaluateCondition = (
 		case "custom":
 			if (condition.evaluator) {
 				try {
-					return condition.evaluator(
-						result as unknown as Record<string, unknown>,
-					);
+					return condition.evaluator(result as unknown as Record<string, unknown>);
 				} catch (_error) {
 					return false;
 				}

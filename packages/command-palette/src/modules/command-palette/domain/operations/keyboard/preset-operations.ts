@@ -3,18 +3,11 @@
  */
 
 import type { Result } from "#shared/types";
-import type {
-	KeyboardShortcut,
-	KeyboardState,
-	ShortcutPreset,
-} from "../../../types/ui/keyboard";
+import type { KeyboardShortcut, KeyboardState, ShortcutPreset } from "../../../types/ui/keyboard";
 import { detectConflicts } from "./shortcut-operations";
 
 // Apply preset
-export const applyPreset = (
-	state: KeyboardState,
-	presetId: string,
-): KeyboardState => {
+export const applyPreset = (state: KeyboardState, presetId: string): KeyboardState => {
 	const preset = state.presets.find((p) => p.id === presetId);
 	if (!preset) {
 		return state;

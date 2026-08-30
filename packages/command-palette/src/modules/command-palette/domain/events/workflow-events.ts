@@ -60,28 +60,21 @@ export interface WorkflowFailedEvent extends WorkflowEvent {
 	};
 }
 
-export const createWorkflowCreatedEvent = (
-	workflow: Workflow,
-): WorkflowCreatedEvent => ({
+export const createWorkflowCreatedEvent = (workflow: Workflow): WorkflowCreatedEvent => ({
 	type: "workflow-created",
 	timestamp: new Date(),
 	workflowId: workflow.id,
 	data: { workflow },
 });
 
-export const createWorkflowUpdatedEvent = (
-	workflow: Workflow,
-	changes: Partial<Workflow>,
-): WorkflowUpdatedEvent => ({
+export const createWorkflowUpdatedEvent = (workflow: Workflow, changes: Partial<Workflow>): WorkflowUpdatedEvent => ({
 	type: "workflow-updated",
 	timestamp: new Date(),
 	workflowId: workflow.id,
 	data: { workflow, changes },
 });
 
-export const createWorkflowDeletedEvent = (
-	workflowId: string,
-): WorkflowDeletedEvent => ({
+export const createWorkflowDeletedEvent = (workflowId: string): WorkflowDeletedEvent => ({
 	type: "workflow-deleted",
 	timestamp: new Date(),
 	workflowId,

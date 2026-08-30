@@ -4,11 +4,7 @@
 
 import { Effect } from "effect";
 import type { Result } from "#shared/types";
-import type {
-	Workflow,
-	WorkflowStep,
-	WorkflowTrigger,
-} from "../../../types/integration/workflow";
+import type { Workflow, WorkflowStep, WorkflowTrigger } from "../../../types/integration/workflow";
 
 export const createWorkflow = (
 	name: string,

@@ -40,10 +40,7 @@ export const updateContext = (
 /**
  * Check if command matches current context
  */
-export const matchCommandContext = (
-	command: Command,
-	context: DomainCommandContext,
-): boolean => {
+export const matchCommandContext = (command: Command, context: DomainCommandContext): boolean => {
 	// Check if command has context-specific requirements
 	if (!command.category) return true;
 
@@ -62,10 +59,7 @@ export const matchCommandContext = (
 /**
  * Match command with context and calculate relevance
  */
-export const matchCommandWithContext = (
-	command: Command,
-	context: DomainCommandContext,
-): DomainContextualCommand => {
+export const matchCommandWithContext = (command: Command, context: DomainCommandContext): DomainContextualCommand => {
 	let relevanceScore = 0.5; // Base score
 
 	// Boost score for context-aware commands
@@ -79,9 +73,7 @@ export const matchCommandWithContext = (
 
 	// Boost recently used commands
 	if (command.lastExecutedAt) {
-		const daysSinceLastUse =
-			(Date.now() - new Date(command.lastExecutedAt).getTime()) /
-			(1000 * 60 * 60 * 24);
+		const daysSinceLastUse = (Date.now() - new Date(command.lastExecutedAt).getTime()) / (1000 * 60 * 60 * 24);
 		if (daysSinceLastUse < 1) {
 			relevanceScore += 0.2;
 		}

@@ -3,9 +3,7 @@ import type { CategoryFormProps } from "./types";
 export function CategoryForm(props: CategoryFormProps) {
 	return (
 		<div class="category-form">
-			<h3 class="form-title">
-				{props.isEditing ? "Edit Category" : "Create Category"}
-			</h3>
+			<h3 class="form-title">{props.isEditing ? "Edit Category" : "Create Category"}</h3>
 			<div class="form-group">
 				<label for="category-name" class="form-label">
 					Name
@@ -62,11 +60,7 @@ export function CategoryForm(props: CategoryFormProps) {
 			</div>
 
 			<div class="form-actions">
-				<button
-					class="action-button cancel"
-					onClick={props.onCancel}
-					type="button"
-				>
+				<button class="action-button cancel" onClick={props.onCancel} type="button">
 					Cancel
 				</button>
 				<button class="action-button save" onClick={props.onSave} type="button">

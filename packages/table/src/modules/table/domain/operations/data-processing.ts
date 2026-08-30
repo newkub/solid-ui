@@ -1,17 +1,9 @@
 // Table Domain Operations - Data Processing
 
-import type {
-	FilterOperator,
-	FilterState,
-	SortState,
-} from "#table/domain/models";
+import type { FilterOperator, FilterState, SortState } from "#table/domain/models";
 
 // Apply filter to a single value
-export const applyFilter = (
-	value: unknown,
-	operator: FilterOperator,
-	filterValue: unknown,
-): boolean => {
+export const applyFilter = (value: unknown, operator: FilterOperator, filterValue: unknown): boolean => {
 	switch (operator) {
 		case "eq":
 			return value === filterValue;
@@ -26,17 +18,11 @@ export const applyFilter = (
 		case "lte":
 			return (value as number) <= (filterValue as number);
 		case "contains":
-			return String(value)
-				.toLowerCase()
-				.includes(String(filterValue).toLowerCase());
+			return String(value).toLowerCase().includes(String(filterValue).toLowerCase());
 		case "startsWith":
-			return String(value)
-				.toLowerCase()
-				.startsWith(String(filterValue).toLowerCase());
+			return String(value).toLowerCase().startsWith(String(filterValue).toLowerCase());
 		case "endsWith":
-			return String(value)
-				.toLowerCase()
-				.endsWith(String(filterValue).toLowerCase());
+			return String(value).toLowerCase().endsWith(String(filterValue).toLowerCase());
 		case "in":
 			return (filterValue as unknown[]).includes(value);
 		case "notIn":
@@ -106,11 +92,7 @@ export function sortData<T>(data: T[], sort: SortState | null): T[] {
 }
 
 // Paginate data
-export function paginateData<T>(
-	data: T[],
-	page: number,
-	pageSize: number,
-): T[] {
+export function paginateData<T>(data: T[], page: number, pageSize: number): T[] {
 	const start = (page - 1) * pageSize;
 	return data.slice(start, start + pageSize);
 }

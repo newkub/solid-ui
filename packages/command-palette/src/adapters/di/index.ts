@@ -3,19 +3,13 @@
  * Provides centralized dependency management following functional principles
  */
 
-import type {
-	CommandRepository,
-	EventDispatcher,
-} from "#modules/command-palette/ports";
+import type { CommandRepository, EventDispatcher } from "#modules/command-palette/ports";
 import type { CommandSearcher } from "#modules/command-palette/ports/search/command-searcher";
 import { createCommandRepository } from "../db/command-repository-adapter";
 import type { MemoryCommandRepositoryState } from "../db/memory-command-repository";
 import { createMemoryCommandRepository } from "../db/memory-command-repository";
 import type { MemoryEventDispatcherState } from "../events/memory-event-dispatcher";
-import {
-	createEventDispatcher,
-	createMemoryEventDispatcher,
-} from "../events/memory-event-dispatcher";
+import { createEventDispatcher, createMemoryEventDispatcher } from "../events/memory-event-dispatcher";
 import type { CustomCommandSearcherState } from "../search/fuse-command-searcher";
 import { createCustomCommandSearcher } from "../search/fuse-command-searcher";
 import { createClipboardStorage, createSnippetStorage } from "../storage";
@@ -33,9 +27,7 @@ export type DIContainerState = Readonly<{
 	storage: IStorage;
 }>;
 
-export const createDIContainer = (
-	initialCommands?: Map<string, any>,
-): DIContainerState => {
+export const createDIContainer = (initialCommands?: Map<string, any>): DIContainerState => {
 	const repositoryState = createMemoryCommandRepository(initialCommands);
 	const eventDispatcherState = createMemoryEventDispatcher();
 	const searcherState = createCustomCommandSearcher([]);
@@ -53,31 +45,22 @@ export const createDIContainer = (
 	};
 };
 
-export const getCommandRepository = (
-	state: DIContainerState,
-): CommandRepository => createCommandRepository(state.repositoryState);
+export const getCommandRepository = (state: DIContainerState): CommandRepository =>
+	createCommandRepository(state.repositoryState);
 
 export const getEventDispatcher = (state: DIContainerState): EventDispatcher =>
 	createEventDispatcher(state.eventDispatcherState);
 
-export const getCommandSearcher = (
-	state: DIContainerState,
-): CommandSearcher => ({
+export const getCommandSearcher = (state: DIContainerState): CommandSearcher => ({
 	search: async (commands, options) => {
-		const { searchWithCustom } = await import(
-			"../search/fuse-command-searcher"
-		);
+		const { searchWithCustom } = await import("../search/fuse-command-searcher");
 		return searchWithCustom(state.searcherState, commands, options);
 	},
 });
 
-export const getClipboardStorage = (
-	state: DIContainerState,
-): ClipboardStorageState => state.clipboardStorageState;
+export const getClipboardStorage = (state: DIContainerState): ClipboardStorageState => state.clipboardStorageState;
 
-export const getSnippetStorage = (
-	state: DIContainerState,
-): SnippetStorageState => state.snippetStorageState;
+export const getSnippetStorage = (state: DIContainerState): SnippetStorageState => state.snippetStorageState;
 
 export const getStorage = (state: DIContainerState): IStorage => state.storage;
 

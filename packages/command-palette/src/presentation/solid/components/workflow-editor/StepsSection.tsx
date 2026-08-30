@@ -48,8 +48,7 @@ export function StepsSection(props: StepsSectionProps) {
 							</div>
 							<div class="step-summary">
 								{step.commandId
-									? (props.commands?.find((c) => c.id === step.commandId)
-											?.label ?? step.commandId)
+									? (props.commands?.find((c) => c.id === step.commandId)?.label ?? step.commandId)
 									: "No command selected"}
 							</div>
 						</button>

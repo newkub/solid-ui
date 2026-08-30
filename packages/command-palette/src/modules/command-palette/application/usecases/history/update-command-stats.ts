@@ -27,10 +27,7 @@ export const updateCommandExecutionStats = async (
 		};
 
 		// Save the updated command
-		const updateResult = await commandRepository.update(
-			commandId,
-			updatedCommand,
-		);
+		const updateResult = await commandRepository.update(commandId, updatedCommand);
 
 		if (!updateResult.success) {
 			return { success: false, error: updateResult.error };
@@ -40,10 +37,7 @@ export const updateCommandExecutionStats = async (
 	} catch (error) {
 		return {
 			success: false,
-			error:
-				error instanceof Error
-					? error
-					: new Error("Failed to update command stats"),
+			error: error instanceof Error ? error : new Error("Failed to update command stats"),
 		};
 	}
 };

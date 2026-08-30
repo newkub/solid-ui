@@ -3,26 +3,19 @@
  */
 
 import type { Snippet, SnippetLibrary } from "#modules/command-palette/types";
-import {
-	createSnippet,
-	createSnippetLibrary,
-	searchSnippets,
-} from "#modules/command-palette/types";
+import { createSnippet, createSnippetLibrary, searchSnippets } from "#modules/command-palette/types";
 
 export type SnippetStorageState = Readonly<{
 	library: SnippetLibrary;
 	storageKey: string;
 }>;
 
-export const createSnippetStorage = (
-	storageKey: string = "command-palette-snippets",
-): SnippetStorageState => ({
+export const createSnippetStorage = (storageKey: string = "command-palette-snippets"): SnippetStorageState => ({
 	library: loadLibrary(storageKey),
 	storageKey,
 });
 
-export const getSnippetLibrary = (state: SnippetStorageState): SnippetLibrary =>
-	state.library;
+export const getSnippetLibrary = (state: SnippetStorageState): SnippetLibrary => state.library;
 
 export const addSnippetToStorage = (
 	state: SnippetStorageState,
@@ -42,18 +35,13 @@ export const updateSnippetInStorage = (
 	snippet: Partial<Snippet>,
 ): SnippetStorageState => {
 	const newLibrary = {
-		snippets: state.library.snippets.map((s) =>
-			s.id === id ? { ...s, ...snippet } : s,
-		),
+		snippets: state.library.snippets.map((s) => (s.id === id ? { ...s, ...snippet } : s)),
 	};
 	saveLibrary(state.storageKey, newLibrary);
 	return { ...state, library: newLibrary };
 };
 
-export const deleteSnippetFromStorage = (
-	state: SnippetStorageState,
-	id: string,
-): SnippetStorageState => {
+export const deleteSnippetFromStorage = (state: SnippetStorageState, id: string): SnippetStorageState => {
 	const newLibrary = {
 		snippets: state.library.snippets.filter((s) => s.id !== id),
 	};
@@ -61,10 +49,7 @@ export const deleteSnippetFromStorage = (
 	return { ...state, library: newLibrary };
 };
 
-export const searchSnippetsInStorage = (
-	state: SnippetStorageState,
-	query: string,
-): readonly Snippet[] => {
+export const searchSnippetsInStorage = (state: SnippetStorageState, query: string): readonly Snippet[] => {
 	return searchSnippets(state.library, query);
 };
 

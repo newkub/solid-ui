@@ -2,9 +2,7 @@ import type { FieldDef, FieldState } from "../domain/models";
 import { buildValidationRules, validateField } from "../domain/operations";
 
 export function createValidateFieldByName(
-	fields: (
-		setter: (prev: Record<string, FieldState>) => Record<string, FieldState>,
-	) => void,
+	fields: (setter: (prev: Record<string, FieldState>) => Record<string, FieldState>) => void,
 	config: { fields: FieldDef[] },
 	fieldsAccessor: () => Record<string, FieldState>,
 ) {
@@ -31,10 +29,7 @@ export function createValidateFieldByName(
 	};
 }
 
-export function createValidate(
-	validateFieldByName: (name: string) => boolean,
-	config: { fields: FieldDef[] },
-) {
+export function createValidate(validateFieldByName: (name: string) => boolean, config: { fields: FieldDef[] }) {
 	return (name?: string): boolean => {
 		if (name) {
 			return validateFieldByName(name);

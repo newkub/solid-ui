@@ -3,16 +3,10 @@
  */
 
 import type { Command } from "../../types";
-import type {
-	AISearchRequest,
-	AISearchResponse,
-} from "../../types/search/ai-search";
+import type { AISearchRequest, AISearchResponse } from "../../types/search/ai-search";
 
 export interface AISearcher {
-	search(
-		commands: readonly Command[],
-		request: AISearchRequest,
-	): Promise<AISearchResponse>;
+	search(commands: readonly Command[], request: AISearchRequest): Promise<AISearchResponse>;
 }
 
 export interface AISearcherConfig {

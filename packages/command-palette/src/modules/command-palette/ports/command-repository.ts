@@ -3,10 +3,7 @@
  * Defines contract for command storage operations
  */
 
-import type {
-	Command,
-	CommandSearchQuery,
-} from "#modules/command-palette/types";
+import type { Command, CommandSearchQuery } from "#modules/command-palette/types";
 import type { PaginatedResult, Result } from "#shared/types";
 
 export interface CommandRepository {
@@ -19,9 +16,7 @@ export interface CommandRepository {
 
 	// Search operations
 	search(query: CommandSearchQuery): Promise<Result<readonly Command[]>>;
-	searchPaginated(
-		query: CommandSearchQuery,
-	): Promise<Result<PaginatedResult<Command>>>;
+	searchPaginated(query: CommandSearchQuery): Promise<Result<PaginatedResult<Command>>>;
 
 	// Category operations
 	findByCategory(category: string): Promise<Result<readonly Command[]>>;

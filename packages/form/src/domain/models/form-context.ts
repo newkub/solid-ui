@@ -33,9 +33,7 @@ export interface FormContextValue {
 	clearError: (name: string) => void;
 	reset: (name?: string) => void;
 	validate: (name?: string) => boolean;
-	submit: <T = Record<string, FieldValue>>(
-		data?: T,
-	) => Promise<FormSubmission<T>>;
+	submit: <T = Record<string, FieldValue>>(data?: T) => Promise<FormSubmission<T>>;
 
 	// Field actions
 	focus: (name: string) => void;

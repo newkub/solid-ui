@@ -55,11 +55,7 @@ export const processAISearchResponse = (
 };
 
 // Calculate relevance score for command matching
-export const calculateRelevanceScore = (
-	command: Command,
-	query: string,
-	context?: AISearchContext,
-): number => {
+export const calculateRelevanceScore = (command: Command, query: string, context?: AISearchContext): number => {
 	const lowerQuery = query.toLowerCase();
 	let score = 0;
 
@@ -74,11 +70,7 @@ export const calculateRelevanceScore = (
 	}
 
 	// Keywords match
-	if (
-		command.keywords?.some((keyword) =>
-			keyword.toLowerCase().includes(lowerQuery),
-		)
-	) {
+	if (command.keywords?.some((keyword) => keyword.toLowerCase().includes(lowerQuery))) {
 		score += 0.2;
 	}
 
@@ -88,10 +80,7 @@ export const calculateRelevanceScore = (
 	}
 
 	// Recent commands boost
-	if (
-		context?.recentCommands?.includes(command.id) ||
-		context?.recentCommands?.includes(command.label)
-	) {
+	if (context?.recentCommands?.includes(command.id) || context?.recentCommands?.includes(command.label)) {
 		score += 0.15;
 	}
 
@@ -99,9 +88,7 @@ export const calculateRelevanceScore = (
 };
 
 // Sort suggestions by relevance score
-export const sortSuggestionsByRelevance = (
-	suggestions: readonly AISuggestion[],
-): readonly AISuggestion[] => {
+export const sortSuggestionsByRelevance = (suggestions: readonly AISuggestion[]): readonly AISuggestion[] => {
 	return [...suggestions].sort((a, b) => b.relevanceScore - a.relevanceScore);
 };
 
@@ -130,15 +117,10 @@ export const performAISearch = async (
 		commandId: command.id,
 		command,
 		relevanceScore: calculateRelevanceScore(command, query, context),
-		matchedKeywords: command.keywords?.filter((keyword) =>
-			keyword.toLowerCase().includes(query.toLowerCase()),
-		),
+		matchedKeywords: command.keywords?.filter((keyword) => keyword.toLowerCase().includes(query.toLowerCase())),
 	}));
 
-	const filteredSuggestions = filterSuggestionsByConfidence(
-		suggestions,
-		options?.confidenceThreshold ?? 0.5,
-	);
+	const filteredSuggestions = filterSuggestionsByConfidence(suggestions, options?.confidenceThreshold ?? 0.5);
 
 	const sortedSuggestions = sortSuggestionsByRelevance(filteredSuggestions);
 

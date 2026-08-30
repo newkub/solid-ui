@@ -2,18 +2,12 @@
  * Search Operations for Memory Command Repository
  */
 
-import type {
-	Command,
-	CommandSearchQuery,
-} from "#modules/command-palette/types";
+import type { Command, CommandSearchQuery } from "#modules/command-palette/types";
 import type { PaginatedResult, Result } from "#shared/types";
 import type { MemoryCommandRepositoryState } from "./memory-command-repository";
 
 // Pure function: filter commands by search criteria
-const filterCommandsByQuery = (
-	commands: readonly Command[],
-	query: CommandSearchQuery,
-): Command[] => {
+const filterCommandsByQuery = (commands: readonly Command[], query: CommandSearchQuery): Command[] => {
 	let filtered = [...commands];
 
 	if (query.query && query.query.trim().length > 0) {
@@ -22,16 +16,12 @@ const filterCommandsByQuery = (
 			(command) =>
 				command.label.toLowerCase().includes(lowerQuery) ||
 				command.description?.toLowerCase().includes(lowerQuery) ||
-				command.keywords?.some((keyword) =>
-					keyword.toLowerCase().includes(lowerQuery),
-				),
+				command.keywords?.some((keyword) => keyword.toLowerCase().includes(lowerQuery)),
 		);
 	}
 
 	if (query.category) {
-		filtered = filtered.filter(
-			(command) => command.category === query.category,
-		);
+		filtered = filtered.filter((command) => command.category === query.category);
 	}
 
 	if (query.enabled !== undefined) {

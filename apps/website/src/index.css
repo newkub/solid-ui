@@ -1,0 +1,424 @@
+:root {
+	--su-bg: #f8fafc;
+	--su-surface: #ffffff;
+	--su-text: #0f172a;
+	--su-text-muted: #64748b;
+	--su-border: #e2e8f0;
+	--su-primary: #0f172a;
+	--su-primary-text: #ffffff;
+	--su-radius: 0.5rem;
+	font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+	color: var(--su-text);
+	background: var(--su-bg);
+}
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	line-height: 1.5;
+}
+
+.app {
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+
+.site-header {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	padding: 1rem 1.5rem;
+	background: var(--su-surface);
+	border-bottom: 1px solid var(--su-border);
+	position: sticky;
+	top: 0;
+	z-index: 10;
+}
+
+.site-title {
+	margin: 0;
+	font-size: 1.25rem;
+	font-weight: 700;
+}
+
+.site-title a {
+	color: var(--su-text);
+	text-decoration: none;
+}
+
+.site-nav {
+	display: flex;
+	gap: 0.75rem;
+	margin-left: auto;
+}
+
+.site-link {
+	color: var(--su-text-muted);
+	text-decoration: none;
+	font-size: 0.9rem;
+	font-weight: 500;
+	padding: 0.35rem 0.5rem;
+	border-radius: var(--su-radius);
+}
+
+.site-link:hover {
+	color: var(--su-text);
+	background: var(--su-bg);
+}
+
+.menu-toggle {
+	display: none;
+	margin-left: auto;
+}
+
+.site-main {
+	flex: 1;
+	padding: 1.5rem;
+	max-width: 1200px;
+	width: 100%;
+	margin: 0 auto;
+}
+
+.site-footer {
+	padding: 1.5rem;
+	text-align: center;
+	font-size: 0.85rem;
+	color: var(--su-text-muted);
+	border-top: 1px solid var(--su-border);
+}
+
+.page {
+	margin-bottom: 2rem;
+}
+
+.page-title {
+	margin: 0 0 0.5rem;
+	font-size: 1.75rem;
+}
+
+.page-lead {
+	margin: 0 0 1.5rem;
+	color: var(--su-text-muted);
+}
+
+.page-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	margin-bottom: 0.75rem;
+}
+
+.hero-actions {
+	display: flex;
+	gap: 0.75rem;
+	flex-wrap: wrap;
+	margin-top: 1.5rem;
+}
+
+.category {
+	margin-bottom: 2rem;
+}
+
+.category-title {
+	font-size: 1.15rem;
+	margin: 0 0 0.75rem;
+	color: var(--su-text-muted);
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+}
+
+.gallery-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+	gap: 1rem;
+}
+
+.gallery-card {
+	display: flex;
+	flex-direction: column;
+	padding: 1rem;
+	border: 1px solid var(--su-border);
+	border-radius: var(--su-radius);
+	background: var(--su-surface);
+	text-decoration: none;
+	color: var(--su-text);
+	transition: box-shadow 0.15s ease;
+}
+
+.gallery-card:hover {
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.gallery-name {
+	margin: 0 0 0.75rem;
+	font-size: 1rem;
+	color: var(--su-text-muted);
+}
+
+.gallery-preview {
+	flex: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.demo-stage {
+	padding: 1.5rem;
+	background: var(--su-surface);
+	border: 1px solid var(--su-border);
+	border-radius: var(--su-radius);
+	margin-bottom: 1rem;
+}
+
+pre {
+	background: var(--su-surface);
+	padding: 1rem;
+	border-radius: var(--su-radius);
+	overflow-x: auto;
+	border: 1px solid var(--su-border);
+	font-size: 0.85rem;
+}
+
+.demo-image {
+	max-width: 100%;
+	border-radius: var(--su-radius);
+}
+
+.demo-table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-bottom: 1rem;
+}
+
+.demo-table th,
+.demo-table td {
+	padding: 0.75rem;
+	text-align: left;
+	border-bottom: 1px solid var(--su-border);
+}
+
+.demo-table th {
+	font-weight: 600;
+	background: var(--su-bg);
+}
+
+.preview-element {
+	padding: 0.5rem;
+}
+
+.demo-transition {
+	padding: 1rem;
+}
+
+/* Solid UI component base styles */
+
+.solidui-button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+	padding: 0.5rem 1rem;
+	border: 1px solid var(--su-border);
+	border-radius: var(--su-radius);
+	background: var(--su-surface);
+	color: var(--su-text);
+	font: inherit;
+	cursor: pointer;
+	text-decoration: none;
+	transition:
+		background 0.15s ease,
+		border-color 0.15s ease,
+		color 0.15s ease;
+}
+
+.solidui-button--primary {
+	background: var(--su-primary);
+	color: var(--su-primary-text);
+	border-color: var(--su-primary);
+}
+
+.solidui-button--secondary {
+	background: var(--su-bg);
+	border-color: var(--su-border);
+}
+
+.solidui-button--ghost {
+	background: transparent;
+	border-color: transparent;
+}
+
+.solidui-button--link {
+	background: transparent;
+	border-color: transparent;
+	color: #2563eb;
+	text-decoration: underline;
+}
+
+.solidui-button--sm {
+	padding: 0.25rem 0.5rem;
+	font-size: 0.85rem;
+}
+
+.solidui-button--lg {
+	padding: 0.75rem 1.25rem;
+	font-size: 1rem;
+}
+
+.solidui-button--icon {
+	padding: 0.5rem;
+	aspect-ratio: 1;
+}
+
+.solidui-input,
+.solidui-textarea,
+.solidui-select {
+	width: 100%;
+	padding: 0.5rem 0.75rem;
+	border: 1px solid var(--su-border);
+	border-radius: var(--su-radius);
+	background: var(--su-surface);
+	color: var(--su-text);
+	font: inherit;
+}
+
+.solidui-card {
+	padding: 1rem;
+	background: var(--su-surface);
+	border: 1px solid var(--su-border);
+	border-radius: var(--su-radius);
+}
+
+.solidui-badge {
+	display: inline-flex;
+	padding: 0.15rem 0.5rem;
+	border-radius: 9999px;
+	background: var(--su-bg);
+	color: var(--su-text-muted);
+	font-size: 0.75rem;
+	font-weight: 600;
+	margin-right: 0.5rem;
+}
+
+.solidui-avatar,
+.solidui-skeleton,
+.solidui-spinner,
+.solidui-loading {
+	width: 2.5rem;
+	height: 2.5rem;
+	border-radius: var(--su-radius);
+	background: var(--su-bg);
+}
+
+.solidui-spinner,
+.solidui-loading {
+	border: 3px solid var(--su-border);
+	border-top-color: var(--su-primary);
+	border-radius: 50%;
+	animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+.solidui-progress {
+	width: 100%;
+	height: 0.75rem;
+}
+
+.solidui-image {
+	max-width: 100%;
+	height: auto;
+	border-radius: var(--su-radius);
+}
+
+.solidui-separator {
+	border: 0;
+	border-top: 1px solid var(--su-border);
+	width: 100%;
+}
+
+.solidui-table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.solidui-form-field {
+	margin-bottom: 1rem;
+}
+
+.solidui-label {
+	display: block;
+	font-size: 0.85rem;
+	font-weight: 600;
+	margin-bottom: 0.35rem;
+}
+
+.solidui-alert,
+.solidui-dialog,
+.solidui-modal,
+.solidui-sheet,
+.solidui-drawer,
+.solidui-tooltip,
+.solidui-popover,
+.solidui-toast,
+.solidui-toaster,
+.solidui-notification,
+.solidui-command,
+.solidui-command-palette,
+.solidui-dropdown-menu,
+.solidui-tabs,
+.solidui-menubar,
+.solidui-navigation-menu,
+.solidui-accordion,
+.solidui-collapsible,
+.solidui-toggle-group,
+.solidui-resizable,
+.solidui-chart,
+.solidui-calendar,
+.solidui-virtual-list,
+.solidui-scroll-area,
+.solidui-tree-view,
+.solidui-breadcrumb,
+.solidui-pagination,
+.solidui-steps,
+.solidui-timeline {
+	padding: 1rem;
+	border: 1px solid var(--su-border);
+	border-radius: var(--su-radius);
+	background: var(--su-surface);
+}
+
+@media (max-width: 768px) {
+	.site-nav {
+		display: none;
+		position: absolute;
+		top: 100%;
+		left: 0;
+		right: 0;
+		flex-direction: column;
+		background: var(--su-surface);
+		padding: 1rem;
+		border-bottom: 1px solid var(--su-border);
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+	}
+
+	.site-nav.open {
+		display: flex;
+	}
+
+	.menu-toggle {
+		display: block;
+	}
+
+	.gallery-grid {
+		grid-template-columns: 1fr;
+	}
+}

@@ -3,10 +3,7 @@
  */
 
 import type { Result } from "#shared/types";
-import type {
-	ClipboardEntry,
-	ClipboardHistory,
-} from "#types/integration/clipboard";
+import type { ClipboardEntry, ClipboardHistory } from "#types/integration/clipboard";
 
 // Create clipboard entry
 export const createClipboardEntry = (
@@ -46,10 +43,7 @@ export const addToClipboardHistory = (
 };
 
 // Remove entry from history
-export const removeFromClipboardHistory = (
-	history: ClipboardHistory,
-	entryId: string,
-): Result<ClipboardHistory> => {
+export const removeFromClipboardHistory = (history: ClipboardHistory, entryId: string): Result<ClipboardHistory> => {
 	const newHistory = history.filter((entry) => entry.id !== entryId);
 	return { success: true, data: newHistory };
 };
@@ -60,18 +54,13 @@ export const clearClipboardHistory = (): Result<ClipboardHistory> => {
 };
 
 // Search clipboard history
-export const searchClipboardHistory = (
-	history: ClipboardHistory,
-	query: string,
-): Result<readonly ClipboardEntry[]> => {
+export const searchClipboardHistory = (history: ClipboardHistory, query: string): Result<readonly ClipboardEntry[]> => {
 	if (!query || query.trim().length === 0) {
 		return { success: true, data: history };
 	}
 
 	const lowerQuery = query.toLowerCase();
-	const results = history.filter((entry) =>
-		entry.content.toLowerCase().includes(lowerQuery),
-	);
+	const results = history.filter((entry) => entry.content.toLowerCase().includes(lowerQuery));
 
 	return { success: true, data: results };
 };
@@ -86,9 +75,7 @@ export const filterClipboardHistoryByType = (
 };
 
 // Validate clipboard entry
-export const validateClipboardEntry = (
-	entry: ClipboardEntry,
-): Result<ClipboardEntry> => {
+export const validateClipboardEntry = (entry: ClipboardEntry): Result<ClipboardEntry> => {
 	if (!entry.id || entry.id.trim().length === 0) {
 		return { success: false, error: new Error("Entry ID is required") };
 	}

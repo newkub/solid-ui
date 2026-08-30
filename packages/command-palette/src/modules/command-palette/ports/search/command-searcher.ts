@@ -16,8 +16,5 @@ export interface SearchResult {
 }
 
 export interface CommandSearcher {
-	search(
-		commands: readonly Command[],
-		options: SearchOptions,
-	): Promise<SearchResult>;
+	search(commands: readonly Command[], options: SearchOptions): Promise<SearchResult>;
 }

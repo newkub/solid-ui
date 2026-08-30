@@ -34,10 +34,7 @@ export const resolvePreset = (
 	return customPresets?.[presetName] || DEFAULT_PRESETS[presetName];
 };
 
-export const mergePresetWithOptions = (
-	preset: PresetDefinition,
-	options: ImageTransform,
-): ImageTransform => {
+export const mergePresetWithOptions = (preset: PresetDefinition, options: ImageTransform): ImageTransform => {
 	return {
 		...preset.transforms,
 		...options,

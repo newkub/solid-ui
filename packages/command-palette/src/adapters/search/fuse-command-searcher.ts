@@ -3,15 +3,9 @@
  */
 
 import { DEFAULT_SEARCH_THRESHOLD } from "../../modules/command-palette/domain/constants";
-import type {
-	CacheConfig,
-	SearchCacheState,
-} from "../../modules/command-palette/domain/operations/performance";
+import type { CacheConfig, SearchCacheState } from "../../modules/command-palette/domain/operations/performance";
 import { createCacheState } from "../../modules/command-palette/domain/operations/performance";
-import type {
-	SearchOptions,
-	SearchResult,
-} from "../../modules/command-palette/ports/search/command-searcher";
+import type { SearchOptions, SearchResult } from "../../modules/command-palette/ports/search/command-searcher";
 import type { Command } from "../../modules/command-palette/types";
 
 export type CustomCommandSearcherState = Readonly<{
@@ -38,11 +32,7 @@ function levenshteinDistance(a: string, b: string): number {
 			if (b.charAt(i - 1) === a.charAt(j - 1)) {
 				matrix[i]![j] = matrix[i - 1]![j - 1]!;
 			} else {
-				matrix[i]![j] = Math.min(
-					matrix[i - 1]![j - 1]! + 1,
-					matrix[i]![j - 1]! + 1,
-					matrix[i - 1]![j]! + 1,
-				);
+				matrix[i]![j] = Math.min(matrix[i - 1]![j - 1]! + 1, matrix[i]![j - 1]! + 1, matrix[i - 1]![j]! + 1);
 			}
 		}
 	}
@@ -78,15 +68,10 @@ function fuzzyMatchScore(query: string, text: string): number {
 /**
  * Calculate weighted score for a command
  */
-function calculateCommandScore(
-	command: Command,
-	query: string,
-): { score: number; command: Command } {
+function calculateCommandScore(command: Command, query: string): { score: number; command: Command } {
 	const labelScore = fuzzyMatchScore(query, command.label) * 0.7;
-	const descriptionScore =
-		fuzzyMatchScore(query, command.description || "") * 0.2;
-	const keywordsScore =
-		fuzzyMatchScore(query, (command.keywords || []).join(" ")) * 0.1;
+	const descriptionScore = fuzzyMatchScore(query, command.description || "") * 0.2;
+	const keywordsScore = fuzzyMatchScore(query, (command.keywords || []).join(" ")) * 0.1;
 
 	const totalScore = labelScore + descriptionScore + keywordsScore;
 
@@ -97,9 +82,7 @@ export const createCustomCommandSearcher = (
 	commands: readonly Command[],
 	cacheConfig?: CacheConfig,
 ): CustomCommandSearcherState => {
-	const cache = cacheConfig
-		? createCacheState(cacheConfig)
-		: createCacheState({ maxSize: 100, ttl: 300000 }); // 5 minutes default
+	const cache = cacheConfig ? createCacheState(cacheConfig) : createCacheState({ maxSize: 100, ttl: 300000 }); // 5 minutes default
 
 	return {
 		commands,
@@ -122,9 +105,7 @@ export const searchWithCustom = async (
 	}
 
 	// Calculate scores for all commands
-	const scoredCommands = commands.map((command) =>
-		calculateCommandScore(command, query),
-	);
+	const scoredCommands = commands.map((command) => calculateCommandScore(command, query));
 
 	// Filter by threshold
 	const threshold = options.threshold ?? DEFAULT_SEARCH_THRESHOLD;

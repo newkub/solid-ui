@@ -12,16 +12,8 @@ export interface FocusTrapOptions {
 	readonly escapeDeactivates?: boolean;
 }
 
-export function useFocusTrap(
-	containerRef: () => HTMLElement | undefined,
-	options: FocusTrapOptions = {},
-) {
-	const {
-		autoFocus = true,
-		returnFocus = true,
-		clickOutsideDeactivates = true,
-		escapeDeactivates = true,
-	} = options;
+export function useFocusTrap(containerRef: () => HTMLElement | undefined, options: FocusTrapOptions = {}) {
+	const { autoFocus = true, returnFocus = true, clickOutsideDeactivates = true, escapeDeactivates = true } = options;
 
 	let previousActiveElement: HTMLElement | null = null;
 
@@ -38,17 +30,13 @@ export function useFocusTrap(
 			"[tabindex]:not([tabindex='-1'])",
 		].join(", ");
 
-		return Array.from(
-			container.querySelectorAll<HTMLElement>(focusableSelectors),
-		);
+		return Array.from(container.querySelectorAll<HTMLElement>(focusableSelectors));
 	};
 
 	/**
 	 * Get the first focusable element
 	 */
-	const getFirstFocusableElement = (
-		container: HTMLElement,
-	): HTMLElement | null => {
+	const getFirstFocusableElement = (container: HTMLElement): HTMLElement | null => {
 		const elements = getFocusableElements(container);
 		return elements.length > 0 ? elements[0]! : null;
 	};

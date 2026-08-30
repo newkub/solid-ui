@@ -3,17 +3,10 @@
  */
 
 import type { Command } from "../../../types/command";
-import type {
-	CommandContext,
-	ContextFilter,
-	ContextMatchResult,
-} from "../../../types/integration/context";
+import type { CommandContext, ContextFilter, ContextMatchResult } from "../../../types/integration/context";
 
 // Match command against context filter
-export const matchCommandContext = (
-	command: Command,
-	filter: ContextFilter,
-): ContextMatchResult => {
+export const matchCommandContext = (command: Command, filter: ContextFilter): ContextMatchResult => {
 	let score = 0;
 	const matchedContexts: CommandContext[] = [];
 
@@ -46,12 +39,8 @@ export const matchCommandContext = (
 	if (filter.userRole) {
 		// Assume commands have role metadata in description or keywords
 		const hasRole =
-			command.description
-				?.toLowerCase()
-				.includes(filter.userRole?.toLowerCase() ?? "") ||
-			command.keywords?.some((k) =>
-				k.toLowerCase().includes(filter.userRole?.toLowerCase() ?? ""),
-			);
+			command.description?.toLowerCase().includes(filter.userRole?.toLowerCase() ?? "") ||
+			command.keywords?.some((k) => k.toLowerCase().includes(filter.userRole?.toLowerCase() ?? ""));
 		if (hasRole) {
 			score += 0.1;
 			matchedContexts.push({ userRole: filter.userRole });
@@ -67,13 +56,8 @@ export const matchCommandContext = (
 };
 
 // Filter commands by context
-export const filterCommandsByContext = (
-	commands: readonly Command[],
-	filter: ContextFilter,
-): readonly Command[] => {
-	const results = commands.map((command) =>
-		matchCommandContext(command, filter),
-	);
+export const filterCommandsByContext = (commands: readonly Command[], filter: ContextFilter): readonly Command[] => {
+	const results = commands.map((command) => matchCommandContext(command, filter));
 
 	return results
 		.filter((result) => result.matches)
@@ -82,19 +66,13 @@ export const filterCommandsByContext = (
 };
 
 // Update context state
-export const updateContext = (
-	currentContext: CommandContext,
-	updates: Partial<CommandContext>,
-): CommandContext => ({
+export const updateContext = (currentContext: CommandContext, updates: Partial<CommandContext>): CommandContext => ({
 	...currentContext,
 	...updates,
 });
 
 // Create initial context
-export const createInitialContext = (
-	route?: string,
-	component?: string,
-): CommandContext => ({
+export const createInitialContext = (route?: string, component?: string): CommandContext => ({
 	route,
 	component,
 	state: {},

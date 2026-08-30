@@ -1,12 +1,7 @@
 // Table Domain Events
 // Domain event types for table operations
 
-import type {
-	ColumnDef,
-	PaginationState,
-	SortState,
-	TableConfig,
-} from "#table/domain/models";
+import type { ColumnDef, PaginationState, SortState, TableConfig } from "#table/domain/models";
 
 export type TableEventType =
 	| "columnSorted"

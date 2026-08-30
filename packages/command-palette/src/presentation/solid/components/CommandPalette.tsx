@@ -78,11 +78,7 @@ export function CommandPalette(props: CommandPaletteProps) {
 	return (
 		<Show when={local.isOpen}>
 			{/* biome-ignore lint/a11y/noStaticElementInteractions: Overlay with presentation role for click handling */}
-			<div
-				class="command-palette-overlay"
-				onClick={handleOverlayClick}
-				role="presentation"
-			>
+			<div class="command-palette-overlay" onClick={handleOverlayClick} role="presentation">
 				<div
 					ref={paletteRef}
 					class="command-palette"
@@ -127,10 +123,7 @@ export function CommandPalette(props: CommandPaletteProps) {
 								)}
 							</For>
 							<Show when={filteredCommands().length === 0}>
-								<EmptyState
-									suggestions={emptySuggestions()}
-									onSelectCommand={selectCommand}
-								/>
+								<EmptyState suggestions={emptySuggestions()} onSelectCommand={selectCommand} />
 							</Show>
 						</Show>
 					</div>

@@ -6,9 +6,7 @@
 import type { Result } from "#shared/types";
 import { validateString } from "#shared/utils";
 
-export const validateCommandKeywords = (
-	keywords: readonly string[],
-): Result<readonly string[]> => {
+export const validateCommandKeywords = (keywords: readonly string[]): Result<readonly string[]> => {
 	// Validate array size
 	if (keywords.length > 10) {
 		return {
@@ -34,9 +32,7 @@ export const validateCommandKeywords = (
 	}
 
 	// Check for duplicates
-	const uniqueKeywords = Array.from(
-		new Set(keywords.map((k) => k.toLowerCase())),
-	);
+	const uniqueKeywords = Array.from(new Set(keywords.map((k) => k.toLowerCase())));
 	if (uniqueKeywords.length !== keywords.length) {
 		return {
 			success: false,

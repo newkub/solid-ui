@@ -1,10 +1,5 @@
 import type { Accessor } from "solid-js";
-import type {
-	FieldState,
-	FieldValue,
-	FormConfig,
-	FormSubmission,
-} from "../domain/models";
+import type { FieldState, FieldValue, FormConfig, FormSubmission } from "../domain/models";
 
 export interface FormContextValue {
 	config: FormConfig;
@@ -23,9 +18,7 @@ export interface FormContextValue {
 	clearError: (name: string) => void;
 	reset: (name?: string) => void;
 	validate: (name?: string) => boolean;
-	submit: <T = Record<string, FieldValue>>(
-		data?: T,
-	) => Promise<FormSubmission<T>>;
+	submit: <T = Record<string, FieldValue>>(data?: T) => Promise<FormSubmission<T>>;
 	focus: (name: string) => void;
 	blur: (name: string) => void;
 	disable: (name: string) => void;

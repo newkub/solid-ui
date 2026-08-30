@@ -1,8 +1,4 @@
-import type {
-	Workflow,
-	WorkflowStep,
-	WorkflowTrigger,
-} from "#modules/command-palette/types";
+import type { Workflow, WorkflowStep, WorkflowTrigger } from "#modules/command-palette/types";
 
 export function createStepHandlers(
 	steps: WorkflowStep[],
@@ -28,11 +24,7 @@ export function createStepHandlers(
 		}
 	};
 
-	const handleStepChange = (
-		index: number,
-		field: keyof WorkflowStep,
-		value: unknown,
-	) => {
+	const handleStepChange = (index: number, field: keyof WorkflowStep, value: unknown) => {
 		const newSteps = [...steps];
 		const currentStep = newSteps[index];
 		newSteps[index] = {
@@ -45,10 +37,7 @@ export function createStepHandlers(
 	return { handleAddStep, handleRemoveStep, handleStepChange };
 }
 
-export function createTriggerHandlers(
-	triggers: WorkflowTrigger[],
-	setTriggers: (triggers: WorkflowTrigger[]) => void,
-) {
+export function createTriggerHandlers(triggers: WorkflowTrigger[], setTriggers: (triggers: WorkflowTrigger[]) => void) {
 	const handleAddTrigger = () => {
 		const newTrigger: WorkflowTrigger = {
 			type: "manual",
@@ -61,11 +50,7 @@ export function createTriggerHandlers(
 		setTriggers(triggers.filter((_, i) => i !== index));
 	};
 
-	const handleTriggerChange = (
-		index: number,
-		field: keyof WorkflowTrigger,
-		value: unknown,
-	) => {
+	const handleTriggerChange = (index: number, field: keyof WorkflowTrigger, value: unknown) => {
 		const newTriggers = [...triggers];
 		const currentTrigger = newTriggers[index];
 		newTriggers[index] = {

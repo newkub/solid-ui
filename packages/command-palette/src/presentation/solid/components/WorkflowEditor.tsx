@@ -4,11 +4,7 @@
 
 import { createMemo, createSignal, Show, splitProps } from "solid-js";
 import type { WorkflowStep } from "#modules/command-palette/types";
-import {
-	createSaveHandler,
-	createStepHandlers,
-	createTriggerHandlers,
-} from "./workflow-editor/handlers";
+import { createSaveHandler, createStepHandlers, createTriggerHandlers } from "./workflow-editor/handlers";
 import { StepEditor } from "./workflow-editor/StepEditor";
 import { StepsSection } from "./workflow-editor/StepsSection";
 import { TriggersSection } from "./workflow-editor/TriggersSection";
@@ -16,38 +12,23 @@ import type { WorkflowEditorProps } from "./workflow-editor/types";
 import { WorkflowForm } from "./workflow-editor/WorkflowForm";
 
 export function WorkflowEditor(props: WorkflowEditorProps) {
-	const [local] = splitProps(props, [
-		"workflow",
-		"onSave",
-		"onCancel",
-		"commands",
-	]);
+	const [local] = splitProps(props, ["workflow", "onSave", "onCancel", "commands"]);
 
 	const [name, setName] = createSignal(local.workflow?.name ?? "");
-	const [description, setDescription] = createSignal(
-		local.workflow?.description ?? "",
-	);
+	const [description, setDescription] = createSignal(local.workflow?.description ?? "");
 	const [enabled, setEnabled] = createSignal(local.workflow?.enabled ?? true);
-	const [steps, setSteps] = createSignal<WorkflowStep[]>([
-		...(local.workflow?.steps ?? []),
-	]);
-	const [triggers, setTriggers] = createSignal([
-		...(local.workflow?.triggers ?? []),
-	]);
-	const [selectedStepIndex, setSelectedStepIndex] = createSignal<number | null>(
-		null,
+	const [steps, setSteps] = createSignal<WorkflowStep[]>([...(local.workflow?.steps ?? [])]);
+	const [triggers, setTriggers] = createSignal([...(local.workflow?.triggers ?? [])]);
+	const [selectedStepIndex, setSelectedStepIndex] = createSignal<number | null>(null);
+
+	const { handleAddStep, handleRemoveStep, handleStepChange } = createStepHandlers(
+		steps(),
+		setSteps,
+		selectedStepIndex(),
+		setSelectedStepIndex,
 	);
 
-	const { handleAddStep, handleRemoveStep, handleStepChange } =
-		createStepHandlers(
-			steps(),
-			setSteps,
-			selectedStepIndex(),
-			setSelectedStepIndex,
-		);
-
-	const { handleAddTrigger, handleRemoveTrigger, handleTriggerChange } =
-		createTriggerHandlers(triggers(), setTriggers);
+	const { handleAddTrigger, handleRemoveTrigger, handleTriggerChange } = createTriggerHandlers(triggers(), setTriggers);
 
 	const handleSave = createSaveHandler(
 		local.workflow,
@@ -67,15 +48,9 @@ export function WorkflowEditor(props: WorkflowEditorProps) {
 	return (
 		<div class="workflow-editor">
 			<div class="workflow-header">
-				<h2 class="workflow-title">
-					{local.workflow ? "Edit Workflow" : "Create Workflow"}
-				</h2>
+				<h2 class="workflow-title">{local.workflow ? "Edit Workflow" : "Create Workflow"}</h2>
 				<div class="workflow-actions">
-					<button
-						class="action-button cancel"
-						onClick={local.onCancel}
-						type="button"
-					>
+					<button class="action-button cancel" onClick={local.onCancel} type="button">
 						Cancel
 					</button>
 					<button class="action-button save" onClick={handleSave} type="button">

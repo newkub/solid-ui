@@ -1,0 +1,24 @@
+{
+	"name": "@wrikka/mcp",
+	"version": "0.0.1",
+	"private": true,
+	"type": "module",
+	"description": "MCP server for solid-ui component library",
+	"scripts": {
+		"dev": "bun src/index.ts",
+		"start": "bun src/index.ts",
+		"typecheck": "bunx tsc --noEmit",
+		"lint": "biome check src",
+		"format": "biome format --write src"
+	},
+	"dependencies": {
+		"@modelcontextprotocol/sdk": "^1.30.0",
+		"@wrikka/solid-ui": "workspace:*",
+		"zod": "^3.25.0"
+	},
+	"devDependencies": {
+		"@types/bun": "^1.4.0",
+		"@types/node": "^26.4.0",
+		"typescript": "catalog:"
+	}
+}

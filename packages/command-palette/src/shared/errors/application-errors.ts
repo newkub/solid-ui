@@ -38,11 +38,7 @@ export interface ValidationError extends BaseError {
 	readonly field: string;
 }
 
-export const ValidationError = (
-	field: string,
-	message: string,
-	context?: Record<string, unknown>,
-): ValidationError =>
+export const ValidationError = (field: string, message: string, context?: Record<string, unknown>): ValidationError =>
 	({
 		...createError(
 			"ValidationError",
@@ -61,10 +57,7 @@ export interface AuthorizationError extends BaseError {
 	readonly action: string;
 }
 
-export const AuthorizationError = (
-	action: string,
-	context?: Record<string, unknown>,
-): AuthorizationError =>
+export const AuthorizationError = (action: string, context?: Record<string, unknown>): AuthorizationError =>
 	({
 		...createError(
 			"AuthorizationError",

@@ -5,9 +5,7 @@
 import type { Result } from "#shared/types";
 import type { ExecuteCommandRequest } from "./execute-command";
 
-export const validateExecuteCommandRequest = (
-	request: ExecuteCommandRequest,
-): Result<ExecuteCommandRequest> => {
+export const validateExecuteCommandRequest = (request: ExecuteCommandRequest): Result<ExecuteCommandRequest> => {
 	if (!request.commandId || request.commandId.trim().length === 0) {
 		return {
 			success: false,

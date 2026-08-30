@@ -5,12 +5,7 @@
 import { createMemo, For, Show, splitProps } from "solid-js";
 import type { WorkflowExecution } from "#modules/command-palette/types";
 import { ExecutionCard } from "./workflow-execution-viewer/ExecutionCard";
-import {
-	formatDate,
-	formatDuration,
-	getExecutionProgress,
-	getStatusColor,
-} from "./workflow-execution-viewer/utils";
+import { formatDate, formatDuration, getExecutionProgress, getStatusColor } from "./workflow-execution-viewer/utils";
 
 interface WorkflowExecutionViewerProps {
 	executions: readonly WorkflowExecution[];
@@ -20,24 +15,13 @@ interface WorkflowExecutionViewerProps {
 }
 
 export function WorkflowExecutionViewer(props: WorkflowExecutionViewerProps) {
-	const [local] = splitProps(props, [
-		"executions",
-		"onViewDetails",
-		"onCancelExecution",
-		"onRetryExecution",
-	]);
+	const [local] = splitProps(props, ["executions", "onViewDetails", "onCancelExecution", "onRetryExecution"]);
 
-	const runningExecutions = createMemo(() =>
-		local.executions.filter((e) => e.status === "running"),
-	);
+	const runningExecutions = createMemo(() => local.executions.filter((e) => e.status === "running"));
 
-	const completedExecutions = createMemo(() =>
-		local.executions.filter((e) => e.status === "completed"),
-	);
+	const completedExecutions = createMemo(() => local.executions.filter((e) => e.status === "completed"));
 
-	const failedExecutions = createMemo(() =>
-		local.executions.filter((e) => e.status === "failed"),
-	);
+	const failedExecutions = createMemo(() => local.executions.filter((e) => e.status === "failed"));
 
 	return (
 		<div class="workflow-execution-viewer">
@@ -92,12 +76,8 @@ export function WorkflowExecutionViewer(props: WorkflowExecutionViewerProps) {
 									formatDuration={formatDuration}
 									formatDate={formatDate}
 									getProgress={getExecutionProgress}
-									{...(local.onViewDetails
-										? { onViewDetails: local.onViewDetails }
-										: {})}
-									{...(local.onRetryExecution
-										? { onRetry: local.onRetryExecution }
-										: {})}
+									{...(local.onViewDetails ? { onViewDetails: local.onViewDetails } : {})}
+									{...(local.onRetryExecution ? { onRetry: local.onRetryExecution } : {})}
 								/>
 							)}
 						</For>
@@ -117,9 +97,7 @@ export function WorkflowExecutionViewer(props: WorkflowExecutionViewerProps) {
 									formatDuration={formatDuration}
 									formatDate={formatDate}
 									getProgress={getExecutionProgress}
-									{...(local.onViewDetails
-										? { onViewDetails: local.onViewDetails }
-										: {})}
+									{...(local.onViewDetails ? { onViewDetails: local.onViewDetails } : {})}
 								/>
 							)}
 						</For>

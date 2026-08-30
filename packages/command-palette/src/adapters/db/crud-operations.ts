@@ -22,10 +22,7 @@ export const saveCommand = (
 	}
 };
 
-export const findCommandById = (
-	state: MemoryCommandRepositoryState,
-	id: string,
-): Result<Command | null> => {
+export const findCommandById = (state: MemoryCommandRepositoryState, id: string): Result<Command | null> => {
 	try {
 		const command = state.commands.get(id) || null;
 		return { success: true, data: command };
@@ -37,9 +34,7 @@ export const findCommandById = (
 	}
 };
 
-export const findAllCommands = (
-	state: MemoryCommandRepositoryState,
-): Result<readonly Command[]> => {
+export const findAllCommands = (state: MemoryCommandRepositoryState): Result<readonly Command[]> => {
 	try {
 		const commands = Array.from(state.commands.values());
 		return { success: true, data: commands };
@@ -99,14 +94,8 @@ export const deleteCommand = (
 	}
 };
 
-export const enableCommand = (
-	state: MemoryCommandRepositoryState,
-	id: string,
-): Result<MemoryCommandRepositoryState> =>
+export const enableCommand = (state: MemoryCommandRepositoryState, id: string): Result<MemoryCommandRepositoryState> =>
 	updateCommand(state, id, { enabled: true });
 
-export const disableCommand = (
-	state: MemoryCommandRepositoryState,
-	id: string,
-): Result<MemoryCommandRepositoryState> =>
+export const disableCommand = (state: MemoryCommandRepositoryState, id: string): Result<MemoryCommandRepositoryState> =>
 	updateCommand(state, id, { enabled: false });

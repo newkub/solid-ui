@@ -11,9 +11,7 @@ interface CommandPaletteContextType {
 	close: () => void;
 }
 
-const CommandPaletteContext = createContext<
-	CommandPaletteContextType | undefined
->(undefined);
+const CommandPaletteContext = createContext<CommandPaletteContextType | undefined>(undefined);
 
 export function CommandPaletteProvider(props: { children: any }) {
 	const [isOpen, setIsOpen] = createSignal(false);
@@ -29,19 +27,13 @@ export function CommandPaletteProvider(props: { children: any }) {
 		close,
 	};
 
-	return (
-		<CommandPaletteContext.Provider value={value}>
-			{props.children}
-		</CommandPaletteContext.Provider>
-	);
+	return <CommandPaletteContext.Provider value={value}>{props.children}</CommandPaletteContext.Provider>;
 }
 
 export function useCommandPalette() {
 	const context = useContext(CommandPaletteContext);
 	if (!context) {
-		throw new Error(
-			"useCommandPalette must be used within a CommandPaletteProvider",
-		);
+		throw new Error("useCommandPalette must be used within a CommandPaletteProvider");
 	}
 	return context;
 }

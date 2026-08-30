@@ -32,9 +32,7 @@ export function EmptyState(props: EmptyStateProps) {
 									onClick={() => props.onSelectCommand(suggestion.command)}
 									onKeyDown={handleKeyDown}
 								>
-									<span class="suggestion-label">
-										{suggestion.command.label}
-									</span>
+									<span class="suggestion-label">{suggestion.command.label}</span>
 									<span class="suggestion-reason">{suggestion.reason}</span>
 								</button>
 							);

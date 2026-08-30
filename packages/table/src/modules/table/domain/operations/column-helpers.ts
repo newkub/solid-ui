@@ -14,9 +14,6 @@ export function getFilterableColumns(columns: ColumnDef[]): ColumnDef[] {
 	return columns.filter((col) => col.filterable);
 }
 
-export function getColumnByKey(
-	columns: ColumnDef[],
-	key: string,
-): ColumnDef | undefined {
+export function getColumnByKey(columns: ColumnDef[], key: string): ColumnDef | undefined {
 	return columns.find((col) => col.key === key);
 }

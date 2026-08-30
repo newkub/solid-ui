@@ -5,11 +5,7 @@ interface TriggersSectionProps {
 	triggers: WorkflowTrigger[];
 	onAddTrigger: () => void;
 	onRemoveTrigger: (index: number) => void;
-	onTriggerChange: (
-		index: number,
-		field: keyof WorkflowTrigger,
-		value: unknown,
-	) => void;
+	onTriggerChange: (index: number, field: keyof WorkflowTrigger, value: unknown) => void;
 }
 
 export function TriggersSection(props: TriggersSectionProps) {
@@ -27,9 +23,7 @@ export function TriggersSection(props: TriggersSectionProps) {
 						<div class="trigger-item">
 							<select
 								value={trigger.type}
-								onChange={(e) =>
-									props.onTriggerChange(index(), "type", e.currentTarget.value)
-								}
+								onChange={(e) => props.onTriggerChange(index(), "type", e.currentTarget.value)}
 								class="form-select"
 							>
 								<option value="manual">Manual</option>
@@ -37,11 +31,7 @@ export function TriggersSection(props: TriggersSectionProps) {
 								<option value="schedule">Schedule</option>
 								<option value="event">Event</option>
 							</select>
-							<button
-								class="remove-button"
-								onClick={() => props.onRemoveTrigger(index())}
-								type="button"
-							>
+							<button class="remove-button" onClick={() => props.onRemoveTrigger(index())} type="button">
 								Remove
 							</button>
 						</div>

@@ -27,10 +27,7 @@ export const DEFAULT_TRANSITION: Required<{
 	appear: true,
 };
 
-export const TRANSITION_CLASSES: Record<
-	TransitionMode,
-	{ enter: string[]; leave: string[] }
-> = {
+export const TRANSITION_CLASSES: Record<TransitionMode, { enter: string[]; leave: string[] }> = {
 	fade: {
 		enter: ["opacity-0", "opacity-100"],
 		leave: ["opacity-100", "opacity-0"],

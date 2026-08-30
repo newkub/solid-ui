@@ -1,16 +1,10 @@
-import type {
-	CategoryGroup,
-	CommandCategory,
-} from "#modules/command-palette/types";
+import type { CategoryGroup, CommandCategory } from "#modules/command-palette/types";
 
 export interface CategoryManagerProps {
 	categories?: readonly CommandCategory[];
 	categoryGroups?: readonly CategoryGroup[];
 	onCreateCategory?: (category: Omit<CommandCategory, "id">) => void;
-	onUpdateCategory?: (
-		categoryId: string,
-		updates: Partial<CommandCategory>,
-	) => void;
+	onUpdateCategory?: (categoryId: string, updates: Partial<CommandCategory>) => void;
 	onDeleteCategory?: (categoryId: string) => void;
 	onReorderCategories?: (categoryIds: readonly string[]) => void;
 	commands?: readonly { id: string; label: string; category?: string }[];

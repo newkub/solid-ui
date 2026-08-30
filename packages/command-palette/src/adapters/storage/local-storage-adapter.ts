@@ -21,11 +21,7 @@ export interface StorageError extends Error {
 	key?: string;
 }
 
-export function createStorageError(
-	message: string,
-	operation: string,
-	key?: string,
-): StorageError {
+export function createStorageError(message: string, operation: string, key?: string): StorageError {
 	const error = Object.create(Error.prototype) as StorageError;
 	Object.defineProperties(error, {
 		name: { value: "StorageError" },
@@ -47,13 +43,7 @@ const getItem = <T = unknown>(key: string): Result<T, Error> => {
 		return success(parsed);
 	} catch (error) {
 		return failure(
-			createStorageError(
-				error instanceof Error
-					? error.message
-					: "Failed to parse storage value",
-				"get",
-				key,
-			),
+			createStorageError(error instanceof Error ? error.message : "Failed to parse storage value", "get", key),
 		);
 	}
 };
@@ -65,11 +55,7 @@ const setItem = (key: string, value: unknown): Result<void, Error> => {
 		return success(undefined);
 	} catch (error) {
 		return failure(
-			createStorageError(
-				error instanceof Error ? error.message : "Failed to set storage value",
-				"set",
-				key,
-			),
+			createStorageError(error instanceof Error ? error.message : "Failed to set storage value", "set", key),
 		);
 	}
 };
@@ -80,13 +66,7 @@ const removeItem = (key: string): Result<void, Error> => {
 		return success(undefined);
 	} catch (error) {
 		return failure(
-			createStorageError(
-				error instanceof Error
-					? error.message
-					: "Failed to remove storage value",
-				"remove",
-				key,
-			),
+			createStorageError(error instanceof Error ? error.message : "Failed to remove storage value", "remove", key),
 		);
 	}
 };
@@ -96,12 +76,7 @@ const clearAll = (): Result<void, Error> => {
 		localStorage.clear();
 		return success(undefined);
 	} catch (error) {
-		return failure(
-			createStorageError(
-				error instanceof Error ? error.message : "Failed to clear storage",
-				"clear",
-			),
-		);
+		return failure(createStorageError(error instanceof Error ? error.message : "Failed to clear storage", "clear"));
 	}
 };
 

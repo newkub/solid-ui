@@ -16,13 +16,9 @@ export type RestClientState = Readonly<{
 	config: RestClientConfig;
 }>;
 
-export const createRestClient = (
-	config: RestClientConfig,
-): RestClientState => ({ config });
+export const createRestClient = (config: RestClientConfig): RestClientState => ({ config });
 
-export const fetchCommands = async (
-	state: RestClientState,
-): Promise<Result<readonly Command[]>> => {
+export const fetchCommands = async (state: RestClientState): Promise<Result<readonly Command[]>> => {
 	try {
 		const response = await fetch(`${state.config.baseUrl}/commands`, {
 			headers: {
@@ -48,10 +44,7 @@ export const fetchCommands = async (
 	}
 };
 
-export const syncCommand = async (
-	state: RestClientState,
-	command: Command,
-): Promise<Result<Command>> => {
+export const syncCommand = async (state: RestClientState, command: Command): Promise<Result<Command>> => {
 	try {
 		const response = await fetch(`${state.config.baseUrl}/commands`, {
 			method: "POST",
@@ -79,10 +72,7 @@ export const syncCommand = async (
 	}
 };
 
-export const deleteRemoteCommand = async (
-	state: RestClientState,
-	id: string,
-): Promise<Result<void>> => {
+export const deleteRemoteCommand = async (state: RestClientState, id: string): Promise<Result<void>> => {
 	try {
 		const response = await fetch(`${state.config.baseUrl}/commands/${id}`, {
 			method: "DELETE",

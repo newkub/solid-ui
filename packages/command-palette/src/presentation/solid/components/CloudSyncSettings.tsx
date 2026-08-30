@@ -10,42 +10,31 @@ import { SettingsSummary } from "./cloud-sync-settings/SettingsSummary";
 import type { CloudSyncSettingsProps } from "./cloud-sync-settings/types";
 
 export function CloudSyncSettings(props: CloudSyncSettingsProps) {
-	const [local] = splitProps(props, [
-		"config",
-		"status",
-		"onSaveConfig",
-		"onSyncNow",
-		"onResolveConflict",
-	]);
+	const [local] = splitProps(props, ["config", "status", "onSaveConfig", "onSyncNow", "onResolveConflict"]);
 
-	const [provider, setProvider] = createSignal<CloudSyncConfig["provider"]>(
-		local.config?.provider ?? "supabase",
-	);
+	const [provider, setProvider] = createSignal<CloudSyncConfig["provider"]>(local.config?.provider ?? "supabase");
 	const [apiKey, setApiKey] = createSignal(local.config?.apiKey ?? "");
 	const [endpoint, setEndpoint] = createSignal(local.config?.endpoint ?? "");
 	const [bucket, setBucket] = createSignal(local.config?.bucket ?? "");
-	const [syncInterval, setSyncInterval] = createSignal(
-		local.config?.syncInterval ?? 60000,
-	);
+	const [syncInterval, setSyncInterval] = createSignal(local.config?.syncInterval ?? 60000);
 	const [isEditing, setIsEditing] = createSignal(false);
 
-	const { handleSave, handleSyncNow, handleEdit, handleCancel } =
-		createSettingsHandlers(
-			local.config,
-			provider(),
-			apiKey(),
-			endpoint(),
-			bucket(),
-			syncInterval(),
-			setProvider,
-			setApiKey,
-			setEndpoint,
-			setBucket,
-			setSyncInterval,
-			setIsEditing,
-			local.onSaveConfig,
-			local.onSyncNow,
-		);
+	const { handleSave, handleSyncNow, handleEdit, handleCancel } = createSettingsHandlers(
+		local.config,
+		provider(),
+		apiKey(),
+		endpoint(),
+		bucket(),
+		syncInterval(),
+		setProvider,
+		setApiKey,
+		setEndpoint,
+		setBucket,
+		setSyncInterval,
+		setIsEditing,
+		local.onSaveConfig,
+		local.onSyncNow,
+	);
 
 	return (
 		<div class="cloud-sync-settings">
@@ -72,12 +61,7 @@ export function CloudSyncSettings(props: CloudSyncSettingsProps) {
 			</div>
 
 			<div class="settings-actions">
-				<button
-					class="action-button sync"
-					onClick={handleSyncNow}
-					disabled={local.status?.isSyncing}
-					type="button"
-				>
+				<button class="action-button sync" onClick={handleSyncNow} disabled={local.status?.isSyncing} type="button">
 					Sync Now
 				</button>
 				<Show when={!isEditing()}>

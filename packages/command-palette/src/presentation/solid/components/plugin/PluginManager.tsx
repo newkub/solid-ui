@@ -37,10 +37,7 @@ export function PluginManager(props: PluginManagerProps) {
 	});
 
 	const totalCommands = createMemo(() => {
-		return local.plugins.reduce(
-			(sum, plugin) => sum + plugin.commands.length,
-			0,
-		);
+		return local.plugins.reduce((sum, plugin) => sum + plugin.commands.length, 0);
 	});
 
 	const handleTogglePlugin = (pluginId: string) => {
@@ -85,18 +82,14 @@ export function PluginManager(props: PluginManagerProps) {
 			<div class="plugin-list">
 				<For each={filteredPlugins()}>
 					{(plugin) => (
-						<div
-							class={`plugin-card ${plugin.enabled ? "enabled" : "disabled"}`}
-						>
+						<div class={`plugin-card ${plugin.enabled ? "enabled" : "disabled"}`}>
 							<div class="plugin-header">
 								<div class="plugin-info">
 									<h3 class="plugin-name">{plugin.name}</h3>
 									<span class="plugin-version">v{plugin.version}</span>
 								</div>
 								<div class="plugin-status">
-									<span
-										class={`status-badge ${plugin.enabled ? "enabled" : "disabled"}`}
-									>
+									<span class={`status-badge ${plugin.enabled ? "enabled" : "disabled"}`}>
 										{plugin.enabled ? "Enabled" : "Disabled"}
 									</span>
 								</div>
@@ -107,20 +100,14 @@ export function PluginManager(props: PluginManagerProps) {
 							</Show>
 
 							<div class="plugin-commands">
-								<span class="commands-count">
-									{plugin.commands.length} commands
-								</span>
+								<span class="commands-count">{plugin.commands.length} commands</span>
 								<Show when={plugin.commands.length > 0}>
 									<div class="commands-preview">
 										<For each={plugin.commands.slice(0, 3)}>
-											{(command) => (
-												<span class="command-preview">{command.label}</span>
-											)}
+											{(command) => <span class="command-preview">{command.label}</span>}
 										</For>
 										<Show when={plugin.commands.length > 3}>
-											<span class="commands-more">
-												+{plugin.commands.length - 3} more
-											</span>
+											<span class="commands-more">+{plugin.commands.length - 3} more</span>
 										</Show>
 									</div>
 								</Show>
@@ -135,11 +122,7 @@ export function PluginManager(props: PluginManagerProps) {
 									{plugin.enabled ? "Disable" : "Enable"}
 								</button>
 								<Show when={plugin.enabled}>
-									<button
-										class="action-button configure"
-										onClick={() => handleConfigurePlugin(plugin)}
-										type="button"
-									>
+									<button class="action-button configure" onClick={() => handleConfigurePlugin(plugin)} type="button">
 										Configure
 									</button>
 								</Show>
@@ -164,9 +147,7 @@ export function PluginManager(props: PluginManagerProps) {
 						<Show when={selectedPlugin()?.description}>
 							<div class="detail-row">
 								<span class="detail-label">Description:</span>
-								<span class="detail-value">
-									{selectedPlugin()?.description}
-								</span>
+								<span class="detail-value">{selectedPlugin()?.description}</span>
 							</div>
 						</Show>
 					</div>
@@ -188,11 +169,7 @@ export function PluginManager(props: PluginManagerProps) {
 						</For>
 					</div>
 
-					<button
-						class="close-button"
-						onClick={() => setSelectedPlugin(null)}
-						type="button"
-					>
+					<button class="close-button" onClick={() => setSelectedPlugin(null)} type="button">
 						Close
 					</button>
 				</div>

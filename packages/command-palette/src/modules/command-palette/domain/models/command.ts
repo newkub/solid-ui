@@ -3,11 +3,7 @@
  * Immutable data structure with no side effects
  */
 
-import type {
-	Command,
-	CommandAction,
-	CommandRequest,
-} from "#modules/command-palette/types";
+import type { Command, CommandAction, CommandRequest } from "#modules/command-palette/types";
 import type { Result } from "#shared/types";
 
 // Command factory function
@@ -32,10 +28,7 @@ export const createCommand = (request: CommandRequest): Result<Command> => {
 };
 
 // Command update function
-export const updateCommand = (
-	command: Command,
-	updates: Partial<CommandRequest>,
-): Result<Command> => {
+export const updateCommand = (command: Command, updates: Partial<CommandRequest>): Result<Command> => {
 	const updatedCommand: Command = {
 		...command,
 		...updates,
@@ -91,15 +84,9 @@ export const toggleCommand = (command: Command): Command => ({
 // Command queries
 export const isCommandEnabled = (command: Command): boolean => command.enabled;
 
-export const isCommandInCategory = (
-	command: Command,
-	category: string,
-): boolean => command.category === category;
+export const isCommandInCategory = (command: Command, category: string): boolean => command.category === category;
 
-export const commandMatchesQuery = (
-	command: Command,
-	query: string,
-): boolean => {
+export const commandMatchesQuery = (command: Command, query: string): boolean => {
 	const lowerQuery = query.toLowerCase();
 
 	// Check label match
@@ -113,28 +100,21 @@ export const commandMatchesQuery = (
 	}
 
 	// Check keywords match
-	if (
-		command.keywords?.some((keyword) =>
-			keyword.toLowerCase().includes(lowerQuery),
-		)
-	) {
+	if (command.keywords?.some((keyword) => keyword.toLowerCase().includes(lowerQuery))) {
 		return true;
 	}
 
 	return false;
 };
 
-export const commandMatchesCategory = (
-	command: Command,
-	category?: string,
-): boolean => !category || command.category === category;
+export const commandMatchesCategory = (command: Command, category?: string): boolean =>
+	!category || command.category === category;
 
 export const commandHasHotkey = (command: Command): boolean =>
 	Boolean(command.hotkey && command.hotkey.trim().length > 0);
 
 // Command sorting
-export const compareCommandsByLabel = (a: Command, b: Command): number =>
-	a.label.localeCompare(b.label);
+export const compareCommandsByLabel = (a: Command, b: Command): number => a.label.localeCompare(b.label);
 
 export const compareCommandsByCreatedAt = (a: Command, b: Command): number =>
 	b.createdAt.getTime() - a.createdAt.getTime();

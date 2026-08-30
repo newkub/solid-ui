@@ -3,11 +3,7 @@
  */
 
 import type { Result } from "#shared/types";
-import type {
-	KeyboardShortcut,
-	KeyboardState,
-	ShortcutConflict,
-} from "../../../types/ui/keyboard";
+import type { KeyboardShortcut, KeyboardState, ShortcutConflict } from "../../../types/ui/keyboard";
 
 // Create keyboard shortcut
 export const createKeyboardShortcut = (
@@ -41,9 +37,7 @@ export const createKeyboardShortcut = (
 };
 
 // Detect conflicts
-export const detectConflicts = (
-	shortcuts: readonly KeyboardShortcut[],
-): readonly ShortcutConflict[] => {
+export const detectConflicts = (shortcuts: readonly KeyboardShortcut[]): readonly ShortcutConflict[] => {
 	const conflicts: ShortcutConflict[] = [];
 	const keyMap = new Map<string, readonly string[]>();
 
@@ -76,9 +70,7 @@ export const updateShortcut = (
 	shortcutId: string,
 	updates: Partial<KeyboardShortcut>,
 ): KeyboardState => {
-	const updatedShortcuts = state.shortcuts.map((s) =>
-		s.id === shortcutId ? { ...s, ...updates } : s,
-	);
+	const updatedShortcuts = state.shortcuts.map((s) => (s.id === shortcutId ? { ...s, ...updates } : s));
 
 	const newState: KeyboardState = {
 		...state,
@@ -90,10 +82,7 @@ export const updateShortcut = (
 };
 
 // Add shortcut
-export const addShortcut = (
-	state: KeyboardState,
-	shortcut: KeyboardShortcut,
-): KeyboardState => {
+export const addShortcut = (state: KeyboardState, shortcut: KeyboardShortcut): KeyboardState => {
 	const updatedShortcuts = [...state.shortcuts, shortcut];
 
 	const newState: KeyboardState = {
@@ -106,10 +95,7 @@ export const addShortcut = (
 };
 
 // Remove shortcut
-export const removeShortcut = (
-	state: KeyboardState,
-	shortcutId: string,
-): KeyboardState => {
+export const removeShortcut = (state: KeyboardState, shortcutId: string): KeyboardState => {
 	const updatedShortcuts = state.shortcuts.filter((s) => s.id !== shortcutId);
 
 	const newState: KeyboardState = {

@@ -2,18 +2,12 @@
 // Following /follow-arktype workflow for type-safe runtime validation
 
 import { type } from "arktype";
-import type {
-	FieldValue as FieldValueModel,
-	ValidationRule as ValidationRuleModel,
-} from "../models";
+import type { FieldValue as FieldValueModel, ValidationRule as ValidationRuleModel } from "../models";
 
 /**
  * Create validation rule
  */
-export const createRule = (
-	validate: (value: FieldValueModel) => boolean,
-	message: string,
-): ValidationRuleModel => ({
+export const createRule = (validate: (value: FieldValueModel) => boolean, message: string): ValidationRuleModel => ({
 	validate,
 	message,
 });

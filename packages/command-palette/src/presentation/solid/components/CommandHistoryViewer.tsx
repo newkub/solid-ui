@@ -3,15 +3,9 @@
  */
 
 import { createMemo, createSignal, For, Show, splitProps } from "solid-js";
-import type {
-	Command,
-	CommandHistoryEntry,
-} from "#modules/command-palette/types";
+import type { Command, CommandHistoryEntry } from "#modules/command-palette/types";
 import { HistoryEntryCard } from "./command-history-viewer/HistoryEntryCard";
-import {
-	formatDate,
-	formatExecutionTime,
-} from "./command-history-viewer/utils";
+import { formatDate, formatExecutionTime } from "./command-history-viewer/utils";
 
 interface CommandHistoryViewerProps {
 	history?: readonly CommandHistoryEntry[];
@@ -32,9 +26,7 @@ export function CommandHistoryViewer(props: CommandHistoryViewerProps) {
 		"maxEntries",
 	]);
 
-	const [selectedCategory, setSelectedCategory] = createSignal<string | null>(
-		null,
-	);
+	const [selectedCategory, setSelectedCategory] = createSignal<string | null>(null);
 	const [showSuccessfulOnly, setShowSuccessfulOnly] = createSignal(false);
 
 	const displayHistory = createMemo(() => {
@@ -45,13 +37,9 @@ export function CommandHistoryViewer(props: CommandHistoryViewerProps) {
 		}
 
 		if (selectedCategory()) {
-			const categoryCommands = local.commands?.filter(
-				(c) => c.category === selectedCategory(),
-			);
+			const categoryCommands = local.commands?.filter((c) => c.category === selectedCategory());
 			const categoryCommandIds = new Set(categoryCommands?.map((c) => c.id));
-			filtered = filtered.filter((entry) =>
-				categoryCommandIds.has(entry.commandId),
-			);
+			filtered = filtered.filter((entry) => categoryCommandIds.has(entry.commandId));
 		}
 
 		const limit = local.maxEntries ?? 50;
@@ -59,19 +47,13 @@ export function CommandHistoryViewer(props: CommandHistoryViewerProps) {
 	});
 
 	const categories = createMemo(() => {
-		const cats = new Set(
-			(local.commands ?? []).map((c) => c.category).filter(Boolean),
-		);
+		const cats = new Set((local.commands ?? []).map((c) => c.category).filter(Boolean));
 		return Array.from(cats) as string[];
 	});
 
-	const successfulCount = createMemo(
-		() => (local.history ?? []).filter((h) => h.success).length,
-	);
+	const successfulCount = createMemo(() => (local.history ?? []).filter((h) => h.success).length);
 
-	const failedCount = createMemo(
-		() => (local.history ?? []).filter((h) => !h.success).length,
-	);
+	const failedCount = createMemo(() => (local.history ?? []).filter((h) => !h.success).length);
 
 	const getCommandById = (commandId: string) => {
 		return local.commands?.find((c) => c.id === commandId);
@@ -122,16 +104,10 @@ export function CommandHistoryViewer(props: CommandHistoryViewerProps) {
 					class="category-filter"
 				>
 					<option value="">All Categories</option>
-					<For each={categories()}>
-						{(category) => <option value={category}>{category}</option>}
-					</For>
+					<For each={categories()}>{(category) => <option value={category}>{category}</option>}</For>
 				</select>
 
-				<button
-					class="action-button clear"
-					onClick={handleClearHistory}
-					type="button"
-				>
+				<button class="action-button clear" onClick={handleClearHistory} type="button">
 					Clear History
 				</button>
 			</div>

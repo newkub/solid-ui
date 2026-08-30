@@ -6,15 +6,9 @@ import type { Command } from "#modules/command-palette/types";
 
 export const executeCommand = (command: Command): void => {
 	// Execute command action based on type
-	if (
-		command.action.type === "url" &&
-		typeof command.action.payload === "string"
-	) {
+	if (command.action.type === "url" && typeof command.action.payload === "string") {
 		window.open(command.action.payload, "_blank");
-	} else if (
-		command.action.type === "function" &&
-		typeof command.action.payload === "function"
-	) {
+	} else if (command.action.type === "function" && typeof command.action.payload === "function") {
 		void command.action.payload();
 	}
 };

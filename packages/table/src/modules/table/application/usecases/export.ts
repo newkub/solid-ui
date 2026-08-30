@@ -44,9 +44,7 @@ export interface ExportToJSONOutput {
 /**
  * Export table data to JSON format
  */
-export function exportToJSON<T>(
-	input: ExportToJSONInput<T>,
-): ExportToJSONOutput {
+export function exportToJSON<T>(input: ExportToJSONInput<T>): ExportToJSONOutput {
 	const { data, pretty = false } = input;
 	return { json: JSON.stringify(data, null, pretty ? 2 : 0) };
 }

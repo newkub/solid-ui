@@ -3,10 +3,7 @@
  */
 
 import { Show, splitProps } from "solid-js";
-import type {
-	Command,
-	CommandHistoryEntry,
-} from "#modules/command-palette/types";
+import type { Command, CommandHistoryEntry } from "#modules/command-palette/types";
 
 interface HistoryEntryCardProps {
 	entry: CommandHistoryEntry;
@@ -17,28 +14,16 @@ interface HistoryEntryCardProps {
 }
 
 export function HistoryEntryCard(props: HistoryEntryCardProps) {
-	const [local] = splitProps(props, [
-		"entry",
-		"command",
-		"formatExecutionTime",
-		"formatDate",
-		"onReplay",
-	]);
+	const [local] = splitProps(props, ["entry", "command", "formatExecutionTime", "formatDate", "onReplay"]);
 
 	return (
-		<div
-			class={`history-entry-card ${local.entry.success ? "success" : "failed"}`}
-		>
+		<div class={`history-entry-card ${local.entry.success ? "success" : "failed"}`}>
 			<div class="entry-header">
 				<div class="entry-info">
-					<span
-						class={`status-indicator ${local.entry.success ? "success" : "failed"}`}
-					>
+					<span class={`status-indicator ${local.entry.success ? "success" : "failed"}`}>
 						{local.entry.success ? "✓" : "✗"}
 					</span>
-					<span class="entry-command">
-						{local.command?.label ?? local.entry.commandId}
-					</span>
+					<span class="entry-command">{local.command?.label ?? local.entry.commandId}</span>
 					<Show when={local.command?.category}>
 						<span class="entry-category">{local.command?.category}</span>
 					</Show>
@@ -56,12 +41,8 @@ export function HistoryEntryCard(props: HistoryEntryCardProps) {
 			</div>
 
 			<div class="entry-meta">
-				<span class="meta-item">
-					{local.formatDate(local.entry.executedAt)}
-				</span>
-				<span class="meta-item">
-					{local.formatExecutionTime(local.entry.executionTime)}
-				</span>
+				<span class="meta-item">{local.formatDate(local.entry.executedAt)}</span>
+				<span class="meta-item">{local.formatExecutionTime(local.entry.executionTime)}</span>
 			</div>
 
 			<Show when={local.entry.error}>
@@ -75,9 +56,7 @@ export function HistoryEntryCard(props: HistoryEntryCardProps) {
 				<div class="entry-result">
 					<span class="result-label">Result:</span>
 					<span class="result-value">
-						{typeof local.entry.result === "object"
-							? JSON.stringify(local.entry.result)
-							: String(local.entry.result)}
+						{typeof local.entry.result === "object" ? JSON.stringify(local.entry.result) : String(local.entry.result)}
 					</span>
 				</div>
 			</Show>

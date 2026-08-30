@@ -30,10 +30,7 @@ export function ExecutionCard(props: ExecutionCardProps) {
 
 	const executionDuration = () => {
 		if (local.execution.completedAt) {
-			return (
-				local.execution.completedAt.getTime() -
-				local.execution.startedAt.getTime()
-			);
+			return local.execution.completedAt.getTime() - local.execution.startedAt.getTime();
 		}
 		return Date.now() - local.execution.startedAt.getTime();
 	};
@@ -49,28 +46,16 @@ export function ExecutionCard(props: ExecutionCardProps) {
 					<span class="execution-status">{local.execution.status}</span>
 				</div>
 				<div class="execution-actions">
-					<button
-						class="action-button view"
-						onClick={() => local.onViewDetails?.(local.execution.id)}
-						type="button"
-					>
+					<button class="action-button view" onClick={() => local.onViewDetails?.(local.execution.id)} type="button">
 						View Details
 					</button>
 					<Show when={local.execution.status === "running"}>
-						<button
-							class="action-button cancel"
-							onClick={() => local.onCancel?.(local.execution.id)}
-							type="button"
-						>
+						<button class="action-button cancel" onClick={() => local.onCancel?.(local.execution.id)} type="button">
 							Cancel
 						</button>
 					</Show>
 					<Show when={local.execution.status === "failed"}>
-						<button
-							class="action-button retry"
-							onClick={() => local.onRetry?.(local.execution.id)}
-							type="button"
-						>
+						<button class="action-button retry" onClick={() => local.onRetry?.(local.execution.id)} type="button">
 							Retry
 						</button>
 					</Show>
@@ -82,18 +67,13 @@ export function ExecutionCard(props: ExecutionCardProps) {
 					<div class="progress-fill" style={{ width: `${progress()}%` }} />
 				</div>
 				<span class="progress-text">
-					Step {local.execution.currentStepIndex + 1} /{" "}
-					{local.execution.results.length}
+					Step {local.execution.currentStepIndex + 1} / {local.execution.results.length}
 				</span>
 			</div>
 
 			<div class="execution-meta">
-				<span class="meta-item">
-					Started: {local.formatDate(local.execution.startedAt)}
-				</span>
-				<span class="meta-item">
-					Duration: {local.formatDuration(executionDuration())}
-				</span>
+				<span class="meta-item">Started: {local.formatDate(local.execution.startedAt)}</span>
+				<span class="meta-item">Duration: {local.formatDuration(executionDuration())}</span>
 			</div>
 
 			<Show when={local.execution.error}>
@@ -109,9 +89,7 @@ export function ExecutionCard(props: ExecutionCardProps) {
 						<div class={`step-result ${result.success ? "success" : "failed"}`}>
 							<span class="step-number">Step {index() + 1}</span>
 							<span class="step-status">{result.success ? "✓" : "✗"}</span>
-							<span class="step-duration">
-								{local.formatDuration(result.executionTime)}
-							</span>
+							<span class="step-duration">{local.formatDuration(result.executionTime)}</span>
 						</div>
 					)}
 				</For>

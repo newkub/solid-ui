@@ -1,19 +1,8 @@
 // Form Field Factories - Domain layer field creation functions
 
-import type {
-	CheckboxField,
-	FileField,
-	NumberField,
-	SelectField,
-	TextareaField,
-	TextField,
-} from "./index";
+import type { CheckboxField, FileField, NumberField, SelectField, TextareaField, TextField } from "./index";
 
-export const createTextField = (
-	name: string,
-	label?: string,
-	config?: Partial<TextField>,
-): TextField => {
+export const createTextField = (name: string, label?: string, config?: Partial<TextField>): TextField => {
 	const field: TextField = {
 		name,
 		type: "text",
@@ -22,11 +11,7 @@ export const createTextField = (
 	return { ...field, ...config };
 };
 
-export const createEmailField = (
-	name: string,
-	label?: string,
-	config?: Partial<TextField>,
-): TextField => {
+export const createEmailField = (name: string, label?: string, config?: Partial<TextField>): TextField => {
 	const field: TextField = {
 		name,
 		type: "email",
@@ -35,11 +20,7 @@ export const createEmailField = (
 	return { ...field, ...config };
 };
 
-export const createPasswordField = (
-	name: string,
-	label?: string,
-	config?: Partial<TextField>,
-): TextField => {
+export const createPasswordField = (name: string, label?: string, config?: Partial<TextField>): TextField => {
 	const field: TextField = {
 		name,
 		type: "password",
@@ -48,11 +29,7 @@ export const createPasswordField = (
 	return { ...field, ...config };
 };
 
-export const createNumberField = (
-	name: string,
-	label?: string,
-	config?: Partial<NumberField>,
-): NumberField => {
+export const createNumberField = (name: string, label?: string, config?: Partial<NumberField>): NumberField => {
 	const field: NumberField = {
 		name,
 		type: "number",
@@ -76,11 +53,7 @@ export const createSelectField = (
 	return { ...field, ...config };
 };
 
-export const createCheckboxField = (
-	name: string,
-	label?: string,
-	config?: Partial<CheckboxField>,
-): CheckboxField => {
+export const createCheckboxField = (name: string, label?: string, config?: Partial<CheckboxField>): CheckboxField => {
 	const field: CheckboxField = {
 		name,
 		type: "checkbox",
@@ -89,11 +62,7 @@ export const createCheckboxField = (
 	return { ...field, ...config };
 };
 
-export const createTextareaField = (
-	name: string,
-	label?: string,
-	config?: Partial<TextareaField>,
-): TextareaField => {
+export const createTextareaField = (name: string, label?: string, config?: Partial<TextareaField>): TextareaField => {
 	const field: TextareaField = {
 		name,
 		type: "textarea",
@@ -102,11 +71,7 @@ export const createTextareaField = (
 	return { ...field, ...config };
 };
 
-export const createFileField = (
-	name: string,
-	label?: string,
-	config?: Partial<FileField>,
-): FileField => {
+export const createFileField = (name: string, label?: string, config?: Partial<FileField>): FileField => {
 	const field: FileField = {
 		name,
 		type: "file",

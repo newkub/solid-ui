@@ -1,13 +1,7 @@
 // Form Validation Rules - Build validation rules for field types
 
 import { type } from "arktype";
-import type {
-	FieldDef,
-	FileField,
-	NumberField,
-	TextField,
-	ValidationRule,
-} from "../models";
+import type { FieldDef, FileField, NumberField, TextField, ValidationRule } from "../models";
 import { formatFileSize } from "../operations/utils";
 import {
 	emailSchema,
@@ -172,8 +166,7 @@ export const buildValidationRules = (field: FieldDef): ValidationRule[] => {
 							});
 						};
 						if (v instanceof File) return checkFile(v);
-						if (Array.isArray(v))
-							return v.every((f) => f instanceof File && checkFile(f));
+						if (Array.isArray(v)) return v.every((f) => f instanceof File && checkFile(f));
 						return true;
 					},
 					message: "Invalid file type",

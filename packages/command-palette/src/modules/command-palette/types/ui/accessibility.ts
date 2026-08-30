@@ -14,15 +14,7 @@ export interface AriaAttributes {
 	readonly busy?: boolean;
 	readonly controls?: string;
 	readonly expanded?: boolean;
-	readonly hasPopup?:
-		| boolean
-		| "false"
-		| "true"
-		| "menu"
-		| "listbox"
-		| "tree"
-		| "grid"
-		| "dialog";
+	readonly hasPopup?: boolean | "false" | "true" | "menu" | "listbox" | "tree" | "grid" | "dialog";
 	readonly level?: number;
 	readonly orientation?: "horizontal" | "vertical";
 	readonly multiselectable?: boolean;

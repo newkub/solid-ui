@@ -32,22 +32,15 @@ export const getAverageRating = (commands: readonly Command[]): number => {
 /**
  * Get top rated commands
  */
-export const getTopRatedCommands = (
-	commands: readonly Command[],
-	limit: number = 10,
-): readonly Command[] => {
+export const getTopRatedCommands = (commands: readonly Command[], limit: number = 10): readonly Command[] => {
 	const ratedCommands = commands.filter((cmd) => cmd.rating !== undefined);
-	return ratedCommands
-		.sort((a, b) => (b.rating || 0) - (a.rating || 0))
-		.slice(0, limit);
+	return ratedCommands.sort((a, b) => (b.rating || 0) - (a.rating || 0)).slice(0, limit);
 };
 
 /**
  * Sort commands by rating
  */
-export const sortCommandsByRating = (
-	commands: readonly Command[],
-): readonly Command[] => {
+export const sortCommandsByRating = (commands: readonly Command[]): readonly Command[] => {
 	return [...commands].sort((a, b) => {
 		const aRating = a.rating || 0;
 		const bRating = b.rating || 0;

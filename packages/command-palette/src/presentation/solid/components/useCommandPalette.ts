@@ -3,10 +3,7 @@
  */
 
 import { createEffect, createMemo, createSignal } from "solid-js";
-import {
-	getCommandsSortedByFavorites,
-	getEmptyStateSuggestions,
-} from "#modules/command-palette/domain/operations";
+import { getCommandsSortedByFavorites, getEmptyStateSuggestions } from "#modules/command-palette/domain/operations";
 import type { Command } from "#modules/command-palette/types";
 
 interface UseCommandPaletteProps {
@@ -52,9 +49,7 @@ export function useCommandPalette(props: UseCommandPaletteProps) {
 	const handleKeyDown = (event: KeyboardEvent) => {
 		switch (event.key) {
 			case "ArrowDown":
-				setSelectedIndex((prev) =>
-					Math.min(prev + 1, filteredCommands().length - 1),
-				);
+				setSelectedIndex((prev) => Math.min(prev + 1, filteredCommands().length - 1));
 				event.preventDefault();
 				break;
 			case "ArrowUp":

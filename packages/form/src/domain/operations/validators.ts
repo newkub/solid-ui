@@ -136,9 +136,7 @@ export const validators: Record<string, ValidatorDef> = {
 		fn: (value: FieldValue, ...args: unknown[]) => {
 			if (!value) return true;
 			const types = args[0] as string | string[];
-			const allowedTypes = Array.isArray(types)
-				? types
-				: types.split(",").map((t) => t.trim());
+			const allowedTypes = Array.isArray(types) ? types : types.split(",").map((t) => t.trim());
 
 			const checkFile = (file: File) => {
 				return allowedTypes.some((type) => {
@@ -154,8 +152,7 @@ export const validators: Record<string, ValidatorDef> = {
 			};
 
 			if (value instanceof File) return checkFile(value);
-			if (Array.isArray(value))
-				return value.every((f) => f instanceof File && checkFile(f));
+			if (Array.isArray(value)) return value.every((f) => f instanceof File && checkFile(f));
 			return true;
 		},
 		message: "Invalid file type",

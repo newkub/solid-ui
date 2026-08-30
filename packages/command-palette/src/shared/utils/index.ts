@@ -10,14 +10,10 @@ export const isNotEmpty = (str: string): boolean => !isEmpty(str);
 
 // Array utilities
 export const isEmptyArray = <T>(arr: readonly T[]): boolean => arr.length === 0;
-export const isNotEmptyArray = <T>(arr: readonly T[]): boolean =>
-	!isEmptyArray(arr);
+export const isNotEmptyArray = <T>(arr: readonly T[]): boolean => !isEmptyArray(arr);
 
 // Object utilities
-export const hasProperty = <K extends string | number | symbol>(
-	obj: unknown,
-	prop: K,
-): obj is Record<K, unknown> =>
+export const hasProperty = <K extends string | number | symbol>(obj: unknown, prop: K): obj is Record<K, unknown> =>
 	obj !== null && typeof obj === "object" && prop in obj;
 
 // Function utilities
@@ -40,27 +36,16 @@ export const failure = <E = Error>(error: E): Result<never, E> => ({
 
 // Option utilities
 export const fromNullable = <T>(value: T | null | undefined): Option<T> =>
-	value !== null && value !== undefined
-		? { _tag: "Some", value }
-		: { _tag: "None" };
+	value !== null && value !== undefined ? { _tag: "Some", value } : { _tag: "None" };
 
-export const mapOption = <A, B>(
-	option: Option<A>,
-	fn: (a: A) => B,
-): Option<B> =>
+export const mapOption = <A, B>(option: Option<A>, fn: (a: A) => B): Option<B> =>
 	option._tag === "Some" ? { _tag: "Some", value: fn(option.value) } : option;
 
-export const foldOption = <A, B>(
-	option: Option<A>,
-	onNone: () => B,
-	onSome: (a: A) => B,
-): B => (option._tag === "Some" ? onSome(option.value) : onNone());
+export const foldOption = <A, B>(option: Option<A>, onNone: () => B, onSome: (a: A) => B): B =>
+	option._tag === "Some" ? onSome(option.value) : onNone();
 
 // Validation utilities
-export const validateString = (
-	value: unknown,
-	fieldName: string,
-): Result<string> => {
+export const validateString = (value: unknown, fieldName: string): Result<string> => {
 	if (typeof value !== "string") {
 		return failure(new Error(`${fieldName} must be a string`));
 	}
@@ -70,10 +55,7 @@ export const validateString = (
 	return success(value);
 };
 
-export const validateRequired = <T>(
-	value: T | undefined,
-	fieldName: string,
-): Result<T> => {
+export const validateRequired = <T>(value: T | undefined, fieldName: string): Result<T> => {
 	if (value === undefined) {
 		return failure(new Error(`${fieldName} is required`));
 	}
@@ -81,8 +63,7 @@ export const validateRequired = <T>(
 };
 
 // Async utilities
-export const sleep = (ms: number): Promise<void> =>
-	new Promise((resolve) => setTimeout(resolve, ms));
+export const sleep = (ms: number): Promise<void> => new Promise((resolve) => setTimeout(resolve, ms));
 
 export const withTimeout = <T>(
 	promise: Promise<T>,
@@ -115,15 +96,8 @@ export const memoize = <A extends readonly unknown[], B>(
 };
 
 // Text utilities
-export const getHighlightedText = (
-	text: string,
-	query: string,
-	className: string = "highlight",
-): string => {
+export const getHighlightedText = (text: string, query: string, className: string = "highlight"): string => {
 	if (!query) return text;
-	const regex = new RegExp(
-		`(${query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`,
-		"gi",
-	);
+	const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`, "gi");
 	return text.replace(regex, `<span class="${className}">$1</span>`);
 };

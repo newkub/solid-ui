@@ -2,9 +2,7 @@ import type { FieldDef, FieldState, FieldValue } from "../domain/models";
 import { maybeTrim } from "../domain/operations";
 
 export function createSetValue(
-	fields: (
-		setter: (prev: Record<string, FieldState>) => Record<string, FieldState>,
-	) => void,
+	fields: (setter: (prev: Record<string, FieldState>) => Record<string, FieldState>) => void,
 	config: { fields: FieldDef[] },
 	validateOn: string,
 	validateFieldByName: (name: string) => void,
@@ -31,9 +29,7 @@ export function createSetValue(
 }
 
 export function createSetValueWithoutValidation(
-	fields: (
-		setter: (prev: Record<string, FieldState>) => Record<string, FieldState>,
-	) => void,
+	fields: (setter: (prev: Record<string, FieldState>) => Record<string, FieldState>) => void,
 	config: { fields: FieldDef[] },
 ) {
 	return (name: string, value: FieldValue) => {
@@ -54,9 +50,7 @@ export function createSetValueWithoutValidation(
 }
 
 export function createSetError(
-	fields: (
-		setter: (prev: Record<string, FieldState>) => Record<string, FieldState>,
-	) => void,
+	fields: (setter: (prev: Record<string, FieldState>) => Record<string, FieldState>) => void,
 ) {
 	return (name: string, error: string | string[]) => {
 		const errorMessage = Array.isArray(error) ? error[0] : error;
@@ -71,9 +65,7 @@ export function createSetError(
 }
 
 export function createClearError(
-	fields: (
-		setter: (prev: Record<string, FieldState>) => Record<string, FieldState>,
-	) => void,
+	fields: (setter: (prev: Record<string, FieldState>) => Record<string, FieldState>) => void,
 ) {
 	return (name: string) => {
 		fields((prev) => ({
@@ -87,9 +79,7 @@ export function createClearError(
 }
 
 export function createReset(
-	fields: (
-		setter: (prev: Record<string, FieldState>) => Record<string, FieldState>,
-	) => void,
+	fields: (setter: (prev: Record<string, FieldState>) => Record<string, FieldState>) => void,
 	config: { fields: FieldDef[] },
 	setIsSubmitted: (value: boolean) => void,
 ) {
@@ -132,9 +122,7 @@ export function createReset(
 }
 
 export function createFocus(
-	fields: (
-		setter: (prev: Record<string, FieldState>) => Record<string, FieldState>,
-	) => void,
+	fields: (setter: (prev: Record<string, FieldState>) => Record<string, FieldState>) => void,
 ) {
 	return (name: string) => {
 		fields((prev) => ({
@@ -148,9 +136,7 @@ export function createFocus(
 }
 
 export function createBlur(
-	fields: (
-		setter: (prev: Record<string, FieldState>) => Record<string, FieldState>,
-	) => void,
+	fields: (setter: (prev: Record<string, FieldState>) => Record<string, FieldState>) => void,
 	validateOn: string,
 	validateFieldByName: (name: string) => void,
 ) {
@@ -171,9 +157,7 @@ export function createBlur(
 }
 
 export function createDisable(
-	fields: (
-		setter: (prev: Record<string, FieldState>) => Record<string, FieldState>,
-	) => void,
+	fields: (setter: (prev: Record<string, FieldState>) => Record<string, FieldState>) => void,
 ) {
 	return (name: string) => {
 		fields((prev) => ({
@@ -186,9 +170,7 @@ export function createDisable(
 }
 
 export function createEnable(
-	fields: (
-		setter: (prev: Record<string, FieldState>) => Record<string, FieldState>,
-	) => void,
+	fields: (setter: (prev: Record<string, FieldState>) => Record<string, FieldState>) => void,
 ) {
 	return (name: string) => {
 		fields((prev) => ({

@@ -34,15 +34,7 @@ export const COMMAND_PALETTE_CONSTANTS = {
 	} as const,
 
 	// Default categories
-	DEFAULT_CATEGORIES: [
-		"general",
-		"navigation",
-		"files",
-		"edit",
-		"view",
-		"tools",
-		"help",
-	] as const,
+	DEFAULT_CATEGORIES: ["general", "navigation", "files", "edit", "view", "tools", "help"] as const,
 
 	// Keyboard shortcuts
 	KEYBOARD_SHORTCUTS: {

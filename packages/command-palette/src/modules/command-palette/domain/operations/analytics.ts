@@ -32,10 +32,7 @@ export const trackExecution = (command: Command): Command => ({
 /**
  * Get most used commands
  */
-export const getMostUsedCommands = (
-	commands: readonly Command[],
-	limit: number = 10,
-): readonly Command[] => {
+export const getMostUsedCommands = (commands: readonly Command[], limit: number = 10): readonly Command[] => {
 	return [...commands]
 		.filter((cmd) => cmd.executionCount && cmd.executionCount > 0)
 		.sort((a, b) => (b.executionCount || 0) - (a.executionCount || 0))
@@ -45,10 +42,7 @@ export const getMostUsedCommands = (
 /**
  * Get recently used commands
  */
-export const getRecentlyUsedCommands = (
-	commands: readonly Command[],
-	limit: number = 10,
-): readonly Command[] => {
+export const getRecentlyUsedCommands = (commands: readonly Command[], limit: number = 10): readonly Command[] => {
 	return [...commands]
 		.filter((cmd) => cmd.lastExecutedAt)
 		.sort((a, b) => {
@@ -63,21 +57,16 @@ export const getRecentlyUsedCommands = (
  * Get usage statistics
  */
 export const getUsageStats = (commands: readonly Command[]): AnalyticsStats => {
-	const totalExecutions = commands.reduce(
-		(sum, cmd) => sum + (cmd.executionCount || 0),
-		0,
-	);
+	const totalExecutions = commands.reduce((sum, cmd) => sum + (cmd.executionCount || 0), 0);
 
-	const averageExecutionsPerCommand =
-		commands.length > 0 ? totalExecutions / commands.length : 0;
+	const averageExecutionsPerCommand = commands.length > 0 ? totalExecutions / commands.length : 0;
 
 	const mostUsedCommands = getMostUsedCommands(commands, 5);
 
 	const usageByCategory: Record<string, number> = {};
 	for (const cmd of commands) {
 		if (cmd.category) {
-			usageByCategory[cmd.category] =
-				(usageByCategory[cmd.category] || 0) + (cmd.executionCount || 0);
+			usageByCategory[cmd.category] = (usageByCategory[cmd.category] || 0) + (cmd.executionCount || 0);
 		}
 	}
 
@@ -93,9 +82,7 @@ export const getUsageStats = (commands: readonly Command[]): AnalyticsStats => {
 /**
  * Get command usage trend (last N executions)
  */
-export const getUsageTrend = (
-	commands: readonly Command[],
-): readonly Command[] => {
+export const getUsageTrend = (commands: readonly Command[]): readonly Command[] => {
 	return getRecentlyUsedCommands(commands, 20);
 };
 
@@ -107,12 +94,7 @@ export const calculatePopularityScore = (command: Command): number => {
 	const favoriteScore = command.isFavorite ? 50 : 0;
 	const ratingScore = (command.rating || 0) * 10;
 	const recentBonus = command.lastExecutedAt
-		? Math.max(
-				0,
-				30 -
-					(Date.now() - new Date(command.lastExecutedAt).getTime()) /
-						(1000 * 60 * 60 * 24),
-			)
+		? Math.max(0, 30 - (Date.now() - new Date(command.lastExecutedAt).getTime()) / (1000 * 60 * 60 * 24))
 		: 0;
 
 	return executionScore + favoriteScore + ratingScore + recentBonus;
@@ -121,9 +103,7 @@ export const calculatePopularityScore = (command: Command): number => {
 /**
  * Sort commands by popularity
  */
-export const sortCommandsByPopularity = (
-	commands: readonly Command[],
-): readonly Command[] => {
+export const sortCommandsByPopularity = (commands: readonly Command[]): readonly Command[] => {
 	return [...commands].sort((a, b) => {
 		const aScore = calculatePopularityScore(a);
 		const bScore = calculatePopularityScore(b);
@@ -134,20 +114,13 @@ export const sortCommandsByPopularity = (
 /**
  * Get unused commands
  */
-export const getUnusedCommands = (
-	commands: readonly Command[],
-): readonly Command[] => {
-	return commands.filter(
-		(cmd) => !cmd.executionCount || cmd.executionCount === 0,
-	);
+export const getUnusedCommands = (commands: readonly Command[]): readonly Command[] => {
+	return commands.filter((cmd) => !cmd.executionCount || cmd.executionCount === 0);
 };
 
 /**
  * Get frequently used commands (executed more than N times)
  */
-export const getFrequentlyUsedCommands = (
-	commands: readonly Command[],
-	threshold: number = 5,
-): readonly Command[] => {
+export const getFrequentlyUsedCommands = (commands: readonly Command[], threshold: number = 5): readonly Command[] => {
 	return commands.filter((cmd) => (cmd.executionCount || 0) >= threshold);
 };

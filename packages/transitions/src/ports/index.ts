@@ -1,10 +1,6 @@
 // Transitions Module - Ports/Interfaces
 
-import type {
-	PageTransition,
-	TransitionHook,
-	TransitionOptions,
-} from "../domain/models";
+import type { PageTransition, TransitionHook, TransitionOptions } from "../domain/models";
 
 /**
  * Transition Service Port - Interface for transition management

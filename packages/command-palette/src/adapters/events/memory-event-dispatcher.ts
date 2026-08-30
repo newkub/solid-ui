@@ -9,40 +9,28 @@ import type { Result } from "#shared/types";
 
 // State type
 export type MemoryEventDispatcherState = Readonly<{
-	subscriptions: Map<
-		string,
-		Map<string, (event: CommandEvent) => Promise<void>>
-	>;
+	subscriptions: Map<string, Map<string, (event: CommandEvent) => Promise<void>>>;
 }>;
 
 // Helper to generate subscription ID
-const generateSubscriptionId = (): string =>
-	`sub_${Date.now()}_${Math.random().toString(36).substring(2, 15)}`;
+const generateSubscriptionId = (): string => `sub_${Date.now()}_${Math.random().toString(36).substring(2, 15)}`;
 
 // Factory function
 export const createMemoryEventDispatcher = (
-	initialSubscriptions?: Map<
-		string,
-		Map<string, (event: CommandEvent) => Promise<void>>
-	>,
+	initialSubscriptions?: Map<string, Map<string, (event: CommandEvent) => Promise<void>>>,
 ): MemoryEventDispatcherState => ({
 	subscriptions: initialSubscriptions || new Map(),
 });
 
 // Dispatch event
-export const dispatch = async (
-	state: MemoryEventDispatcherState,
-	event: CommandEvent,
-): Promise<Result<void>> => {
+export const dispatch = async (state: MemoryEventDispatcherState, event: CommandEvent): Promise<Result<void>> => {
 	try {
 		const eventSubscriptions = state.subscriptions.get(event.type);
 		if (!eventSubscriptions) {
 			return { success: true, data: undefined };
 		}
 
-		const promises = Array.from(eventSubscriptions.values()).map((handler) =>
-			handler(event),
-		);
+		const promises = Array.from(eventSubscriptions.values()).map((handler) => handler(event));
 		await Promise.allSettled(promises);
 
 		return { success: true, data: undefined };
@@ -82,10 +70,7 @@ export const subscribe = <T extends CommandEvent>(
 			newSubscriptions.set(eventType, new Map());
 		}
 		const eventSubscriptions = newSubscriptions.get(eventType)!;
-		eventSubscriptions.set(
-			subscriptionId,
-			handler as (event: CommandEvent) => Promise<void>,
-		);
+		eventSubscriptions.set(subscriptionId, handler as (event: CommandEvent) => Promise<void>);
 
 		return Promise.resolve({
 			success: true,
@@ -100,10 +85,7 @@ export const subscribe = <T extends CommandEvent>(
 };
 
 // Unsubscribe from event
-export const unsubscribe = (
-	state: MemoryEventDispatcherState,
-	subscriptionId: string,
-): Promise<Result<void>> => {
+export const unsubscribe = (state: MemoryEventDispatcherState, subscriptionId: string): Promise<Result<void>> => {
 	try {
 		const newSubscriptions = new Map(state.subscriptions);
 
@@ -138,9 +120,7 @@ export const unsubscribe = (
 };
 
 // Get active subscriptions
-export const getActiveSubscriptions = (
-	state: MemoryEventDispatcherState,
-): Promise<Result<readonly string[]>> => {
+export const getActiveSubscriptions = (state: MemoryEventDispatcherState): Promise<Result<readonly string[]>> => {
 	try {
 		const subscriptionIds: string[] = [];
 		for (const subscriptions of state.subscriptions.values()) {
@@ -156,13 +136,10 @@ export const getActiveSubscriptions = (
 };
 
 // Utility: Clear all subscriptions
-export const clear = (): MemoryEventDispatcherState =>
-	createMemoryEventDispatcher(new Map());
+export const clear = (): MemoryEventDispatcherState => createMemoryEventDispatcher(new Map());
 
 // Utility: Get subscription count
-export const getSubscriptionCount = (
-	state: MemoryEventDispatcherState,
-): number => {
+export const getSubscriptionCount = (state: MemoryEventDispatcherState): number => {
 	let count = 0;
 	for (const subscriptions of state.subscriptions.values()) {
 		count += subscriptions.size;
@@ -171,18 +148,14 @@ export const getSubscriptionCount = (
 };
 
 // Utility: Get event types
-export const getEventTypes = (
-	state: MemoryEventDispatcherState,
-): readonly string[] => Array.from(state.subscriptions.keys());
+export const getEventTypes = (state: MemoryEventDispatcherState): readonly string[] =>
+	Array.from(state.subscriptions.keys());
 
 // Create EventDispatcher implementation (for backward compatibility)
-export const createEventDispatcher = (
-	state: MemoryEventDispatcherState,
-): EventDispatcher => ({
+export const createEventDispatcher = (state: MemoryEventDispatcherState): EventDispatcher => ({
 	dispatch: (event) => dispatch(state, event),
 	dispatchBatch: (events) => dispatchBatch(state, events),
-	subscribe: (eventType, handler) =>
-		subscribe(state, eventType as any, handler as any),
+	subscribe: (eventType, handler) => subscribe(state, eventType as any, handler as any),
 	unsubscribe: (id) => unsubscribe(state, id),
 	getActiveSubscriptions: () => getActiveSubscriptions(state),
 });

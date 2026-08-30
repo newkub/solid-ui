@@ -3,10 +3,7 @@
  * Defines contract for workflow storage operations
  */
 
-import type {
-	Workflow,
-	WorkflowExecution,
-} from "#modules/command-palette/types";
+import type { Workflow, WorkflowExecution } from "#modules/command-palette/types";
 import type { Result } from "#shared/types";
 
 export interface WorkflowRepository {
@@ -22,19 +19,13 @@ export interface WorkflowRepository {
 	findByTriggerType(triggerType: string): Promise<Result<readonly Workflow[]>>;
 
 	// Execution operations
-	saveExecution(
-		execution: WorkflowExecution,
-	): Promise<Result<WorkflowExecution>>;
+	saveExecution(execution: WorkflowExecution): Promise<Result<WorkflowExecution>>;
 	findExecutionById(id: string): Promise<Result<WorkflowExecution | null>>;
-	findExecutionsByWorkflowId(
-		workflowId: string,
-	): Promise<Result<readonly WorkflowExecution[]>>;
+	findExecutionsByWorkflowId(workflowId: string): Promise<Result<readonly WorkflowExecution[]>>;
 	deleteExecution(id: string): Promise<Result<void>>;
 
 	// Bulk operations
-	saveMany(
-		workflows: readonly Workflow[],
-	): Promise<Result<readonly Workflow[]>>;
+	saveMany(workflows: readonly Workflow[]): Promise<Result<readonly Workflow[]>>;
 	deleteMany(ids: readonly string[]): Promise<Result<void>>;
 
 	// Count operations

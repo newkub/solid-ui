@@ -13,11 +13,7 @@ export interface DatabaseError extends BaseError {
 	readonly cause?: string;
 }
 
-export const DatabaseError = (
-	operation: string,
-	cause?: Error,
-	context?: Record<string, unknown>,
-): DatabaseError =>
+export const DatabaseError = (operation: string, cause?: Error, context?: Record<string, unknown>): DatabaseError =>
 	({
 		...createError(
 			"DatabaseError",

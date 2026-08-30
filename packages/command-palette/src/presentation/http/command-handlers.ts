@@ -4,18 +4,9 @@
  */
 
 // Application imports
-import {
-	executeCommandUseCase,
-	searchCommandsUseCase,
-} from "#modules/command-palette/application";
-import type {
-	CommandRepository,
-	EventDispatcher,
-} from "#modules/command-palette/ports";
-import type {
-	Command,
-	CommandSearchQuery,
-} from "#modules/command-palette/types";
+import { executeCommandUseCase, searchCommandsUseCase } from "#modules/command-palette/application";
+import type { CommandRepository, EventDispatcher } from "#modules/command-palette/ports";
+import type { Command, CommandSearchQuery } from "#modules/command-palette/types";
 
 // Re-export CRUD handlers
 export {
@@ -33,17 +24,10 @@ export type {
 } from "./http-types";
 
 // Import types for use
-import type {
-	ExecuteCommandRequest,
-	HttpResponse,
-	SearchCommandsRequest,
-} from "./http-types";
+import type { ExecuteCommandRequest, HttpResponse, SearchCommandsRequest } from "./http-types";
 
 // HTTP Handler factory
-export const createCommandHandlers = (
-	commandRepository: CommandRepository,
-	eventDispatcher: EventDispatcher,
-) => ({
+export const createCommandHandlers = (commandRepository: CommandRepository, eventDispatcher: EventDispatcher) => ({
 	// GET /commands - Search commands
 	searchCommands: async (
 		request: SearchCommandsRequest,
@@ -57,10 +41,7 @@ export const createCommandHandlers = (
 				offset: request.offset,
 			};
 
-			const result = await searchCommandsUseCase(
-				commandRepository,
-				eventDispatcher,
-			)(searchQuery);
+			const result = await searchCommandsUseCase(commandRepository, eventDispatcher)(searchQuery);
 
 			if (!result.success) {
 				return {
@@ -95,19 +76,14 @@ export const createCommandHandlers = (
 	executeCommand: async (
 		commandId: string,
 		request: ExecuteCommandRequest,
-	): Promise<
-		HttpResponse<{ success: boolean; result?: unknown; executionTime: number }>
-	> => {
+	): Promise<HttpResponse<{ success: boolean; result?: unknown; executionTime: number }>> => {
 		try {
 			const executeRequest = {
 				commandId,
 				context: request.context,
 			};
 
-			const result = await executeCommandUseCase(
-				commandRepository,
-				eventDispatcher,
-			)(executeRequest);
+			const result = await executeCommandUseCase(commandRepository, eventDispatcher)(executeRequest);
 
 			if (!result.success) {
 				return {
