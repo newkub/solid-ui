@@ -1,9 +1,8 @@
 import { createSignal, Show } from "solid-js";
-import { highlightCode } from "../lib/highlight";
+import { ShikiCode } from "./ShikiCode";
 
 export function CodeBlock(props: { code: string; language?: string }) {
 	const [copied, setCopied] = createSignal(false);
-	const html = () => highlightCode(props.code, props.language ?? "tsx");
 
 	async function copy() {
 		try {
@@ -22,9 +21,7 @@ export function CodeBlock(props: { code: string; language?: string }) {
 					Copied
 				</Show>
 			</button>
-			<pre>
-				<code class={`language-${props.language ?? "tsx"}`} innerHTML={html()} />
-			</pre>
+			<ShikiCode code={props.code} lang={props.language ?? "tsx"} />
 		</div>
 	);
 }

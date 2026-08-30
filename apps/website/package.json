@@ -12,11 +12,12 @@
 		"cf-typegen": "wrangler types"
 	},
 	"dependencies": {
+		"@shikijs/core": "^3.23.0",
+		"@shikijs/engine-javascript": "^3.23.0",
+		"@shikijs/langs": "^3.23.0",
+		"@shikijs/themes": "^3.23.0",
 		"@tanstack/solid-router": "^1.15.0",
 		"@wrikka/solid-ui": "workspace:*",
-		"highlight.js": "^11.12.0",
-		"marked": "^18.0.11",
-		"marked-highlight": "^2.2.4",
 		"solid-js": "catalog:"
 	},
 	"devDependencies": {

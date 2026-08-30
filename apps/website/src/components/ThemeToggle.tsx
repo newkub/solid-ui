@@ -1,16 +1,14 @@
-import { createEffect, createSignal } from "solid-js";
+import { createEffect } from "solid-js";
+import { setTheme, theme } from "../lib/theme";
 
 export function ThemeToggle() {
-	const stored = typeof localStorage !== "undefined" ? localStorage.getItem("solid-ui-theme") : null;
-	const [theme, setTheme] = createSignal<"light" | "dark">(stored === "dark" ? "dark" : "light");
+	const label = () => (theme() === "light" ? "Switch to dark theme" : "Switch to light theme");
+	const icon = () => (theme() === "light" ? "🌙" : "☀️");
 
 	createEffect(() => {
 		document.documentElement.setAttribute("data-theme", theme());
 		localStorage.setItem("solid-ui-theme", theme());
 	});
-
-	const label = () => (theme() === "light" ? "Switch to dark theme" : "Switch to light theme");
-	const icon = () => (theme() === "light" ? "🌙" : "☀️");
 
 	return (
 		<button
