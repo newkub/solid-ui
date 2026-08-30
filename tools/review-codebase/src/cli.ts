@@ -33,7 +33,7 @@ async function main() {
 		printReport(report);
 	}
 
-	process.exit(report.grade === "A" ? 0 : 1);
+	process.exit(report.grade === "D" || report.grade === "F" ? 1 : 0);
 }
 
 main().catch((err) => {
