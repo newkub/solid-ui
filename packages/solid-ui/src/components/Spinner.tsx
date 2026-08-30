@@ -7,7 +7,7 @@ export function Spinner(props: SpinnerProps) {
 	const [local, rest] = splitProps(props, ["class", "children"]);
 	const base = "solidui-spinner";
 	return (
-		<div class={`solidui-spinner ${local.class || ""}`.trim()} {...rest}>
+		<div class={`${base} ${local.class || ""}`.trim()} {...rest}>
 			{local.children}
 		</div>
 	);

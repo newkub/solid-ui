@@ -7,7 +7,7 @@ export function Notification(props: NotificationProps) {
 	const [local, rest] = splitProps(props, ["class", "children"]);
 	const base = "solidui-notification";
 	return (
-		<div class={`solidui-notification ${local.class || ""}`.trim()} {...rest}>
+		<div class={`${base} ${local.class || ""}`.trim()} {...rest}>
 			{local.children}
 		</div>
 	);

@@ -7,7 +7,7 @@ export function TreeView(props: TreeViewProps) {
 	const [local, rest] = splitProps(props, ["class", "children"]);
 	const base = "solidui-tree-view";
 	return (
-		<ul class={`solidui-tree-view ${local.class || ""}`.trim()} {...rest}>
+		<ul class={`${base} ${local.class || ""}`.trim()} {...rest}>
 			{local.children}
 		</ul>
 	);

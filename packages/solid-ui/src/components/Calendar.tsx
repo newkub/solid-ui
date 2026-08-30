@@ -7,7 +7,7 @@ export function Calendar(props: CalendarProps) {
 	const [local, rest] = splitProps(props, ["class", "children"]);
 	const base = "solidui-calendar";
 	return (
-		<div class={`solidui-calendar ${local.class || ""}`.trim()} {...rest}>
+		<div class={`${base} ${local.class || ""}`.trim()} {...rest}>
 			{local.children}
 		</div>
 	);

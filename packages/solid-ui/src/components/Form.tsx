@@ -7,7 +7,7 @@ export function Form(props: FormProps) {
 	const [local, rest] = splitProps(props, ["class", "children"]);
 	const base = "solidui-form";
 	return (
-		<form class={`solidui-form ${local.class || ""}`.trim()} {...rest}>
+		<form class={`${base} ${local.class || ""}`.trim()} {...rest}>
 			{local.children}
 		</form>
 	);

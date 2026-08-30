@@ -6,5 +6,5 @@ export interface SliderProps extends JSX.InputHTMLAttributes<HTMLInputElement> {
 export function Slider(props: SliderProps) {
 	const [local, rest] = splitProps(props, ["class"]);
 	const base = "solidui-slider";
-	return <input class={`solidui-slider ${local.class || ""}`.trim()} {...rest} />;
+	return <input type="range" class={`${base} ${local.class || ""}`.trim()} {...rest} />;
 }

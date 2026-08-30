@@ -7,7 +7,7 @@ export function Accordion(props: AccordionProps) {
 	const [local, rest] = splitProps(props, ["class", "children"]);
 	const base = "solidui-accordion";
 	return (
-		<div class={`solidui-accordion ${local.class || ""}`.trim()} {...rest}>
+		<div class={`${base} ${local.class || ""}`.trim()} {...rest}>
 			{local.children}
 		</div>
 	);

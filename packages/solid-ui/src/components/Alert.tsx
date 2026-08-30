@@ -7,7 +7,7 @@ export function Alert(props: AlertProps) {
 	const [local, rest] = splitProps(props, ["class", "children"]);
 	const base = "solidui-alert";
 	return (
-		<div class={`solidui-alert ${local.class || ""}`.trim()} {...rest}>
+		<div class={`${base} ${local.class || ""}`.trim()} {...rest}>
 			{local.children}
 		</div>
 	);

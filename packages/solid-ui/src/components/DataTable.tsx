@@ -7,7 +7,7 @@ export function DataTable(props: DataTableProps) {
 	const [local, rest] = splitProps(props, ["class", "children"]);
 	const base = "solidui-data-table";
 	return (
-		<div class={`solidui-data-table ${local.class || ""}`.trim()} {...rest}>
+		<div class={`${base} ${local.class || ""}`.trim()} {...rest}>
 			{local.children}
 		</div>
 	);

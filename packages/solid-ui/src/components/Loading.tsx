@@ -7,7 +7,7 @@ export function Loading(props: LoadingProps) {
 	const [local, rest] = splitProps(props, ["class", "children"]);
 	const base = "solidui-loading";
 	return (
-		<div class={`solidui-loading ${local.class || ""}`.trim()} {...rest}>
+		<div class={`${base} ${local.class || ""}`.trim()} {...rest}>
 			{local.children}
 		</div>
 	);

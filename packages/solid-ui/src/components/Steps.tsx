@@ -7,7 +7,7 @@ export function Steps(props: StepsProps) {
 	const [local, rest] = splitProps(props, ["class", "children"]);
 	const base = "solidui-steps";
 	return (
-		<div class={`solidui-steps ${local.class || ""}`.trim()} {...rest}>
+		<div class={`${base} ${local.class || ""}`.trim()} {...rest}>
 			{local.children}
 		</div>
 	);

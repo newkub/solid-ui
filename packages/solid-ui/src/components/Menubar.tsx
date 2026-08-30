@@ -7,7 +7,7 @@ export function Menubar(props: MenubarProps) {
 	const [local, rest] = splitProps(props, ["class", "children"]);
 	const base = "solidui-menubar";
 	return (
-		<div class={`solidui-menubar ${local.class || ""}`.trim()} {...rest}>
+		<div class={`${base} ${local.class || ""}`.trim()} {...rest}>
 			{local.children}
 		</div>
 	);

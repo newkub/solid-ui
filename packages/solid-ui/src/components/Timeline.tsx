@@ -7,7 +7,7 @@ export function Timeline(props: TimelineProps) {
 	const [local, rest] = splitProps(props, ["class", "children"]);
 	const base = "solidui-timeline";
 	return (
-		<div class={`solidui-timeline ${local.class || ""}`.trim()} {...rest}>
+		<div class={`${base} ${local.class || ""}`.trim()} {...rest}>
 			{local.children}
 		</div>
 	);

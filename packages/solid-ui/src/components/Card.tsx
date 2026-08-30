@@ -7,7 +7,7 @@ export function Card(props: CardProps) {
 	const [local, rest] = splitProps(props, ["class", "children"]);
 	const base = "solidui-card";
 	return (
-		<div class={`solidui-card ${local.class || ""}`.trim()} {...rest}>
+		<div class={`${base} ${local.class || ""}`.trim()} {...rest}>
 			{local.children}
 		</div>
 	);

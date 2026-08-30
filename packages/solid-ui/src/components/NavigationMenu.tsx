@@ -7,7 +7,7 @@ export function NavigationMenu(props: NavigationMenuProps) {
 	const [local, rest] = splitProps(props, ["class", "children"]);
 	const base = "solidui-navigation-menu";
 	return (
-		<nav class={`solidui-navigation-menu ${local.class || ""}`.trim()} {...rest}>
+		<nav class={`${base} ${local.class || ""}`.trim()} {...rest}>
 			{local.children}
 		</nav>
 	);

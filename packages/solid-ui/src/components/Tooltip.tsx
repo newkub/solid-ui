@@ -7,7 +7,7 @@ export function Tooltip(props: TooltipProps) {
 	const [local, rest] = splitProps(props, ["class", "children"]);
 	const base = "solidui-tooltip";
 	return (
-		<div class={`solidui-tooltip ${local.class || ""}`.trim()} {...rest}>
+		<div class={`${base} ${local.class || ""}`.trim()} {...rest}>
 			{local.children}
 		</div>
 	);

@@ -7,7 +7,7 @@ export function Skeleton(props: SkeletonProps) {
 	const [local, rest] = splitProps(props, ["class", "children"]);
 	const base = "solidui-skeleton";
 	return (
-		<div class={`solidui-skeleton ${local.class || ""}`.trim()} {...rest}>
+		<div class={`${base} ${local.class || ""}`.trim()} {...rest}>
 			{local.children}
 		</div>
 	);

@@ -7,7 +7,7 @@ export function AspectRatio(props: AspectRatioProps) {
 	const [local, rest] = splitProps(props, ["class", "children"]);
 	const base = "solidui-aspect-ratio";
 	return (
-		<div class={`solidui-aspect-ratio ${local.class || ""}`.trim()} {...rest}>
+		<div class={`${base} ${local.class || ""}`.trim()} {...rest}>
 			{local.children}
 		</div>
 	);

@@ -7,7 +7,7 @@ export function Command(props: CommandProps) {
 	const [local, rest] = splitProps(props, ["class", "children"]);
 	const base = "solidui-command";
 	return (
-		<div class={`solidui-command ${local.class || ""}`.trim()} {...rest}>
+		<div class={`${base} ${local.class || ""}`.trim()} {...rest}>
 			{local.children}
 		</div>
 	);

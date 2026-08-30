@@ -6,5 +6,5 @@ export interface ProgressProps extends JSX.ProgressHTMLAttributes<HTMLProgressEl
 export function Progress(props: ProgressProps) {
 	const [local, rest] = splitProps(props, ["class"]);
 	const base = "solidui-progress";
-	return <progress class={`solidui-progress ${local.class || ""}`.trim()} {...rest} />;
+	return <progress class={`${base} ${local.class || ""}`.trim()} {...rest} />;
 }

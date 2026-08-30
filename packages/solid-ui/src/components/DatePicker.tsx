@@ -6,5 +6,5 @@ export interface DatePickerProps extends JSX.InputHTMLAttributes<HTMLInputElemen
 export function DatePicker(props: DatePickerProps) {
 	const [local, rest] = splitProps(props, ["class"]);
 	const base = "solidui-date-picker";
-	return <input class={`solidui-date-picker ${local.class || ""}`.trim()} {...rest} />;
+	return <input type="date" class={`${base} ${local.class || ""}`.trim()} {...rest} />;
 }

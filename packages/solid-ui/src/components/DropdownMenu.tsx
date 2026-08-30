@@ -7,7 +7,7 @@ export function DropdownMenu(props: DropdownMenuProps) {
 	const [local, rest] = splitProps(props, ["class", "children"]);
 	const base = "solidui-dropdown-menu";
 	return (
-		<div class={`solidui-dropdown-menu ${local.class || ""}`.trim()} {...rest}>
+		<div class={`${base} ${local.class || ""}`.trim()} {...rest}>
 			{local.children}
 		</div>
 	);

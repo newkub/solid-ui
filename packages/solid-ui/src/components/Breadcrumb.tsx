@@ -7,7 +7,7 @@ export function Breadcrumb(props: BreadcrumbProps) {
 	const [local, rest] = splitProps(props, ["class", "children"]);
 	const base = "solidui-breadcrumb";
 	return (
-		<nav class={`solidui-breadcrumb ${local.class || ""}`.trim()} {...rest}>
+		<nav class={`${base} ${local.class || ""}`.trim()} {...rest}>
 			{local.children}
 		</nav>
 	);

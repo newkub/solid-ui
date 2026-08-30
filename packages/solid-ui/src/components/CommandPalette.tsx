@@ -7,7 +7,7 @@ export function CommandPalette(props: CommandPaletteProps) {
 	const [local, rest] = splitProps(props, ["class", "children"]);
 	const base = "solidui-command-palette";
 	return (
-		<div class={`solidui-command-palette ${local.class || ""}`.trim()} {...rest}>
+		<div class={`${base} ${local.class || ""}`.trim()} {...rest}>
 			{local.children}
 		</div>
 	);

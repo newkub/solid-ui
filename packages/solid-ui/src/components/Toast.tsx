@@ -7,7 +7,7 @@ export function Toast(props: ToastProps) {
 	const [local, rest] = splitProps(props, ["class", "children"]);
 	const base = "solidui-toast";
 	return (
-		<div class={`solidui-toast ${local.class || ""}`.trim()} {...rest}>
+		<div class={`${base} ${local.class || ""}`.trim()} {...rest}>
 			{local.children}
 		</div>
 	);

@@ -7,7 +7,7 @@ export function Collapsible(props: CollapsibleProps) {
 	const [local, rest] = splitProps(props, ["class", "children"]);
 	const base = "solidui-collapsible";
 	return (
-		<div class={`solidui-collapsible ${local.class || ""}`.trim()} {...rest}>
+		<div class={`${base} ${local.class || ""}`.trim()} {...rest}>
 			{local.children}
 		</div>
 	);

@@ -12,7 +12,7 @@ export function Button(props: ButtonProps) {
 	const variant = local.variant ? `solidui-button--${local.variant}` : "";
 	const size = local.size ? `solidui-button--${local.size}` : "";
 	return (
-		<button class={`${base} ${variant} ${size} ${local.class || ""}`.trim()} {...rest}>
+		<button type="button" class={`${base} ${variant} ${size} ${local.class || ""}`.trim()} {...rest}>
 			{local.children}
 		</button>
 	);

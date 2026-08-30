@@ -7,7 +7,7 @@ export function Modal(props: ModalProps) {
 	const [local, rest] = splitProps(props, ["class", "children"]);
 	const base = "solidui-modal";
 	return (
-		<div class={`solidui-modal ${local.class || ""}`.trim()} {...rest}>
+		<div class={`${base} ${local.class || ""}`.trim()} {...rest}>
 			{local.children}
 		</div>
 	);

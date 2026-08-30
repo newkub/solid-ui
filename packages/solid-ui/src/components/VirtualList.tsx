@@ -7,7 +7,7 @@ export function VirtualList(props: VirtualListProps) {
 	const [local, rest] = splitProps(props, ["class", "children"]);
 	const base = "solidui-virtual-list";
 	return (
-		<div class={`solidui-virtual-list ${local.class || ""}`.trim()} {...rest}>
+		<div class={`${base} ${local.class || ""}`.trim()} {...rest}>
 			{local.children}
 		</div>
 	);

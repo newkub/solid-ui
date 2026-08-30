@@ -7,7 +7,7 @@ export function Stack(props: StackProps) {
 	const [local, rest] = splitProps(props, ["class", "children"]);
 	const base = "solidui-stack";
 	return (
-		<div class={`solidui-stack ${local.class || ""}`.trim()} {...rest}>
+		<div class={`${base} ${local.class || ""}`.trim()} {...rest}>
 			{local.children}
 		</div>
 	);

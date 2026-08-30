@@ -7,7 +7,7 @@ export function Resizable(props: ResizableProps) {
 	const [local, rest] = splitProps(props, ["class", "children"]);
 	const base = "solidui-resizable";
 	return (
-		<div class={`solidui-resizable ${local.class || ""}`.trim()} {...rest}>
+		<div class={`${base} ${local.class || ""}`.trim()} {...rest}>
 			{local.children}
 		</div>
 	);

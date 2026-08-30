@@ -7,7 +7,7 @@ export function Table(props: TableProps) {
 	const [local, rest] = splitProps(props, ["class", "children"]);
 	const base = "solidui-table";
 	return (
-		<table class={`solidui-table ${local.class || ""}`.trim()} {...rest}>
+		<table class={`${base} ${local.class || ""}`.trim()} {...rest}>
 			{local.children}
 		</table>
 	);

@@ -19,7 +19,7 @@ const components: Spec[] = [
 		splitKeys: "'class', 'children', 'variant', 'size'",
 		extraProps:
 			"\n\tvariant?: 'default' | 'primary' | 'secondary' | 'destructive' | 'ghost' | 'link'\n\tsize?: 'sm' | 'md' | 'lg' | 'icon'",
-		body: "const variant = local.variant ? `solidui-button--${local.variant}` : ''\n  const size = local.size ? `solidui-button--${local.size}` : ''\n  return (\n    <button class={`${base} ${variant} ${size} ${local.class || ''}`.trim()} {...rest}>\n      {local.children}\n    </button>\n  )",
+		body: "const variant = local.variant ? `solidui-button--${local.variant}` : ''\n  const size = local.size ? `solidui-button--${local.size}` : ''\n  return (\n    <button type=\"button\" class={`${base} ${variant} ${size} ${local.class || ''}`.trim()} {...rest}>\n      {local.children}\n    </button>\n  )",
 	},
 	{ name: "Input", tag: "input", selfClose: true, element: "HTMLInputElement" },
 	{ name: "Textarea", tag: "textarea", element: "HTMLTextAreaElement" },
@@ -29,9 +29,25 @@ const components: Spec[] = [
 		tag: "input",
 		selfClose: true,
 		element: "HTMLInputElement",
+		splitKeys: "'class'",
+		body: "return <input type=\"checkbox\" class={`${base} ${local.class || ''}`.trim()} {...rest} />",
 	},
-	{ name: "Radio", tag: "input", selfClose: true, element: "HTMLInputElement" },
-	{ name: "Switch", tag: "button", element: "HTMLButtonElement" },
+	{
+		name: "Radio",
+		tag: "input",
+		selfClose: true,
+		element: "HTMLInputElement",
+		splitKeys: "'class'",
+		body: "return <input type=\"radio\" class={`${base} ${local.class || ''}`.trim()} {...rest} />",
+	},
+	{
+		name: "Switch",
+		tag: "button",
+		element: "HTMLButtonElement",
+		splitKeys: "'class', 'children', 'checked'",
+		extraProps: "\n\tchecked?: boolean",
+		body: 'return <button type="button" role="switch" aria-checked={local.checked} class={`${base} ${local.class || \'\'}`.trim()} {...rest}>{local.children}</button>',
+	},
 	{
 		name: "Label",
 		tag: "label",
@@ -44,25 +60,33 @@ const components: Spec[] = [
 		name: "FormField",
 		tag: "div",
 		element: "HTMLDivElement",
+		splitKeys: "'class', 'children', 'label', 'error'",
 		extraProps: "\n\tlabel?: string\n\terror?: string",
+		body: 'return (\n    <div class={`${base} ${local.class || \'\'}`.trim()} {...rest}>\n      {local.label ? <span class="solidui-label">{local.label}</span> : null}\n      {local.children}\n      {local.error ? <span class="solidui-form-field__error" role="alert">{local.error}</span> : null}\n    </div>\n  )',
 	},
 	{
 		name: "FileInput",
 		tag: "input",
 		selfClose: true,
 		element: "HTMLInputElement",
+		splitKeys: "'class'",
+		body: "return <input type=\"file\" class={`${base} ${local.class || ''}`.trim()} {...rest} />",
 	},
 	{
 		name: "Slider",
 		tag: "input",
 		selfClose: true,
 		element: "HTMLInputElement",
+		splitKeys: "'class'",
+		body: "return <input type=\"range\" class={`${base} ${local.class || ''}`.trim()} {...rest} />",
 	},
 	{
 		name: "DatePicker",
 		tag: "input",
 		selfClose: true,
 		element: "HTMLInputElement",
+		splitKeys: "'class'",
+		body: "return <input type=\"date\" class={`${base} ${local.class || ''}`.trim()} {...rest} />",
 	},
 	{ name: "Card", tag: "div", element: "HTMLDivElement" },
 	{ name: "Box", tag: "div", element: "HTMLDivElement" },
@@ -120,7 +144,14 @@ const components: Spec[] = [
 	{ name: "Collapsible", tag: "div", element: "HTMLDivElement" },
 	{ name: "Accordion", tag: "div", element: "HTMLDivElement" },
 	{ name: "DropdownMenu", tag: "div", element: "HTMLDivElement" },
-	{ name: "Toggle", tag: "button", element: "HTMLButtonElement" },
+	{
+		name: "Toggle",
+		tag: "button",
+		element: "HTMLButtonElement",
+		splitKeys: "'class', 'children', 'pressed'",
+		extraProps: "\n\tpressed?: boolean",
+		body: "return <button type=\"button\" aria-pressed={local.pressed} class={`${base} ${local.class || ''}`.trim()} {...rest}>{local.children}</button>",
+	},
 	{ name: "ToggleGroup", tag: "div", element: "HTMLDivElement" },
 	{ name: "Resizable", tag: "div", element: "HTMLDivElement" },
 ];
@@ -161,8 +192,8 @@ function makeComponent(spec: Spec) {
 	const body =
 		spec.body ??
 		(spec.selfClose
-			? `  return <${spec.tag} class={\`${base} \${local.class || ''}\`.trim()} {...rest} />`
-			: `  return <${spec.tag} class={\`${base} \${local.class || ''}\`.trim()} {...rest}>{local.children}</${spec.tag}>`);
+			? `  return <${spec.tag} class={\`\${base} \${local.class || ''}\`.trim()} {...rest} />`
+			: `  return <${spec.tag} class={\`\${base} \${local.class || ''}\`.trim()} {...rest}>{local.children}</${spec.tag}>`);
 
 	const splitKeys = spec.splitKeys ?? (spec.selfClose ? "'class'" : "'class', 'children'");
 

@@ -7,7 +7,7 @@ export function Flex(props: FlexProps) {
 	const [local, rest] = splitProps(props, ["class", "children"]);
 	const base = "solidui-flex";
 	return (
-		<div class={`solidui-flex ${local.class || ""}`.trim()} {...rest}>
+		<div class={`${base} ${local.class || ""}`.trim()} {...rest}>
 			{local.children}
 		</div>
 	);

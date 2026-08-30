@@ -7,7 +7,7 @@ export function Popover(props: PopoverProps) {
 	const [local, rest] = splitProps(props, ["class", "children"]);
 	const base = "solidui-popover";
 	return (
-		<div class={`solidui-popover ${local.class || ""}`.trim()} {...rest}>
+		<div class={`${base} ${local.class || ""}`.trim()} {...rest}>
 			{local.children}
 		</div>
 	);

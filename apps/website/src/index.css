@@ -396,6 +396,196 @@ pre {
 	background: var(--su-surface);
 }
 
+/* Focus states */
+:focus-visible {
+	outline: 2px solid var(--su-primary);
+	outline-offset: 2px;
+}
+
+button:focus:not(:focus-visible),
+a:focus:not(:focus-visible),
+input:focus:not(:focus-visible),
+textarea:focus:not(:focus-visible),
+select:focus:not(:focus-visible) {
+	outline: none;
+}
+
+/* Skip link */
+.skip-link {
+	position: absolute;
+	left: -9999px;
+	z-index: 100;
+	padding: 0.5rem 1rem;
+	background: var(--su-primary);
+	color: var(--su-primary-text);
+	border-radius: var(--su-radius);
+	text-decoration: none;
+}
+
+.skip-link:focus {
+	left: 1rem;
+	top: 1rem;
+}
+
+/* Header actions */
+.header-actions {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	margin-left: auto;
+}
+
+.theme-toggle,
+.menu-toggle {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 44px;
+	min-height: 44px;
+	padding: 0.5rem;
+	border: 1px solid transparent;
+	border-radius: var(--su-radius);
+	background: transparent;
+	color: var(--su-text);
+	font: inherit;
+	cursor: pointer;
+}
+
+.theme-toggle:hover,
+.menu-toggle:hover {
+	background: var(--su-bg);
+}
+
+/* Search */
+.search-bar {
+	margin-bottom: 1.5rem;
+}
+
+.search-input {
+	max-width: 420px;
+}
+
+/* Gallery card view link */
+.gallery-view {
+	margin-top: auto;
+	align-self: flex-start;
+}
+
+/* Code block */
+.code-block {
+	position: relative;
+	margin-bottom: 1rem;
+	border: 1px solid var(--su-border);
+	border-radius: var(--su-radius);
+	background: var(--su-surface);
+}
+
+.code-block pre {
+	margin: 0;
+	padding: 1rem;
+	background: transparent;
+	border: 0;
+	overflow-x: auto;
+	font-size: 0.85rem;
+}
+
+.code-block__copy {
+	position: absolute;
+	top: 0.5rem;
+	right: 0.5rem;
+	padding: 0.35rem 0.75rem;
+	font-size: 0.8rem;
+	border: 1px solid var(--su-border);
+	border-radius: var(--su-radius);
+	background: var(--su-bg);
+	color: var(--su-text);
+	cursor: pointer;
+}
+
+.code-block__copy:hover {
+	background: var(--su-surface);
+}
+
+/* Section title */
+.section-title {
+	font-size: 1.15rem;
+	margin: 1.5rem 0 0.75rem;
+	color: var(--su-text-muted);
+}
+
+/* Button states */
+.solidui-button:disabled,
+.solidui-button[aria-disabled="true"] {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+.solidui-button:hover:not(:disabled) {
+	filter: brightness(0.97);
+}
+
+.solidui-button--primary:hover:not(:disabled) {
+	filter: brightness(1.1);
+}
+
+/* Form focus */
+.solidui-input:focus,
+.solidui-textarea:focus,
+.solidui-select:focus {
+	border-color: var(--su-primary);
+	box-shadow: 0 0 0 2px rgba(15, 23, 42, 0.1);
+}
+
+/* Dark mode */
+html[data-theme="dark"] {
+	color-scheme: dark;
+	--su-bg: #0f172a;
+	--su-surface: #1e293b;
+	--su-text: #f1f5f9;
+	--su-text-muted: #94a3b8;
+	--su-border: #334155;
+	--su-primary: #38bdf8;
+	--su-primary-text: #0f172a;
+}
+
+html[data-theme="dark"] .solidui-button--primary {
+	background: var(--su-primary);
+	color: var(--su-primary-text);
+}
+
+html[data-theme="dark"] .solidui-button--link {
+	color: #60a5fa;
+}
+
+html[data-theme="dark"] pre,
+html[data-theme="dark"] .code-block,
+html[data-theme="dark"] .solidui-card,
+html[data-theme="dark"] .demo-stage {
+	background: var(--su-surface);
+}
+
+html[data-theme="dark"] .solidui-input,
+html[data-theme="dark"] .solidui-textarea,
+html[data-theme="dark"] .solidui-select {
+	background: var(--su-surface);
+	color: var(--su-text);
+}
+
+html[data-theme="dark"] .solidui-input:focus,
+html[data-theme="dark"] .solidui-textarea:focus,
+html[data-theme="dark"] .solidui-select:focus {
+	box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.25);
+}
+
+html[data-theme="dark"] .site-link:hover {
+	background: rgba(255, 255, 255, 0.05);
+}
+
+html[data-theme="dark"] .gallery-card:hover {
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+/* Responsive */
 @media (max-width: 768px) {
 	.site-nav {
 		display: none;
@@ -415,10 +605,46 @@ pre {
 	}
 
 	.menu-toggle {
-		display: block;
+		display: inline-flex;
+	}
+
+	.header-actions {
+		margin-left: auto;
 	}
 
 	.gallery-grid {
 		grid-template-columns: 1fr;
+	}
+
+	.site-main {
+		padding: 1rem;
+	}
+
+	.page-title {
+		font-size: 1.5rem;
+	}
+
+	.hero-actions {
+		flex-direction: column;
+	}
+}
+
+@media (min-width: 1024px) {
+	.site-main {
+		padding: 2rem;
+	}
+
+	.gallery-grid {
+		grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms;
+		animation-iteration-count: 1;
+		transition-duration: 0.01ms;
 	}
 }

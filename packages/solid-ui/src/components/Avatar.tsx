@@ -7,7 +7,7 @@ export function Avatar(props: AvatarProps) {
 	const [local, rest] = splitProps(props, ["class", "children"]);
 	const base = "solidui-avatar";
 	return (
-		<div class={`solidui-avatar ${local.class || ""}`.trim()} {...rest}>
+		<div class={`${base} ${local.class || ""}`.trim()} {...rest}>
 			{local.children}
 		</div>
 	);
