@@ -100,12 +100,11 @@ export async function analyzeCodeQuality(
 			});
 		}
 
-		const anyRe = /(?<![A-Za-z0-9_])(?::\s*|as\s+|,\s*)?any\b(?=\s*[\[\]>;{},)\|&\n]|$)/g;
-		const anyReNoG = /(?<![A-Za-z0-9_])(?::\s*|as\s+|,\s*)?any\b(?=\s*[\[\]>;{},)\|&\n]|$)/;
-		const anyMatch = anyReNoG.test(content);
+		const anyRe = /(?<![A-Za-z0-9_])(?::\s*|as\s+|,\s*)?any\b(?=\s*[[\]>;{},)|&\n]|$)/;
+		const anyMatch = anyRe.test(content);
 		if (anyMatch) {
 			const linesArr = content.split("\n");
-			const line = linesArr.findIndex((l) => anyReNoG.test(l)) + 1;
+			const line = linesArr.findIndex((l) => anyRe.test(l)) + 1;
 			findings.push({
 				categoryId: "no-explicit-any",
 				category: cats.get("no-explicit-any")?.name ?? "",
@@ -147,6 +146,30 @@ export async function analyzeCodeQuality(
 				file: rel,
 				evidence: `debugger; in ${rel}`,
 				recommendation: "Remove debugger statements",
+			});
+		}
+
+		const relSlash = rel.replace(/\\/g, "/");
+		const isConsoleLogExcluded =
+			relSlash.startsWith("tools/") ||
+			relSlash.startsWith("apps/cli/") ||
+			relSlash.startsWith("examples/") ||
+			relSlash.includes("/scripts/") ||
+			relSlash.endsWith(".test.ts") ||
+			relSlash.endsWith(".spec.ts");
+		if (!isConsoleLogExcluded && /\bconsole\.log\s*\(/.test(content)) {
+			const linesArr = content.split("\n");
+			const line = linesArr.findIndex((l) => /\bconsole\.log\s*\(/.test(l)) + 1;
+			findings.push({
+				categoryId: "no-console-log",
+				category: cats.get("no-console-log")?.name ?? "",
+				domain: "code-quality",
+				severity: "Low",
+				message: `console.log found`,
+				file: rel,
+				line,
+				evidence: `console.log in ${rel}`,
+				recommendation: "Remove debug logging",
 			});
 		}
 
@@ -211,6 +234,12 @@ export async function analyzeCodeQuality(
 	}
 
 	if (!findings.some((f) => f.categoryId === "no-debugger")) passed.add("no-debugger");
+
+	if (!findings.some((f) => f.categoryId === "no-explicit-any")) passed.add("no-explicit-any");
+
+	if (!findings.some((f) => f.categoryId === "no-non-null-assertion")) passed.add("no-non-null-assertion");
+
+	if (!findings.some((f) => f.categoryId === "no-console-log")) passed.add("no-console-log");
 
 	return { findings, passed };
 }

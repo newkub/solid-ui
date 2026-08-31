@@ -3,7 +3,7 @@
  */
 
 import type { Result } from "#shared/types";
-import type { MemoryCommandRepositoryState } from "./memory-command-repository";
+import type { MemoryCommandRepositoryState } from "./memory-command-repository-state";
 
 export const countCommands = (state: MemoryCommandRepositoryState): Result<number> => {
 	try {

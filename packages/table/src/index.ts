@@ -1,4 +1,6 @@
-// Table Module - Public API exports
+/**
+ * Table Module - Public API exports
+ */
 
 // Application (orchestration)
 export {

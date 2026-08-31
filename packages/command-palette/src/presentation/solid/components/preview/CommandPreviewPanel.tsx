@@ -161,6 +161,7 @@ export function CommandPreviewPanel(props: CommandPreviewPanelProps) {
 							<img src={preview.content} alt={preview.title || "Preview"} class="preview-image" />
 						</Show>
 						<Show when={preview.type === "component"}>
+							{/* trusted: preview.content is generated internally by the command palette. */}
 							<div class="preview-component" innerHTML={preview.content} />
 						</Show>
 					</div>

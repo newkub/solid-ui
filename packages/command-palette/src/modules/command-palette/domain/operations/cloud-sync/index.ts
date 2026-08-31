@@ -3,24 +3,27 @@
  */
 
 import type { Result } from "#shared/types";
+import type { Command } from "../../../types/command";
 import type {
+	CommandHistoryEntry,
 	ConflictResolution,
 	SyncConflict,
 	SyncData,
 	SyncResult,
 	SyncStatus,
 } from "../../../types/integration/cloud-sync";
+import type { CommandPaletteSettings } from "../../../types/ui/theme";
 
 // Create sync data
 export const createSyncData = (
-	commands: readonly unknown[],
-	history: readonly unknown[],
-	settings: Record<string, unknown>,
+	commands: readonly Command[],
+	history: readonly CommandHistoryEntry[],
+	settings: CommandPaletteSettings,
 ): Result<SyncData> => {
 	const syncData: SyncData = {
-		commands: commands as any,
-		history: history as any,
-		settings: settings as any,
+		commands,
+		history,
+		settings,
 		lastSyncAt: new Date(),
 	};
 
@@ -45,19 +48,19 @@ export const mergeSyncData = (local: SyncData, remote: SyncData): SyncData => {
 	for (const conflict of conflicts) {
 		switch (conflict.type) {
 			case "command": {
-				const localIndex = mergedCommands.findIndex((c: any) => c.id === conflict.itemId);
+				const localIndex = mergedCommands.findIndex((c) => c.id === conflict.itemId);
 				if (localIndex >= 0) {
-					mergedCommands[localIndex] = conflict.remoteVersion as any;
+					mergedCommands[localIndex] = conflict.remoteVersion as unknown as Command;
 				}
 				break;
 			}
 			case "settings":
-				(mergedSettings as any)[conflict.itemId as string] = conflict.remoteVersion;
+				(mergedSettings as Record<string, unknown>)[conflict.itemId as string] = conflict.remoteVersion;
 				break;
 			case "history": {
-				const historyIndex = mergedHistory.findIndex((h: any) => h.id === conflict.itemId);
+				const historyIndex = mergedHistory.findIndex((h) => h.id === conflict.itemId);
 				if (historyIndex >= 0) {
-					mergedHistory[historyIndex] = conflict.remoteVersion as any;
+					mergedHistory[historyIndex] = conflict.remoteVersion as unknown as CommandHistoryEntry;
 				}
 				break;
 			}
@@ -77,13 +80,13 @@ export const detectConflicts = (local: SyncData, remote: SyncData): readonly Syn
 	const conflicts: SyncConflict[] = [];
 
 	// Check for command conflicts
-	const localCommandIds = new Set(local.commands.map((c) => (c as any).id));
-	const remoteCommandIds = new Set(remote.commands.map((c) => (c as any).id));
+	const localCommandIds = new Set(local.commands.map((c) => c.id));
+	const remoteCommandIds = new Set(remote.commands.map((c) => c.id));
 
 	for (const id of localCommandIds) {
 		if (remoteCommandIds.has(id)) {
-			const localCmd = local.commands.find((c) => (c as any).id === id);
-			const remoteCmd = remote.commands.find((c) => (c as any).id === id);
+			const localCmd = local.commands.find((c) => c.id === id);
+			const remoteCmd = remote.commands.find((c) => c.id === id);
 			if (JSON.stringify(localCmd) !== JSON.stringify(remoteCmd)) {
 				conflicts.push({
 					type: "command",
@@ -112,8 +115,10 @@ export const resolveConflict = (_conflict: SyncConflict, resolution: ConflictRes
 			}
 			return resolution.remoteData as SyncData;
 		case "newest": {
-			const localDate = new Date((resolution.localData as any).lastSyncAt || 0);
-			const remoteDate = new Date((resolution.remoteData as any).lastSyncAt || 0);
+			const localData = resolution.localData as { lastSyncAt?: string | number | Date };
+			const remoteData = resolution.remoteData as { lastSyncAt?: string | number | Date };
+			const localDate = new Date(localData.lastSyncAt ?? 0);
+			const remoteDate = new Date(remoteData.lastSyncAt ?? 0);
 			return localDate > remoteDate ? (resolution.localData as SyncData) : (resolution.remoteData as SyncData);
 		}
 		default:

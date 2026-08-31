@@ -31,7 +31,7 @@ export const fetchCommands = async (state: RestClientState): Promise<Result<read
 		});
 
 		if (!response.ok) {
-			throw new Error(`HTTP error! status: ${response.status}`);
+			throw new Error(`HTTP error: status ${response.status}`);
 		}
 
 		const data = await response.json();
@@ -59,7 +59,7 @@ export const syncCommand = async (state: RestClientState, command: Command): Pro
 		});
 
 		if (!response.ok) {
-			throw new Error(`HTTP error! status: ${response.status}`);
+			throw new Error(`HTTP error: status ${response.status}`);
 		}
 
 		const data = await response.json();
@@ -85,7 +85,7 @@ export const deleteRemoteCommand = async (state: RestClientState, id: string): P
 		});
 
 		if (!response.ok) {
-			throw new Error(`HTTP error! status: ${response.status}`);
+			throw new Error(`HTTP error: status ${response.status}`);
 		}
 
 		return { success: true, data: undefined };

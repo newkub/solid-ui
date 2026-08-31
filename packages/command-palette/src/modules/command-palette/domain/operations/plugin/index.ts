@@ -4,7 +4,7 @@
 
 import type { Result } from "#shared/types";
 import type { Command } from "../../../types/command";
-import type { Plugin, PluginMetadata, PluginRegistry } from "../../../types/integration/plugin";
+import type { Plugin, PluginMetadata, PluginPermission, PluginRegistry } from "../../../types/integration/plugin";
 
 // Create plugin from metadata
 export const createPlugin = (metadata: PluginMetadata, commands: readonly Command[]): Result<Plugin> => {
@@ -137,5 +137,5 @@ export const checkPluginPermissions = (plugin: Plugin, requiredPermissions: read
 	}
 
 	const pluginPermissionTypes = plugin.permissions.map((p) => p.type);
-	return requiredPermissions.every((perm) => pluginPermissionTypes.includes(perm as any));
+	return requiredPermissions.every((perm) => pluginPermissionTypes.includes(perm as PluginPermission["type"]));
 };

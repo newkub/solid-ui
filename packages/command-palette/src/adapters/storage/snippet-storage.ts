@@ -59,9 +59,9 @@ const loadLibrary = (storageKey: string): SnippetLibrary => {
 		if (stored) {
 			const parsed = JSON.parse(stored);
 			return {
-				snippets: parsed.snippets.map((s: any) => ({
-					...s,
-					createdAt: new Date(s.createdAt),
+				snippets: parsed.snippets.map((s: unknown) => ({
+					...(s as Snippet),
+					createdAt: new Date((s as { createdAt: string }).createdAt),
 				})),
 			};
 		}

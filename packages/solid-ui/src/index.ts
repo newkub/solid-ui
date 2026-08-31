@@ -1,4 +1,6 @@
-// Solid UI component library exports
+/**
+ * Solid UI component library exports
+ */
 
 export * from "@wrikka/form";
 export * from "@wrikka/image";

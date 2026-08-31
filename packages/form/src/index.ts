@@ -1,4 +1,6 @@
-// Form Module - Public API exports
+/**
+ * Form Module - Public API exports
+ */
 
 // Types
 export type { FormContextValue } from "./application/form-context-types";

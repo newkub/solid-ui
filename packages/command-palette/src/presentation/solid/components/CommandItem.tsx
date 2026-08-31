@@ -4,7 +4,7 @@
 
 import { Show } from "solid-js";
 import type { Command } from "#modules/command-palette/types";
-import { getHighlightedText } from "#shared/utils";
+import { HighlightText } from "./HighlightText";
 
 interface CommandItemProps {
 	command: Command;
@@ -35,12 +35,13 @@ export function CommandItem(props: CommandItemProps) {
 		>
 			<div class="command-content">
 				<div class="command-text">
-					<div class="command-label" innerHTML={getHighlightedText(props.command.label, props.searchQuery)} />
+					<div class="command-label">
+						<HighlightText text={props.command.label} query={props.searchQuery} />
+					</div>
 					<Show when={props.command.description}>
-						<div
-							class="command-description"
-							innerHTML={getHighlightedText(props.command.description ?? "", props.searchQuery)}
-						/>
+						<div class="command-description">
+							<HighlightText text={props.command.description ?? ""} query={props.searchQuery} />
+						</div>
 					</Show>
 				</div>
 				<div class="command-actions">

@@ -1,5 +1,8 @@
-// Transitions Module - Main Entry Point
-// File-based page transitions like Nuxt
+/**
+ * Transitions Module - Main Entry Point
+ *
+ * File-based page transitions like Nuxt
+ */
 
 // Domain (pure operations)
 export {

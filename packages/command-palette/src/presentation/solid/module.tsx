@@ -2,7 +2,7 @@
  * solid-modules-command-palette Solid Module
  */
 
-import { createContext, createSignal, useContext } from "solid-js";
+import { createContext, createSignal, type JSX, useContext } from "solid-js";
 
 interface CommandPaletteContextType {
 	isOpen: () => boolean;
@@ -13,7 +13,7 @@ interface CommandPaletteContextType {
 
 const CommandPaletteContext = createContext<CommandPaletteContextType | undefined>(undefined);
 
-export function CommandPaletteProvider(props: { children: any }) {
+export function CommandPaletteProvider(props: { children: JSX.Element }) {
 	const [isOpen, setIsOpen] = createSignal(false);
 
 	const toggle = () => setIsOpen((prev) => !prev);

@@ -69,7 +69,7 @@ export const subscribe = <T extends CommandEvent>(
 		if (!newSubscriptions.has(eventType)) {
 			newSubscriptions.set(eventType, new Map());
 		}
-		const eventSubscriptions = newSubscriptions.get(eventType)!;
+		const eventSubscriptions = newSubscriptions.get(eventType) as Map<string, (event: CommandEvent) => Promise<void>>;
 		eventSubscriptions.set(subscriptionId, handler as (event: CommandEvent) => Promise<void>);
 
 		return Promise.resolve({
@@ -155,7 +155,8 @@ export const getEventTypes = (state: MemoryEventDispatcherState): readonly strin
 export const createEventDispatcher = (state: MemoryEventDispatcherState): EventDispatcher => ({
 	dispatch: (event) => dispatch(state, event),
 	dispatchBatch: (events) => dispatchBatch(state, events),
-	subscribe: (eventType, handler) => subscribe(state, eventType as any, handler as any),
+	subscribe: <T extends CommandEvent>(eventType: T["type"], handler: (event: T) => Promise<void>) =>
+		subscribe<T>(state, eventType, handler),
 	unsubscribe: (id) => unsubscribe(state, id),
 	getActiveSubscriptions: () => getActiveSubscriptions(state),
 });

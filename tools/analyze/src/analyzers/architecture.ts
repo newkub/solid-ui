@@ -1,5 +1,5 @@
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
-import { join, relative } from "node:path";
+import { dirname, join, relative, resolve } from "node:path";
 import type { CategoryCheck, Finding } from "../types";
 
 const root = process.cwd();
@@ -59,6 +59,26 @@ export async function analyzeArchitecture(
 						recommendation: "Create a barrel export for public API",
 					});
 				}
+
+				for (const indexName of ["index.ts", "index.tsx"]) {
+					const indexPath = join(pkgPath, "src", indexName);
+					if (existsSync(indexPath)) {
+						const indexContent = readFileSync(indexPath, "utf-8");
+						if (!/\/\*\*/.test(indexContent)) {
+							findings.push({
+								categoryId: "public-api-docs",
+								category: cats.get("public-api-docs")?.name ?? "",
+								domain: "architecture",
+								severity: "Low",
+								message: `Public API index lacks TSDoc`,
+								file: relative(root, indexPath),
+								evidence: `src/${indexName} in ${pkg} has no TSDoc comments`,
+								recommendation: "Add TSDoc to public API exports",
+							});
+						}
+						break;
+					}
+				}
 			}
 
 			if (!existsSync(join(pkgPath, "src"))) {
@@ -79,6 +99,7 @@ export async function analyzeArchitecture(
 	if (!findings.some((f) => f.categoryId === "workspace-packages")) passed.add("workspace-packages");
 	if (!findings.some((f) => f.categoryId === "barrel-exports")) passed.add("barrel-exports");
 	if (!findings.some((f) => f.categoryId === "clean-src")) passed.add("clean-src");
+	if (!findings.some((f) => f.categoryId === "public-api-docs")) passed.add("public-api-docs");
 
 	const files = walkDir(root);
 	for (const file of files) {
@@ -144,6 +165,81 @@ export async function analyzeArchitecture(
 			evidence: "biome.json missing",
 			recommendation: "Add Biome config",
 		});
+
+	// Circular dependency detection within packages
+	const graph = new Map<string, Set<string>>();
+	for (const file of files) {
+		const abs = resolve(root, file);
+		const content = readFileSync(file, "utf-8");
+		const dir = dirname(abs);
+		const importMatches = content.matchAll(/from\s+["']([^"']+)["']|import\s+["']([^"']+)["']/g);
+
+		for (const match of importMatches) {
+			const specifier = match[1] ?? match[2];
+			if (!specifier || !specifier.startsWith(".")) continue;
+
+			let resolved = resolve(dir, specifier);
+			if (!existsSync(resolved)) {
+				for (const ext of [".ts", ".tsx", ".js", ".jsx", "/index.ts", "/index.tsx", "/index.js", "/index.jsx"]) {
+					const candidate = `${resolved}${ext}`;
+					if (existsSync(candidate)) {
+						resolved = candidate;
+						break;
+					}
+				}
+			}
+
+			if (!existsSync(resolved)) continue;
+
+			if (!graph.has(abs)) graph.set(abs, new Set());
+			graph.get(abs)?.add(resolved);
+		}
+	}
+
+	const visited = new Set<string>();
+	const inStack = new Set<string>();
+	let cycle: string[] = [];
+
+	const dfs = (node: string, stack: string[]) => {
+		if (inStack.has(node)) {
+			const start = stack.indexOf(node);
+			cycle = stack.slice(start);
+			return;
+		}
+		if (visited.has(node) || cycle.length > 0) return;
+
+		visited.add(node);
+		inStack.add(node);
+		stack.push(node);
+
+		for (const next of graph.get(node) ?? []) {
+			dfs(next, stack);
+			if (cycle.length > 0) return;
+		}
+
+		stack.pop();
+		inStack.delete(node);
+	};
+
+	for (const node of graph.keys()) {
+		dfs(node, []);
+		if (cycle.length > 0) break;
+	}
+
+	if (cycle.length > 0) {
+		findings.push({
+			categoryId: "no-circular-deps",
+			category: cats.get("no-circular-deps")?.name ?? "",
+			domain: "architecture",
+			severity: "High",
+			message: "Circular dependency detected",
+			file: relative(root, cycle[0] ?? ""),
+			evidence: cycle.map((f) => relative(root, f)).join(" -> "),
+			recommendation: "Break the import cycle",
+		});
+	} else {
+		passed.add("no-circular-deps");
+	}
 
 	// dependency graph validity is checked by dependencies analyzer
 	passed.add("dependency-graph");

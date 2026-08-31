@@ -5,6 +5,7 @@
 
 import type { CommandRepository, EventDispatcher } from "#modules/command-palette/ports";
 import type { CommandSearcher } from "#modules/command-palette/ports/search/command-searcher";
+import type { Command } from "#modules/command-palette/types";
 import { createCommandRepository } from "../db/command-repository-adapter";
 import type { MemoryCommandRepositoryState } from "../db/memory-command-repository";
 import { createMemoryCommandRepository } from "../db/memory-command-repository";
@@ -27,7 +28,7 @@ export type DIContainerState = Readonly<{
 	storage: IStorage;
 }>;
 
-export const createDIContainer = (initialCommands?: Map<string, any>): DIContainerState => {
+export const createDIContainer = (initialCommands?: Map<string, Command>): DIContainerState => {
 	const repositoryState = createMemoryCommandRepository(initialCommands);
 	const eventDispatcherState = createMemoryEventDispatcher();
 	const searcherState = createCustomCommandSearcher([]);

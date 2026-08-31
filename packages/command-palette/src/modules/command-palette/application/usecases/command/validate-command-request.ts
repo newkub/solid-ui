@@ -3,7 +3,7 @@
  */
 
 import type { Result } from "#shared/types";
-import type { ExecuteCommandRequest } from "./execute-command";
+import type { ExecuteCommandRequest } from "./execute-command-types";
 
 export const validateExecuteCommandRequest = (request: ExecuteCommandRequest): Result<ExecuteCommandRequest> => {
 	if (!request.commandId || request.commandId.trim().length === 0) {

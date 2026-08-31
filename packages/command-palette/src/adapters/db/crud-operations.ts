@@ -4,7 +4,7 @@
 
 import type { Command } from "#modules/command-palette/types";
 import type { Result } from "#shared/types";
-import type { MemoryCommandRepositoryState } from "./memory-command-repository";
+import type { MemoryCommandRepositoryState } from "./memory-command-repository-state";
 
 export const saveCommand = (
 	state: MemoryCommandRepositoryState,

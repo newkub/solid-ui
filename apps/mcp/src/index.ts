@@ -1,12 +1,16 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { registry } from "@wrikka/solid-ui";
-import { z } from "zod/v3";
+import { z } from "zod";
+
+type McpToolServer = {
+	tool: (name: string, description: string, params: unknown, cb: (args: { name: string }) => Promise<unknown>) => void;
+};
 
 const server = new McpServer({
 	name: "solid-ui-mcp",
 	version: "0.0.1",
-}) as any;
+});
 
 const template = (name: string, tag: string) => `import { splitProps, type JSX } from 'solid-js'
 
@@ -29,11 +33,11 @@ server.tool("list-components", "List all components available in @wrikka/solid-u
 	};
 });
 
-server.tool(
+(server as McpToolServer).tool(
 	"get-component",
 	"Get component details and a code template",
-	{ name: z.string().describe("Component name, e.g. Button") },
-	async ({ name }: { name: string }) => {
+	{ name: z.string() },
+	async ({ name }) => {
 		const item = registry.find((r) => r.name.toLowerCase() === name.toLowerCase());
 		if (!item) {
 			return {

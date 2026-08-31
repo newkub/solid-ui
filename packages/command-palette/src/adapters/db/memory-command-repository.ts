@@ -4,11 +4,9 @@
  */
 
 import type { Command } from "#modules/command-palette/types";
+import type { MemoryCommandRepositoryState } from "./memory-command-repository-state";
 
-// State type
-export type MemoryCommandRepositoryState = Readonly<{
-	commands: Map<string, Command>;
-}>;
+export type { MemoryCommandRepositoryState };
 
 // Factory function
 export const createMemoryCommandRepository = (

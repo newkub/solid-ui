@@ -1,6 +1,7 @@
 // Form Validator Schemas - Arktype schemas for field validation
 // Following /follow-arktype workflow for type-safe runtime validation
 
+import type { Type } from "arktype";
 import { type } from "arktype";
 
 /**
@@ -104,7 +105,7 @@ export const numericSchema = type("string").narrow((s, ctx) => {
 /**
  * JSON String Parser Schema - Using .pipe() for transformation
  */
-export const jsonStringSchema = type("string.json.parse") as any;
+export const jsonStringSchema: Type<unknown> = type("string.json.parse") as Type<unknown>;
 
 /**
  * Date String Parser Schema - Using .pipe() for transformation

@@ -28,7 +28,7 @@ export function CommandPaletteSettingsComponent(props: CommandPaletteSettingsPro
 		local.onThemeChange?.(themeId);
 	};
 
-	const handleSettingChange = (key: keyof CommandPaletteSettings, value: any) => {
+	const handleSettingChange = <K extends keyof CommandPaletteSettings>(key: K, value: CommandPaletteSettings[K]) => {
 		local.onSettingsChange?.({
 			...local.settings,
 			[key]: value,

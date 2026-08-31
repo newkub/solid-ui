@@ -132,7 +132,7 @@ export function SnippetLibrary(props: SnippetLibraryProps) {
 				<Show when={filteredSnippets().length === 0}>
 					<div class="empty-state">
 						{local.snippets.length === 0
-							? "No snippets yet. Create your first snippet!"
+							? "No snippets yet. Create your first snippet."
 							: "No snippets match the current filters"}
 					</div>
 				</Show>
@@ -149,7 +149,7 @@ export function SnippetLibrary(props: SnippetLibraryProps) {
 				<div class="snippet-modal">
 					<h3 class="modal-title">Edit Snippet</h3>
 					<EditSnippetForm
-						snippet={editingSnippet()!}
+						snippet={editingSnippet() as Snippet}
 						onSubmit={handleEditSnippet}
 						onCancel={() => setEditingSnippet(null)}
 					/>

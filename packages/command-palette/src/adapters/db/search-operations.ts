@@ -4,7 +4,7 @@
 
 import type { Command, CommandSearchQuery } from "#modules/command-palette/types";
 import type { PaginatedResult, Result } from "#shared/types";
-import type { MemoryCommandRepositoryState } from "./memory-command-repository";
+import type { MemoryCommandRepositoryState } from "./memory-command-repository-state";
 
 // Pure function: filter commands by search criteria
 const filterCommandsByQuery = (commands: readonly Command[], query: CommandSearchQuery): Command[] => {

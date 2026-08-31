@@ -38,7 +38,7 @@ export function useFocusTrap(containerRef: () => HTMLElement | undefined, option
 	 */
 	const getFirstFocusableElement = (container: HTMLElement): HTMLElement | null => {
 		const elements = getFocusableElements(container);
-		return elements.length > 0 ? elements[0]! : null;
+		return elements.length > 0 ? elements[0] : null;
 	};
 
 	/**
@@ -47,8 +47,9 @@ export function useFocusTrap(containerRef: () => HTMLElement | undefined, option
 	const handleTabKey = (event: KeyboardEvent, container: HTMLElement) => {
 		const focusableElements = getFocusableElements(container);
 		if (focusableElements.length === 0) return;
-		const firstElement = focusableElements[0]!;
-		const lastElement = focusableElements[focusableElements.length - 1]!;
+		const firstElement = focusableElements[0];
+		const lastElement = focusableElements[focusableElements.length - 1];
+		if (!firstElement || !lastElement) return;
 
 		if (event.shiftKey) {
 			// Shift + Tab: move to previous element

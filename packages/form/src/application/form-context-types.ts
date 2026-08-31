@@ -27,5 +27,5 @@ export interface FormContextValue {
 
 export interface FormProviderProps {
 	config: FormConfig;
-	children: any;
+	children: unknown;
 }

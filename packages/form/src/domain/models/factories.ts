@@ -1,6 +1,6 @@
 // Form Field Factories - Domain layer field creation functions
 
-import type { CheckboxField, FileField, NumberField, SelectField, TextareaField, TextField } from "./index";
+import type { CheckboxField, FileField, NumberField, SelectField, TextareaField, TextField } from "./field-definitions";
 
 export const createTextField = (name: string, label?: string, config?: Partial<TextField>): TextField => {
 	const field: TextField = {

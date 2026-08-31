@@ -4,7 +4,7 @@
  */
 
 import type { CommandRepository, EventDispatcher } from "#modules/command-palette/ports";
-import type { Command, CommandExecutionContext, CommandExecutionResult } from "#modules/command-palette/types";
+import type { CommandExecutionContext } from "#modules/command-palette/types";
 // Application errors
 import { CommandNotFoundError, UseCaseError, ValidationError } from "#shared/errors";
 import type { Result } from "#shared/types";
@@ -12,18 +12,9 @@ import type { Result } from "#shared/types";
 import { createCommandExecutedEvent } from "../../../domain/events/command-events";
 import { updateCommandExecutionStats } from "../history/update-command-stats";
 import { executeCommandAction } from "./execute-command-action";
+import type { ExecuteCommandRequest, ExecuteCommandResponse } from "./execute-command-types";
 // Helper functions
 import { validateExecuteCommandRequest } from "./validate-command-request";
-
-export interface ExecuteCommandRequest {
-	readonly commandId: string;
-	readonly context?: Partial<CommandExecutionContext>;
-}
-
-export interface ExecuteCommandResponse {
-	readonly command: Command;
-	readonly result: CommandExecutionResult;
-}
 
 export const executeCommandUseCase =
 	(commandRepository: CommandRepository, eventDispatcher: EventDispatcher) =>

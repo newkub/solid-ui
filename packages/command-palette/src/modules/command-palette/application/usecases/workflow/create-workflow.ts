@@ -3,6 +3,7 @@
  * Handles workflow creation workflow with validation and persistence
  */
 
+import type { CommandEvent } from "#modules/command-palette/domain/events/command-events";
 import { createWorkflowDeletedEvent } from "#modules/command-palette/domain/events/workflow-events";
 import { validateWorkflow } from "#modules/command-palette/domain/operations/workflow";
 import type { EventDispatcher, WorkflowRepository } from "#modules/command-palette/ports";
@@ -169,7 +170,7 @@ export const deleteWorkflowUseCase =
 
 			// Step 2: Dispatch event
 			const event = createWorkflowDeletedEvent(workflowId);
-			const dispatchResult = await _eventDispatcher.dispatch(event as any);
+			const dispatchResult = await _eventDispatcher.dispatch(event as unknown as CommandEvent);
 			if (!dispatchResult.success) {
 				// Event dispatch failed - continue with response
 			}

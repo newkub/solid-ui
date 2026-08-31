@@ -1,5 +1,4 @@
 import { mkdir, writeFile } from "node:fs/promises";
-import { dirname } from "node:path";
 
 interface Spec {
 	name: string;

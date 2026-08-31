@@ -1,5 +1,8 @@
-// Image Module - Main Entry Point
-// Re-exports from all layers
+/**
+ * Image Module - Main Entry Point
+ *
+ * Re-exports from all layers
+ */
 
 // Domain models
 export type { ImageTransform } from "./domain/models";

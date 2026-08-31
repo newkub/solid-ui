@@ -87,7 +87,7 @@ export const memoize = <A extends readonly unknown[], B>(
 	return (...args: A): B => {
 		const key = getKey(...args);
 		if (cache.has(key)) {
-			return cache.get(key)!;
+			return cache.get(key) as B;
 		}
 		const result = fn(...args);
 		cache.set(key, result);

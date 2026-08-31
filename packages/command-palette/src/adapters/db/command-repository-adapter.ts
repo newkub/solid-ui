@@ -4,6 +4,7 @@
  */
 
 import type { CommandRepository } from "#modules/command-palette/ports";
+import type { Command } from "#modules/command-palette/types";
 import { deleteManyCommands, saveManyCommands } from "./bulk-operations";
 import { findByCategory, getAllCategories } from "./category-operations";
 import { countByCategory, countCommands, countDisabled, countEnabled } from "./count-operations";
@@ -16,19 +17,21 @@ import {
 	saveCommand,
 	updateCommand,
 } from "./crud-operations";
-import type { MemoryCommandRepositoryState } from "./memory-command-repository";
+import type { MemoryCommandRepositoryState } from "./memory-command-repository-state";
 import { searchCommands, searchPaginated } from "./search-operations";
 
 export const createCommandRepository = (state: MemoryCommandRepositoryState): CommandRepository => ({
 	save: (command) => {
 		const result = saveCommand(state, command);
-		return Promise.resolve(result.success ? { success: true, data: result.data.commands.get(command.id)! } : result);
+		return Promise.resolve(
+			result.success ? { success: true, data: result.data.commands.get(command.id) as Command } : result,
+		);
 	},
 	findById: (id) => Promise.resolve(findCommandById(state, id)),
 	findAll: () => Promise.resolve(findAllCommands(state)),
 	update: (id, updates) => {
 		const result = updateCommand(state, id, updates);
-		return Promise.resolve(result.success ? { success: true, data: result.data.commands.get(id)! } : result);
+		return Promise.resolve(result.success ? { success: true, data: result.data.commands.get(id) as Command } : result);
 	},
 	delete: (id) => {
 		const result = deleteCommand(state, id);
@@ -40,11 +43,11 @@ export const createCommandRepository = (state: MemoryCommandRepositoryState): Co
 	getAllCategories: () => Promise.resolve(getAllCategories(state)),
 	enableCommand: (id) => {
 		const result = enableCommand(state, id);
-		return Promise.resolve(result.success ? { success: true, data: result.data.commands.get(id)! } : result);
+		return Promise.resolve(result.success ? { success: true, data: result.data.commands.get(id) as Command } : result);
 	},
 	disableCommand: (id) => {
 		const result = disableCommand(state, id);
-		return Promise.resolve(result.success ? { success: true, data: result.data.commands.get(id)! } : result);
+		return Promise.resolve(result.success ? { success: true, data: result.data.commands.get(id) as Command } : result);
 	},
 	saveMany: (commands) => {
 		const result = saveManyCommands(state, commands);
