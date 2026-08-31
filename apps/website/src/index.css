@@ -828,6 +828,12 @@ html[data-theme="dark"] .component-card:hover {
 	grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
 }
 
+.gallery-empty {
+	text-align: center;
+	padding: 3rem 1rem;
+	color: var(--su-text-muted);
+}
+
 /* Docs layout */
 .docs-layout {
 	display: flex;

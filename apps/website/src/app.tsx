@@ -152,9 +152,18 @@ function Gallery(props: { withHero?: boolean }) {
 				</select>
 			</div>
 
-			<div class="gallery-grid gallery-grid--all">
-				<For each={filtered()}>{(item) => <ComponentCard name={item.name} />}</For>
-			</div>
+			<Show
+				when={filtered().length > 0}
+				fallback={
+					<div class="gallery-empty">
+						<p>No components match your search.</p>
+					</div>
+				}
+			>
+				<div class="gallery-grid gallery-grid--all">
+					<For each={filtered()}>{(item) => <ComponentCard name={item.name} />}</For>
+				</div>
+			</Show>
 		</section>
 	);
 }
