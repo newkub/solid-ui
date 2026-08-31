@@ -54,7 +54,12 @@ export function Sidebar() {
 							<For each={section.items}>
 								{(item) => (
 									<li>
-										<Link to={pagePath(item.id)} class="docs-sidebar__link" activeOptions={{ exact: true }}>
+										<Link
+											to={pagePath(item.id)}
+											class="docs-sidebar__link"
+											activeProps={() => ({ class: "docs-sidebar__link docs-sidebar__link--active" })}
+											activeOptions={{ exact: true }}
+										>
 											{item.title}
 										</Link>
 									</li>

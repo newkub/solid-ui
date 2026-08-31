@@ -63,11 +63,19 @@ body {
 	font-weight: 500;
 	padding: 0.35rem 0.5rem;
 	border-radius: var(--su-radius);
+	transition:
+		color 0.15s ease,
+		background 0.15s ease;
 }
 
-.site-link:hover {
+.site-link:hover,
+.site-link--active {
 	color: var(--su-text);
 	background: var(--su-bg);
+}
+
+.site-link--active {
+	font-weight: 600;
 }
 
 .menu-toggle {
@@ -89,6 +97,11 @@ body {
 	font-size: 0.85rem;
 	color: var(--su-text-muted);
 	border-top: 1px solid var(--su-border);
+}
+
+.site-footer a {
+	color: var(--su-text);
+	text-decoration: underline;
 }
 
 .page {
@@ -471,6 +484,33 @@ select:focus:not(:focus-visible) {
 	align-self: flex-start;
 }
 
+/* Copy button */
+.copy-button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0.35rem 0.75rem;
+	border: 1px solid var(--su-border);
+	border-radius: var(--su-radius);
+	background: var(--su-bg);
+	color: var(--su-text);
+	font: inherit;
+	font-size: 0.85rem;
+	cursor: pointer;
+	transition:
+		background 0.15s ease,
+		border-color 0.15s ease;
+}
+
+.copy-button:hover {
+	background: var(--su-surface);
+}
+
+.copy-button:focus-visible {
+	outline: 2px solid var(--su-primary);
+	outline-offset: 2px;
+}
+
 /* Code block */
 .code-block {
 	position: relative;
@@ -684,6 +724,38 @@ html[data-theme="dark"] .gallery-card:hover {
 	transition:
 		transform 0.15s ease,
 		box-shadow 0.15s ease;
+	overflow: hidden;
+}
+
+.component-card__header {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+
+.component-card__badge {
+	display: inline-flex;
+	padding: 0.15rem 0.5rem;
+	border-radius: 9999px;
+	background: var(--su-bg);
+	color: var(--su-text-muted);
+	font-size: 0.65rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+}
+
+.component-card__actions {
+	display: flex;
+	gap: 0.5rem;
+	margin-top: auto;
+	align-items: center;
+}
+
+.component-card__actions .copy-button {
+	flex: 1;
 }
 
 .component-card:hover {
@@ -786,6 +858,10 @@ html[data-theme="dark"] .component-card:hover {
 	margin: 0 0 0.5rem;
 }
 
+.docs-sidebar__title--active {
+	color: var(--su-text);
+}
+
 .docs-sidebar__list {
 	list-style: none;
 	margin: 0;
@@ -802,9 +878,13 @@ html[data-theme="dark"] .component-card:hover {
 }
 
 .docs-sidebar__link:hover,
-.docs-sidebar__link[aria-current="page"] {
+.docs-sidebar__link--active {
 	color: var(--su-text);
 	background: var(--su-bg);
+}
+
+.docs-sidebar__link--active {
+	font-weight: 600;
 }
 
 .docs-main {
@@ -818,12 +898,84 @@ html[data-theme="dark"] .component-card:hover {
 
 .docs-article__title {
 	font-size: 2rem;
-	margin: 0 0 1rem;
+	margin: 0 0 0.25rem;
+}
+
+.docs-article__header {
+	margin-bottom: 1.5rem;
+	padding-bottom: 1rem;
+	border-bottom: 1px solid var(--su-border);
+}
+
+.docs-article__group {
+	margin: 0;
+	font-size: 0.85rem;
+	color: var(--su-text-muted);
+	text-transform: capitalize;
+}
+
+.docs-article__body {
+	display: grid;
+	grid-template-columns: 1fr 180px;
+	gap: 2rem;
+	align-items: start;
+}
+
+.docs-article__content {
+	min-width: 0;
+}
+
+.docs-article__toc {
+	position: sticky;
+	top: 80px;
 }
 
 .docs-article__subtitle {
 	font-size: 1.25rem;
 	margin: 2rem 0 1rem;
+}
+
+/* Table of contents */
+.toc {
+	font-size: 0.85rem;
+}
+
+.toc__title {
+	font-size: 0.75rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	color: var(--su-text-muted);
+	margin: 0 0 0.75rem;
+}
+
+.toc__list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.toc__item a {
+	display: block;
+	padding: 0.25rem 0;
+	color: var(--su-text-muted);
+	text-decoration: none;
+	border-left: 2px solid transparent;
+	padding-left: 0.5rem;
+	margin-left: -0.5rem;
+}
+
+.toc__item a:hover {
+	color: var(--su-text);
+	border-left-color: var(--su-border);
+}
+
+.toc__item--level-2 {
+	padding-left: 0.75rem;
+}
+
+.toc__item--level-3 {
+	padding-left: 1.5rem;
 }
 
 /* Markdown body */
@@ -955,6 +1107,15 @@ html[data-theme="dark"] .markdown-body .hljs {
 		width: 100%;
 		max-height: none;
 		padding-right: 0;
+	}
+
+	.docs-article__body {
+		grid-template-columns: 1fr;
+	}
+
+	.docs-article__toc {
+		position: static;
+		order: -1;
 	}
 
 	.gallery-toolbar {

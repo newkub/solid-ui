@@ -62,7 +62,7 @@ function TextControl(props: { label: string; value: string; onChange: (value: st
 
 export function ComponentPlayground(props: { name: string }) {
 	const item = () => registry.find((r) => r.name === props.name);
-	const C = () => (SolidUI as unknown as Record<string, AnyComponent>)[props.name];
+	const C = () => (SolidUI as unknown as Record<string, unknown>)[props.name];
 
 	const [variant, setVariant] = createSignal("default");
 	const [size, setSize] = createSignal("md");
@@ -116,46 +116,47 @@ export function ComponentPlayground(props: { name: string }) {
 
 	const renderPreview = () => {
 		const Comp = C();
-		if (!Comp) return <div>Component not found</div>;
+		if (typeof Comp !== "function") return <div>Component not found</div>;
+		const AnyComp = Comp as AnyComponent;
 
 		const common: Record<string, unknown> = { class: "playground-stage__element" };
 
 		switch (props.name) {
 			case "Button":
 				return (
-					<Comp {...common} variant={variant()} size={size()}>
+					<AnyComp {...common} variant={variant()} size={size()}>
 						{content()}
-					</Comp>
+					</AnyComp>
 				);
 			case "Switch":
 				return (
-					<Comp {...common} checked={checked()}>
+					<AnyComp {...common} checked={checked()}>
 						{content()}
-					</Comp>
+					</AnyComp>
 				);
 			case "Toggle":
 				return (
-					<Comp {...common} pressed={pressed()}>
+					<AnyComp {...common} pressed={pressed()}>
 						{content()}
-					</Comp>
+					</AnyComp>
 				);
 			case "Input":
-				return <Comp {...common} type={inputType()} placeholder={placeholder()} />;
+				return <AnyComp {...common} type={inputType()} placeholder={placeholder()} />;
 			case "Textarea":
-				return <Comp {...common} placeholder={placeholder()} />;
+				return <AnyComp {...common} placeholder={placeholder()} />;
 			case "Checkbox":
 			case "Radio":
-				return <Comp {...common} checked={checked()} />;
+				return <AnyComp {...common} checked={checked()} />;
 			case "Slider":
-				return <Comp {...common} min={0} max={100} />;
+				return <AnyComp {...common} min={0} max={100} />;
 			case "Image":
-				return <Comp {...common} src={src()} alt={alt()} width={400} height={300} />;
+				return <AnyComp {...common} src={src()} alt={alt()} width={400} height={300} />;
 			default:
 				return (
-					<Comp {...common}>
+					<AnyComp {...common}>
 						<SolidUI.Badge>{item()?.tag}</SolidUI.Badge>
 						{props.name}
-					</Comp>
+					</AnyComp>
 				);
 		}
 	};

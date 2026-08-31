@@ -39,7 +39,13 @@ function Root() {
 				<nav id={menuId} class={menuOpen() ? "site-nav open" : "site-nav"} aria-label="Main navigation">
 					<For each={links}>
 						{(link) => (
-							<Link to={link.to} class="site-link" onClick={() => setMenuOpen(false)}>
+							<Link
+								to={link.to}
+								class="site-link"
+								activeProps={() => ({ class: "site-link--active" })}
+								activeOptions={{ exact: link.to === "/" }}
+								onClick={() => setMenuOpen(false)}
+							>
 								{link.label}
 							</Link>
 						)}
@@ -63,7 +69,13 @@ function Root() {
 				<Outlet />
 			</main>
 			<footer class="site-footer">
-				<p>Built with Solid + TanStack Router, deployed on Cloudflare Workers</p>
+				<p>
+					Built with Solid + TanStack Router, deployed on Cloudflare Workers. Source on{" "}
+					<a href="https://github.com/newkub/solid-ui" target="_blank" rel="noreferrer">
+						GitHub
+					</a>
+					.
+				</p>
 			</footer>
 		</div>
 	);

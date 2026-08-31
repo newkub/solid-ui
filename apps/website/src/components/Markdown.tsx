@@ -2,8 +2,23 @@ import { createMemo, For, type JSX } from "solid-js";
 import { type BlockNode, type InlineNode, parseMarkdown } from "../lib/markdown";
 import { ShikiCode } from "./ShikiCode";
 
-function escapeText(text: string) {
-	return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, "<br />");
+function extractText(children: InlineNode[]): string {
+	return children
+		.map((c) => {
+			if (c.type === "text" || c.type === "code") return c.text;
+			if (c.type === "link") return extractText(c.children);
+			if ("children" in c) return extractText(c.children);
+			return "";
+		})
+		.join("");
+}
+
+function slugify(text: string) {
+	return text
+		.toLowerCase()
+		.replace(/[^a-z0-9\s-]/g, "")
+		.replace(/\s+/g, "-")
+		.replace(/-+/g, "-");
 }
 
 function Inline(props: { nodes: InlineNode[] }) {
@@ -12,7 +27,7 @@ function Inline(props: { nodes: InlineNode[] }) {
 			{(node) => {
 				switch (node.type) {
 					case "text":
-						return <span innerHTML={escapeText(node.text)} />;
+						return <>{node.text}</>;
 					case "bold":
 						return (
 							<strong>
@@ -44,8 +59,9 @@ function Block(props: { node: BlockNode }) {
 	switch (node.type) {
 		case "heading": {
 			const Tag = `h${node.level}` as keyof JSX.IntrinsicElements;
+			const id = slugify(extractText(node.children));
 			return (
-				<Tag>
+				<Tag id={id}>
 					<Inline nodes={node.children} />
 				</Tag>
 			);

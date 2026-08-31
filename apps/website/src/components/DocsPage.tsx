@@ -6,6 +6,7 @@ import { docs } from "../docs/generated";
 import { ComponentPlayground } from "./ComponentPlayground";
 import { Markdown } from "./Markdown";
 import { Sidebar } from "./Sidebar";
+import { Toc } from "./Toc";
 
 export function DocsLayout(props: { children: JSX.Element }) {
 	return (
@@ -39,12 +40,22 @@ export function DocsPage() {
 			<Show when={page()} fallback={<div class="page">Docs page not found</div>}>
 				{(page) => (
 					<article class="docs-article">
-						<h1 class="docs-article__title">{page().title}</h1>
-						<Markdown content={page().content} />
-						<Show when={isComponent() && componentName()}>
-							<h2 class="docs-article__subtitle">Playground</h2>
-							<ComponentPlayground name={componentName() as string} />
-						</Show>
+						<header class="docs-article__header">
+							<h1 class="docs-article__title">{page().title}</h1>
+							<p class="docs-article__group">{page().group}</p>
+						</header>
+						<div class="docs-article__body">
+							<div class="docs-article__content">
+								<Markdown content={page().content} />
+								<Show when={isComponent() && componentName()}>
+									<h2 class="docs-article__subtitle">Playground</h2>
+									<ComponentPlayground name={componentName() as string} />
+								</Show>
+							</div>
+							<aside class="docs-article__toc">
+								<Toc content={page().content} />
+							</aside>
+						</div>
 					</article>
 				)}
 			</Show>
