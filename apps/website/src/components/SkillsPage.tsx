@@ -1,5 +1,6 @@
-import { createMemo, createSignal, For, Show } from "solid-js";
+import { For, Show } from "solid-js";
 import skillsData from "../data/skills.json";
+import { useSearch } from "../hooks/useSearch";
 
 export type Skill = {
 	name: string;
@@ -10,7 +11,6 @@ export type Skill = {
 const skills: Skill[] = skillsData as Skill[];
 
 function matchesQuery(skill: Skill, query: string): boolean {
-	if (!query) return true;
 	const haystack = `${skill.name} ${skill.description}`.toLowerCase();
 	return haystack.includes(query.toLowerCase());
 }
@@ -48,8 +48,10 @@ function SearchInput(props: { value: string; onInput: (value: string) => void })
 }
 
 export function SkillsPage() {
-	const [query, setQuery] = createSignal("");
-	const filtered = createMemo(() => skills.filter((skill) => matchesQuery(skill, query())));
+	const { query, setQuery, debouncedQuery, filtered } = useSearch(
+		() => skills,
+		(skill, q) => matchesQuery(skill, q),
+	);
 
 	return (
 		<section class="page flex flex-col gap-6">
@@ -60,7 +62,7 @@ export function SkillsPage() {
 			</header>
 			<Show
 				when={filtered().length > 0}
-				fallback={<p class="text-sm text-muted-foreground">No skills match "{query()}".</p>}
+				fallback={<p class="text-sm text-muted-foreground">No skills match "{debouncedQuery()}".</p>}
 			>
 				<ul class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
 					<For each={filtered()}>{(skill) => <SkillCard skill={skill} />}</For>

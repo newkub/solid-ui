@@ -1,0 +1,14 @@
+refactor: extract website and solid-ui hooks, apply to search/button/card/box
+
+- Add apps/website/src/hooks: useDebounce, useSearch, useMediaQuery, useLocalStorage.
+- Refactor SkillsPage and HooksPage to use useSearch for debounced filtering.
+- Refactor ComponentGallery to use useDebounce for global search.
+- Add packages/solid-ui/src/hooks: useClassName, useButton.
+- Refactor Button, Badge, Box, Card to use new hooks.
+- Export hooks from packages/solid-ui.
+
+Verified: typecheck (solid-ui + website), biome, build, tests all pass.
+
+Generated with [Devin](https://devin.ai)
+
+Co-Authored-By: Devin <158243242+devin-ai-integration[bot]@users.noreply.github.com>

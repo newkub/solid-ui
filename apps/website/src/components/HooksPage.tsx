@@ -1,4 +1,5 @@
-import { createMemo, createSignal, For, Show } from "solid-js";
+import { createSignal, For, Show } from "solid-js";
+import { useSearch } from "../hooks/useSearch";
 import { Seo } from "./Seo";
 
 interface HookItem {
@@ -51,7 +52,6 @@ const hooks: HookItem[] = [
 ];
 
 function matchesQuery(hook: HookItem, query: string): boolean {
-	if (!query) return true;
 	const haystack = `${hook.name} ${hook.description}`.toLowerCase();
 	return haystack.includes(query.toLowerCase());
 }
@@ -86,8 +86,10 @@ function HookCard(props: { hook: HookItem }) {
 }
 
 export function HooksPage() {
-	const [query, setQuery] = createSignal("");
-	const filtered = createMemo(() => hooks.filter((hook) => matchesQuery(hook, query())));
+	const { query, setQuery, debouncedQuery, filtered } = useSearch(
+		() => hooks,
+		(hook, q) => matchesQuery(hook, q),
+	);
 
 	return (
 		<section class="page mx-auto max-w-4xl">
@@ -117,7 +119,7 @@ export function HooksPage() {
 
 			<Show
 				when={filtered().length > 0}
-				fallback={<p class="text-sm text-muted-foreground">No hooks match "{query()}".</p>}
+				fallback={<p class="text-sm text-muted-foreground">No hooks match "{debouncedQuery()}".</p>}
 			>
 				<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
 					<For each={filtered()}>{(hook) => <HookCard hook={hook} />}</For>

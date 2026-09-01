@@ -18,8 +18,9 @@ import {
 	tableFeatures,
 } from "@tanstack/solid-table";
 import { registry } from "@wrikka/solid-ui";
-import { createSignal, For, Show } from "solid-js";
+import { createEffect, createSignal, For, Show } from "solid-js";
 import { categories } from "../categories";
+import { useDebounce } from "../hooks/useDebounce";
 import { ComponentCard } from "./ComponentCard";
 
 interface ComponentItem {
@@ -331,6 +332,7 @@ export function ComponentGallery(props: { withHero?: boolean }) {
 	const [groupBy, setGroupBy] = createSignal(false);
 	const [globalFilter, setGlobalFilter] = createSignal("");
 	const [categoryFilter, setCategoryFilter] = createSignal("");
+	const debouncedFilter = useDebounce(globalFilter, 150);
 
 	const table = createTable({
 		features,
@@ -344,9 +346,12 @@ export function ComponentGallery(props: { withHero?: boolean }) {
 		},
 	});
 
+	createEffect(() => {
+		table.setGlobalFilter(debouncedFilter());
+	});
+
 	const updateFilter = (value: string) => {
 		setGlobalFilter(value);
-		table.setGlobalFilter(value);
 	};
 
 	const updateCategoryFilter = (value: string) => {
