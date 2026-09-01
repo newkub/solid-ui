@@ -214,6 +214,20 @@ function PreviewContent(props: { name: string; tag: string }) {
 	if (props.name === "Accordion") return <SampleAccordion />;
 	if (props.name === "Terminal") return <SampleTerminal />;
 	if (props.name === "Motion") return <SampleMotion />;
+	if (props.name === "Alert") {
+		return (
+			<SolidUI.Alert title="Heads up" variant="info" class="w-full text-left">
+				This is a preview alert.
+			</SolidUI.Alert>
+		);
+	}
+	if (props.name === "Notification") {
+		return (
+			<SolidUI.Notification title="Update" variant="success" class="w-full text-left">
+				Changes saved successfully.
+			</SolidUI.Notification>
+		);
+	}
 
 	const layout = new Set([
 		"Box",

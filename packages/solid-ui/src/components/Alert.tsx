@@ -1,15 +1,30 @@
-// Generated component — customize as needed
-import { type JSX, splitProps } from "solid-js";
+import { type JSX, mergeProps, Show } from "solid-js";
 
-export interface AlertProps extends JSX.HTMLAttributes<HTMLDivElement> {}
+export type AlertVariant = "default" | "info" | "success" | "warning" | "destructive";
+
+export interface AlertProps {
+	variant?: AlertVariant;
+	title?: string;
+	children?: JSX.Element;
+	class?: string;
+}
+
+const variantMap: Record<AlertVariant, string> = {
+	default: "border-border bg-muted text-foreground",
+	info: "border-info bg-info/10 text-info-foreground",
+	success: "border-success bg-success/10 text-success-foreground",
+	warning: "border-warning bg-warning/10 text-warning-foreground",
+	destructive: "border-destructive bg-destructive/10 text-destructive-foreground",
+};
 
 export function Alert(props: AlertProps) {
-	const [local, rest] = splitProps(props, ["class", "children"]);
-	const base = "rounded-lg border bg-card text-card-foreground shadow-sm p-4";
-	const className = [base, local.class || ""].filter(Boolean).join(" ");
+	const merged = mergeProps({ variant: "default" as AlertVariant }, props);
 	return (
-		<div class={className} {...rest}>
-			{local.children}
+		<div class={`rounded-xl border p-4 ${variantMap[merged.variant]} ${props.class ?? ""}`} role="alert">
+			<Show when={merged.title}>
+				<h4 class="mb-1 text-sm font-semibold">{merged.title}</h4>
+			</Show>
+			<div class="text-sm">{merged.children}</div>
 		</div>
 	);
 }
