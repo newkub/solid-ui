@@ -351,6 +351,10 @@ export function NavLayout(props: { children: JSX.Element }) {
 				e.preventDefault();
 				setCommandOpen((v) => !v);
 			}
+			if (menuOpen() && e.key === "Escape") {
+				e.preventDefault();
+				setMenuOpen(false);
+			}
 		}
 		document.addEventListener("keydown", onKeyDown);
 		onCleanup(() => document.removeEventListener("keydown", onKeyDown));
@@ -378,6 +382,13 @@ export function NavLayout(props: { children: JSX.Element }) {
 			</header>
 
 			<div class="flex min-h-screen">
+				<Show when={menuOpen()}>
+					<div
+						class="fixed inset-0 z-modal-backdrop bg-overlay/60 backdrop-blur-sm lg:hidden"
+						aria-hidden="true"
+						onClick={closeMenu}
+					/>
+				</Show>
 				<aside
 					class={`fixed inset-y-0 left-0 z-modal w-64 transform border-r border-border bg-surface p-4 transition-transform lg:sticky lg:top-0 lg:h-screen lg:translate-x-0 lg:overflow-y-auto ${
 						menuOpen() ? "translate-x-0" : "-translate-x-full"

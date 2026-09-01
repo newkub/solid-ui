@@ -372,6 +372,116 @@ function SampleToaster() {
 	);
 }
 
+function SampleAlertDialog() {
+	const [open, setOpen] = createSignal(false);
+	return (
+		<>
+			<SolidUI.Button onClick={() => setOpen(true)} size="sm">
+				Open Alert
+			</SolidUI.Button>
+			<SolidUI.AlertDialog
+				open={open()}
+				onOpenChange={setOpen}
+				title="Confirm action"
+				description="This is a sample alert dialog."
+				onConfirm={() => setOpen(false)}
+				onCancel={() => setOpen(false)}
+			/>
+		</>
+	);
+}
+
+function SampleHoverCard() {
+	return (
+		<SolidUI.HoverCard content={<p class="text-sm text-foreground">Hover card content.</p>}>
+			<SolidUI.Button size="sm">Hover me</SolidUI.Button>
+		</SolidUI.HoverCard>
+	);
+}
+
+function SampleContextMenu() {
+	return (
+		<SolidUI.ContextMenu items={[{ label: "Edit" }, { label: "Copy" }, { label: "Delete" }]}>
+			<SolidUI.Button variant="secondary" size="sm">
+				Right-click me
+			</SolidUI.Button>
+		</SolidUI.ContextMenu>
+	);
+}
+
+function SampleCheckboxGroup() {
+	const [value, setValue] = createSignal<string[]>(["a"]);
+	return (
+		<SolidUI.CheckboxGroup
+			options={[
+				{ value: "a", label: "Alpha" },
+				{ value: "b", label: "Beta" },
+			]}
+			value={value()}
+			onChange={setValue}
+		/>
+	);
+}
+
+function SampleCombobox() {
+	const [value, setValue] = createSignal("");
+	return (
+		<SolidUI.Combobox
+			options={[
+				{ value: "a", label: "Alpha" },
+				{ value: "b", label: "Beta" },
+			]}
+			value={value()}
+			onChange={setValue}
+			class="w-full"
+		/>
+	);
+}
+
+function SampleMultiSelect() {
+	const [value, setValue] = createSignal<string[]>(["a"]);
+	return (
+		<SolidUI.MultiSelect
+			options={[
+				{ value: "a", label: "Alpha" },
+				{ value: "b", label: "Beta" },
+			]}
+			value={value()}
+			onChange={setValue}
+			class="w-full"
+		/>
+	);
+}
+
+function SampleRadioGroup() {
+	const [value, setValue] = createSignal("a");
+	return (
+		<SolidUI.RadioGroup
+			name="sample-radio"
+			options={[
+				{ value: "a", label: "Alpha" },
+				{ value: "b", label: "Beta" },
+			]}
+			value={value()}
+			onChange={setValue}
+		/>
+	);
+}
+
+function SampleTagsInput() {
+	const [value, setValue] = createSignal<string[]>(["solid"]);
+	return <SolidUI.TagsInput value={value()} onChange={setValue} class="w-full" />;
+}
+
+function SamplePinInput() {
+	const [value, setValue] = createSignal("");
+	return <SolidUI.PinInput length={3} value={value()} onChange={setValue} class="w-full justify-center" />;
+}
+
+function SampleSkeletonCircle() {
+	return <SolidUI.SkeletonCircle size={40} />;
+}
+
 function SampleBox(C: AnyComp) {
 	return (
 		<C class={previewClass}>
@@ -636,6 +746,12 @@ function PreviewContent(C: AnyComp, name: string, tag: string) {
 			return <SampleList />;
 		case "primitives":
 			if (name === "Button") return renderSelfClosing(C, name);
+			if (name === "CheckboxGroup") return <SampleCheckboxGroup />;
+			if (name === "Combobox") return <SampleCombobox />;
+			if (name === "MultiSelect") return <SampleMultiSelect />;
+			if (name === "PinInput") return <SamplePinInput />;
+			if (name === "RadioGroup") return <SampleRadioGroup />;
+			if (name === "TagsInput") return <SampleTagsInput />;
 			return <SampleForm />;
 		default:
 			break;
@@ -644,6 +760,11 @@ function PreviewContent(C: AnyComp, name: string, tag: string) {
 	if (name === "Accordion") return <SampleAccordion />;
 	if (name === "Terminal") return <SampleTerminal />;
 	if (name === "Motion") return <SampleMotion />;
+
+	if (name === "AlertDialog") return <SampleAlertDialog />;
+	if (name === "HoverCard") return <SampleHoverCard />;
+	if (name === "ContextMenu") return <SampleContextMenu />;
+	if (name === "SkeletonCircle") return <SampleSkeletonCircle />;
 
 	if (overlay.has(name)) {
 		switch (name) {
