@@ -39,7 +39,7 @@ export interface ThemePreset {
 const STORAGE_KEY = "solid-ui-theme";
 
 function hsl(h: number, s: number, l: number): string {
-	return `hsl(${h} ${s}% ${l}%)`;
+	return `${h} ${s}% ${l}%`;
 }
 
 type ColorSet = {
@@ -570,19 +570,23 @@ export function applyThemeState(state: ThemeState) {
 	html.setAttribute("data-theme", state.mode);
 
 	const colorSet = colorSchemes[state.color][state.mode];
-	html.style.setProperty("--su-primary", colorSet.primary);
-	html.style.setProperty("--su-primary-foreground", colorSet.primaryForeground);
-	html.style.setProperty("--su-primary-text", colorSet.primaryForeground);
-	html.style.setProperty("--su-secondary", colorSet.secondary);
-	html.style.setProperty("--su-secondary-foreground", colorSet.secondaryForeground);
-	html.style.setProperty("--su-accent", colorSet.accent);
-	html.style.setProperty("--su-accent-foreground", colorSet.accentForeground);
-	html.style.setProperty("--su-ring", colorSet.ring);
-	html.style.setProperty("--su-info", colorSet.info);
-	html.style.setProperty("--su-success", colorSet.success);
-	html.style.setProperty("--su-warning", colorSet.warning);
-	html.style.setProperty("--su-destructive", colorSet.destructive);
-	html.style.setProperty("--su-destructive-foreground", colorSet.destructive);
+	const baseForeground = state.mode === "dark" ? "222 47% 11%" : "0 0% 100%";
+
+	html.style.setProperty("--color-primary", colorSet.primary);
+	html.style.setProperty("--color-primary-foreground", colorSet.primaryForeground);
+	html.style.setProperty("--color-secondary", colorSet.secondary);
+	html.style.setProperty("--color-secondary-foreground", colorSet.secondaryForeground);
+	html.style.setProperty("--color-accent", colorSet.accent);
+	html.style.setProperty("--color-accent-foreground", colorSet.accentForeground);
+	html.style.setProperty("--color-ring", colorSet.ring);
+	html.style.setProperty("--color-info", colorSet.info);
+	html.style.setProperty("--color-info-foreground", baseForeground);
+	html.style.setProperty("--color-success", colorSet.success);
+	html.style.setProperty("--color-success-foreground", baseForeground);
+	html.style.setProperty("--color-warning", colorSet.warning);
+	html.style.setProperty("--color-warning-foreground", baseForeground);
+	html.style.setProperty("--color-destructive", colorSet.destructive);
+	html.style.setProperty("--color-destructive-foreground", baseForeground);
 	html.style.setProperty("--su-font-sans", fontStacks[state.font]);
 
 	const spaces = spaceScales[state.space];

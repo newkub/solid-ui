@@ -3,6 +3,10 @@
  *
  * Core token layer for colors, spacing, radius, shadows, typography,
  * z-index and motion. Import once at the root of the application.
+ *
+ * Colors are defined as HSL components in --color-* variables so they can be
+ * consumed by UnoCSS via `hsl(var(--color-*))` and by direct CSS using the
+ * --su-* aliases. Non-color tokens keep the --su-* namespace.
  */
 
 :root {
@@ -36,34 +40,74 @@
 	--su-sky-500: #0ea5e9;
 	--su-sky-950: #082f49;
 
-	/* Semantic colors - light theme */
-	--su-bg: var(--su-slate-50);
-	--su-background: var(--su-bg);
-	--su-surface: var(--su-white);
-	--su-surface-elevated: var(--su-white);
-	--su-foreground: var(--su-slate-900);
-	--su-text: var(--su-foreground);
-	--su-text-muted: var(--su-slate-500);
-	--su-muted: var(--su-slate-100);
-	--su-muted-foreground: var(--su-slate-500);
-	--su-border: var(--su-slate-200);
-	--su-input: var(--su-slate-200);
-	--su-ring: var(--su-slate-900);
-	--su-primary: var(--su-slate-900);
-	--su-primary-text: var(--su-white);
-	--su-primary-foreground: var(--su-primary-text);
-	--su-secondary: var(--su-slate-100);
-	--su-secondary-foreground: var(--su-slate-900);
-	--su-accent: var(--su-slate-100);
-	--su-accent-foreground: var(--su-slate-900);
-	--su-destructive: var(--su-red-500);
-	--su-destructive-foreground: var(--su-white);
-	--su-success: var(--su-green-500);
-	--su-success-foreground: var(--su-white);
-	--su-warning: var(--su-amber-500);
-	--su-warning-foreground: var(--su-white);
-	--su-info: var(--su-blue-500);
-	--su-info-foreground: var(--su-white);
+	/* HSL theme color components - light mode */
+	--color-background: 210 40% 98%;
+	--color-foreground: 222 47% 11%;
+	--color-surface: 0 0% 100%;
+	--color-surface-elevated: 0 0% 100%;
+	--color-surface-foreground: 222 47% 11%;
+	--color-muted: 210 40% 96%;
+	--color-muted-foreground: 215 16% 47%;
+	--color-border: 214 32% 91%;
+	--color-border-hover: 215 20% 65%;
+	--color-input: 214 32% 91%;
+	--color-ring: 222 47% 11%;
+	--color-primary: 222 47% 11%;
+	--color-primary-hover: 215 25% 27%;
+	--color-primary-active: 217 33% 17%;
+	--color-primary-foreground: 0 0% 100%;
+	--color-secondary: 210 40% 96%;
+	--color-secondary-hover: 214 32% 91%;
+	--color-secondary-active: 213 27% 84%;
+	--color-secondary-foreground: 222 47% 11%;
+	--color-accent: 210 40% 96%;
+	--color-accent-hover: 214 32% 91%;
+	--color-accent-active: 213 27% 84%;
+	--color-accent-foreground: 222 47% 11%;
+	--color-destructive: 0 84% 60%;
+	--color-destructive-hover: 0 72% 51%;
+	--color-destructive-active: 0 62% 45%;
+	--color-destructive-foreground: 0 0% 100%;
+	--color-success: 142 71% 45%;
+	--color-success-foreground: 0 0% 100%;
+	--color-warning: 38 92% 50%;
+	--color-warning-foreground: 0 0% 100%;
+	--color-info: 217 91% 60%;
+	--color-info-foreground: 0 0% 100%;
+	--color-focus: 222 47% 11%;
+	--color-overlay: 0 0% 0%;
+	--color-skeleton: 214 32% 91%;
+	--color-skeleton-shine: 210 40% 96%;
+
+	/* Semantic color aliases */
+	--su-bg: hsl(var(--color-background));
+	--su-background: hsl(var(--color-background));
+	--su-surface: hsl(var(--color-surface));
+	--su-surface-elevated: hsl(var(--color-surface-elevated));
+	--su-foreground: hsl(var(--color-foreground));
+	--su-text: hsl(var(--color-foreground));
+	--su-text-muted: hsl(var(--color-muted-foreground));
+	--su-muted: hsl(var(--color-muted));
+	--su-muted-foreground: hsl(var(--color-muted-foreground));
+	--su-border: hsl(var(--color-border));
+	--su-border-hover: hsl(var(--color-border-hover));
+	--su-input: hsl(var(--color-input));
+	--su-ring: hsl(var(--color-ring));
+	--su-primary: hsl(var(--color-primary));
+	--su-primary-text: hsl(var(--color-primary-foreground));
+	--su-primary-foreground: hsl(var(--color-primary-foreground));
+	--su-secondary: hsl(var(--color-secondary));
+	--su-secondary-foreground: hsl(var(--color-secondary-foreground));
+	--su-accent: hsl(var(--color-accent));
+	--su-accent-foreground: hsl(var(--color-accent-foreground));
+	--su-destructive: hsl(var(--color-destructive));
+	--su-destructive-foreground: hsl(var(--color-destructive-foreground));
+	--su-success: hsl(var(--color-success));
+	--su-success-foreground: hsl(var(--color-success-foreground));
+	--su-warning: hsl(var(--color-warning));
+	--su-warning-foreground: hsl(var(--color-warning-foreground));
+	--su-info: hsl(var(--color-info));
+	--su-info-foreground: hsl(var(--color-info-foreground));
 
 	/* Radius */
 	--su-radius: 0.5rem;
@@ -129,44 +173,54 @@
 	--su-transition-slow: 250ms ease;
 }
 
-html[data-theme="dark"] {
+html[data-theme="dark"],
+.dark {
 	color-scheme: dark;
 
-	/* Semantic colors - dark theme */
-	--su-bg: var(--su-slate-900);
-	--su-background: var(--su-bg);
-	--su-surface: var(--su-slate-800);
-	--su-surface-elevated: var(--su-slate-700);
-	--su-foreground: var(--su-slate-50);
-	--su-text: var(--su-foreground);
-	--su-text-muted: var(--su-slate-400);
-	--su-muted: var(--su-slate-800);
-	--su-muted-foreground: var(--su-slate-400);
-	--su-border: var(--su-slate-700);
-	--su-input: var(--su-slate-700);
-	--su-ring: var(--su-sky-400);
-	--su-primary: var(--su-sky-400);
-	--su-primary-text: var(--su-slate-900);
-	--su-primary-foreground: var(--su-primary-text);
-	--su-secondary: var(--su-slate-700);
-	--su-secondary-foreground: var(--su-slate-50);
-	--su-accent: var(--su-slate-700);
-	--su-accent-foreground: var(--su-slate-50);
-	--su-destructive: var(--su-red-400);
-	--su-destructive-foreground: var(--su-slate-900);
-	--su-success: var(--su-green-400);
-	--su-success-foreground: var(--su-slate-900);
-	--su-warning: var(--su-amber-400);
-	--su-warning-foreground: var(--su-slate-900);
-	--su-info: var(--su-blue-400);
-	--su-info-foreground: var(--su-slate-900);
+	/* HSL theme color components - dark mode */
+	--color-background: 222 47% 11%;
+	--color-foreground: 210 40% 98%;
+	--color-surface: 217 33% 17%;
+	--color-surface-elevated: 215 25% 27%;
+	--color-surface-foreground: 210 40% 98%;
+	--color-muted: 215 25% 27%;
+	--color-muted-foreground: 215 20% 65%;
+	--color-border: 215 25% 27%;
+	--color-border-hover: 215 20% 42%;
+	--color-input: 215 25% 27%;
+	--color-ring: 200 98% 55%;
+	--color-primary: 200 98% 55%;
+	--color-primary-hover: 199 95% 48%;
+	--color-primary-active: 199 95% 42%;
+	--color-primary-foreground: 222 47% 11%;
+	--color-secondary: 217 33% 17%;
+	--color-secondary-hover: 215 25% 27%;
+	--color-secondary-active: 215 25% 35%;
+	--color-secondary-foreground: 210 40% 98%;
+	--color-accent: 217 33% 17%;
+	--color-accent-hover: 215 25% 27%;
+	--color-accent-active: 215 25% 35%;
+	--color-accent-foreground: 210 40% 98%;
+	--color-destructive: 0 91% 71%;
+	--color-destructive-hover: 0 84% 60%;
+	--color-destructive-active: 0 72% 51%;
+	--color-destructive-foreground: 222 47% 11%;
+	--color-success: 142 69% 58%;
+	--color-success-foreground: 222 47% 11%;
+	--color-warning: 45 93% 57%;
+	--color-warning-foreground: 222 47% 11%;
+	--color-info: 213 94% 68%;
+	--color-info-foreground: 222 47% 11%;
+	--color-focus: 200 98% 55%;
+	--color-overlay: 0 0% 0%;
+	--color-skeleton: 215 25% 27%;
+	--color-skeleton-shine: 217 33% 17%;
 
 	/* Shadows in dark mode are slightly stronger for depth */
 	--su-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.25);
 	--su-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
 	--su-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.35), 0 4px 6px -4px rgba(0, 0, 0, 0.35);
 	--su-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.4);
-	--su-shadow-glow: 0 0 0 2px var(--su-ring);
 }
 
 * {
@@ -175,7 +229,7 @@ html[data-theme="dark"] {
 
 html {
 	font-family: var(--su-font-sans);
-	color: var(--su-text);
+	color: var(--su-foreground);
 	background: var(--su-bg);
 	line-height: var(--su-leading-normal);
 }
