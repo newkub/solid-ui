@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  push:
+    branches-ignore:
+      - main
+  pull_request:
+    branches:
+      - main
+      - watch-cicd-and-resolve
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - run: bun install --frozen-lockfile
+      - run: bunx biome ci
+      - run: bun test
+      - run: bunx tsc --noEmit -p apps/website
+      - run: bunx tsc --noEmit -p packages/solid-ui
+      - run: bun run --filter @wrikka/website build
