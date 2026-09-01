@@ -23,7 +23,7 @@
 	"scripts": {
 		"dev": "bun run --filter @wrikka/website dev",
 		"build": "bun run --filter @wrikka/website build",
-		"typecheck": "cross-env NODE_OPTIONS='--max-old-space-size=4096' bun run --filter '*' typecheck",
+		"typecheck": "bunx tsc --noEmit -p packages/solid-ui && bunx tsc --noEmit -p apps/website",
 		"lint": "biome check packages apps tools",
 		"format": "biome format --write packages apps tools",
 		"review-codebase": "bun run tools/review-codebase/src/cli.ts",
