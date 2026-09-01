@@ -22,6 +22,16 @@ const selfClosing = new Set([
 	"Loading",
 	"Progress",
 	"Separator",
+	"Kbd",
+	"Code",
+	"Blockquote",
+	"List",
+	"ListItem",
+	"VisuallyHidden",
+	"ProgressCircle",
+	"Meter",
+	"Stat",
+	"SkeletonText",
 ]);
 
 const previewClass =
@@ -821,6 +831,26 @@ const selfClosingRenderers: Record<string, (C: AnyComp, name: string) => JSX.Ele
 		const [value, setValue] = createSignal("");
 		return <C value={value()} onChange={setValue} aria-label="Preview date picker" />;
 	},
+	Kbd: (C) => <C>⌘K</C>,
+	Code: (C) => <C>npm install</C>,
+	Blockquote: (C) => <C citation="Docs">Build accessible UIs with solid-ui.</C>,
+	List: (C) => (
+		<C class="w-full text-left">
+			<SolidUI.ListItem>First item</SolidUI.ListItem>
+			<SolidUI.ListItem>Second item</SolidUI.ListItem>
+		</C>
+	),
+	ListItem: (C) => <C>A list item</C>,
+	VisuallyHidden: (C) => (
+		<div class="flex items-center gap-2">
+			<C>Hidden text</C>
+			<span class="text-xs text-muted-foreground">Visually hidden</span>
+		</div>
+	),
+	ProgressCircle: (C) => <C value={60} max={100} size={48} stroke={4} />,
+	Meter: (C) => <C value={70} max={100} low={30} high={80} optimum={90} />,
+	Stat: (C) => <C label="Revenue" value="$12k" helpText="vs last month" trend={12} />,
+	SkeletonText: (C) => <C lines={3} class="w-32" />,
 };
 
 function renderSelfClosing(C: AnyComp, name: string) {
