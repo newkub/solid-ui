@@ -511,20 +511,44 @@ const selfClosingRenderers: Record<string, (C: AnyComp, name: string) => JSX.Ele
 	),
 	Input: (C) => <C type="text" placeholder="Input" readOnly />,
 	Textarea: (C) => <C placeholder="Textarea" readOnly />,
-	Checkbox: (C) => <C checked readOnly />,
-	Radio: (C) => <C checked readOnly />,
-	Switch: (C) => <C checked aria-label="Preview switch" />,
-	Toggle: (C) => <C pressed aria-label="Preview toggle" />,
-	Slider: (C) => <C min={0} max={100} value={40} />,
-	Select: (C) => (
-		<C>
-			<option>Option 1</option>
-			<option>Option 2</option>
-		</C>
-	),
+	Checkbox: (C) => {
+		const [checked, setChecked] = createSignal(false);
+		return <C checked={checked()} onChange={setChecked} aria-label="Preview checkbox" />;
+	},
+	Radio: (C) => {
+		const [checked, setChecked] = createSignal(false);
+		return <C checked={checked()} onClick={() => setChecked(!checked())} value="preview" aria-label="Preview radio" />;
+	},
+	Switch: (C) => {
+		const [checked, setChecked] = createSignal(false);
+		return <C checked={checked()} onChange={setChecked} aria-label="Preview switch" />;
+	},
+	Toggle: (C) => {
+		const [pressed, setPressed] = createSignal(false);
+		return <C pressed={pressed()} onPressedChange={setPressed} value="Toggle" aria-label="Preview toggle" />;
+	},
+	Slider: (C) => {
+		const [value, setValue] = createSignal(40);
+		return <C min={0} max={100} step={1} value={value()} onChange={setValue} aria-label="Preview slider" />;
+	},
+	Select: (C) => {
+		const [value, setValue] = createSignal("option-1");
+		return (
+			<C value={value()} onChange={setValue} aria-label="Preview select">
+				<option value="option-1">Option 1</option>
+				<option value="option-2">Option 2</option>
+			</C>
+		);
+	},
 	Progress: (C) => <C value={60} max={100} />,
-	FileInput: (C) => <C />,
-	DatePicker: (C) => <C />,
+	FileInput: (C) => {
+		const [, setFiles] = createSignal<File[]>([]);
+		return <C multiple onChange={setFiles} aria-label="Preview file input" />;
+	},
+	DatePicker: (C) => {
+		const [value, setValue] = createSignal("");
+		return <C value={value()} onChange={setValue} aria-label="Preview date picker" />;
+	},
 };
 
 function renderSelfClosing(C: AnyComp, name: string) {
@@ -553,14 +577,6 @@ export function ComponentPreview(props: { name: string; tag: string }) {
 	if (colored.has(props.name)) {
 		return (
 			<AnyC variant="primary" size="sm">
-				{props.name}
-			</AnyC>
-		);
-	}
-
-	if (props.name === "Toggle") {
-		return (
-			<AnyC pressed class="rounded-md border border-border px-3 py-1.5 text-sm">
 				{props.name}
 			</AnyC>
 		);

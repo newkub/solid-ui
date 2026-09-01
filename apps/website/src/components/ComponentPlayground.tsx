@@ -17,7 +17,7 @@ function SelectControl(props: { label: string; value: string; options: string[];
 			<label for={id} class="playground-control__label">
 				{props.label}
 			</label>
-			<SolidUI.Select id={id} value={props.value} onChange={(e) => props.onChange(e.currentTarget.value)}>
+			<SolidUI.Select id={id} value={props.value} onChange={props.onChange}>
 				<For each={props.options}>{(opt) => <option value={opt}>{opt}</option>}</For>
 			</SolidUI.Select>
 		</div>
