@@ -169,6 +169,23 @@
         "typescript": "catalog:",
       },
     },
+    "tools/unocss-theme-validator": {
+      "name": "@wrikka/unocss-theme-validator",
+      "version": "0.0.1",
+      "bin": {
+        "unocss-theme-validator": "./src/cli.ts",
+      },
+      "devDependencies": {
+        "@types/bun": "^1.4.0",
+        "@types/node": "^26.4.0",
+        "typescript": "catalog:",
+        "unocss": "^66.8.1",
+        "vite": "^8.2.2",
+      },
+      "peerDependencies": {
+        "vite": "^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0",
+      },
+    },
   },
   "catalog": {
     "arktype": "^2.2.3",
@@ -614,6 +631,8 @@
     "@wrikka/table": ["@wrikka/table@workspace:packages/table"],
 
     "@wrikka/transitions": ["@wrikka/transitions@workspace:packages/transitions"],
+
+    "@wrikka/unocss-theme-validator": ["@wrikka/unocss-theme-validator@workspace:tools/unocss-theme-validator"],
 
     "@wrikka/website": ["@wrikka/website@workspace:apps/website"],
 

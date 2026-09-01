@@ -26,6 +26,7 @@
 		"format": "biome format --write packages apps tools",
 		"review-codebase": "bun run tools/review-codebase/src/cli.ts",
 		"review-codebase:json": "bun run tools/review-codebase/src/cli.ts --json",
+		"unocss-theme-validator": "bun run tools/unocss-theme-validator/src/cli.ts --config apps/website/uno.config.ts --include 'apps/website/src/**/*.tsx,packages/solid-ui/src/**/*.tsx'",
 		"deploy": "bun run --filter @wrikka/website deploy",
 		"cf-typegen": "bun run --filter @wrikka/website cf-typegen"
 	},

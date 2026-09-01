@@ -3,8 +3,11 @@ import { fileURLToPath } from "node:url";
 import UnoCSS from "unocss/vite";
 import { defineConfig } from "vite";
 import solid from "vite-plugin-solid";
+import unocssThemeValidator from "../../tools/unocss-theme-validator/src/vite.ts";
+import unoConfig from "./uno.config.ts";
 
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
+const projectRoot = path.resolve(__dirname, "../..");
 
 const solidUiRoot = path.resolve(__dirname, "../../packages/solid-ui/src").replace(/\\/g, "/");
 const formRoot = path.resolve(__dirname, "../../packages/form/src").replace(/\\/g, "/");
@@ -14,7 +17,16 @@ const tableDomain = path.resolve(__dirname, "../../packages/table/src/modules/ta
 const transitionsRoot = path.resolve(__dirname, "../../packages/transitions/src").replace(/\\/g, "/");
 
 export default defineConfig({
-	plugins: [UnoCSS(), solid()],
+	plugins: [
+		unocssThemeValidator({
+			config: unoConfig,
+			cwd: projectRoot,
+			include: ["apps/website/src/**/*.tsx", "packages/solid-ui/src/**/*.tsx"],
+			exclude: ["node_modules", "dist", ".solid"],
+		}),
+		UnoCSS(),
+		solid(),
+	],
 	resolve: {
 		alias: [
 			{ find: /^#form$/, replacement: `${formRoot}/index.ts` },
