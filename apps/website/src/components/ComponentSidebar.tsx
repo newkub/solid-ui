@@ -17,6 +17,7 @@ export function ComponentSidebar() {
 									activeProps={() => ({
 										class: "block rounded-md px-2 py-1.5 text-sm font-medium bg-primary text-primary-foreground",
 									})}
+									activeOptions={{ exact: true, includeSearch: true }}
 								>
 									{cat.label}
 								</Link>

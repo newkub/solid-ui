@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/solid-router";
+import { Link, useLocation, useNavigate, useSearch } from "@tanstack/solid-router";
 import {
 	columnFilteringFeature,
 	columnGroupingFeature,
@@ -129,7 +129,14 @@ function HeroSection(props: { totalCount: number }) {
 	);
 }
 
-const CATEGORY_OPTIONS = ["All", "Primitives", "Components", "Templates"];
+const CATEGORY_OPTIONS = [
+	{ id: "", label: "All" },
+	{ id: "primitives", label: "Primitives" },
+	{ id: "components", label: "Components" },
+	{ id: "templates", label: "Templates" },
+];
+
+const categoryById = Object.fromEntries(categories.map((c) => [c.id, c.label]));
 
 function GalleryToolbar(props: {
 	globalFilter: string;
@@ -159,7 +166,7 @@ function GalleryToolbar(props: {
 					onChange={(e) => props.onCategoryFilterChange(e.currentTarget.value)}
 					aria-label="Filter by category"
 				>
-					<For each={CATEGORY_OPTIONS}>{(opt) => <option value={opt === "All" ? "" : opt}>{opt}</option>}</For>
+					<For each={CATEGORY_OPTIONS}>{(opt) => <option value={opt.id}>{opt.label}</option>}</For>
 				</select>
 				<select
 					class="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring sm:w-44"
@@ -327,11 +334,15 @@ function GalleryResults(props: {
 }
 
 export function ComponentGallery(props: { withHero?: boolean }) {
+	const navigate = useNavigate();
+	const location = useLocation();
+	const search = useSearch({ strict: false });
+
 	const [data] = createSignal(allItems);
 	const [view, setView] = createSignal<"grid" | "list">("grid");
 	const [groupBy, setGroupBy] = createSignal(false);
 	const [globalFilter, setGlobalFilter] = createSignal("");
-	const [categoryFilter, setCategoryFilter] = createSignal("");
+	const [categoryFilter, setCategoryFilter] = createSignal(search().category ?? "");
 	const debouncedFilter = useDebounce(globalFilter, 150);
 
 	const table = createTable({
@@ -346,17 +357,31 @@ export function ComponentGallery(props: { withHero?: boolean }) {
 		},
 	});
 
+	function applyCategoryFilter(id: string) {
+		const label = categoryById[id];
+		table.setColumnFilters(id && label ? [{ id: "categoryLabel", value: label }] : []);
+	}
+
 	createEffect(() => {
 		table.setGlobalFilter(debouncedFilter());
+	});
+
+	createEffect(() => {
+		const id = search().category ?? "";
+		setCategoryFilter(id);
+		applyCategoryFilter(id);
 	});
 
 	const updateFilter = (value: string) => {
 		setGlobalFilter(value);
 	};
 
-	const updateCategoryFilter = (value: string) => {
-		setCategoryFilter(value);
-		table.setColumnFilters(value ? [{ id: "categoryLabel", value }] : []);
+	const updateCategoryFilter = (id: string) => {
+		setCategoryFilter(id);
+		applyCategoryFilter(id);
+		if (location().pathname === "/components") {
+			navigate({ to: "/components", search: id ? { category: id } : {} });
+		}
 	};
 
 	const toggleGroupBy = (enabled: boolean) => {

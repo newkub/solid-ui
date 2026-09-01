@@ -1,5 +1,7 @@
 import { Link, useNavigate } from "@tanstack/solid-router";
-import { createSignal, For, type JSX } from "solid-js";
+import { createSignal, For, type JSX, onCleanup, onMount } from "solid-js";
+import { toggleThemeMode } from "../lib/theme";
+import { CommandPalette } from "./CommandPalette";
 import { ContextMenu } from "./ContextMenu";
 import { Logo } from "./Logo";
 import { ThemePicker } from "./ThemePicker";
@@ -125,7 +127,19 @@ function LogoContextMenu(props: { children: JSX.Element }) {
 
 export function Nav() {
 	const [menuOpen, setMenuOpen] = createSignal(false);
+	const [commandOpen, setCommandOpen] = createSignal(false);
 	const menuId = "site-nav";
+
+	onMount(() => {
+		function onKeyDown(e: KeyboardEvent) {
+			if ((e.ctrlKey || e.metaKey) && e.key === "k") {
+				e.preventDefault();
+				setCommandOpen((v) => !v);
+			}
+		}
+		document.addEventListener("keydown", onKeyDown);
+		onCleanup(() => document.removeEventListener("keydown", onKeyDown));
+	});
 
 	return (
 		<header class="sticky top-0 z-sticky border-b border-border bg-surface/95 font-sans backdrop-blur supports-[not(backdrop-filter:blur(0))]:bg-surface">
@@ -160,6 +174,30 @@ export function Nav() {
 				</nav>
 
 				<div class="flex items-center gap-2">
+					<button
+						type="button"
+						onClick={() => setCommandOpen(true)}
+						class="hidden md:inline-flex h-10 items-center gap-2 rounded-md border border-border bg-background px-3 text-sm font-medium text-muted-foreground transition-all hover:border-border-hover hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+					>
+						<svg
+							width="16"
+							height="16"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							aria-hidden="true"
+						>
+							<circle cx="11" cy="11" r="8" />
+							<path d="m21 21-4.3-4.3" />
+						</svg>
+						<span>Search…</span>
+						<kbd class="ml-1 hidden rounded bg-muted px-1.5 py-0.5 text-[10px] font-semibold text-muted-foreground lg:inline">
+							⌘K
+						</kbd>
+					</button>
 					<Link
 						to="/docs/intro"
 						class="hidden md:inline-flex h-10 items-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground no-underline shadow-sm transition-all hover:bg-primary-hover hover:shadow-md focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
@@ -193,6 +231,7 @@ export function Nav() {
 					</button>
 				</div>
 			</div>
+			<CommandPalette open={commandOpen()} onClose={() => setCommandOpen(false)} onToggleTheme={toggleThemeMode} />
 		</header>
 	);
 }

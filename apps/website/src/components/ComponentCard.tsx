@@ -2,22 +2,13 @@ import { Link } from "@tanstack/solid-router";
 import { registry } from "@wrikka/solid-ui";
 import { ErrorBoundary, Show } from "solid-js";
 import { categories } from "../categories";
-import { ComponentPreview } from "./ComponentPreview";
+import { ComponentPreview, PreviewFallback } from "./ComponentPreview";
 import { CopyButton } from "./CopyButton";
 
 function TagChip(props: { label: string }) {
 	return (
 		<span class="inline-flex rounded-full border border-border bg-muted px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">
 			{props.label}
-		</span>
-	);
-}
-
-function PreviewFallback(props: { name: string; tag: string }) {
-	return (
-		<span class="inline-flex items-center gap-2 text-sm text-muted-foreground">
-			<TagChip label={props.tag} />
-			{props.name}
 		</span>
 	);
 }
