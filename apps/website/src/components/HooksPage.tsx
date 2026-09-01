@@ -10,6 +10,36 @@ interface HookItem {
 
 const hooks: HookItem[] = [
 	{
+		name: "useDebounce",
+		description: "Delay updating a value until the user stops changing it.",
+		example: "const debounced = useDebounce(() => query, 300);",
+	},
+	{
+		name: "useSearch",
+		description: "Filter an array by a debounced query string.",
+		example: "const { query, setQuery, filtered } = useSearch(() => items, (item, q) => ...);",
+	},
+	{
+		name: "useMediaQuery",
+		description: "Reactively track a CSS media query (e.g., prefers-color-scheme, min-width).",
+		example: "const isDesktop = useMediaQuery('(min-width: 1024px)');",
+	},
+	{
+		name: "useLocalStorage",
+		description: "Persist and sync state with localStorage.",
+		example: "const [value, setValue] = useLocalStorage('key', initial);",
+	},
+	{
+		name: "useClassName",
+		description: "Merge base, variant and custom class strings into a single className.",
+		example: "const { className, rest } = useClassName(props, base);",
+	},
+	{
+		name: "useButton",
+		description: "Resolve button variant and size classes.",
+		example: "const { className, rest } = useButton(props);",
+	},
+	{
 		name: "createSignal",
 		description: "Reactive primitive for a single mutable value.",
 		example: "const [count, setCount] = createSignal(0);",
