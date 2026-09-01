@@ -111,7 +111,7 @@ const simpleLinks: Array<{ to: string; label: string; icon: IconName }> = [
 	{ to: "/skills", label: "Skills", icon: "skills" },
 	{ to: "/templates", label: "Templates", icon: "template" },
 	{ to: "/plugins", label: "Plugins", icon: "plugins" },
-	{ to: "/mcp", label: "MCP", icon: "mcp" },
+	{ to: "/docs/integrations/mcp", label: "MCP", icon: "mcp" },
 ];
 
 function SimpleLink(props: { to: string; label: string; icon: IconName; onClick?: () => void }) {

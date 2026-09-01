@@ -12,7 +12,7 @@ import { Footer } from "./components/Footer";
 import { HooksPage } from "./components/HooksPage";
 import { LayoutsPage } from "./components/LayoutsPage";
 import { LlmTxtPage } from "./components/LlmTxtPage";
-import { McpPage } from "./components/McpPage";
+import { McpDocsPage } from "./components/McpDocsPage";
 import { NavLayout } from "./components/Nav";
 import { PageLayout } from "./components/PageLayout";
 import { PluginsPage } from "./components/PluginsPage";
@@ -304,7 +304,13 @@ const skillDetailRoute = createRoute({
 const mcpRoute = createRoute({
 	getParentRoute: () => rootRoute,
 	path: "/mcp",
-	component: McpPage,
+	component: () => <Navigate to="/docs/integrations/mcp" />,
+});
+
+const docsMcpRoute = createRoute({
+	getParentRoute: () => rootRoute,
+	path: "/docs/integrations/mcp",
+	component: McpDocsPage,
 });
 
 const templatesRoute = createRoute({
@@ -349,6 +355,7 @@ export const routeTree = rootRoute.addChildren([
 	skillsRoute,
 	skillDetailRoute,
 	mcpRoute,
+	docsMcpRoute,
 	templatesRoute,
 	layoutsRoute,
 	hooksRoute,
