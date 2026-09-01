@@ -12,20 +12,82 @@ export interface Command {
 	label: string;
 	group: string;
 	keywords?: string;
+	description?: string;
+	component?: { name: string; tag: string };
 	action: CommandAction;
 }
 
 const pageCommands: Command[] = [
-	{ id: "page-home", label: "Home", group: "Pages", action: { type: "navigate", to: "/" } },
-	{ id: "page-components", label: "Components", group: "Pages", action: { type: "navigate", to: "/components" } },
-	{ id: "page-docs", label: "Docs", group: "Pages", action: { type: "navigate", to: "/docs/intro" } },
-	{ id: "page-theme", label: "Theme Studio", group: "Pages", action: { type: "navigate", to: "/theme" } },
-	{ id: "page-hooks", label: "Hooks", group: "Pages", action: { type: "navigate", to: "/hooks" } },
-	{ id: "page-cli", label: "CLI", group: "Pages", action: { type: "navigate", to: "/cli" } },
-	{ id: "page-skills", label: "Skills", group: "Pages", action: { type: "navigate", to: "/skills" } },
-	{ id: "page-templates", label: "Templates", group: "Pages", action: { type: "navigate", to: "/templates" } },
-	{ id: "page-layouts", label: "Layouts", group: "Pages", action: { type: "navigate", to: "/layouts" } },
-	{ id: "page-mcp", label: "MCP", group: "Pages", action: { type: "navigate", to: "/mcp" } },
+	{
+		id: "page-home",
+		label: "Home",
+		group: "Pages",
+		description: "Landing page",
+		action: { type: "navigate", to: "/" },
+	},
+	{
+		id: "page-components",
+		label: "Components",
+		group: "Pages",
+		description: "Component gallery with live previews",
+		action: { type: "navigate", to: "/components" },
+	},
+	{
+		id: "page-docs",
+		label: "Docs",
+		group: "Pages",
+		description: "Documentation pages",
+		action: { type: "navigate", to: "/docs/intro" },
+	},
+	{
+		id: "page-theme",
+		label: "Theme Studio",
+		group: "Pages",
+		description: "Customize colors, fonts, spacing, radius",
+		action: { type: "navigate", to: "/theme" },
+	},
+	{
+		id: "page-hooks",
+		label: "Hooks",
+		group: "Pages",
+		description: "Browse hooks and utilities",
+		action: { type: "navigate", to: "/hooks" },
+	},
+	{
+		id: "page-cli",
+		label: "CLI",
+		group: "Pages",
+		description: "Command-line interface",
+		action: { type: "navigate", to: "/cli" },
+	},
+	{
+		id: "page-skills",
+		label: "Skills",
+		group: "Pages",
+		description: "solid-ui skills",
+		action: { type: "navigate", to: "/skills" },
+	},
+	{
+		id: "page-templates",
+		label: "Templates",
+		group: "Pages",
+		description: "Starter templates",
+		action: { type: "navigate", to: "/templates" },
+	},
+	{
+		id: "page-layouts",
+		label: "Layouts",
+		group: "Pages",
+		description: "Layout helpers",
+		action: { type: "navigate", to: "/layouts" },
+	},
+	{
+		id: "page-mcp",
+		label: "MCP",
+		group: "Pages",
+		description: "MCP server docs",
+		action: { type: "navigate", to: "/docs/integrations/mcp" },
+	},
 ];
 
 function componentCommands(): Command[] {
@@ -37,6 +99,8 @@ function componentCommands(): Command[] {
 			label: item.name,
 			group: `Components — ${group?.label ?? "Other"}`,
 			keywords: `${item.tag} ${item.description}`,
+			description: `Renders a <${item.tag}> element.`,
+			component: { name: item.name, tag: item.tag },
 			action: { type: "navigate", to },
 		};
 	});
@@ -48,6 +112,7 @@ function docCommands(): Command[] {
 		label: page.title,
 		group: "Docs",
 		keywords: page.group,
+		description: `Documentation for ${page.title}.`,
 		action: { type: "navigate", to: id.includes("/") ? `/docs/${id}` : `/docs/${id}` },
 	}));
 }
@@ -58,6 +123,7 @@ function skillCommands(): Command[] {
 		label: skill.name,
 		group: "Skills",
 		keywords: skill.description,
+		description: skill.description,
 		action: { type: "navigate", to: `/skills/${skill.name}` },
 	}));
 }
