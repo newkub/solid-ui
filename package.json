@@ -4,7 +4,7 @@
 	"private": true,
 	"type": "module",
 	"description": "Solid UI monorepo: design system, website, mcp, cli, and skills",
-	"packageManager": "bun@1.3.14",
+	"packageManager": "bun@1.4.0",
 	"workspaces": {
 		"packages": [
 			"packages/*",
