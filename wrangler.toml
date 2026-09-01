@@ -1,0 +1,6 @@
+name = "solid-ui-wrikka-com"
+compatibility_date = "2026-08-28"
+
+[assets]
+directory = "apps/website/dist"
+not_found_handling = "single-page-application"
