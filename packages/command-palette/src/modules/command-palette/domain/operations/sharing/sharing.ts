@@ -4,6 +4,7 @@
  */
 
 import type { Command } from "#types";
+import { DEFAULT_COMMAND_SHARE_BASE_URL, DEFAULT_COMMANDS_SHARE_BASE_URL } from "../../../../../constants";
 
 export interface ShareData {
 	readonly command: Command;
@@ -28,7 +29,7 @@ export const deserializeCommand = (json: string): Command => {
 /**
  * Generate shareable URL for a command
  */
-export const generateShareUrl = (command: Command, baseUrl: string = "https://example.com/command"): string => {
+export const generateShareUrl = (command: Command, baseUrl: string = DEFAULT_COMMAND_SHARE_BASE_URL): string => {
 	const params = new URLSearchParams({
 		id: command.id,
 		label: command.label,
@@ -117,7 +118,7 @@ export const importCommandsFromJson = (json: string): readonly Command[] => {
  */
 export const generateCommandsShareUrl = (
 	commands: readonly Command[],
-	baseUrl: string = "https://example.com/commands",
+	baseUrl: string = DEFAULT_COMMANDS_SHARE_BASE_URL,
 ): string => {
 	const commandIds = commands.map((cmd) => cmd.id).join(",");
 	return `${baseUrl}?ids=${commandIds}`;

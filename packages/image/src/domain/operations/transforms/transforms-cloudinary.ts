@@ -2,6 +2,7 @@
 // This module handles Cloudinary URL building
 
 import type { ImageTransform } from "#image/domain/models";
+import { CLOUDINARY_FETCH_BASE_URL, DEFAULT_CLOUDINARY_CLOUD_NAME } from "../../../constants";
 import { normalizeTransform } from "./transforms-normalize";
 
 export const buildCloudinaryUrl = (src: string, options: ImageTransform, cloudName?: string): string => {
@@ -17,12 +18,12 @@ export const buildCloudinaryUrl = (src: string, options: ImageTransform, cloudNa
 	if (normalized.sharpen) transforms.push(`e_sharpen:${normalized.sharpen}`);
 
 	const transformString = transforms.length > 0 ? `${transforms.join(",")}/` : "";
-	const cloud = cloudName || "demo";
+	const cloud = cloudName || DEFAULT_CLOUDINARY_CLOUD_NAME;
 
 	// Check if src is already a full URL
 	if (src.startsWith("http")) {
-		return `https://res.cloudinary.com/${cloud}/image/fetch/${transformString}${src}`;
+		return `${CLOUDINARY_FETCH_BASE_URL}/${cloud}/image/fetch/${transformString}${src}`;
 	}
 
-	return `https://res.cloudinary.com/${cloud}/image/upload/${transformString}${src}`;
+	return `${CLOUDINARY_FETCH_BASE_URL}/${cloud}/image/upload/${transformString}${src}`;
 };

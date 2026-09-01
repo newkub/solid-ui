@@ -1,3 +1,4 @@
+import "../../tools/tsdown-polyfill.ts";
 import { defineConfig } from "tsdown";
 
 export default defineConfig({

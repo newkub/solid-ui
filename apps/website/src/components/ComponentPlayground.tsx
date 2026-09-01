@@ -1,6 +1,7 @@
 import * as SolidUI from "@wrikka/solid-ui";
 import { registry } from "@wrikka/solid-ui";
 import { createSignal, For, type JSX, Match, Show, Switch } from "solid-js";
+import { PLAYGROUND_IMAGE_SRC } from "../lib/config";
 import { CodeBlock } from "./CodeBlock";
 
 type AnyComponent = (props: Record<string, unknown>) => JSX.Element;
@@ -58,7 +59,7 @@ export function ComponentPlayground(props: { name: string }) {
 	const [checked, setChecked] = createSignal(false);
 	const [inputType, setInputType] = createSignal("text");
 	const [placeholder, setPlaceholder] = createSignal("Enter value…");
-	const [src, setSrc] = createSignal("https://picsum.photos/400/300");
+	const [src, setSrc] = createSignal(PLAYGROUND_IMAGE_SRC);
 	const [alt, setAlt] = createSignal("Demo image");
 
 	const usageCode = () => {

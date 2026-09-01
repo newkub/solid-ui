@@ -1,5 +1,6 @@
 import { Show } from "solid-js";
 import type { CloudSyncConfig } from "#modules/command-palette/types";
+import { SYNC_ENDPOINT_PLACEHOLDER } from "../../../../constants";
 import { formatSyncInterval } from "./utils";
 
 interface SettingsFormProps {
@@ -61,7 +62,7 @@ export function SettingsForm(props: SettingsFormProps) {
 						value={props.endpoint}
 						onInput={(e) => props.onEndpointChange(e.currentTarget.value)}
 						class="form-input"
-						placeholder="https://api.example.com"
+						placeholder={SYNC_ENDPOINT_PLACEHOLDER}
 					/>
 				</div>
 			</Show>

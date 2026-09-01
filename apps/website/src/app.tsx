@@ -6,6 +6,7 @@ import { ComponentGallery } from "./components/ComponentGallery";
 import { DocsPage } from "./components/DocsPage";
 import { ThemePage } from "./components/ThemePage";
 import { ThemePicker } from "./components/ThemePicker";
+import { GITHUB_REPO_URL, PLACEHOLDER_IMAGE_SRC } from "./lib/config";
 
 function setPageTitle(title: string) {
 	if (typeof document !== "undefined") {
@@ -103,7 +104,7 @@ function Root() {
 					<p>
 						Built with Solid + TanStack Router, deployed on Cloudflare Workers. Source on{" "}
 						<a
-							href="https://github.com/newkub/solid-ui"
+							href={GITHUB_REPO_URL}
 							target="_blank"
 							rel="noreferrer"
 							class="text-foreground underline underline-offset-4 hover:text-primary"
@@ -188,7 +189,7 @@ function ImageDemo() {
 		format: "webp",
 		quality: 80,
 	});
-	const url = SolidUI.buildIpxUrl("https://picsum.photos/800/600", transform);
+	const url = SolidUI.buildIpxUrl(PLACEHOLDER_IMAGE_SRC, transform);
 	return (
 		<section class="page">
 			<h2 class="text-2xl font-bold tracking-tight mb-4">Image URL builder</h2>

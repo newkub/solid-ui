@@ -2,6 +2,7 @@
 // This module handles ImageKit URL building
 
 import type { ImageTransform } from "#image/domain/models";
+import { DEFAULT_IMAGEKIT_ACCOUNT_ID, IMAGEKIT_BASE_URL } from "../../../constants";
 import { normalizeTransform } from "./transforms-normalize";
 
 export const buildImagekitUrl = (src: string, options: ImageTransform, accountId?: string): string => {
@@ -16,7 +17,9 @@ export const buildImagekitUrl = (src: string, options: ImageTransform, accountId
 	if (normalized.blur) parts.push(`bl-${normalized.blur}`);
 
 	const transforms = parts.length > 0 ? `${parts.join(",")}/` : "";
-	const endpoint = accountId ? `https://ik.imagekit.io/${accountId}` : "https://ik.imagekit.io/your accountId";
+	const endpoint = accountId
+		? `${IMAGEKIT_BASE_URL}/${accountId}`
+		: `${IMAGEKIT_BASE_URL}/${DEFAULT_IMAGEKIT_ACCOUNT_ID}`;
 
 	// Check if src is already a full URL
 	if (src.startsWith("http")) {

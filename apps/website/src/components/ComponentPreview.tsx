@@ -1,4 +1,5 @@
 import * as SolidUI from "@wrikka/solid-ui";
+import { PREVIEW_IMAGE_SMALL_SRC, PREVIEW_IMAGE_TINY_SRC } from "../lib/config";
 
 const selfClosing = new Set([
 	"Input",
@@ -28,12 +29,12 @@ export function ComponentPreview(props: { name: string; tag: string }) {
 
 	if (selfClosing.has(props.name)) {
 		if (props.name === "Image") {
-			return <C src="https://picsum.photos/120/80" alt="" width={120} height={80} />;
+			return <C src={PREVIEW_IMAGE_SMALL_SRC} alt="" width={120} height={80} />;
 		}
 		if (props.name === "Avatar") {
 			return (
 				<C>
-					<img src="https://picsum.photos/40" alt="" />
+					<img src={PREVIEW_IMAGE_TINY_SRC} alt="" />
 				</C>
 			);
 		}

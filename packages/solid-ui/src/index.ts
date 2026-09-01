@@ -1,4 +1,13 @@
-// Solid UI component library exports
+/**
+ * @packageDocumentation
+ *
+ * Solid UI component library public API.
+ *
+ * `@wrikka/solid-ui` re-exports form, image, table and transition primitives,
+ * plus a complete set of SolidJS UI components built on a shared UnoCSS design
+ * system. Components can be imported by name; the full component registry is
+ * available via {@link registry}.
+ */
 
 export * from "@wrikka/form";
 export * from "@wrikka/image";

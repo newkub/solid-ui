@@ -27,7 +27,7 @@
 		"@types/node": "^26.4.0",
 		"typescript": "catalog:",
 		"unocss": "^66.8.1",
-		"vite": "^8.2.2",
+		"vite": "catalog:",
 		"vite-plugin-solid": "^2.11.14",
 		"wrangler": "^4.127.1"
 	}
