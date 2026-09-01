@@ -28,7 +28,7 @@ function BoolControl(props: { label: string; checked: boolean; onChange: (value:
 	const id = controlId(props.label);
 	return (
 		<div class="playground-control playground-control--inline">
-			<SolidUI.Checkbox id={id} checked={props.checked} onChange={(e) => props.onChange(e.currentTarget.checked)} />
+			<SolidUI.Checkbox id={id} checked={props.checked} onChange={props.onChange} />
 			<label for={id} class="playground-control__label">
 				{props.label}
 			</label>
