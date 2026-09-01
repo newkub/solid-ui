@@ -1,4 +1,4 @@
-import { createSignal, For, type JSX, mergeProps, splitProps } from "solid-js";
+import { createSignal, Index, type JSX, mergeProps, splitProps } from "solid-js";
 
 export interface PinInputProps extends Omit<JSX.HTMLAttributes<HTMLFieldSetElement>, "onChange"> {
 	length?: number;
@@ -124,9 +124,9 @@ export function PinInput(props: PinInputProps) {
 
 	return (
 		<fieldset class={className()} aria-label="Pin input" {...rest}>
-			<For each={chars()}>
+			<Index each={chars()}>
 				{(char, index) => {
-					const i = index();
+					const i = index;
 					return (
 						<input
 							id={`${baseId}-${i}`}
@@ -134,7 +134,7 @@ export function PinInput(props: PinInputProps) {
 							type="text"
 							inputMode="numeric"
 							maxLength={1}
-							value={char}
+							value={char()}
 							onInput={(e) => onInput(i, e as InputEvent & { currentTarget: HTMLInputElement })}
 							onKeyDown={(e) => onKeyDown(i, e)}
 							onPaste={(e) => onPaste(e as ClipboardEvent & { currentTarget: HTMLInputElement })}
@@ -143,7 +143,7 @@ export function PinInput(props: PinInputProps) {
 						/>
 					);
 				}}
-			</For>
+			</Index>
 		</fieldset>
 	);
 }
