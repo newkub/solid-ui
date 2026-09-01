@@ -31,18 +31,25 @@ function buildStyle(state: MotionStyle) {
 
 const defaultInitial: MotionStyle = { opacity: 0, y: 16 };
 const defaultAnimate: MotionStyle = { opacity: 1, y: 0 };
-const defaultTransition: NonNullable<Required<MotionProps["transition"]>> = { duration: 300, delay: 0, easing: "ease-out" };
+const defaultTransition: NonNullable<Required<MotionProps["transition"]>> = {
+	duration: 300,
+	delay: 0,
+	easing: "ease-out",
+};
 
 function mergeValue(a: number | undefined, b: number | undefined, fallback: number) {
 	return a ?? b ?? fallback;
 }
 
 export function Motion(props: MotionProps) {
-	const merged = mergeProps({ as: "div", initial: defaultInitial, animate: defaultAnimate, transition: defaultTransition }, props);
+	const merged = mergeProps(
+		{ as: "div", initial: defaultInitial, animate: defaultAnimate, transition: defaultTransition },
+		props,
+	);
 	const [state, setState] = createSignal<MotionStyle>(merged.initial);
-	const duration = () => (merged.transition?.duration ?? defaultTransition.duration);
-	const delay = () => (merged.transition?.delay ?? defaultTransition.delay);
-	const easing = () => (merged.transition?.easing ?? defaultTransition.easing);
+	const duration = () => merged.transition?.duration ?? defaultTransition.duration;
+	const delay = () => merged.transition?.delay ?? defaultTransition.delay;
+	const easing = () => merged.transition?.easing ?? defaultTransition.easing;
 
 	onMount(() => {
 		const start = merged.initial;

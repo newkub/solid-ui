@@ -2,6 +2,7 @@ import { useLocation, useNavigate } from "@tanstack/solid-router";
 import { useSelector } from "@tanstack/solid-store";
 import { createSignal, onCleanup, onMount, Show } from "solid-js";
 import { themeStore } from "../lib/theme";
+import { VibeCoding } from "./VibeCoding";
 
 function useBreakpoint() {
 	const [width, setWidth] = createSignal(0);
@@ -60,7 +61,7 @@ function GearIcon(props: { class?: string }) {
 	);
 }
 
-function TerminalIcon(props: { class?: string }) {
+function VibeIcon(props: { class?: string }) {
 	return (
 		<svg
 			class={props.class}
@@ -72,8 +73,8 @@ function TerminalIcon(props: { class?: string }) {
 			stroke-width="2"
 			aria-hidden="true"
 		>
-			<rect x="2" y="4" width="20" height="16" rx="2" />
-			<path d="m6 9 3 3-3 3M12 15h6" />
+			<path d="M12 2a10 10 0 1 0 10 10 10 10 0 0 0-10-10Z" />
+			<path d="M12 6v6l4 2" />
 		</svg>
 	);
 }
@@ -82,13 +83,13 @@ export function DevTools() {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const [open, setOpen] = createSignal(false);
-	const [showTerminal, setShowTerminal] = createSignal(false);
+	const [showVibe, setShowVibe] = createSignal(false);
 	const { width, breakpoint } = useBreakpoint();
 	const theme = useSelector(themeStore, (s) => s);
 
 	function nav(to: string) {
 		setOpen(false);
-		setShowTerminal(false);
+		setShowVibe(false);
 		navigate({ to });
 	}
 
@@ -121,7 +122,7 @@ export function DevTools() {
 					</button>
 				}
 			>
-				<div class="w-64 rounded-xl border border-border bg-surface p-3 shadow-xl">
+				<div class="w-80 rounded-xl border border-border bg-surface p-3 shadow-xl sm:w-96">
 					<div class="mb-3 flex items-center justify-between">
 						<div class="flex items-center gap-1.5">
 							<GearIcon class="text-muted-foreground" />
@@ -131,7 +132,7 @@ export function DevTools() {
 							type="button"
 							onClick={() => {
 								setOpen(false);
-								setShowTerminal(false);
+								setShowVibe(false);
 							}}
 							class="inline-flex h-6 w-6 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
 							aria-label="Close developer tools"
@@ -147,7 +148,7 @@ export function DevTools() {
 					</div>
 
 					<Show
-						when={showTerminal()}
+						when={showVibe()}
 						fallback={
 							<div class="mt-3 grid grid-cols-2 gap-2">
 								<button
@@ -173,29 +174,27 @@ export function DevTools() {
 								</button>
 								<button
 									type="button"
-									onClick={() => setShowTerminal(true)}
+									onClick={() => setShowVibe(true)}
 									class="inline-flex items-center justify-center gap-1 rounded-md border border-border bg-background px-2 py-1.5 text-xs font-medium text-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
 								>
-									<TerminalIcon />
-									Terminal
+									<VibeIcon />
+									Vibe coding
 								</button>
 							</div>
 						}
 					>
-						<div class="mt-3 space-y-3 text-center">
-							<div class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-muted text-muted-foreground">
-								<TerminalIcon />
+						<div class="mt-3">
+							<div class="mb-2 flex items-center justify-between">
+								<span class="text-sm font-semibold">Vibe coding</span>
+								<button
+									type="button"
+									onClick={() => setShowVibe(false)}
+									class="rounded-md border border-border bg-background px-2 py-1 text-xs text-foreground hover:bg-muted"
+								>
+									Back
+								</button>
 							</div>
-							<div class="text-sm text-muted-foreground">
-								Terminal log watcher streams dev server output to the chat and is not available yet.
-							</div>
-							<button
-								type="button"
-								onClick={() => setShowTerminal(false)}
-								class="w-full rounded-md border border-border bg-background px-2 py-1.5 text-xs font-medium text-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
-							>
-								Back
-							</button>
+							<VibeCoding />
 						</div>
 					</Show>
 				</div>
