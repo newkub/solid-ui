@@ -1,5 +1,8 @@
 import { For } from "solid-js";
+import { PageHeader } from "./PageHeader";
+import { PageSection } from "./PageSection";
 import { Seo } from "./Seo";
+import { Tag } from "./Tag";
 
 const commands = [
 	{
@@ -32,33 +35,33 @@ export function CliPage() {
 				description="solid-ui CLI commands for listing, showing, and generating components."
 				path="/cli"
 			/>
-			<header class="mb-8">
-				<h2 class="text-2xl font-bold tracking-tight">CLI</h2>
-				<p class="mt-2 text-sm text-muted-foreground">
-					Use the solid-ui CLI to inspect and generate components locally.
-				</p>
-			</header>
+			<PageHeader title="CLI" description="Use the solid-ui CLI to inspect and generate components locally." />
 
-			<div class="rounded-xl border border-border bg-surface p-6 shadow-sm">
-				<h3 class="mb-2 text-lg font-semibold">Installation</h3>
-				<pre class="mb-6 overflow-auto rounded-lg bg-background p-4 text-xs text-foreground">
-					<code>bun apps/cli/src/index.ts --help</code>
-				</pre>
+			<div class="space-y-6">
+				<PageSection title="Installation">
+					<pre class="overflow-auto rounded-lg bg-background p-4 text-xs text-foreground">
+						<code>bun apps/cli/src/index.ts --help</code>
+					</pre>
+				</PageSection>
 
-				<h3 class="mb-4 text-lg font-semibold">Commands</h3>
-				<div class="space-y-4">
-					<For each={commands}>
-						{(cmd) => (
-							<div class="rounded-lg border border-border bg-background p-4">
-								<h4 class="font-mono text-sm font-semibold text-foreground">solid-ui {cmd.name}</h4>
-								<p class="mt-1 text-sm text-muted-foreground">{cmd.description}</p>
-								<code class="mt-2 block rounded bg-muted px-2 py-1 font-mono text-xs text-muted-foreground">
-									{cmd.example}
-								</code>
-							</div>
-						)}
-					</For>
-				</div>
+				<PageSection title="Commands">
+					<div class="space-y-3">
+						<For each={commands}>
+							{(cmd) => (
+								<div class="rounded-lg border border-border bg-background p-4">
+									<div class="flex flex-wrap items-center gap-2">
+										<h4 class="font-mono text-sm font-semibold text-foreground">solid-ui {cmd.name}</h4>
+										<Tag label="cli" />
+									</div>
+									<p class="mt-1 text-sm text-muted-foreground">{cmd.description}</p>
+									<code class="mt-2 block rounded bg-muted px-2 py-1 font-mono text-xs text-muted-foreground">
+										{cmd.example}
+									</code>
+								</div>
+							)}
+						</For>
+					</div>
+				</PageSection>
 			</div>
 		</section>
 	);

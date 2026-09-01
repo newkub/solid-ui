@@ -20,6 +20,8 @@ import {
 	type ThemeSpace,
 	themeStore,
 } from "../lib/theme";
+import { PageHeader } from "./PageHeader";
+import { PageSection } from "./PageSection";
 import { Seo } from "./Seo";
 
 const THEME_DESCRIPTION =
@@ -46,10 +48,9 @@ const radiusOptions: ThemeRadius[] = ["none", "small", "medium", "large"];
 
 function Section(props: { title: string; children: JSX.Element }) {
 	return (
-		<section class="mb-8 p-6 rounded-xl border border-border bg-surface">
-			<h2 class="text-lg font-semibold mb-4">{props.title}</h2>
+		<PageSection title={props.title} class="mb-6">
 			{props.children}
-		</section>
+		</PageSection>
 	);
 }
 
@@ -228,12 +229,10 @@ export function ThemePage() {
 	return (
 		<section class="page">
 			<Seo title="Theme Studio — solid-ui" description={THEME_DESCRIPTION} path="/theme" />
-			<div class="mb-6 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-				<h2 class="text-2xl font-bold tracking-tight">Theme Studio</h2>
-			</div>
-			<p class="mb-6 text-muted-foreground">
-				Customize colors, font, spacing, and radius. Changes apply live across the site and all component previews.
-			</p>
+			<PageHeader
+				title="Theme Studio"
+				description="Customize colors, font, spacing, and radius. Changes apply live across the site and all component previews."
+			/>
 
 			<PresetsSection name={state().name} />
 			<ModeSection />
