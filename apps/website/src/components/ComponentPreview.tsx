@@ -110,6 +110,76 @@ function SampleNav() {
 	);
 }
 
+function SampleTabs() {
+	return (
+		<SolidUI.Tabs defaultValue="account" class="w-full text-left">
+			<SolidUI.TabsList class="grid w-full grid-cols-2">
+				<SolidUI.TabsTrigger value="account">Account</SolidUI.TabsTrigger>
+				<SolidUI.TabsTrigger value="password">Password</SolidUI.TabsTrigger>
+			</SolidUI.TabsList>
+			<SolidUI.TabsContent value="account">
+				<p class="text-xs text-muted-foreground">Manage your account settings.</p>
+			</SolidUI.TabsContent>
+			<SolidUI.TabsContent value="password">
+				<p class="text-xs text-muted-foreground">Change your password.</p>
+			</SolidUI.TabsContent>
+		</SolidUI.Tabs>
+	);
+}
+
+function SampleBreadcrumb() {
+	return (
+		<SolidUI.Breadcrumb>
+			<SolidUI.BreadcrumbItem>
+				<SolidUI.BreadcrumbLink href="#">Home</SolidUI.BreadcrumbLink>
+				<SolidUI.BreadcrumbSeparator />
+			</SolidUI.BreadcrumbItem>
+			<SolidUI.BreadcrumbItem>
+				<SolidUI.BreadcrumbLink href="#">Products</SolidUI.BreadcrumbLink>
+				<SolidUI.BreadcrumbSeparator />
+			</SolidUI.BreadcrumbItem>
+			<SolidUI.BreadcrumbItem>
+				<SolidUI.BreadcrumbLink current>Active</SolidUI.BreadcrumbLink>
+			</SolidUI.BreadcrumbItem>
+		</SolidUI.Breadcrumb>
+	);
+}
+
+function SamplePagination() {
+	const [page, setPage] = createSignal(1);
+	return <SolidUI.Pagination totalPages={5} page={page()} onPageChange={setPage} />;
+}
+
+function SampleSteps() {
+	return (
+		<SolidUI.Steps current={1} class="w-full">
+			<SolidUI.Step index={0} title="Cart" description="Items selected" />
+			<SolidUI.Step index={1} title="Checkout" description="Payment details" />
+			<SolidUI.Step index={2} title="Complete" description="Order placed" />
+		</SolidUI.Steps>
+	);
+}
+
+function SampleTimeline() {
+	return (
+		<SolidUI.Timeline class="w-full text-left">
+			<SolidUI.TimelineItem title="Order placed" description="Your order has been received." time="2h ago" />
+			<SolidUI.TimelineItem title="Shipped" description="Package is on its way to you." time="1h ago" />
+		</SolidUI.Timeline>
+	);
+}
+
+function SampleToggleGroup() {
+	const [value, setValue] = createSignal<string[]>(["bold"]);
+	return (
+		<SolidUI.ToggleGroup type="multiple" value={value()} onValueChange={setValue}>
+			<SolidUI.ToggleGroupItem value="bold">Bold</SolidUI.ToggleGroupItem>
+			<SolidUI.ToggleGroupItem value="italic">Italic</SolidUI.ToggleGroupItem>
+			<SolidUI.ToggleGroupItem value="underline">Underline</SolidUI.ToggleGroupItem>
+		</SolidUI.ToggleGroup>
+	);
+}
+
 function SampleTable() {
 	return (
 		<table class="w-full text-left text-xs">
@@ -398,7 +468,24 @@ function PreviewContent(props: { name: string; tag: string }) {
 	}
 
 	if (layout.has(props.name)) return <SampleBlocks />;
-	if (nav.has(props.name)) return <SampleNav />;
+	if (nav.has(props.name)) {
+		switch (props.name) {
+			case "Tabs":
+				return <SampleTabs />;
+			case "Breadcrumb":
+				return <SampleBreadcrumb />;
+			case "Pagination":
+				return <SamplePagination />;
+			case "Steps":
+				return <SampleSteps />;
+			case "Timeline":
+				return <SampleTimeline />;
+			case "ToggleGroup":
+				return <SampleToggleGroup />;
+			default:
+				return <SampleNav />;
+		}
+	}
 	if (form.has(props.name)) return <SampleForm />;
 	if (data.has(props.name)) {
 		if (props.name === "Chart") return <SampleChart />;

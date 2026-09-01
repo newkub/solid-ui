@@ -20,7 +20,13 @@ export { AspectRatio } from "./components/AspectRatio";
 export { Avatar } from "./components/Avatar";
 export { Badge } from "./components/Badge";
 export { Box } from "./components/Box";
-export { Breadcrumb } from "./components/Breadcrumb";
+export {
+	Breadcrumb,
+	BreadcrumbEllipsis,
+	BreadcrumbItem,
+	BreadcrumbLink,
+	BreadcrumbSeparator,
+} from "./components/Breadcrumb";
 export { Button } from "./components/Button";
 export { Calendar } from "./components/Calendar";
 export { Card } from "./components/Card";
@@ -48,7 +54,7 @@ export { Modal } from "./components/Modal";
 export { Motion } from "./components/Motion";
 export { NavigationMenu } from "./components/NavigationMenu";
 export { Notification } from "./components/Notification";
-export { Pagination } from "./components/Pagination";
+export { Pagination, PaginationItem, PaginationNext, PaginationPrevious } from "./components/Pagination";
 export { Popover } from "./components/Popover";
 export { Progress } from "./components/Progress";
 export { Radio } from "./components/Radio";
@@ -61,17 +67,17 @@ export { Skeleton } from "./components/Skeleton";
 export { Slider } from "./components/Slider";
 export { Spinner } from "./components/Spinner";
 export { Stack } from "./components/Stack";
-export { Steps } from "./components/Steps";
+export { Step, StepItem, Steps } from "./components/Steps";
 export { Switch } from "./components/Switch";
 export { Table } from "./components/Table";
-export { Tabs } from "./components/Tabs";
+export { Tabs, TabsContent, TabsList, TabsTrigger } from "./components/Tabs";
 export { Terminal } from "./components/Terminal";
 export { Textarea } from "./components/Textarea";
-export { Timeline } from "./components/Timeline";
+export { Timeline, TimelineItem } from "./components/Timeline";
 export { Toast } from "./components/Toast";
 export { Toaster } from "./components/Toaster";
 export { Toggle } from "./components/Toggle";
-export { ToggleGroup } from "./components/ToggleGroup";
+export { ToggleGroup, ToggleGroupItem } from "./components/ToggleGroup";
 export { Tooltip } from "./components/Tooltip";
 export { Transition } from "./components/Transition";
 export { TreeView } from "./components/TreeView";
