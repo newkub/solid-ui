@@ -445,7 +445,7 @@ export const docs: Record<string, DocPage> = {
 		group: "components",
 		order: 1,
 		content:
-			'# Accordion\n\nRenders a `<div>` element.\n\n## Usage\n\n```tsx\nimport { Accordion } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn <Accordion class="my-accordion">Accordion content</Accordion>;\n}\n```\n## Props\n\n- Extends the standard JSX attributes for `<div>`\n- Accepts `class` for custom styling\n',
+			'# Accordion\n\nA vertically stacked set of expandable panels.\n\n## Usage\n\n```tsx\nimport { Accordion, AccordionItem } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn (\n\t\t<Accordion class="my-accordion">\n\t\t\t<AccordionItem title="Section one">\n\t\t\t\tFirst panel content.\n\t\t\t</AccordionItem>\n\t\t\t<AccordionItem title="Section two" defaultOpen>\n\t\t\t\tSecond panel content.\n\t\t\t</AccordionItem>\n\t\t</Accordion>\n\t);\n}\n```\n## Props\n\n- `Accordion` extends the standard JSX attributes for `<div>`\n- `AccordionItem` accepts `title`, `children`, and `defaultOpen`\n',
 	},
 	"components/dropdownmenu": {
 		title: "DropdownMenu",

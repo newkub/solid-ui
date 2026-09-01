@@ -165,6 +165,19 @@ function SampleLoading() {
 	);
 }
 
+function SampleAccordion() {
+	return (
+		<SolidUI.Accordion class="w-full text-left">
+			<SolidUI.AccordionItem title="Section one">
+				<p class="text-xs">Preview content for the first panel.</p>
+			</SolidUI.AccordionItem>
+			<SolidUI.AccordionItem title="Section two">
+				<p class="text-xs">Preview content for the second panel.</p>
+			</SolidUI.AccordionItem>
+		</SolidUI.Accordion>
+	);
+}
+
 function PreviewContent(props: { name: string; tag: string }) {
 	const category = findCategory(props.name)?.id;
 
@@ -181,6 +194,8 @@ function PreviewContent(props: { name: string; tag: string }) {
 		default:
 			break;
 	}
+
+	if (props.name === "Accordion") return <SampleAccordion />;
 
 	const layout = new Set([
 		"Box",

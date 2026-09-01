@@ -30,6 +30,11 @@ a {
 	color: inherit;
 }
 
+ul:not([class~="list-disc"]) {
+	list-style: none;
+	padding-inline-start: 0;
+}
+
 progress {
 	accent-color: var(--su-primary);
 }

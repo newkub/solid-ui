@@ -6,7 +6,17 @@ import { ContextMenu } from "./ContextMenu";
 import { Logo } from "./Logo";
 import { ThemePicker } from "./ThemePicker";
 
-type IconName = "components" | "theme" | "template" | "mcp" | "docs" | "skills" | "layouts" | "hooks" | "cli";
+type IconName =
+	| "components"
+	| "theme"
+	| "template"
+	| "mcp"
+	| "docs"
+	| "skills"
+	| "layouts"
+	| "hooks"
+	| "cli"
+	| "plugins";
 
 const iconPaths: Record<IconName, () => JSX.Element> = {
 	components: () => (
@@ -56,6 +66,14 @@ const iconPaths: Record<IconName, () => JSX.Element> = {
 			<path d="m6 9 3 3-3 3M12 15h6" />
 		</>
 	),
+	plugins: () => (
+		<>
+			<rect x="2" y="2" width="9" height="9" rx="1.5" />
+			<rect x="13" y="2" width="9" height="9" rx="1.5" />
+			<rect x="2" y="13" width="9" height="9" rx="1.5" />
+			<rect x="13" y="13" width="9" height="9" rx="1.5" />
+		</>
+	),
 };
 
 function NavIcon(props: { name: IconName }) {
@@ -86,6 +104,7 @@ const simpleLinks: Array<{ to: string; label: string; icon: IconName }> = [
 	{ to: "/cli", label: "CLI", icon: "cli" },
 	{ to: "/skills", label: "Skills", icon: "skills" },
 	{ to: "/templates", label: "Templates", icon: "template" },
+	{ to: "/plugins", label: "Plugins", icon: "plugins" },
 	{ to: "/mcp", label: "MCP", icon: "mcp" },
 ];
 

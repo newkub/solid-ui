@@ -56,7 +56,7 @@ export function DocsPage() {
 		<DocsLayout sidebar={<Sidebar />}>
 			<Show when={page()} fallback={<div class="text-muted-foreground">Docs page not found</div>}>
 				{(page) => (
-					<article class="max-w-3xl">
+					<article class="mx-auto w-full max-w-5xl">
 						<Seo title={seoTitle()} description={seoDescription()} />
 						<header class="mb-6 border-b border-border pb-6">
 							<h1 class="text-3xl font-bold tracking-tight">{page().title}</h1>

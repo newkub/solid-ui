@@ -5,6 +5,7 @@ import { CliPage } from "./components/CliPage";
 import { CodeBlock } from "./components/CodeBlock";
 import { ComponentGallery } from "./components/ComponentGallery";
 import { ComponentSidebar } from "./components/ComponentSidebar";
+import { DevTools } from "./components/DevTools";
 import { DocsLayout } from "./components/DocsLayout";
 import { DocsPage } from "./components/DocsPage";
 import { Footer } from "./components/Footer";
@@ -14,6 +15,7 @@ import { LlmTxtPage } from "./components/LlmTxtPage";
 import { McpPage } from "./components/McpPage";
 import { Nav } from "./components/Nav";
 import { PageLayout } from "./components/PageLayout";
+import { PluginsPage } from "./components/PluginsPage";
 import { Seo } from "./components/Seo";
 import { SkillDetailPage } from "./components/SkillDetailPage";
 import { SkillsPage } from "./components/SkillsPage";
@@ -70,6 +72,7 @@ function Root() {
 					</div>
 				</main>
 				<Footer />
+				<DevTools />
 			</ErrorBoundary>
 		</div>
 	);
@@ -327,6 +330,12 @@ const cliRoute = createRoute({
 	component: CliPage,
 });
 
+const pluginsRoute = createRoute({
+	getParentRoute: () => rootRoute,
+	path: "/plugins",
+	component: PluginsPage,
+});
+
 export const routeTree = rootRoute.addChildren([
 	homeRoute,
 	componentsRoute,
@@ -343,6 +352,7 @@ export const routeTree = rootRoute.addChildren([
 	layoutsRoute,
 	hooksRoute,
 	cliRoute,
+	pluginsRoute,
 	docsIndexRoute,
 	docsGroupRoute,
 	docsComponentRoute,
