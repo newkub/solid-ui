@@ -17,6 +17,7 @@ import { NavLayout } from "./components/Nav";
 import { PageLayout } from "./components/PageLayout";
 import { PluginsPage } from "./components/PluginsPage";
 import { Seo } from "./components/Seo";
+import { SettingsPage } from "./components/SettingsPage";
 import { SkillDetailPage } from "./components/SkillDetailPage";
 import { SkillsPage } from "./components/SkillsPage";
 import { TemplatesPage } from "./components/TemplatesPage";
@@ -241,6 +242,12 @@ const themeRoute = createRoute({
 	component: ThemePage,
 });
 
+const settingsRoute = createRoute({
+	getParentRoute: () => rootRoute,
+	path: "/settings",
+	component: SettingsPage,
+});
+
 const formRoute = createRoute({
 	getParentRoute: () => rootRoute,
 	path: "/form",
@@ -347,6 +354,7 @@ export const routeTree = rootRoute.addChildren([
 	homeRoute,
 	componentsRoute,
 	themeRoute,
+	settingsRoute,
 	formRoute,
 	tableRoute,
 	imageRoute,

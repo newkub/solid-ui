@@ -21,7 +21,9 @@ type IconName =
 	| "layouts"
 	| "hooks"
 	| "cli"
-	| "plugins";
+	| "plugins"
+	| "settings"
+	| "home";
 
 const iconPaths: Record<IconName, () => JSX.Element> = {
 	components: () => (
@@ -79,6 +81,18 @@ const iconPaths: Record<IconName, () => JSX.Element> = {
 			<rect x="13" y="13" width="9" height="9" rx="1.5" />
 		</>
 	),
+	home: () => (
+		<>
+			<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9Z" />
+			<polyline points="9 22 9 12 15 12 15 22" />
+		</>
+	),
+	settings: () => (
+		<>
+			<circle cx="12" cy="12" r="3" />
+			<path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h.09a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h.09a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V12a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z" />
+		</>
+	),
 };
 
 function NavIcon(props: { name: IconName }) {
@@ -101,17 +115,53 @@ function NavIcon(props: { name: IconName }) {
 	);
 }
 
-const simpleLinks: Array<{ to: string; label: string; icon: IconName }> = [
-	{ to: "/components", label: "Components", icon: "components" },
-	{ to: "/docs/intro", label: "Docs", icon: "docs" },
-	{ to: "/theme", label: "Theme", icon: "theme" },
-	{ to: "/layouts", label: "Layouts", icon: "layouts" },
-	{ to: "/hooks", label: "Hooks", icon: "hooks" },
-	{ to: "/cli", label: "CLI", icon: "cli" },
-	{ to: "/skills", label: "Skills", icon: "skills" },
-	{ to: "/templates", label: "Templates", icon: "template" },
-	{ to: "/plugins", label: "Plugins", icon: "plugins" },
-	{ to: "/docs/integrations/mcp", label: "MCP", icon: "mcp" },
+interface NavLink {
+	to: string;
+	label: string;
+	icon: IconName;
+}
+
+interface NavGroup {
+	id: string;
+	label: string;
+	links: NavLink[];
+}
+
+const navGroups: NavGroup[] = [
+	{
+		id: "core",
+		label: "Core",
+		links: [
+			{ to: "/", label: "Home", icon: "home" },
+			{ to: "/components", label: "Components", icon: "components" },
+			{ to: "/docs/intro", label: "Docs", icon: "docs" },
+			{ to: "/theme", label: "Theme", icon: "theme" },
+		],
+	},
+	{
+		id: "build",
+		label: "Build",
+		links: [
+			{ to: "/templates", label: "Templates", icon: "template" },
+			{ to: "/layouts", label: "Layouts", icon: "layouts" },
+			{ to: "/hooks", label: "Hooks", icon: "hooks" },
+			{ to: "/cli", label: "CLI", icon: "cli" },
+		],
+	},
+	{
+		id: "integrate",
+		label: "Integrate",
+		links: [
+			{ to: "/skills", label: "Skills", icon: "skills" },
+			{ to: "/plugins", label: "Plugins", icon: "plugins" },
+			{ to: "/docs/integrations/mcp", label: "MCP", icon: "mcp" },
+		],
+	},
+	{
+		id: "system",
+		label: "System",
+		links: [{ to: "/settings", label: "Settings", icon: "settings" }],
+	},
 ];
 
 function SimpleLink(props: { to: string; label: string; icon: IconName; onClick?: () => void }) {
@@ -236,6 +286,19 @@ function Brand() {
 	);
 }
 
+function NavGroup(props: { group: NavGroup; onClick?: () => void }) {
+	return (
+		<div class="space-y-1">
+			<p class="px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-muted-foreground">{props.group.label}</p>
+			<div class="space-y-0.5">
+				<For each={props.group.links}>
+					{(link) => <SimpleLink to={link.to} label={link.label} icon={link.icon} onClick={props.onClick} />}
+				</For>
+			</div>
+		</div>
+	);
+}
+
 export function NavLayout(props: { children: JSX.Element }) {
 	const [menuOpen, setMenuOpen] = createSignal(false);
 	const [commandOpen, setCommandOpen] = createSignal(false);
@@ -274,9 +337,9 @@ export function NavLayout(props: { children: JSX.Element }) {
 
 			<div class="flex min-h-screen">
 				<aside
-					class={`fixed inset-y-0 left-0 z-modal w-64 transform border-r border-border bg-surface p-4 transition-transform lg:static lg:translate-x-0 ${
+					class={`fixed inset-y-0 left-0 z-modal w-64 transform border-r border-border bg-surface p-4 transition-transform lg:sticky lg:top-0 lg:h-screen lg:translate-x-0 lg:overflow-y-auto ${
 						menuOpen() ? "translate-x-0" : "-translate-x-full"
-					} flex h-screen flex-col overflow-y-auto`}
+					} flex flex-col`}
 					aria-label="Main navigation"
 				>
 					<div class="mb-6 hidden items-center justify-between lg:flex">
@@ -306,23 +369,21 @@ export function NavLayout(props: { children: JSX.Element }) {
 								</svg>
 							</button>
 						</div>
+					</div>
+
+					<div class="mb-4">
 						<SearchButton
 							onClick={() => {
 								setCommandOpen(true);
 								closeMenu();
 							}}
+							class="w-full justify-start"
 						/>
 					</div>
 
-					<nav class="flex-1 space-y-1">
-						<For each={simpleLinks}>
-							{(link) => <SimpleLink to={link.to} label={link.label} icon={link.icon} onClick={closeMenu} />}
-						</For>
+					<nav class="flex-1 space-y-5 overflow-y-auto">
+						<For each={navGroups}>{(group) => <NavGroup group={group} onClick={closeMenu} />}</For>
 					</nav>
-
-					<div class="mt-4 hidden border-t border-border pt-4 lg:block">
-						<SearchButton onClick={() => setCommandOpen(true)} class="w-full justify-start" />
-					</div>
 				</aside>
 
 				<div class="min-w-0 flex-1">{props.children}</div>

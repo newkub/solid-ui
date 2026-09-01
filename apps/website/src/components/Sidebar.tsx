@@ -1,6 +1,6 @@
 import { Link, useParams } from "@tanstack/solid-router";
 import { Accordion, AccordionItem } from "@wrikka/solid-ui";
-import { type Accessor, createMemo, For, type JSX } from "solid-js";
+import { type Accessor, createMemo, createSignal, For, type JSX } from "solid-js";
 import { docs } from "../docs/generated";
 
 interface DocGroupMeta {
@@ -170,10 +170,48 @@ function SidebarGroup(props: { section: SidebarSection; activeId?: string }) {
 export function Sidebar() {
 	const params = useParams({ strict: false }) as Accessor<{ group: string; name?: string }>;
 	const activeId = () => (params().name ? `${params().group}/${params().name}` : params().group);
-	const sections = createMemo(() => buildSections());
+	const [query, setQuery] = createSignal("");
+
+	const sections = createMemo(() => {
+		const all = buildSections();
+		const q = query().trim().toLowerCase();
+		if (!q) return all;
+		return all
+			.map((section) => ({ ...section, items: section.items.filter((item) => item.title.toLowerCase().includes(q)) }))
+			.filter((section) => section.items.length > 0);
+	});
+
+	function SearchIcon(props: { class?: string }) {
+		return (
+			<svg
+				class={props.class}
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2"
+				aria-hidden="true"
+			>
+				<circle cx="11" cy="11" r="8" />
+				<path d="m21 21-4.3-4.3" />
+			</svg>
+		);
+	}
 
 	return (
 		<aside class="h-screen overflow-y-auto pr-2" aria-label="Docs sidebar">
+			<div class="sticky top-0 z-10 mb-3 bg-surface pb-2 pt-1">
+				<div class="relative">
+					<SearchIcon class="pointer-events-none absolute left-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+					<input
+						type="search"
+						value={query()}
+						onInput={(e) => setQuery(e.currentTarget.value)}
+						placeholder="Search docs…"
+						class="w-full rounded-md border border-border bg-background py-2 pl-9 pr-3 text-sm text-foreground placeholder:text-muted-foreground outline-none focus-visible:ring-1 focus-visible:ring-ring"
+						aria-label="Search docs"
+					/>
+				</div>
+			</div>
 			<Accordion class="space-y-1 border-0 bg-transparent shadow-none">
 				<For each={sections()}>{(section) => <SidebarGroup section={section} activeId={activeId()} />}</For>
 			</Accordion>
