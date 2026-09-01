@@ -145,8 +145,8 @@ function GalleryToolbar(props: {
 	onCategoryFilterChange: (value: string) => void;
 	groupBy: boolean;
 	onGroupByChange: (enabled: boolean) => void;
-	view: "grid" | "list";
-	onViewChange: (view: "grid" | "list") => void;
+	view: "grid" | "list" | "timeline" | "pinterest";
+	onViewChange: (view: "grid" | "list" | "timeline" | "pinterest") => void;
 }) {
 	return (
 		<div class="mb-6 flex flex-col gap-3 rounded-xl border border-border bg-surface p-4 sm:flex-row sm:items-center sm:justify-between">
@@ -178,7 +178,7 @@ function GalleryToolbar(props: {
 					<option value="category">Group by category</option>
 				</select>
 			</div>
-			<div class="flex rounded-lg border border-border bg-background p-1">
+			<div class="flex flex-wrap rounded-lg border border-border bg-background p-1">
 				<button
 					type="button"
 					class="rounded-md px-3 py-1.5 text-sm"
@@ -196,6 +196,24 @@ function GalleryToolbar(props: {
 					aria-pressed={props.view === "list"}
 				>
 					List
+				</button>
+				<button
+					type="button"
+					class="rounded-md px-3 py-1.5 text-sm"
+					classList={{ "bg-primary text-primary-foreground": props.view === "timeline" }}
+					onClick={() => props.onViewChange("timeline")}
+					aria-pressed={props.view === "timeline"}
+				>
+					Timeline
+				</button>
+				<button
+					type="button"
+					class="rounded-md px-3 py-1.5 text-sm"
+					classList={{ "bg-primary text-primary-foreground": props.view === "pinterest" }}
+					onClick={() => props.onViewChange("pinterest")}
+					aria-pressed={props.view === "pinterest"}
+				>
+					Pinterest
 				</button>
 			</div>
 		</div>
@@ -297,6 +315,59 @@ function GalleryGridView(props: { table: ReturnType<typeof createTable<typeof fe
 	);
 }
 
+function flatLeafRows(table: ReturnType<typeof createTable<typeof features, ComponentItem>>) {
+	const rows = table.getRowModel().rows;
+	const result: { original: ComponentItem }[] = [];
+	function walk(sub: typeof rows) {
+		for (const row of sub) {
+			if (row.subRows.length) {
+				walk(row.subRows);
+			} else {
+				result.push({ original: row.original });
+			}
+		}
+	}
+	walk(rows);
+	return result;
+}
+
+function GalleryPinterestView(props: { table: ReturnType<typeof createTable<typeof features, ComponentItem>> }) {
+	const items = () => flatLeafRows(props.table);
+	return (
+		<div class="columns-1 gap-4 space-y-4 sm:columns-2 lg:columns-3 xl:columns-4">
+			<For each={items()}>
+				{({ original }) => (
+					<div class="break-inside-avoid">
+						<ComponentCard name={original.name} />
+					</div>
+				)}
+			</For>
+		</div>
+	);
+}
+
+function GalleryTimelineView(props: { table: ReturnType<typeof createTable<typeof features, ComponentItem>> }) {
+	const items = () => flatLeafRows(props.table);
+	return (
+		<div class="relative pl-4 md:pl-6">
+			<div class="absolute bottom-0 left-4 top-0 w-px bg-border md:left-6" aria-hidden="true" />
+			<div class="space-y-6 pl-8 md:pl-12">
+				<For each={items()}>
+					{({ original }) => (
+						<div class="relative">
+							<div
+								class="absolute -left-10 top-4 h-3 w-3 -translate-x-1/2 rounded-full border-2 border-surface bg-primary md:-left-12"
+								aria-hidden="true"
+							/>
+							<ComponentCard name={original.name} />
+						</div>
+					)}
+				</For>
+			</div>
+		</div>
+	);
+}
+
 function GalleryHeading(props: { table: ReturnType<typeof createTable<typeof features, ComponentItem>> }) {
 	const count = () => props.table.getPreFilteredRowModel().rows.length;
 	return (
@@ -313,7 +384,7 @@ function GalleryHeading(props: { table: ReturnType<typeof createTable<typeof fea
 
 function GalleryResults(props: {
 	table: ReturnType<typeof createTable<typeof features, ComponentItem>>;
-	view: "grid" | "list";
+	view: "grid" | "list" | "timeline" | "pinterest";
 }) {
 	return (
 		<Show
@@ -331,6 +402,14 @@ function GalleryResults(props: {
 			<Show when={props.view === "grid"}>
 				<GalleryGridView table={props.table} />
 			</Show>
+
+			<Show when={props.view === "timeline"}>
+				<GalleryTimelineView table={props.table} />
+			</Show>
+
+			<Show when={props.view === "pinterest"}>
+				<GalleryPinterestView table={props.table} />
+			</Show>
 		</Show>
 	);
 }
@@ -341,7 +420,7 @@ export function ComponentGallery(props: { withHero?: boolean }) {
 	const search = useSearch({ strict: false });
 
 	const [data] = createSignal(allItems);
-	const [view, setView] = createSignal<"grid" | "list">("grid");
+	const [view, setView] = createSignal<"grid" | "list" | "timeline" | "pinterest">("grid");
 	const [groupBy, setGroupBy] = createSignal(true);
 	const [globalFilter, setGlobalFilter] = createSignal("");
 	const [categoryFilter, setCategoryFilter] = createSignal(search().category ?? "");
