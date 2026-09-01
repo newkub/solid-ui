@@ -1,7 +1,7 @@
-import { createRootRoute, createRoute, createRouter, Link, Outlet, useNavigate } from "@tanstack/solid-router";
+import { createRootRoute, createRoute, createRouter, Link, Navigate, Outlet } from "@tanstack/solid-router";
 import * as SolidUI from "@wrikka/solid-ui";
 import { registry } from "@wrikka/solid-ui";
-import { createEffect, createSignal, For, Show } from "solid-js";
+import { createSignal, For, Show } from "solid-js";
 import { categories } from "./categories";
 import { CodeBlock } from "./components/CodeBlock";
 import { ComponentCard } from "./components/ComponentCard";
@@ -261,11 +261,7 @@ function TransitionsDemo() {
 }
 
 function DocsIntroRedirect() {
-	const navigate = useNavigate();
-	createEffect(() => {
-		void navigate({ to: "/docs/intro" });
-	});
-	return <div class="page">Redirecting…</div>;
+	return <Navigate to="/docs/intro" />;
 }
 
 const rootRoute = createRootRoute({

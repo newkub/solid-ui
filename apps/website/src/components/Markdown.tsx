@@ -1,4 +1,5 @@
-import { createMemo, For, type JSX } from "solid-js";
+import { createMemo, For } from "solid-js";
+import { Dynamic } from "solid-js/web";
 import { type BlockNode, type InlineNode, parseMarkdown } from "../lib/markdown";
 import { ShikiCode } from "./ShikiCode";
 
@@ -58,12 +59,12 @@ function Block(props: { node: BlockNode }) {
 	const node = props.node;
 	switch (node.type) {
 		case "heading": {
-			const Tag = `h${node.level}` as keyof JSX.IntrinsicElements;
+			const tag = `h${node.level}`;
 			const id = slugify(extractText(node.children));
 			return (
-				<Tag id={id}>
+				<Dynamic component={tag} id={id}>
 					<Inline nodes={node.children} />
-				</Tag>
+				</Dynamic>
 			);
 		}
 		case "paragraph":
@@ -73,9 +74,9 @@ function Block(props: { node: BlockNode }) {
 				</p>
 			);
 		case "list": {
-			const Tag = node.ordered ? "ol" : "ul";
+			const tag = node.ordered ? "ol" : "ul";
 			return (
-				<Tag>
+				<Dynamic component={tag}>
 					<For each={node.items}>
 						{(items) => (
 							<li>
@@ -83,7 +84,7 @@ function Block(props: { node: BlockNode }) {
 							</li>
 						)}
 					</For>
-				</Tag>
+				</Dynamic>
 			);
 		}
 		case "code":
