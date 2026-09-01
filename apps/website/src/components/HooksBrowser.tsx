@@ -1,6 +1,5 @@
 import { createEffect, createSignal, For, Show } from "solid-js";
 import { useSearch } from "../hooks/useSearch";
-import { DocsLayout } from "./DocsLayout";
 import { EmptyState } from "./EmptyState";
 import { PageHeader } from "./PageHeader";
 import { SearchInput } from "./SearchInput";
@@ -208,8 +207,8 @@ export function HooksBrowser() {
 				count={filtered().length}
 			/>
 			<Show when={filtered().length > 0} fallback={<EmptyState query={debouncedQuery()} label="hooks" />}>
-				<DocsLayout
-					sidebar={
+				<div class="flex flex-col gap-6 lg:flex-row lg:items-stretch">
+					<div class="shrink-0 lg:sticky lg:top-0 lg:h-screen lg:w-64">
 						<HookSidebar
 							hooks={filtered()}
 							active={active()}
@@ -217,12 +216,13 @@ export function HooksBrowser() {
 							query={query()}
 							onQueryChange={setQuery}
 						/>
-					}
-				>
-					<div class="space-y-6">
-						<For each={filtered()}>{(hook) => <HookDetail hook={hook} />}</For>
 					</div>
-				</DocsLayout>
+					<main class="min-w-0 flex-1 py-4">
+						<div class="space-y-6">
+							<For each={filtered()}>{(hook) => <HookDetail hook={hook} />}</For>
+						</div>
+					</main>
+				</div>
 			</Show>
 		</section>
 	);

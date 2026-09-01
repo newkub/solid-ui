@@ -2,9 +2,14 @@ import { Link } from "@tanstack/solid-router";
 import { For } from "solid-js";
 import { categories } from "../categories";
 
-export function ComponentSidebar() {
+interface ComponentSidebarProps {
+	as?: "default" | "module";
+	onClick?: () => void;
+}
+
+export function ComponentSidebar(props: ComponentSidebarProps = {}) {
 	return (
-		<nav class="space-y-5" aria-label="Component categories">
+		<nav class={props.as === "module" ? "space-y-4" : "space-y-5"} aria-label="Component categories">
 			<div class="space-y-2">
 				<p class="px-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Categories</p>
 				<ul class="space-y-0.5">
@@ -19,6 +24,7 @@ export function ComponentSidebar() {
 										"aria-current": "page",
 									})}
 									activeOptions={{ exact: true, includeSearch: true }}
+									onClick={props.onClick}
 								>
 									{cat.label}
 								</Link>
@@ -40,6 +46,7 @@ export function ComponentSidebar() {
 										class: "block rounded-md px-2 py-1.5 text-sm font-medium bg-primary text-primary-foreground",
 										"aria-current": "page",
 									})}
+									onClick={props.onClick}
 								>
 									{item.name}
 								</Link>

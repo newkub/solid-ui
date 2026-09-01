@@ -1,9 +1,11 @@
-import { Link, useNavigate } from "@tanstack/solid-router";
-import { createSignal, For, type JSX, onCleanup, onMount, Show } from "solid-js";
+import { Link, useLocation, useNavigate } from "@tanstack/solid-router";
+import { createSignal, For, type JSX, Match, onCleanup, onMount, Show, Switch } from "solid-js";
 import { toggleThemeMode } from "../lib/theme";
 import { CommandPalette } from "./CommandPalette";
+import { ComponentSidebar } from "./ComponentSidebar";
 import { ContextMenu } from "./ContextMenu";
 import { DevTools, GearIcon } from "./DevTools";
+import { DocsModule } from "./DocsModule";
 import { Logo } from "./Logo";
 import { ThemePicker } from "./ThemePicker";
 
@@ -315,6 +317,29 @@ function NavGroup(props: { group: NavGroup; onClick?: () => void }) {
 	);
 }
 
+function SidebarModule(props: { onClose: () => void }) {
+	const location = useLocation();
+	const path = () => location().pathname;
+
+	const isComponents = () => path() === "/components";
+	const isDocs = () => path() === "/docs" || path().startsWith("/docs/");
+
+	return (
+		<Show when={isComponents() || isDocs()}>
+			<div class="mt-6 shrink-0 border-t border-border pt-4">
+				<Switch>
+					<Match when={isComponents()}>
+						<ComponentSidebar as="module" onClick={props.onClose} />
+					</Match>
+					<Match when={isDocs()}>
+						<DocsModule onClick={props.onClose} />
+					</Match>
+				</Switch>
+			</div>
+		</Show>
+	);
+}
+
 export function NavLayout(props: { children: JSX.Element }) {
 	const [menuOpen, setMenuOpen] = createSignal(false);
 	const [commandOpen, setCommandOpen] = createSignal(false);
@@ -405,6 +430,7 @@ export function NavLayout(props: { children: JSX.Element }) {
 					<nav class="flex-1 space-y-5 overflow-y-auto">
 						<For each={navGroups}>{(group) => <NavGroup group={group} onClick={closeMenu} />}</For>
 					</nav>
+					<SidebarModule onClose={closeMenu} />
 				</aside>
 
 				<div class="min-w-0 flex-1">{props.children}</div>

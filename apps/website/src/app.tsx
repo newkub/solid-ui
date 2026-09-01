@@ -4,8 +4,6 @@ import { ErrorBoundary, For } from "solid-js";
 import { CliPage } from "./components/CliPage";
 import { CodeBlock } from "./components/CodeBlock";
 import { ComponentGallery } from "./components/ComponentGallery";
-import { ComponentSidebar } from "./components/ComponentSidebar";
-import { DocsLayout } from "./components/DocsLayout";
 import { DocsPage } from "./components/DocsPage";
 import { Footer } from "./components/Footer";
 import { HooksPage } from "./components/HooksPage";
@@ -89,10 +87,10 @@ function Home() {
 
 function ComponentsPage() {
 	return (
-		<DocsLayout sidebar={<ComponentSidebar />}>
+		<PageLayout>
 			<Seo title="Components — solid-ui" description={COMPONENTS_DESCRIPTION} path="/components" />
 			<ComponentGallery withHero={false} />
-		</DocsLayout>
+		</PageLayout>
 	);
 }
 

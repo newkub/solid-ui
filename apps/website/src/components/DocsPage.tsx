@@ -8,7 +8,6 @@ import { DocsLayout } from "./DocsLayout";
 import { Markdown } from "./Markdown";
 import { PageSection } from "./PageSection";
 import { Seo } from "./Seo";
-import { Sidebar } from "./Sidebar";
 import { Toc } from "./Toc";
 
 /** Strips markdown syntax down to a plain-text excerpt suitable for a meta description. */
@@ -54,7 +53,7 @@ export function DocsPage() {
 	});
 
 	return (
-		<DocsLayout sidebar={<Sidebar />}>
+		<DocsLayout>
 			<Show
 				when={page()}
 				fallback={
