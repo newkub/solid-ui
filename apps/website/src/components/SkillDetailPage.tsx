@@ -1,6 +1,8 @@
 import { useParams } from "@tanstack/solid-router";
 import { createSignal, Show } from "solid-js";
 import skillsData from "../data/skills.json";
+import { skillsContent } from "../data/skills-content";
+import { Markdown } from "./Markdown";
 import { PageHeader } from "./PageHeader";
 import { Seo } from "./Seo";
 import { Tag } from "./Tag";
@@ -43,12 +45,7 @@ export function SkillDetailPage() {
 							<Tag label="skill" variant="primary" />
 						</PageHeader>
 
-						<div class="rounded-xl border border-border bg-surface p-5 shadow-sm">
-							<h3 class="text-sm font-semibold text-foreground">Source</h3>
-							<p class="mt-1 break-all text-sm text-muted-foreground font-mono">{s().source}</p>
-						</div>
-
-						<div class="mt-6 flex flex-wrap items-center gap-3">
+						<div class="mb-6 flex flex-wrap items-center gap-3">
 							<button
 								type="button"
 								onClick={copyCommand}
@@ -57,7 +54,7 @@ export function SkillDetailPage() {
 								{copied() ? "Copied" : "Copy command"}
 							</button>
 							<a
-								href={`https://github.com/newkub/solid-ui/tree/main/.devin/skills/${s().name}`}
+								href={`https://github.com/newkub/solid-ui/tree/main/${s().source}/${s().name}`}
 								target="_blank"
 								rel="noopener noreferrer"
 								class="inline-flex h-10 items-center rounded-md border border-border bg-background px-4 text-sm font-medium transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
@@ -65,6 +62,12 @@ export function SkillDetailPage() {
 								View on GitHub
 							</a>
 						</div>
+
+						<Show when={skillsContent[s().name]}>
+							<div class="rounded-xl border border-border bg-surface p-6 shadow-sm">
+								<Markdown content={skillsContent[s().name]} />
+							</div>
+						</Show>
 					</>
 				)}
 			</Show>

@@ -2,21 +2,21 @@
 	{
 		"name": "run-review-codebase-cli",
 		"description": "Run the Solid UI review-codebase CLI",
-		"source": "D:\\newkub\\solid-ui\\.devin\\skills"
+		"source": ".devin/skills"
 	},
 	{
 		"name": "run-solid-ui-generator",
 		"description": "Run the Solid UI component generator",
-		"source": "D:\\newkub\\solid-ui\\.devin\\skills"
+		"source": ".devin/skills"
 	},
 	{
 		"name": "run-solid-ui-mcp",
 		"description": "Run and test the Solid UI MCP server",
-		"source": "D:\\newkub\\solid-ui\\.devin\\skills"
+		"source": ".devin/skills"
 	},
 	{
 		"name": "run-solid-ui-website",
 		"description": "Run, build, and deploy the Solid UI website",
-		"source": "D:\\newkub\\solid-ui\\.devin\\skills"
+		"source": ".devin/skills"
 	}
 ]
