@@ -1,15 +1,24 @@
-// Generated component — customize as needed
-import { type JSX, splitProps } from "solid-js";
+import { For } from "solid-js";
+import { removeToast, toasts } from "../stores/toast";
+import { Toast } from "./Toast";
 
-export interface ToasterProps extends JSX.HTMLAttributes<HTMLDivElement> {}
+export interface ToasterProps {
+	class?: string;
+}
 
 export function Toaster(props: ToasterProps) {
-	const [local, rest] = splitProps(props, ["class", "children"]);
-	const base = "fixed bottom-4 right-4 z-toast flex flex-col gap-2";
-	const className = [base, local.class || ""].filter(Boolean).join(" ");
 	return (
-		<div class={className} {...rest}>
-			{local.children}
+		<div class={`fixed bottom-4 right-4 z-toast flex flex-col gap-2 ${props.class ?? ""}`}>
+			<For each={toasts()}>
+				{(item) => (
+					<Toast
+						title={item.title}
+						description={item.description}
+						variant={item.variant}
+						onClose={() => removeToast(item.id)}
+					/>
+				)}
+			</For>
 		</div>
 	);
 }

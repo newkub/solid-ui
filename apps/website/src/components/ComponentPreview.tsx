@@ -1,5 +1,5 @@
 import * as SolidUI from "@wrikka/solid-ui";
-import type { JSX } from "solid-js";
+import { createSignal, type JSX } from "solid-js";
 import { categories } from "../categories";
 import { PREVIEW_IMAGE_SMALL_SRC, PREVIEW_IMAGE_TINY_SRC } from "../lib/config";
 
@@ -27,6 +27,37 @@ const colored = new Set(["Button"]);
 
 const previewClass =
 	"flex h-20 w-full items-center justify-center gap-2 rounded-lg border border-border bg-background p-3 text-sm";
+
+const overlay = new Set(["Dialog", "Modal", "Drawer", "Sheet", "Popover", "Tooltip", "DropdownMenu"]);
+const feedback = new Set(["Alert", "Notification", "Toast", "Toaster", "Loading", "Spinner", "Skeleton", "Progress"]);
+const interactive = new Set([...overlay, ...feedback]);
+const layout = new Set([
+	"Box",
+	"Card",
+	"Stack",
+	"Flex",
+	"Grid",
+	"AspectRatio",
+	"ScrollArea",
+	"Resizable",
+	"VirtualList",
+	"Transition",
+	"Collapsible",
+]);
+const nav = new Set([
+	"Tabs",
+	"Accordion",
+	"Breadcrumb",
+	"Menubar",
+	"NavigationMenu",
+	"Pagination",
+	"Steps",
+	"Timeline",
+	"TreeView",
+	"ToggleGroup",
+]);
+const form = new Set(["Form", "FormField", "Label"]);
+const data = new Set(["Table", "DataTable", "Chart", "Calendar", "Command", "CommandPalette"]);
 
 type AnyComp = (props: Record<string, unknown>) => JSX.Element;
 
@@ -152,17 +183,6 @@ function SampleCommand() {
 	);
 }
 
-function SampleAlert(props: { name: string }) {
-	return (
-		<div class="w-full rounded border border-border bg-muted p-2 text-xs text-foreground">
-			<div class="flex items-center gap-1 font-medium">
-				<span class="h-2 w-2 rounded-full bg-primary" />
-				{props.name}
-			</div>
-		</div>
-	);
-}
-
 function SampleForm() {
 	return (
 		<div class="w-full space-y-1.5 text-left">
@@ -194,6 +214,114 @@ function SampleAccordion() {
 	);
 }
 
+function SampleDialog() {
+	const [open, setOpen] = createSignal(false);
+	return (
+		<>
+			<SolidUI.Button onClick={() => setOpen(true)} size="sm">
+				Open Dialog
+			</SolidUI.Button>
+			<SolidUI.Dialog open={open()} onOpenChange={setOpen} title="Dialog" description="A sample dialog.">
+				<p class="text-sm text-foreground">Dialog content goes here.</p>
+			</SolidUI.Dialog>
+		</>
+	);
+}
+
+function SampleModal() {
+	const [open, setOpen] = createSignal(false);
+	return (
+		<>
+			<SolidUI.Button onClick={() => setOpen(true)} size="sm">
+				Open Modal
+			</SolidUI.Button>
+			<SolidUI.Modal open={open()} onOpenChange={setOpen} title="Modal" description="A sample modal.">
+				<p class="text-sm text-foreground">Modal content goes here.</p>
+			</SolidUI.Modal>
+		</>
+	);
+}
+
+function SampleDrawer() {
+	const [open, setOpen] = createSignal(false);
+	return (
+		<>
+			<SolidUI.Button onClick={() => setOpen(true)} size="sm">
+				Open Drawer
+			</SolidUI.Button>
+			<SolidUI.Drawer open={open()} onOpenChange={setOpen} title="Drawer" description="A sample drawer.">
+				<p class="text-sm text-foreground">Drawer content goes here.</p>
+			</SolidUI.Drawer>
+		</>
+	);
+}
+
+function SampleSheet() {
+	const [open, setOpen] = createSignal(false);
+	return (
+		<>
+			<SolidUI.Button onClick={() => setOpen(true)} size="sm">
+				Open Sheet
+			</SolidUI.Button>
+			<SolidUI.Sheet open={open()} onOpenChange={setOpen} title="Sheet" description="A sample sheet.">
+				<p class="text-sm text-foreground">Sheet content goes here.</p>
+			</SolidUI.Sheet>
+		</>
+	);
+}
+
+function SamplePopover() {
+	const [open, setOpen] = createSignal(false);
+	return (
+		<SolidUI.Popover
+			open={open()}
+			onOpenChange={setOpen}
+			content={<p class="text-sm text-foreground">Popover content.</p>}
+		>
+			<SolidUI.Button onClick={() => setOpen(!open())} size="sm">
+				Toggle Popover
+			</SolidUI.Button>
+		</SolidUI.Popover>
+	);
+}
+
+function SampleTooltip() {
+	const [open, setOpen] = createSignal(false);
+	return (
+		<SolidUI.Tooltip open={open()} content="Tooltip text">
+			<SolidUI.Button
+				onMouseEnter={() => setOpen(true)}
+				onMouseLeave={() => setOpen(false)}
+				onFocus={() => setOpen(true)}
+				onBlur={() => setOpen(false)}
+				size="sm"
+			>
+				Hover me
+			</SolidUI.Button>
+		</SolidUI.Tooltip>
+	);
+}
+
+function SampleToaster() {
+	return (
+		<>
+			<SolidUI.Button
+				onClick={() =>
+					SolidUI.addToast({
+						title: "Sample toast",
+						description: "Pushed from preview.",
+						variant: "success",
+					})
+				}
+				size="sm"
+			>
+				Push Toast
+			</SolidUI.Button>
+			<SolidUI.Toaster />
+		</>
+	);
+}
+
 function PreviewContent(props: { name: string; tag: string }) {
 	const category = findCategory(props.name)?.id;
 
@@ -214,62 +342,63 @@ function PreviewContent(props: { name: string; tag: string }) {
 	if (props.name === "Accordion") return <SampleAccordion />;
 	if (props.name === "Terminal") return <SampleTerminal />;
 	if (props.name === "Motion") return <SampleMotion />;
-	if (props.name === "Alert") {
-		return (
-			<SolidUI.Alert title="Heads up" variant="info" class="w-full text-left">
-				This is a preview alert.
-			</SolidUI.Alert>
-		);
-	}
-	if (props.name === "Notification") {
-		return (
-			<SolidUI.Notification title="Update" variant="success" class="w-full text-left">
-				Changes saved successfully.
-			</SolidUI.Notification>
-		);
+
+	if (overlay.has(props.name)) {
+		switch (props.name) {
+			case "Dialog":
+				return <SampleDialog />;
+			case "Modal":
+				return <SampleModal />;
+			case "Drawer":
+				return <SampleDrawer />;
+			case "Sheet":
+				return <SampleSheet />;
+			case "Popover":
+				return <SamplePopover />;
+			case "Tooltip":
+				return <SampleTooltip />;
+			default:
+				return (
+					<SolidUI.Button variant="secondary" size="sm">
+						{props.name}
+					</SolidUI.Button>
+				);
+		}
 	}
 
-	const layout = new Set([
-		"Box",
-		"Card",
-		"Stack",
-		"Flex",
-		"Grid",
-		"AspectRatio",
-		"ScrollArea",
-		"Resizable",
-		"VirtualList",
-		"Transition",
-		"Collapsible",
-	]);
-	const nav = new Set([
-		"Tabs",
-		"Accordion",
-		"Breadcrumb",
-		"Menubar",
-		"NavigationMenu",
-		"Pagination",
-		"Steps",
-		"Timeline",
-		"TreeView",
-		"ToggleGroup",
-	]);
-	const overlay = new Set(["Dialog", "Modal", "Drawer", "Sheet", "Popover", "Tooltip", "DropdownMenu"]);
-	const feedback = new Set(["Alert", "Notification", "Toast", "Toaster", "Loading", "Spinner", "Skeleton", "Progress"]);
-	const alertItems = new Set(["Alert", "Notification", "Toast", "Toaster"]);
-	const form = new Set(["Form", "FormField", "Label"]);
-	const data = new Set(["Table", "DataTable", "Chart", "Calendar", "Command", "CommandPalette"]);
+	if (feedback.has(props.name)) {
+		switch (props.name) {
+			case "Alert":
+				return (
+					<SolidUI.Alert title="Heads up" variant="info" class="w-full text-left">
+						This is a preview alert.
+					</SolidUI.Alert>
+				);
+			case "Notification":
+				return (
+					<SolidUI.Notification title="Update" variant="success" class="w-full text-left">
+						Changes saved successfully.
+					</SolidUI.Notification>
+				);
+			case "Toast":
+				return <SolidUI.Toast title="Sample toast" description="A real toast message." onClose={() => {}} />;
+			case "Toaster":
+				return <SampleToaster />;
+			case "Loading":
+				return <SolidUI.Loading class="h-6 w-6" />;
+			case "Spinner":
+				return <SolidUI.Spinner class="h-6 w-6" />;
+			case "Skeleton":
+				return <SolidUI.Skeleton class="h-2 w-24" />;
+			case "Progress":
+				return <SolidUI.Progress value={60} max={100} class="w-24" />;
+			default:
+				return <SampleLoading />;
+		}
+	}
 
 	if (layout.has(props.name)) return <SampleBlocks />;
 	if (nav.has(props.name)) return <SampleNav />;
-	if (overlay.has(props.name))
-		return (
-			<SolidUI.Button variant="secondary" size="sm">
-				{props.name}
-			</SolidUI.Button>
-		);
-	if (feedback.has(props.name))
-		return alertItems.has(props.name) ? <SampleAlert name={props.name} /> : <SampleLoading />;
 	if (form.has(props.name)) return <SampleForm />;
 	if (data.has(props.name)) {
 		if (props.name === "Chart") return <SampleChart />;
@@ -321,6 +450,14 @@ export function ComponentPreview(props: { name: string; tag: string }) {
 	const C = (SolidUI as unknown as Record<string, unknown>)[props.name];
 	if (typeof C !== "function") return <PreviewFallback name={props.name} tag={props.tag} />;
 	const AnyC = C as AnyComp;
+
+	if (interactive.has(props.name)) {
+		return (
+			<div class={previewClass}>
+				<PreviewContent name={props.name} tag={props.tag} />
+			</div>
+		);
+	}
 
 	if (selfClosing.has(props.name)) {
 		return <div class={previewClass}>{renderSelfClosing(AnyC, props.name)}</div>;
