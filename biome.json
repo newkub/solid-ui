@@ -1,5 +1,11 @@
 {
 	"$schema": "https://biomejs.dev/schemas/2.5.11/schema.json",
+	"plugins": [
+		{
+			"path": "./theme-validator.grit",
+			"includes": ["packages/*/src/styles/theme.css"]
+		}
+	],
 	"files": {
 		"includes": ["**", "!**/dist", "!**/node_modules", "!**/.bun"],
 		"ignoreUnknown": true

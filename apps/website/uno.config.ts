@@ -64,7 +64,10 @@ export default defineConfig({
 				DEFAULT: "hsl(var(--color-info))",
 				foreground: "hsl(var(--color-info-foreground))",
 			},
-			border: "hsl(var(--color-border))",
+			border: {
+				DEFAULT: "hsl(var(--color-border))",
+				hover: "hsl(var(--color-border-hover))",
+			},
 			input: "hsl(var(--color-input))",
 			ring: "hsl(var(--color-ring))",
 			surface: {
@@ -78,7 +81,10 @@ export default defineConfig({
 			},
 			focus: "hsl(var(--color-focus))",
 			overlay: "hsl(var(--color-overlay))",
-			skeleton: "hsl(var(--color-skeleton))",
+			skeleton: {
+				DEFAULT: "hsl(var(--color-skeleton))",
+				shine: "hsl(var(--color-skeleton-shine))",
+			},
 		},
 		fontFamily: {
 			sans: "var(--su-font-sans)",

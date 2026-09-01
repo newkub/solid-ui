@@ -2,6 +2,7 @@ import { RouterProvider } from "@tanstack/solid-router";
 import { render } from "solid-js/web";
 import { router } from "./app";
 import { initTheme } from "./lib/theme";
+import "./theme.css";
 import "./index.css";
 import "virtual:uno.css";
 

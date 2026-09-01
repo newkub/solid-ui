@@ -1,0 +1,289 @@
+engine biome(1.0)
+language css
+
+or {
+	CssGenericProperty(name=`--color-$name`, value=$value) as $decl where {
+		not $value <: r"^\s*\d+(\.\d+)?\s+\d+%\s+\d+%\s*$",
+		register_diagnostic(span=$decl, message="Theme color --color-$name must use HSL format: `hue saturation% lightness%`", severity="error")
+	},
+	`:root { $rootProps }` as $root where {
+		not $rootProps <: contains CssGenericProperty(name=`--color-accent`),
+		register_diagnostic(span=$root, message="Missing `--color-accent` in :root", severity="error")
+	},
+	`html[data-theme="dark"], .dark { $darkProps }` as $dark where {
+		not $darkProps <: contains CssGenericProperty(name=`--color-accent`),
+		register_diagnostic(span=$dark, message="Missing `--color-accent` in .dark", severity="error")
+	},
+	`:root { $rootProps }` as $root where {
+		not $rootProps <: contains CssGenericProperty(name=`--color-accent-active`),
+		register_diagnostic(span=$root, message="Missing `--color-accent-active` in :root", severity="error")
+	},
+	`html[data-theme="dark"], .dark { $darkProps }` as $dark where {
+		not $darkProps <: contains CssGenericProperty(name=`--color-accent-active`),
+		register_diagnostic(span=$dark, message="Missing `--color-accent-active` in .dark", severity="error")
+	},
+	`:root { $rootProps }` as $root where {
+		not $rootProps <: contains CssGenericProperty(name=`--color-accent-foreground`),
+		register_diagnostic(span=$root, message="Missing `--color-accent-foreground` in :root", severity="error")
+	},
+	`html[data-theme="dark"], .dark { $darkProps }` as $dark where {
+		not $darkProps <: contains CssGenericProperty(name=`--color-accent-foreground`),
+		register_diagnostic(span=$dark, message="Missing `--color-accent-foreground` in .dark", severity="error")
+	},
+	`:root { $rootProps }` as $root where {
+		not $rootProps <: contains CssGenericProperty(name=`--color-accent-hover`),
+		register_diagnostic(span=$root, message="Missing `--color-accent-hover` in :root", severity="error")
+	},
+	`html[data-theme="dark"], .dark { $darkProps }` as $dark where {
+		not $darkProps <: contains CssGenericProperty(name=`--color-accent-hover`),
+		register_diagnostic(span=$dark, message="Missing `--color-accent-hover` in .dark", severity="error")
+	},
+	`:root { $rootProps }` as $root where {
+		not $rootProps <: contains CssGenericProperty(name=`--color-background`),
+		register_diagnostic(span=$root, message="Missing `--color-background` in :root", severity="error")
+	},
+	`html[data-theme="dark"], .dark { $darkProps }` as $dark where {
+		not $darkProps <: contains CssGenericProperty(name=`--color-background`),
+		register_diagnostic(span=$dark, message="Missing `--color-background` in .dark", severity="error")
+	},
+	`:root { $rootProps }` as $root where {
+		not $rootProps <: contains CssGenericProperty(name=`--color-border`),
+		register_diagnostic(span=$root, message="Missing `--color-border` in :root", severity="error")
+	},
+	`html[data-theme="dark"], .dark { $darkProps }` as $dark where {
+		not $darkProps <: contains CssGenericProperty(name=`--color-border`),
+		register_diagnostic(span=$dark, message="Missing `--color-border` in .dark", severity="error")
+	},
+	`:root { $rootProps }` as $root where {
+		not $rootProps <: contains CssGenericProperty(name=`--color-border-hover`),
+		register_diagnostic(span=$root, message="Missing `--color-border-hover` in :root", severity="error")
+	},
+	`html[data-theme="dark"], .dark { $darkProps }` as $dark where {
+		not $darkProps <: contains CssGenericProperty(name=`--color-border-hover`),
+		register_diagnostic(span=$dark, message="Missing `--color-border-hover` in .dark", severity="error")
+	},
+	`:root { $rootProps }` as $root where {
+		not $rootProps <: contains CssGenericProperty(name=`--color-destructive`),
+		register_diagnostic(span=$root, message="Missing `--color-destructive` in :root", severity="error")
+	},
+	`html[data-theme="dark"], .dark { $darkProps }` as $dark where {
+		not $darkProps <: contains CssGenericProperty(name=`--color-destructive`),
+		register_diagnostic(span=$dark, message="Missing `--color-destructive` in .dark", severity="error")
+	},
+	`:root { $rootProps }` as $root where {
+		not $rootProps <: contains CssGenericProperty(name=`--color-destructive-active`),
+		register_diagnostic(span=$root, message="Missing `--color-destructive-active` in :root", severity="error")
+	},
+	`html[data-theme="dark"], .dark { $darkProps }` as $dark where {
+		not $darkProps <: contains CssGenericProperty(name=`--color-destructive-active`),
+		register_diagnostic(span=$dark, message="Missing `--color-destructive-active` in .dark", severity="error")
+	},
+	`:root { $rootProps }` as $root where {
+		not $rootProps <: contains CssGenericProperty(name=`--color-destructive-foreground`),
+		register_diagnostic(span=$root, message="Missing `--color-destructive-foreground` in :root", severity="error")
+	},
+	`html[data-theme="dark"], .dark { $darkProps }` as $dark where {
+		not $darkProps <: contains CssGenericProperty(name=`--color-destructive-foreground`),
+		register_diagnostic(span=$dark, message="Missing `--color-destructive-foreground` in .dark", severity="error")
+	},
+	`:root { $rootProps }` as $root where {
+		not $rootProps <: contains CssGenericProperty(name=`--color-destructive-hover`),
+		register_diagnostic(span=$root, message="Missing `--color-destructive-hover` in :root", severity="error")
+	},
+	`html[data-theme="dark"], .dark { $darkProps }` as $dark where {
+		not $darkProps <: contains CssGenericProperty(name=`--color-destructive-hover`),
+		register_diagnostic(span=$dark, message="Missing `--color-destructive-hover` in .dark", severity="error")
+	},
+	`:root { $rootProps }` as $root where {
+		not $rootProps <: contains CssGenericProperty(name=`--color-focus`),
+		register_diagnostic(span=$root, message="Missing `--color-focus` in :root", severity="error")
+	},
+	`html[data-theme="dark"], .dark { $darkProps }` as $dark where {
+		not $darkProps <: contains CssGenericProperty(name=`--color-focus`),
+		register_diagnostic(span=$dark, message="Missing `--color-focus` in .dark", severity="error")
+	},
+	`:root { $rootProps }` as $root where {
+		not $rootProps <: contains CssGenericProperty(name=`--color-foreground`),
+		register_diagnostic(span=$root, message="Missing `--color-foreground` in :root", severity="error")
+	},
+	`html[data-theme="dark"], .dark { $darkProps }` as $dark where {
+		not $darkProps <: contains CssGenericProperty(name=`--color-foreground`),
+		register_diagnostic(span=$dark, message="Missing `--color-foreground` in .dark", severity="error")
+	},
+	`:root { $rootProps }` as $root where {
+		not $rootProps <: contains CssGenericProperty(name=`--color-info`),
+		register_diagnostic(span=$root, message="Missing `--color-info` in :root", severity="error")
+	},
+	`html[data-theme="dark"], .dark { $darkProps }` as $dark where {
+		not $darkProps <: contains CssGenericProperty(name=`--color-info`),
+		register_diagnostic(span=$dark, message="Missing `--color-info` in .dark", severity="error")
+	},
+	`:root { $rootProps }` as $root where {
+		not $rootProps <: contains CssGenericProperty(name=`--color-info-foreground`),
+		register_diagnostic(span=$root, message="Missing `--color-info-foreground` in :root", severity="error")
+	},
+	`html[data-theme="dark"], .dark { $darkProps }` as $dark where {
+		not $darkProps <: contains CssGenericProperty(name=`--color-info-foreground`),
+		register_diagnostic(span=$dark, message="Missing `--color-info-foreground` in .dark", severity="error")
+	},
+	`:root { $rootProps }` as $root where {
+		not $rootProps <: contains CssGenericProperty(name=`--color-muted`),
+		register_diagnostic(span=$root, message="Missing `--color-muted` in :root", severity="error")
+	},
+	`html[data-theme="dark"], .dark { $darkProps }` as $dark where {
+		not $darkProps <: contains CssGenericProperty(name=`--color-muted`),
+		register_diagnostic(span=$dark, message="Missing `--color-muted` in .dark", severity="error")
+	},
+	`:root { $rootProps }` as $root where {
+		not $rootProps <: contains CssGenericProperty(name=`--color-muted-foreground`),
+		register_diagnostic(span=$root, message="Missing `--color-muted-foreground` in :root", severity="error")
+	},
+	`html[data-theme="dark"], .dark { $darkProps }` as $dark where {
+		not $darkProps <: contains CssGenericProperty(name=`--color-muted-foreground`),
+		register_diagnostic(span=$dark, message="Missing `--color-muted-foreground` in .dark", severity="error")
+	},
+	`:root { $rootProps }` as $root where {
+		not $rootProps <: contains CssGenericProperty(name=`--color-overlay`),
+		register_diagnostic(span=$root, message="Missing `--color-overlay` in :root", severity="error")
+	},
+	`html[data-theme="dark"], .dark { $darkProps }` as $dark where {
+		not $darkProps <: contains CssGenericProperty(name=`--color-overlay`),
+		register_diagnostic(span=$dark, message="Missing `--color-overlay` in .dark", severity="error")
+	},
+	`:root { $rootProps }` as $root where {
+		not $rootProps <: contains CssGenericProperty(name=`--color-primary`),
+		register_diagnostic(span=$root, message="Missing `--color-primary` in :root", severity="error")
+	},
+	`html[data-theme="dark"], .dark { $darkProps }` as $dark where {
+		not $darkProps <: contains CssGenericProperty(name=`--color-primary`),
+		register_diagnostic(span=$dark, message="Missing `--color-primary` in .dark", severity="error")
+	},
+	`:root { $rootProps }` as $root where {
+		not $rootProps <: contains CssGenericProperty(name=`--color-primary-active`),
+		register_diagnostic(span=$root, message="Missing `--color-primary-active` in :root", severity="error")
+	},
+	`html[data-theme="dark"], .dark { $darkProps }` as $dark where {
+		not $darkProps <: contains CssGenericProperty(name=`--color-primary-active`),
+		register_diagnostic(span=$dark, message="Missing `--color-primary-active` in .dark", severity="error")
+	},
+	`:root { $rootProps }` as $root where {
+		not $rootProps <: contains CssGenericProperty(name=`--color-primary-foreground`),
+		register_diagnostic(span=$root, message="Missing `--color-primary-foreground` in :root", severity="error")
+	},
+	`html[data-theme="dark"], .dark { $darkProps }` as $dark where {
+		not $darkProps <: contains CssGenericProperty(name=`--color-primary-foreground`),
+		register_diagnostic(span=$dark, message="Missing `--color-primary-foreground` in .dark", severity="error")
+	},
+	`:root { $rootProps }` as $root where {
+		not $rootProps <: contains CssGenericProperty(name=`--color-primary-hover`),
+		register_diagnostic(span=$root, message="Missing `--color-primary-hover` in :root", severity="error")
+	},
+	`html[data-theme="dark"], .dark { $darkProps }` as $dark where {
+		not $darkProps <: contains CssGenericProperty(name=`--color-primary-hover`),
+		register_diagnostic(span=$dark, message="Missing `--color-primary-hover` in .dark", severity="error")
+	},
+	`:root { $rootProps }` as $root where {
+		not $rootProps <: contains CssGenericProperty(name=`--color-secondary`),
+		register_diagnostic(span=$root, message="Missing `--color-secondary` in :root", severity="error")
+	},
+	`html[data-theme="dark"], .dark { $darkProps }` as $dark where {
+		not $darkProps <: contains CssGenericProperty(name=`--color-secondary`),
+		register_diagnostic(span=$dark, message="Missing `--color-secondary` in .dark", severity="error")
+	},
+	`:root { $rootProps }` as $root where {
+		not $rootProps <: contains CssGenericProperty(name=`--color-secondary-active`),
+		register_diagnostic(span=$root, message="Missing `--color-secondary-active` in :root", severity="error")
+	},
+	`html[data-theme="dark"], .dark { $darkProps }` as $dark where {
+		not $darkProps <: contains CssGenericProperty(name=`--color-secondary-active`),
+		register_diagnostic(span=$dark, message="Missing `--color-secondary-active` in .dark", severity="error")
+	},
+	`:root { $rootProps }` as $root where {
+		not $rootProps <: contains CssGenericProperty(name=`--color-secondary-foreground`),
+		register_diagnostic(span=$root, message="Missing `--color-secondary-foreground` in :root", severity="error")
+	},
+	`html[data-theme="dark"], .dark { $darkProps }` as $dark where {
+		not $darkProps <: contains CssGenericProperty(name=`--color-secondary-foreground`),
+		register_diagnostic(span=$dark, message="Missing `--color-secondary-foreground` in .dark", severity="error")
+	},
+	`:root { $rootProps }` as $root where {
+		not $rootProps <: contains CssGenericProperty(name=`--color-secondary-hover`),
+		register_diagnostic(span=$root, message="Missing `--color-secondary-hover` in :root", severity="error")
+	},
+	`html[data-theme="dark"], .dark { $darkProps }` as $dark where {
+		not $darkProps <: contains CssGenericProperty(name=`--color-secondary-hover`),
+		register_diagnostic(span=$dark, message="Missing `--color-secondary-hover` in .dark", severity="error")
+	},
+	`:root { $rootProps }` as $root where {
+		not $rootProps <: contains CssGenericProperty(name=`--color-skeleton`),
+		register_diagnostic(span=$root, message="Missing `--color-skeleton` in :root", severity="error")
+	},
+	`html[data-theme="dark"], .dark { $darkProps }` as $dark where {
+		not $darkProps <: contains CssGenericProperty(name=`--color-skeleton`),
+		register_diagnostic(span=$dark, message="Missing `--color-skeleton` in .dark", severity="error")
+	},
+	`:root { $rootProps }` as $root where {
+		not $rootProps <: contains CssGenericProperty(name=`--color-skeleton-shine`),
+		register_diagnostic(span=$root, message="Missing `--color-skeleton-shine` in :root", severity="error")
+	},
+	`html[data-theme="dark"], .dark { $darkProps }` as $dark where {
+		not $darkProps <: contains CssGenericProperty(name=`--color-skeleton-shine`),
+		register_diagnostic(span=$dark, message="Missing `--color-skeleton-shine` in .dark", severity="error")
+	},
+	`:root { $rootProps }` as $root where {
+		not $rootProps <: contains CssGenericProperty(name=`--color-success`),
+		register_diagnostic(span=$root, message="Missing `--color-success` in :root", severity="error")
+	},
+	`html[data-theme="dark"], .dark { $darkProps }` as $dark where {
+		not $darkProps <: contains CssGenericProperty(name=`--color-success`),
+		register_diagnostic(span=$dark, message="Missing `--color-success` in .dark", severity="error")
+	},
+	`:root { $rootProps }` as $root where {
+		not $rootProps <: contains CssGenericProperty(name=`--color-success-foreground`),
+		register_diagnostic(span=$root, message="Missing `--color-success-foreground` in :root", severity="error")
+	},
+	`html[data-theme="dark"], .dark { $darkProps }` as $dark where {
+		not $darkProps <: contains CssGenericProperty(name=`--color-success-foreground`),
+		register_diagnostic(span=$dark, message="Missing `--color-success-foreground` in .dark", severity="error")
+	},
+	`:root { $rootProps }` as $root where {
+		not $rootProps <: contains CssGenericProperty(name=`--color-surface`),
+		register_diagnostic(span=$root, message="Missing `--color-surface` in :root", severity="error")
+	},
+	`html[data-theme="dark"], .dark { $darkProps }` as $dark where {
+		not $darkProps <: contains CssGenericProperty(name=`--color-surface`),
+		register_diagnostic(span=$dark, message="Missing `--color-surface` in .dark", severity="error")
+	},
+	`:root { $rootProps }` as $root where {
+		not $rootProps <: contains CssGenericProperty(name=`--color-surface-elevated`),
+		register_diagnostic(span=$root, message="Missing `--color-surface-elevated` in :root", severity="error")
+	},
+	`html[data-theme="dark"], .dark { $darkProps }` as $dark where {
+		not $darkProps <: contains CssGenericProperty(name=`--color-surface-elevated`),
+		register_diagnostic(span=$dark, message="Missing `--color-surface-elevated` in .dark", severity="error")
+	},
+	`:root { $rootProps }` as $root where {
+		not $rootProps <: contains CssGenericProperty(name=`--color-surface-foreground`),
+		register_diagnostic(span=$root, message="Missing `--color-surface-foreground` in :root", severity="error")
+	},
+	`html[data-theme="dark"], .dark { $darkProps }` as $dark where {
+		not $darkProps <: contains CssGenericProperty(name=`--color-surface-foreground`),
+		register_diagnostic(span=$dark, message="Missing `--color-surface-foreground` in .dark", severity="error")
+	},
+	`:root { $rootProps }` as $root where {
+		not $rootProps <: contains CssGenericProperty(name=`--color-warning`),
+		register_diagnostic(span=$root, message="Missing `--color-warning` in :root", severity="error")
+	},
+	`html[data-theme="dark"], .dark { $darkProps }` as $dark where {
+		not $darkProps <: contains CssGenericProperty(name=`--color-warning`),
+		register_diagnostic(span=$dark, message="Missing `--color-warning` in .dark", severity="error")
+	},
+	`:root { $rootProps }` as $root where {
+		not $rootProps <: contains CssGenericProperty(name=`--color-warning-foreground`),
+		register_diagnostic(span=$root, message="Missing `--color-warning-foreground` in :root", severity="error")
+	},
+	`html[data-theme="dark"], .dark { $darkProps }` as $dark where {
+		not $darkProps <: contains CssGenericProperty(name=`--color-warning-foreground`),
+		register_diagnostic(span=$dark, message="Missing `--color-warning-foreground` in .dark", severity="error")
+	}
+}

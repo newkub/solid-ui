@@ -1,0 +1,15 @@
+feat(theme): split HSL color tokens to theme.css and add Biome GritQL validator
+
+- Create `packages/solid-ui/src/styles/theme.css` with all HSL `--color-*` variables for `:root` and `.dark`.
+- Refactor `packages/solid-ui/src/styles/tokens.css` to import `theme.css` and keep semantic aliases/non-color tokens.
+- Create `apps/website/src/theme.css` and import it in `main.tsx`.
+- Update `apps/website/uno.config.ts` theme colors: `border` with `hover`, `skeleton` with `shine`.
+- Add `theme-validator.grit` Biome plugin checking HSL format and required variables in both `:root` and `.dark`.
+- Register plugin in `biome.json` with `includes` targeting `packages/*/src/styles/theme.css`.
+- Fix `favicon.svg` a11y title to satisfy `noSvgWithoutTitle`.
+
+Verified: `bunx biome lint`, `bunx biome check --write`, `bun test`, and `bun run --filter @wrikka/website build` all pass. Full workspace `typecheck` hit OOM for large packages but relevant packages (solid-ui, website) passed independently.
+
+Generated with [Devin](https://devin.ai)
+
+Co-Authored-By: Devin <158243242+devin-ai-integration[bot]@users.noreply.github.com>
