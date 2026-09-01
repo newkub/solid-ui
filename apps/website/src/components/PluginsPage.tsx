@@ -1,6 +1,9 @@
 import { createResource, createSignal, For, Match, onCleanup, Show, Switch } from "solid-js";
+import { CodeBlock } from "./CodeBlock";
 import { PageHeader } from "./PageHeader";
+import { PageSection } from "./PageSection";
 import { Seo } from "./Seo";
+import { Tag } from "./Tag";
 
 type Report = {
 	files: number;
@@ -158,6 +161,53 @@ function HealthCard() {
 	);
 }
 
+function PluginsListCard() {
+	const plugins = [
+		{ name: "unocss-theme-validator", desc: "Validate every UnoCSS color class against the design token palette." },
+		{ name: "unocss", desc: "Generate atomic CSS from class names and theme tokens." },
+		{ name: "vite-plugin-solid", desc: "SolidJS compiler and HMR support for Vite." },
+	];
+
+	return (
+		<div class="space-y-6">
+			<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+				<For each={plugins}>
+					{(plugin) => (
+						<div class="rounded-xl border border-border bg-surface p-5 shadow-sm">
+							<div class="mb-2 flex items-center gap-2">
+								<h3 class="font-mono text-sm font-semibold text-foreground">{plugin.name}</h3>
+								<Tag label="vite" />
+							</div>
+							<p class="text-sm text-muted-foreground">{plugin.desc}</p>
+						</div>
+					)}
+				</For>
+			</div>
+			<PageSection title="Vite config">
+				<CodeBlock
+					code={`export default defineConfig({
+  plugins: [
+    unocssThemeValidator({
+      include: ["apps/website/src/**/*.tsx", "packages/solid-ui/src/**/*.tsx"],
+    }),
+    UnoCSS(),
+    solid(),
+  ],
+});`}
+					language="ts"
+				/>
+			</PageSection>
+			<PageSection title="Validator output">
+				<CodeBlock
+					code={`[unocss-theme-validator] Scanned 106 files, 559 color class usages
+[unocss-theme-validator] All color classes match the theme`}
+					language="bash"
+				/>
+			</PageSection>
+		</div>
+	);
+}
+
 interface TabButtonProps {
 	active: boolean;
 	label: string;
@@ -185,13 +235,13 @@ function TabButton(props: TabButtonProps) {
 }
 
 export function PluginsPage() {
-	const [tab, setTab] = createSignal("validator");
+	const [tab, setTab] = createSignal("plugins");
 
 	return (
 		<section class="page">
 			<Seo
 				title="Plugins — solid-ui"
-				description="solid-ui developer tools: theme validator, responsive breakpoint, and health checks."
+				description="solid-ui developer tools: theme validator, responsive breakpoint, health checks, and Vite plugins."
 				path="/plugins"
 			/>
 			<PageHeader
@@ -200,6 +250,13 @@ export function PluginsPage() {
 			/>
 
 			<div class="mb-6 flex flex-wrap gap-2" role="tablist" aria-label="Plugin tools">
+				<TabButton
+					active={tab() === "plugins"}
+					label="Plugins"
+					tabId="tab-plugins"
+					panelId="panel-plugins"
+					onClick={() => setTab("plugins")}
+				/>
 				<TabButton
 					active={tab() === "validator"}
 					label="Theme Validator"
@@ -224,6 +281,11 @@ export function PluginsPage() {
 			</div>
 
 			<Switch>
+				<Match when={tab() === "plugins"}>
+					<div id="panel-plugins" role="tabpanel" aria-labelledby="tab-plugins">
+						<PluginsListCard />
+					</div>
+				</Match>
 				<Match when={tab() === "validator"}>
 					<div id="panel-validator" role="tabpanel" aria-labelledby="tab-validator">
 						<ThemeValidatorCard />

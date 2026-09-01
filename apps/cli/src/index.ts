@@ -36,6 +36,22 @@ cli.command("show <name>", "Show component details and code template").action((n
 	console.log(template(item.name, item.tag));
 });
 
+cli.command("search <query>", "Search components by name, tag, or description").action((query: string) => {
+	const q = query.toLowerCase();
+	const matches = registry.filter(
+		(r) =>
+			r.name.toLowerCase().includes(q) || r.tag.toLowerCase().includes(q) || r.description.toLowerCase().includes(q),
+	);
+	if (matches.length === 0) {
+		console.log(`No components found for "${query}".`);
+		return;
+	}
+	console.log(`Found ${matches.length} component(s) for "${query}":`);
+	for (const c of matches) {
+		console.log(`  ${c.name} — <${c.tag}>`);
+	}
+});
+
 cli.command("add <name> [tag]", "Generate a new component template").action((name: string, tag?: string) => {
 	const t = tag || "div";
 	console.log(template(name, t));

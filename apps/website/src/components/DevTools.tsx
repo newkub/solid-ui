@@ -1,5 +1,7 @@
-import { useNavigate } from "@tanstack/solid-router";
+import { useLocation, useNavigate } from "@tanstack/solid-router";
+import { useSelector } from "@tanstack/solid-store";
 import { createSignal, onCleanup, onMount, Show } from "solid-js";
+import { themeStore } from "../lib/theme";
 
 function useBreakpoint() {
 	const [width, setWidth] = createSignal(0);
@@ -78,14 +80,25 @@ function TerminalIcon(props: { class?: string }) {
 
 export function DevTools() {
 	const navigate = useNavigate();
+	const location = useLocation();
 	const [open, setOpen] = createSignal(false);
 	const [showTerminal, setShowTerminal] = createSignal(false);
 	const { width, breakpoint } = useBreakpoint();
+	const theme = useSelector(themeStore, (s) => s);
 
 	function nav(to: string) {
 		setOpen(false);
 		setShowTerminal(false);
 		navigate({ to });
+	}
+
+	function InfoRow(props: { label: string; value: string }) {
+		return (
+			<div class="flex items-center justify-between rounded-lg bg-muted px-2.5 py-1.5 text-xs">
+				<span class="text-muted-foreground">{props.label}</span>
+				<span class="font-mono font-medium text-foreground">{props.value}</span>
+			</div>
+		);
 	}
 
 	return (
@@ -127,30 +140,29 @@ export function DevTools() {
 						</button>
 					</div>
 
-					<div class="mb-3 flex items-center justify-between rounded-lg bg-muted p-2 text-xs">
-						<span class="text-muted-foreground">Viewport</span>
-						<span class="font-mono font-medium">
-							{width()}px · {breakpoint()}
-						</span>
+					<div class="space-y-2">
+						<InfoRow label="Route" value={location().pathname} />
+						<InfoRow label="Viewport" value={`${width()}px · ${breakpoint()}`} />
+						<InfoRow label="Theme" value={theme().name} />
 					</div>
 
 					<Show
 						when={showTerminal()}
 						fallback={
-							<div class="grid grid-cols-2 gap-2">
+							<div class="mt-3 grid grid-cols-2 gap-2">
+								<button
+									type="button"
+									onClick={() => nav("/settings")}
+									class="rounded-md border border-border bg-background px-2 py-1.5 text-xs font-medium text-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+								>
+									Settings
+								</button>
 								<button
 									type="button"
 									onClick={() => nav("/plugins")}
 									class="rounded-md border border-border bg-background px-2 py-1.5 text-xs font-medium text-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
 								>
 									Plugins
-								</button>
-								<button
-									type="button"
-									onClick={() => nav("/theme")}
-									class="rounded-md border border-border bg-background px-2 py-1.5 text-xs font-medium text-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
-								>
-									Theme
 								</button>
 								<button
 									type="button"
@@ -170,7 +182,7 @@ export function DevTools() {
 							</div>
 						}
 					>
-						<div class="space-y-3 text-center">
+						<div class="mt-3 space-y-3 text-center">
 							<div class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-muted text-muted-foreground">
 								<TerminalIcon />
 							</div>
