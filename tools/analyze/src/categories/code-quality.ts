@@ -1,0 +1,103 @@
+import type { CategoryCheck } from "../types";
+
+export const categories: CategoryCheck[] = [
+	// Code Quality
+	{
+		id: "typecheck-pass",
+		name: "TypeScript typecheck passes",
+		domain: "code-quality",
+		description: "All workspace typechecks pass",
+		weight: 1,
+	},
+	{
+		id: "lint-pass",
+		name: "Lint passes without errors",
+		domain: "code-quality",
+		description: "Biome check exits 0",
+		weight: 1,
+	},
+	{
+		id: "no-explicit-any",
+		name: "No explicit any",
+		domain: "code-quality",
+		description: "Avoid `any` types",
+		weight: 1,
+	},
+	{
+		id: "no-non-null-assertion",
+		name: "No non-null assertions",
+		domain: "code-quality",
+		description: "Avoid `!` non-null assertions",
+		weight: 1,
+	},
+	{
+		id: "no-unused-vars",
+		name: "No unused variables",
+		domain: "code-quality",
+		description: "No unused variables or imports",
+		weight: 1,
+	},
+	{
+		id: "no-console-log",
+		name: "No leftover console.log",
+		domain: "code-quality",
+		description: "No debug console.log",
+		weight: 1,
+	},
+	{
+		id: "no-duplicate-code",
+		name: "No duplicate code blocks",
+		domain: "code-quality",
+		description: "Avoid duplicate code snippets",
+		weight: 1,
+	},
+	{
+		id: "max-file-length",
+		name: "File length under threshold",
+		domain: "code-quality",
+		description: "Source files under 250 lines",
+		weight: 1,
+	},
+	{
+		id: "max-function-length",
+		name: "Function length under threshold",
+		domain: "code-quality",
+		description: "Functions under 60 lines",
+		weight: 1,
+	},
+	{
+		id: "strict-tsconfig",
+		name: "Strict TypeScript config",
+		domain: "code-quality",
+		description: "tsconfig uses strict",
+		weight: 1,
+	},
+	{
+		id: "build-pass",
+		name: "Build passes",
+		domain: "code-quality",
+		description: "Production build succeeds",
+		weight: 1,
+	},
+	{
+		id: "test-coverage",
+		name: "Tests exist",
+		domain: "code-quality",
+		description: "At least one test file exists",
+		weight: 1,
+	},
+	{
+		id: "package-builds",
+		name: "Package builds pass",
+		domain: "code-quality",
+		description: "All library package builds succeed",
+		weight: 1,
+	},
+	{
+		id: "package-tests",
+		name: "Package tests run",
+		domain: "code-quality",
+		description: "All library packages have real, non-skipping tests",
+		weight: 1,
+	},
+];

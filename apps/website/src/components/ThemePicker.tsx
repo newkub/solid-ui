@@ -14,6 +14,7 @@ import {
 	type ThemeMode,
 	type ThemeRadius,
 	type ThemeSpace,
+	type ThemeState,
 	themeStore,
 } from "../lib/theme";
 
@@ -35,6 +36,168 @@ const colorOptions: ThemeColor[] = [
 const fontOptions: ThemeFont[] = ["sans", "serif", "mono"];
 const spaceOptions: ThemeSpace[] = ["compact", "normal", "spacious"];
 const radiusOptions: ThemeRadius[] = ["none", "small", "medium", "large"];
+
+function PresetSection(props: { state: ThemeState; onSelect: () => void }) {
+	return (
+		<section class="mb-4">
+			<h3 class="mb-2 text-xs font-semibold uppercase text-muted-foreground tracking-wide">Presets</h3>
+			<div class="grid gap-1">
+				<For each={presets}>
+					{(preset) => (
+						<button
+							type="button"
+							class="flex items-center gap-2 w-full text-left rounded-md px-2 py-2 text-sm hover:bg-muted"
+							classList={{ "bg-muted": props.state.name === preset.label }}
+							onClick={() => {
+								setThemeName(preset.name);
+								props.onSelect();
+							}}
+						>
+							<span
+								class="inline-block w-3 h-3 rounded-full"
+								style={{
+									"background-color": `hsl(${colorSchemes[preset.state.color][preset.state.mode].primary})`,
+								}}
+							/>
+							<span>{preset.label}</span>
+						</button>
+					)}
+				</For>
+			</div>
+		</section>
+	);
+}
+
+function ModeSection(props: { mode: ThemeMode }) {
+	return (
+		<section class="mb-4">
+			<h3 class="mb-2 text-xs font-semibold uppercase text-muted-foreground tracking-wide">Mode</h3>
+			<div class="grid grid-cols-2 gap-2">
+				<For each={["light", "dark"] as ThemeMode[]}>
+					{(mode) => (
+						<button
+							type="button"
+							class="rounded-md border border-border px-3 py-2 text-sm hover:bg-muted"
+							classList={{ "bg-primary text-primary-foreground": props.mode === mode }}
+							onClick={() => setThemeMode(mode)}
+						>
+							{mode}
+						</button>
+					)}
+				</For>
+			</div>
+		</section>
+	);
+}
+
+function ColorSection(props: { color: ThemeColor; mode: ThemeMode }) {
+	return (
+		<section class="mb-4">
+			<h3 class="mb-2 text-xs font-semibold uppercase text-muted-foreground tracking-wide">Color</h3>
+			<div class="grid grid-cols-4 gap-2">
+				<For each={colorOptions}>
+					{(color) => (
+						<button
+							type="button"
+							class="flex items-center justify-center rounded-md border border-border p-2 hover:bg-muted"
+							classList={{ "ring-2 ring-ring": props.color === color }}
+							aria-label={`Color ${color}`}
+							onClick={() => setThemeColor(color)}
+						>
+							<span
+								class="inline-block w-4 h-4 rounded-full"
+								style={{ "background-color": `hsl(${colorSchemes[color][props.mode].primary})` }}
+							/>
+						</button>
+					)}
+				</For>
+			</div>
+		</section>
+	);
+}
+
+function FontSection(props: { font: ThemeFont }) {
+	return (
+		<section class="mb-4">
+			<h3 class="mb-2 text-xs font-semibold uppercase text-muted-foreground tracking-wide">Font</h3>
+			<div class="grid grid-cols-3 gap-2">
+				<For each={fontOptions}>
+					{(font) => (
+						<button
+							type="button"
+							class="rounded-md border border-border px-3 py-2 text-sm hover:bg-muted"
+							classList={{ "bg-primary text-primary-foreground": props.font === font }}
+							style={{ "font-family": font === "serif" ? "serif" : font === "mono" ? "monospace" : "sans-serif" }}
+							onClick={() => setThemeFont(font)}
+						>
+							{font}
+						</button>
+					)}
+				</For>
+			</div>
+		</section>
+	);
+}
+
+function SpaceSection(props: { space: ThemeSpace }) {
+	return (
+		<section class="mb-4">
+			<h3 class="mb-2 text-xs font-semibold uppercase text-muted-foreground tracking-wide">Spacing</h3>
+			<div class="grid grid-cols-3 gap-2">
+				<For each={spaceOptions}>
+					{(space) => (
+						<button
+							type="button"
+							class="rounded-md border border-border px-3 py-2 text-sm hover:bg-muted"
+							classList={{ "bg-primary text-primary-foreground": props.space === space }}
+							onClick={() => setThemeSpace(space)}
+						>
+							{space}
+						</button>
+					)}
+				</For>
+			</div>
+		</section>
+	);
+}
+
+function RadiusSection(props: { radius: ThemeRadius }) {
+	return (
+		<section>
+			<h3 class="mb-2 text-xs font-semibold uppercase text-muted-foreground tracking-wide">Radius</h3>
+			<div class="grid grid-cols-4 gap-2">
+				<For each={radiusOptions}>
+					{(radius) => (
+						<button
+							type="button"
+							class="rounded-md border border-border px-2 py-2 text-sm hover:bg-muted"
+							classList={{ "bg-primary text-primary-foreground": props.radius === radius }}
+							onClick={() => setThemeRadius(radius)}
+						>
+							{radius}
+						</button>
+					)}
+				</For>
+			</div>
+		</section>
+	);
+}
+
+function ThemeDropdown(props: { state: ThemeState; onSelect: () => void }) {
+	return (
+		<div
+			class="absolute right-0 top-full z-dropdown mt-2 w-80 max-h-96 overflow-y-auto rounded-lg border border-border bg-surface p-4 shadow-lg"
+			role="listbox"
+		>
+			<PresetSection state={props.state} onSelect={props.onSelect} />
+			<ModeSection mode={props.state.mode} />
+			<ColorSection color={props.state.color} mode={props.state.mode} />
+			<FontSection font={props.state.font} />
+			<SpaceSection space={props.state.space} />
+			<RadiusSection radius={props.state.radius} />
+		</div>
+	);
+}
 
 export function ThemePicker() {
 	const [open, setOpen] = createSignal(false);
@@ -88,132 +251,7 @@ export function ThemePicker() {
 				</svg>
 			</button>
 			<Show when={open()}>
-				<div
-					class="absolute right-0 top-full z-dropdown mt-2 w-80 max-h-96 overflow-y-auto rounded-lg border border-border bg-surface p-4 shadow-lg"
-					role="listbox"
-				>
-					<section class="mb-4">
-						<h3 class="mb-2 text-xs font-semibold uppercase text-muted-foreground tracking-wide">Presets</h3>
-						<div class="grid gap-1">
-							<For each={presets}>
-								{(preset) => (
-									<button
-										type="button"
-										class="flex items-center gap-2 w-full text-left rounded-md px-2 py-2 text-sm hover:bg-muted"
-										classList={{ "bg-muted": state().name === preset.label }}
-										onClick={() => {
-											setThemeName(preset.name);
-											setOpen(false);
-										}}
-									>
-										<span
-											class="inline-block w-3 h-3 rounded-full"
-											style={{
-												"background-color": `hsl(${colorSchemes[preset.state.color][preset.state.mode].primary})`,
-											}}
-										/>
-										<span>{preset.label}</span>
-									</button>
-								)}
-							</For>
-						</div>
-					</section>
-
-					<section class="mb-4">
-						<h3 class="mb-2 text-xs font-semibold uppercase text-muted-foreground tracking-wide">Mode</h3>
-						<div class="grid grid-cols-2 gap-2">
-							<For each={["light", "dark"] as ThemeMode[]}>
-								{(mode) => (
-									<button
-										type="button"
-										class="rounded-md border border-border px-3 py-2 text-sm hover:bg-muted"
-										classList={{ "bg-primary text-primary-foreground": state().mode === mode }}
-										onClick={() => setThemeMode(mode)}
-									>
-										{mode}
-									</button>
-								)}
-							</For>
-						</div>
-					</section>
-
-					<section class="mb-4">
-						<h3 class="mb-2 text-xs font-semibold uppercase text-muted-foreground tracking-wide">Color</h3>
-						<div class="grid grid-cols-4 gap-2">
-							<For each={colorOptions}>
-								{(color) => (
-									<button
-										type="button"
-										class="flex items-center justify-center rounded-md border border-border p-2 hover:bg-muted"
-										classList={{ "ring-2 ring-ring": state().color === color }}
-										aria-label={`Color ${color}`}
-										onClick={() => setThemeColor(color)}
-									>
-										<span
-											class="inline-block w-4 h-4 rounded-full"
-											style={{ "background-color": `hsl(${colorSchemes[color][state().mode].primary})` }}
-										/>
-									</button>
-								)}
-							</For>
-						</div>
-					</section>
-
-					<section class="mb-4">
-						<h3 class="mb-2 text-xs font-semibold uppercase text-muted-foreground tracking-wide">Font</h3>
-						<div class="grid grid-cols-3 gap-2">
-							<For each={fontOptions}>
-								{(font) => (
-									<button
-										type="button"
-										class="rounded-md border border-border px-3 py-2 text-sm hover:bg-muted"
-										classList={{ "bg-primary text-primary-foreground": state().font === font }}
-										style={{ "font-family": font === "serif" ? "serif" : font === "mono" ? "monospace" : "sans-serif" }}
-										onClick={() => setThemeFont(font)}
-									>
-										{font}
-									</button>
-								)}
-							</For>
-						</div>
-					</section>
-
-					<section class="mb-4">
-						<h3 class="mb-2 text-xs font-semibold uppercase text-muted-foreground tracking-wide">Spacing</h3>
-						<div class="grid grid-cols-3 gap-2">
-							<For each={spaceOptions}>
-								{(space) => (
-									<button
-										type="button"
-										class="rounded-md border border-border px-3 py-2 text-sm hover:bg-muted"
-										classList={{ "bg-primary text-primary-foreground": state().space === space }}
-										onClick={() => setThemeSpace(space)}
-									>
-										{space}
-									</button>
-								)}
-							</For>
-						</div>
-					</section>
-
-					<section>
-						<h3 class="mb-2 text-xs font-semibold uppercase text-muted-foreground tracking-wide">Radius</h3>
-						<div class="grid grid-cols-4 gap-2">
-							<For each={radiusOptions}>
-								{(radius) => (
-									<button
-										type="button"
-										class="rounded-md border border-border px-2 py-2 text-sm hover:bg-muted"
-										classList={{ "bg-primary text-primary-foreground": state().radius === radius }}
-										onClick={() => setThemeRadius(radius)}
-									>
-										{radius}
-									</button>
-								)}
-							</For>
-						</div>
-					</section>
-				</div>
+				<ThemeDropdown state={state()} onSelect={() => setOpen(false)} />
 			</Show>
 		</div>
 	);

@@ -5,8 +5,20 @@ import { categories } from "../categories";
 import { docs } from "../docs/generated";
 import { ComponentPlayground } from "./ComponentPlayground";
 import { Markdown } from "./Markdown";
+import { Seo } from "./Seo";
 import { Sidebar } from "./Sidebar";
 import { Toc } from "./Toc";
+
+/** Strips markdown syntax down to a plain-text excerpt suitable for a meta description. */
+function toPlainExcerpt(markdown: string, maxLength = 160): string {
+	const plain = markdown
+		.replace(/^#{1,6}\s+.*$/gm, "")
+		.replace(/```[\s\S]*?```/g, "")
+		.replace(/[`*_>#]/g, "")
+		.replace(/\s+/g, " ")
+		.trim();
+	return plain.length > maxLength ? `${plain.slice(0, maxLength).trimEnd()}…` : plain;
+}
 
 export function DocsLayout(props: { children: JSX.Element }) {
 	return (
@@ -34,12 +46,26 @@ export function DocsPage() {
 		const p = params();
 		return p.name ? p.name.charAt(0).toUpperCase() + p.name.slice(1) : null;
 	});
+	const registryEntry = createMemo(() => registry.find((r) => r.name === componentName()));
+	const seoTitle = createMemo(() => {
+		const entry = registryEntry();
+		const current = page();
+		if (isComponent() && entry) return `${entry.name} — solid-ui`;
+		return current ? `${current.title} — solid-ui` : "Docs — solid-ui";
+	});
+	const seoDescription = createMemo(() => {
+		const entry = registryEntry();
+		const current = page();
+		if (isComponent() && entry) return `${entry.description} (<${entry.tag}>). solid-ui documentation and playground.`;
+		return current ? toPlainExcerpt(current.content) : "solid-ui documentation.";
+	});
 
 	return (
 		<DocsLayout>
 			<Show when={page()} fallback={<div class="page text-muted-foreground">Docs page not found</div>}>
 				{(page) => (
 					<article class="max-w-3xl">
+						<Seo title={seoTitle()} description={seoDescription()} />
 						<header class="mb-6 border-b border-border pb-6">
 							<h1 class="text-3xl font-bold tracking-tight">{page().title}</h1>
 							<p class="text-sm text-muted-foreground capitalize">{page().group}</p>

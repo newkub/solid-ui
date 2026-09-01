@@ -1,9 +1,11 @@
 import * as SolidUI from "@wrikka/solid-ui";
+import type { JSX } from "solid-js";
 import { PREVIEW_IMAGE_SMALL_SRC, PREVIEW_IMAGE_TINY_SRC } from "../lib/config";
 
 const selfClosing = new Set([
 	"Input",
 	"Textarea",
+	"Select",
 	"Checkbox",
 	"Radio",
 	"Switch",
@@ -23,75 +25,64 @@ const selfClosing = new Set([
 
 const colored = new Set(["Badge", "Button", "Toggle"]);
 
+type AnyComp = (props: Record<string, unknown>) => JSX.Element;
+
+const selfClosingRenderers: Record<string, (C: AnyComp, name: string) => JSX.Element> = {
+	Image: (C) => <C src={PREVIEW_IMAGE_SMALL_SRC} alt="" width={120} height={80} />,
+	Avatar: (C) => (
+		<C>
+			<img src={PREVIEW_IMAGE_TINY_SRC} alt="" />
+		</C>
+	),
+	Badge: (C, name) => <C>{name}</C>,
+	Button: (C) => (
+		<C variant="primary" size="sm">
+			Button
+		</C>
+	),
+	Input: (C) => <C type="text" placeholder="Input" readOnly />,
+	Textarea: (C) => <C placeholder="Textarea" readOnly />,
+	Checkbox: (C) => <C checked readOnly />,
+	Radio: (C) => <C checked readOnly />,
+	Switch: (C) => <C checked aria-label="Preview switch" />,
+	Toggle: (C) => <C pressed aria-label="Preview toggle" />,
+	Slider: (C) => <C min={0} max={100} value={40} />,
+	Select: (C) => (
+		<C>
+			<option>Option 1</option>
+			<option>Option 2</option>
+		</C>
+	),
+	Progress: (C) => <C value={60} max={100} />,
+};
+
+function renderSelfClosing(C: AnyComp, name: string) {
+	const renderer = selfClosingRenderers[name];
+	if (renderer) return renderer(C, name);
+	return <C />;
+}
+
 export function ComponentPreview(props: { name: string; tag: string }) {
 	const C = (SolidUI as unknown as Record<string, unknown>)[props.name];
 	if (typeof C !== "function") return <div class="text-sm text-muted-foreground">Preview unavailable</div>;
+	const AnyC = C as AnyComp;
 
 	if (selfClosing.has(props.name)) {
-		if (props.name === "Image") {
-			return <C src={PREVIEW_IMAGE_SMALL_SRC} alt="" width={120} height={80} />;
-		}
-		if (props.name === "Avatar") {
-			return (
-				<C>
-					<img src={PREVIEW_IMAGE_TINY_SRC} alt="" />
-				</C>
-			);
-		}
-		if (props.name === "Badge") {
-			return <C>{props.name}</C>;
-		}
-		if (props.name === "Button") {
-			return (
-				<C variant="primary" size="sm">
-					Button
-				</C>
-			);
-		}
-		if (props.name === "Input") {
-			return <C type="text" placeholder="Input" readOnly />;
-		}
-		if (props.name === "Textarea") {
-			return <C placeholder="Textarea" readOnly />;
-		}
-		if (props.name === "Checkbox" || props.name === "Radio") {
-			return <C checked readOnly />;
-		}
-		if (props.name === "Switch") {
-			return <C checked aria-label="Preview switch" />;
-		}
-		if (props.name === "Toggle") {
-			return <C pressed aria-label="Preview toggle" />;
-		}
-		if (props.name === "Slider") {
-			return <C min={0} max={100} value={40} />;
-		}
-		if (props.name === "Select") {
-			return (
-				<C>
-					<option>Option 1</option>
-					<option>Option 2</option>
-				</C>
-			);
-		}
-		if (props.name === "Progress") {
-			return <C value={60} max={100} />;
-		}
-		return <C />;
+		return renderSelfClosing(AnyC, props.name);
 	}
 
 	if (colored.has(props.name)) {
 		return (
-			<C variant="primary" size="sm">
+			<AnyC variant="primary" size="sm">
 				{props.name}
-			</C>
+			</AnyC>
 		);
 	}
 
 	return (
-		<C class="flex items-center gap-2 rounded-lg border border-border bg-background p-3 text-sm">
+		<AnyC class="flex items-center gap-2 rounded-lg border border-border bg-background p-3 text-sm">
 			<SolidUI.Badge>{props.tag}</SolidUI.Badge>
 			{props.name}
-		</C>
+		</AnyC>
 	);
 }

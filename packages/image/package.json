@@ -16,7 +16,7 @@
 		"typecheck": "bunx tsc --noEmit",
 		"lint": "biome check src",
 		"format": "biome format --write src",
-		"test": "echo 'test skipped for image'",
+		"test": "vitest run",
 		"scan": "ast-grep scan",
 		"verify": "bun run scan && bun run lint && bun run typecheck && bun run test",
 		"ci": "bun run verify && bun run build"
@@ -27,7 +27,8 @@
 	},
 	"devDependencies": {
 		"tsdown": "catalog:",
-		"typescript": "catalog:"
+		"typescript": "catalog:",
+		"vitest": "catalog:"
 	},
 	"repository": {
 		"type": "git",

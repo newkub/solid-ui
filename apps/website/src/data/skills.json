@@ -1,0 +1,3957 @@
+[
+	{
+		"name": "add-to-devin-global-skills",
+		"description": "เพิ่ม link/resource/topic ที user ให้มาเข้าไปใน Devin global skill ทีเหมาะสมโดยตรวจหา skill ทีควรใช้",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "alignment",
+		"description": "จัดให้ project artifacts, rules, skills, docs และ code มี alignment สอดคล้องกัน",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "all-files",
+		"description": "ทำงานกับแต่ละ file ใน project จนครบถ้วน",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "all-folders",
+		"description": "ทำงานกับทุก folder ใน project ตาม workflow จนครบ scope",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "all-workspace",
+		"description": "ทำงานกับทุก workspace ใน monorepo จนครบถ้วน",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "alternative",
+		"description": "ค้นหาและแนะนำ alternatives ทีดีกว่าสำหรับสิ่งที user ระบุ",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "analyze-attack-surface",
+		"description": "วิเคราะห์ attack surface และ exposed endpoints ของระบบ",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "analyze-codebase-quality",
+		"description": "วิเคราะห์คุณภาพของ codebase ด้วย analyze-codebase-quality CLI",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "analyze-dependencies",
+		"description": "วิเคราะห์ dependencies ของ project ผ่าน Rust CLI รองรับ Cargo, NPM, Go, Python",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "analyze-file-structure",
+		"description": "วิเคราะห์โครงสร้างไฟล์และโฟลเดอรของ project ด้วย Rust CLI",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "analyze-project",
+		"description": "วิเคราะห์โปรเจกต์พื้นฐานด้วยเลือกใช้ tools ที่เหมาะสมกับงาน",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "analyze-root-cause-analysis",
+		"description": "วิเคราะห์หาสาเหตุหลักของปัญหาด้วยวิธีการเป็นระบบ",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "ask-again",
+		"description": "ถามใหม่เมื่อผู้ใช้ไม่เข้าใจคำถาม โดย rephrase สั้นกระชับและให้ตัวอย่าง",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "ask-me",
+		"description": "ถามผู้ใช้ด้วยตัวเลือกและคำแนะนำ รองรับ multi-select, multi-step, tech stack",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "ask-project-requirement",
+		"description": "ถาม project requirements ผ่าน /ask-me แบบ multi-select/multi-step แล้วสรุปเป็นข้อกำหนด",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "assume-reset-context",
+		"description": "สมมุติว่ากำลังเข้ามาแก้ไขไฟล์นี้เป็นครั้งแรก โดยไม่มี context จากการสนทนาก่อนหน้า",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "at-this-repo",
+		"description": "แก้ไข files ใน repository ปัจจุบันอย่างปลอดภัย minimal และ validate",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "bench-competitors",
+		"description": "ศึกษาคู่แข่งและปรับปรุง project ให้ดีกว่าในทุกมิติ",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "capture-component",
+		"description": "Capture ภาพแต่ละ UI component แยกสำหรับ documentation, review และ testing",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "capture-image-app-to-screenshot",
+		"description": "Capture ภาพหน้าจอทั้งหมดของ app ที route/component บันทึกลง public/screenshots/",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "capture-terminal",
+		"description": "Capture ภาพจาก terminal output สำหรับ documentation",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "capture-web",
+		"description": "Capture ภาพหน้าเว็บด้วย agent-browser CLI",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "check-backward-compatibility",
+		"description": "ตรวจหา breaking changes ใน public API หรือ schema",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "check-bottlenecks",
+		"description": "ตรวจหา performance bottlenecks ใน app, API, หรือ build",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "check-broken-skills-references",
+		"description": "ตรวจหา broken skill references ใน SKILL.md ของ devin skills repo ด้วย Bun/TypeScript",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "check-circular-dependencies",
+		"description": "ตรวจจับและรายงาน circular dependencies ใน codebase และ skills directory",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "check-code-structure",
+		"description": "วิเคราะห์และปรับปรุง code structure ด้วย sg outline ครอบคลุม symbols, exports, members, และ cohesion",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "check-dead-code",
+		"description": "ตรวจหา dead code และ unused exports ใน project",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "check-file-relations",
+		"description": "วิเคราะห์ความสัมพันธ์ระหว่างไฟล์ หา imports, consumers และ references",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "check-git-diff",
+		"description": "ตรวจสอบความแตกต่างของ git refs หรือ working tree ด้วย git diff",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "check-git-logs",
+		"description": "ดูประวัติไฟล์จาก git log ไล่เช็คทีละ commit จนกว่าจะเจอเงื่อนไข รองรับ local/remote",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "check-long-files",
+		"description": "ตรวจสอบและรายงานไฟล์ที่ยาวกว่า threshold ด้วย Rust CLI",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "check-monorepo",
+		"description": "ตรวจสอบว่า project เป็น monorepo หรือไม่",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "check-reference",
+		"description": "อ่าน reference จาก sources ต่างๆ เพื่อตรวจสอบความถูกต้อง",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "check-secrets-leak",
+		"description": "ตรวจหา secrets หลุดใน git history และไฟล์ด้วย automated scanners",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "check-should-update",
+		"description": "ตรวจสอบ git changes เพื่อตัดสินใจว่า target ต้องอัปเดทหรือไม่",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "check-size",
+		"description": "ตรวจสอบขนาดไฟล์, directory หรือ disk บนเครื่อง",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "check-skills-related",
+		"description": "ดูความสัมพันธ์ระหว่าง skills แบบเร็ว หรือลึกตาม mode ทีเลือก",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "check-system-env",
+		"description": "ตรวจสอบ OS, shell, environment variables และ global root paths",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "check-unused-deps",
+		"description": "Detect and remove unused dependencies using Knip and ecosystem-specific tools",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "check-unused-files",
+		"description": "Detect and remove unused files in project using Knip and reference analysis",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "cleanup-files-in-computer",
+		"description": "ลบไฟล์/แคชทีไม่จำเป็นบนเครื่องด้วย mise cleanup task ใน global mise.toml",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "cleanup-files-in-project",
+		"description": "Clean up unnecessary source files in the project, not build artifacts or dependency caches",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "cleanup-git-branch",
+		"description": "ลบ git branches เก่าที merge แล้วหรือไม่ใช้แล้ว",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "cleanup-github-issue",
+		"description": "ปิด ลบ หรือจัดระเบียบ GitHub issues ที่ค้างอยู่",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "cleanup-github-task",
+		"description": "เก็บถาวรหรือลบ tasks ใน GitHub Projects",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "cleanup-worktree",
+		"description": "ลบ git worktree ที่ไม่ใช้ และ prune worktree tracking ที่ตกค้าง",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "consider-use-in-another-skills",
+		"description": "พิจารณา skills ที่เกี่ยวข้องและสร้างไอเดีย skills ใหม่สำหรับ skill ปัจจุบัน",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "consider-use-subagents",
+		"description": "แบ่งงานซับซ้อนและ spawn subagents ตาม roles พร้อม deep context จาก /follow-deep",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "continue",
+		"description": "ทำงานต่อให้ครบถ้วนตามที่ได้รับมอบหมาย ตรวจสอบความสมบูรณ์ และหยุดเมื่องานเสร็จสิ้น",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "convert-files-format",
+		"description": "แปลงไฟล์ระหว่าง formats ต่างๆ ด้วย bunx CLI โดยรองรับ image และ document",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "convert-to-git-submodules",
+		"description": "แปลง directory ใน repo ไปเป็น git submodule โดยสร้าง remote repo push content แล้ว add กลับ",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "convert-to-svg",
+		"description": "แปลงรูปภาพ bitmap เป็น SVG ด้วย bunx CLI",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "create-cloudflare-project",
+		"description": "สร้าง Cloudflare Workers project ใหม่ (ไม่ใช่ Pages) พร้อม Git connect",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "create-cloudflare-token",
+		"description": "สร้าง Cloudflare API token สำหรับ use case ทีระบุ ทังแบบ dashboard URL และ API (เมื่อมี seed token)",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "create-cloudflare-tokens",
+		"description": "สร้าง Cloudflare API token URL ตามชื่อ project <repo-name>-wrikka-com พร้อม pre-fill permissions",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "create-cloudflare-worker",
+		"description": "สร้าง Cloudflare Workers project พร้อม Git connect และ Cloudflare Access setup",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "create-files-in-os-temp",
+		"description": "สร้างไฟล์หรือ directory ชั่วคราวใน OS temp directory",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "create-git-branch",
+		"description": "สร้าง git branch ใหม่อย่างถูกต้อง",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "create-github-issue",
+		"description": "ใช้ `gh issue` สร้าง ดู แก้ไข ปิด ลบ และจัดการ issues ของ repository ผ่าน CLI",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "create-github-pr",
+		"description": "สร้าง pull request จาก current branch พร้อม title, body, labels, reviewers",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "create-github-repo",
+		"description": "บันทึก local project ที่ยังไม่มี remote ขึ้น GitHub repository ใหม่",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "create-mermaid-diagram",
+		"description": "สร้าง Mermaid source code จากคำอธิบาย บันทึกเป็น .md หรือ .mmd",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "create-mermaid-diagram-all-workspace",
+		"description": "สร้าง Mermaid source code สำหรับทุก workspace ใน monorepo",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "create-new-project-in-drive-d",
+		"description": "สร้าง project ใหม่บน drive D ด้วย follow-create-* skill ตามประเภท",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "create-nushell-plugins",
+		"description": "สร้าง NuShell plugin ด้วย Rust ตาม official contributor guide",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "create-plan-as-github-issue",
+		"description": "สร้างแผนคุณภาพสูงจากไอเดียฟีเจอร แล้วเขียนลง GitHub issue พร้อม open-web",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "create-plan-in-dot-devin",
+		"description": "สร้าง plan file ใน .devin/plan/ พร้อม Goal, Scope, TODO, Acceptance Criteria และ Notes",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "create-report-in-dot-devin",
+		"description": "สร้าง report ละเอียดใน .devin/reports/ พร้อม 3 tables, file structure และ what-you-do",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "create-similar",
+		"description": "สร้างไฟล์ skill หรือ project ใหม่โดยอ้างอิงโครงสร้างจากตัวอย่าง",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "create-slide-in-newkub-slides",
+		"description": "สร้าง Slidev project ใน D:/newkub/slides และเปิด browser อัตโนมัติ",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "create-slide-via-slidev",
+		"description": "สร้าง standalone Slidev project ด้วย CLI ในตำแหน่งใดก็ได้ พร้อม package.json ของตัวเอง",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "create-social-cover-image",
+		"description": "สร้าง cover image สำหรับ social media ตามขนาดและแบรนด์ของแต่ละ platform",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "create-video-story",
+		"description": "สร้างวิดีโอจากโครงเรื่อง ฉาก ภาพ เสียง และ subtitle อย่างครบวงจร",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "deep-analyze",
+		"description": "วิเคราะห์โปรเจกต์อย่างลึกซึ้งด้วยหลายมิติและ external research",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "deep-analyze-by-use-scripts",
+		"description": "วิเคราะห์ codebase ลึกซึ้งด้วย review-codebase CLI, ast-grep napi, Bun scripts และ oxc parser",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "deep-build",
+		"description": "รัน build แบบลึก ครอบคลุมหลาย target, platforms, bundle analysis, และ performance smoke test",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "deep-debug",
+		"description": "Debug อย่างละเอียดหลายมิติ ตั้งแต่ reproduce จนถึง prevent recurrence",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "deep-follow",
+		"description": "ติดตามและ execute deep workflows ซ้อนลึกแบบ recursive ตาม context จนครบถ้วน",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "deep-idea-features",
+		"description": "สร้างไอเดียฟีเจอรใหม่ ขยายจากของเดิม สร้าง report/plan และ implement ตาม request",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "deep-impact",
+		"description": "วิเคราะห์ผลกระทบลึกของ change ก่อน refactor, delete, rename, หรือ upgrade",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "deep-optimize",
+		"description": "Optimize codebase แบบลึก ครอบคลุมหลายมิติ พร้อม implement และ validate",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "deep-plan",
+		"description": "วางแผนละเอียดหลายมิติ ครอบคลุม risk, dependencies, alternatives, timeline",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "deep-pondering",
+		"description": "ครุ่นคิดเชิงลึกก่อนตัดสินใจสำหรับงานซับซ้อน ระบุ trade-offs และ uncertainties",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "deep-realize-implementation",
+		"description": "Realize implementation ครบวงจร — deep review, plan, schema, API, UX, validation",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "deep-refactor",
+		"description": "Deep refactor ครบวงจร — baseline, impact, plan, SRP, restructure, validation",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "deep-report",
+		"description": "สร้าง deep report ละเอียดครบทุกมิติ พร้อมตาราง 7 columns และสรุป 4 ส่วน",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "deep-research",
+		"description": "ค้นหาข้อมูลลึกจาก multiple sources เพื่อให้ได้คำตอบที่ครบถ้วนและถูกต้อง",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "deep-retro",
+		"description": "ทำ post-incident retrospective ลึก หา root cause ระดับ process และ action items",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "deep-review",
+		"description": "Dispatch งาน review ลึกตาม context ไปยัง deep-review-* หรือ review-* workflows ทีเหมาะสม",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "deep-review-codebase",
+		"description": "Review codebase ครบทุกมิติ พร้อม severity ratings และ map ไปยัง review-* workflows ทีเหมาะสม",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "deep-review-pr",
+		"description": "Review PR แบบลึก ตอบ comment, resolve conversations, ถาม user ก่อน merge",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "deep-ship",
+		"description": "Ship ไป production/release ด้วย deep validation, release, deploy, rollback plan, และ monitoring",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "deep-test",
+		"description": "Test ละเอียดครอบคลุมทุกประเภท coverage สูงสุดและใช้ run-test-all",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "deep-thinking",
+		"description": "คิดวิเคราะห์ปัญหาอย่างเป็นระบบก่อนทำงาน โดยไม่ใช้ external tools",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "deep-trace",
+		"description": "Trace ลึกตาม execution flow, logs, metrics, หรือ distributed trace",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "deep-update",
+		"description": "อัปเดตเป้าหมายด้วย deep review, planning, cross-reference sync, และ validation ครบวงจร",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "deep-update-project",
+		"description": "อัปเดต root project ครบวงจรด้วย deep review, cross-workspace sync, validation",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "deep-validate",
+		"description": "Validate ละเอียดหลายมิติ cross-reference, type safety, runtime, security, compliance",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "deep-verify",
+		"description": "Verify ละเอียดหลัง merge/parallel ทำงาน โดยรวม checks, tests, references, และ runtime",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "delete",
+		"description": "ลบไฟล์และโฟลเดอร์อย่างปลอดภัย พร้อม dry-run confirm และ update references",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "delete-git-branch",
+		"description": "ลบ local หรือ remote git branch อย่างปลอดภัย",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "delete-git-submodules",
+		"description": "ลบ git submodule ออกจาก repo ทั้งจาก .gitmodules, .git/modules และ working tree",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "delete-git-worktree",
+		"description": "ลบ git worktree ทีระบุอย่างปลอดภัย",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "delete-projects",
+		"description": "ลบ project ทั้ง local, remote repo, และ Cloudflare resources อย่างปลอดภัย",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "deploy-to-cloudflare",
+		"description": "Deploy project ไปยัง Cloudflare Workers ด้วย wrangler จน live โดยไม่ใช้ Pages",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "deploy-to-railway",
+		"description": "Deploy application ไปยัง Railway ด้วย railway up จนกว่าจะ live สำเร็จ",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "deploy-to-vercel",
+		"description": "Deploy application ไปยัง Vercel จนกว่าจะ live สำเร็จ",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "devin-scripts-toolkit",
+		"description": "รวม PowerShell scripts สำหรับ check, review, setup, build, deploy ใช้ได้ทั่ว skills และ projects",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "devin-templates-toolkit",
+		"description": "รวม templates สำหรับ web, TUI, CI/CD, docs ใช้ copy แล้วปรับตาม project",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "dont-ask",
+		"description": "ดำเนินการโดยไม่ถามผู้ใช้เมื่อคำตอบชัดเจนหรืองานมีความเสี่ยงต่ำ",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "dont-over-engineer",
+		"description": "หลีกเลี่ยงการ over-engineering ใช้ minimal changes",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "dont-understand",
+		"description": "รองรับเมื่อผู้ใช้บอกว่าไม่เข้าใจ ส่งต่อ /ask-again หรืออธิบายใหม่อย่างสั้น",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "download-program",
+		"description": "ค้นหาและติดตั้ง program บนเครื่องโดยใช้ package manager ทีเหมาะสม ถ้าไม่มีให้เปิดหน้า download",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "draw-excalidraw",
+		"description": "สร้างไฟล์ .excalidraw จากคำอธิบาย shapes",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "draw-svg-image",
+		"description": "สร้าง SVG image จากคำอธิบายหรือ prompt ด้วย code",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "draw-tldraw",
+		"description": "สร้างไฟล์ .tldr จากคำอธิบาย shapes",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "draw-tldraw-diagram",
+		"description": "สร้าง diagram.tldraw จากคำอธิบาย flow หรือ architecture",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "edit-by-use-scripts",
+		"description": "แก้ไขไฟล์ผ่าน scripts ที่สร้างด้วย /use-scripts เพื่อ automate การแก้ไขแบบ reproducible",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "edit-manual",
+		"description": "แก้ไข configuration files ด้วยมืออย่างปลอดภัย ควบคุมการเปลี่ยนแปลงแบบ precise พร้อม rollback",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "edit-only",
+		"description": "แก้ไขโค้ดโดยไม่ต้องรัน task หรือ terminal",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "edit-relative",
+		"description": "อัปเดท references ทั้งหมดเมื่อแก้ไข ย้าย หรือลบไฟล์ ครอบคลุมทุกตำแหน่ง",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "edit-this-repo",
+		"description": "Edit files in the current repository safely with scope checks and validation",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "enhance-prompt",
+		"description": "สรุป prompt เป็น numbered list แต่ละข้อ single responsibility เพื่อดำเนินการต่อชัดเจน",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "examples-markdown",
+		"description": "สร้าง markdown templates สำหรับ documentation ครอบคลุมตาม sidebar ของ update-docs",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "explain",
+		"description": "อธิบาย concept code skill หรือ term ที user สงสัยอย่างสั้นชัดเจน",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "explore-github-trending",
+		"description": "สำรวจ repository ทีกำลัง trending บน GitHub ตามภาษาและช่วงเวลา",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "extract-pattern",
+		"description": "เขียน pattern rules จากข้อมูลที่ให้มา",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "fix",
+		"description": "แก้ไขปัญหาตาม context ทั่วไปด้วย root cause analysis และ validate",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-agents-md",
+		"description": "ทำตาม AGENTS.md ใน workspace",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-algorithms",
+		"description": "เลือกและ implement algorithms ตามปัญหาและ complexity ทีเหมาะสม",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-architecture",
+		"description": "เลือก architecture pattern ตาม package manifest แล้วส่งต่อ",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-asynchronous",
+		"description": "ใช้งาน async patterns ใน JavaScript/TypeScript ให้ถูกต้อง",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-best-practice",
+		"description": "เขียนตาม best practices จาก context นั้นๆ",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-clean-architecture",
+		"description": "สร้างโครงสร้าง Clean Architecture ด้วย modules, ports, adapters และ pure domain",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-config",
+		"description": "จัดการและ validate config files ของ project ให้สอดคล้องกับ conventions",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-context-engineering",
+		"description": "จัดการ context ของ AI agent อย่างมีประสิทธิภาพ ลด context rot เพิ่มคุณภาพการทำงาน",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-coverage",
+		"description": "ทำให้ครอบคลุม ตรวจและเติมส่วนที่ขาดใน content skill และ code",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-create-biome-plugins",
+		"description": "สร้าง custom Biome linter plugins ด้วย GritQL",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-create-browser-extensions",
+		"description": "สร้างและดูแล browser extensions ตาม Manifest V3 สำหรับ Chrome, Firefox, Edge",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-create-bun-cli",
+		"description": "สร้าง CLI applications ด้วย Bun runtime ตาม context และ best practices",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-create-bun-plugins",
+		"description": "สร้าง Bun plugins ด้วย Bun.plugin API สำหรับ runtime และ bundler",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-create-claude-plugin",
+		"description": "สร้าง Claude Code plugin ด้วย manifest, skills, agents, hooks, และ MCP servers",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-create-cli",
+		"description": "สร้าง CLI applications ด้วย Rust หรือ Bun พร้อมเลือก stack และ architecture ที่เหมาะสม",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-create-cloudflare-token",
+		"description": "สร้าง Cloudflare API token URL ที่ pre-fill permissions แล้วเปิด dashboard",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-create-codex-plugin",
+		"description": "สร้าง Codex plugin ด้วย manifest, skills, MCP servers, app wiring, และ marketplace publishing",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-create-devin-plugins",
+		"description": "สร้าง Devin CLI plugin ที่รวม skills, rules, agents, hooks และ MCP servers",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-create-devin-skills",
+		"description": "สร้าง Devin skill package ใหม่หนึ่งตัวตามมาตรฐานของ global skills repo",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-create-discord-bot",
+		"description": "สร้าง Discord bot ด้วย TypeScript/Bun พร้อม slash commands, events, auto-load, และ modular handlers",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-create-elysia-plugin",
+		"description": "สร้าง Elysia plugin ด้วย TypeScript/Bun พร้อม type safety และ lifecycle hooks",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-create-eslint-plugins",
+		"description": "สร้าง custom ESLint plugins ด้วย JavaScript/TypeScript",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-create-github-action",
+		"description": "สร้าง GitHub Action ด้วย TypeScript/Composite/Docker",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-create-github-bots",
+		"description": "สร้าง GitHub bots ด้วย GitHub Apps หรือ Probot พร้อม webhooks และ deployment",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-create-line-bot",
+		"description": "สร้าง LINE bot ด้วย TypeScript/Bun พร้อม webhook, commands, และ messaging API",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-create-mcp",
+		"description": "สร้าง MCP server ด้วย Rust หรือ TypeScript พร้อม register ลง mcp_config.json",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-create-mobile-android",
+		"description": "สร้าง native Android mobile app ด้วย Kotlin และ Jetpack Compose",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-create-mobile-ios",
+		"description": "สร้าง native iOS mobile app ด้วย Swift และ SwiftUI",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-create-mobile-ios-android",
+		"description": "สร้าง iOS/Android mobile app ด้วย Capacitor จาก web codebase",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-create-nitro-plugin",
+		"description": "สร้าง Nitro plugin สำหรับ Nuxt ด้วย defineNitroPlugin และ hooks",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-create-nvim-plugins",
+		"description": "ตั้งค่า Neovim plugins ด้วย lazy.nvim",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-create-obsidian-plugin",
+		"description": "สร้าง Obsidian plugin ด้วย TypeScript พร้อม manifest, commands, settings",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-create-oxlint-plugins",
+		"description": "ตั้งค่าและใช้งาน Oxlint plugins ทั้ง built-in และ JavaScript",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-create-product",
+		"description": "สร้าง product ครบวงจรจาก idea ถึง website พร้อม auth, payments, dashboard และ ship",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-create-raycast-extensions",
+		"description": "สร้าง Raycast Extensions ด้วย TypeScript, React และ Raycast API สำหรับ macOS productivity",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-create-rolldown-plugins",
+		"description": "สร้าง Rolldown plugins ด้วย TypeScript สำหรับ Rust-based bundler",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-create-rust-cli",
+		"description": "สร้าง CLI applications ด้วย Rust ตาม context และ best practices",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-create-rust-crate",
+		"description": "สร้าง Rust library crate ด้วย Cargo ตาม best practices",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-create-sdk",
+		"description": "ถามและส่งต่อไปยัง skill follow-create-* ทีเหมาะสมกับงานสร้าง",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-create-tauri-plugins",
+		"description": "สร้าง custom Tauri plugins ด้วย Rust และ JavaScript API",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-create-telegram-bot",
+		"description": "สร้าง Telegram bot ด้วย TypeScript/Bun พร้อม commands, middleware, error handling, และ webhook",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-create-tsdown-plugins",
+		"description": "สร้าง tsdown plugins ด้วย Rolldown API และ tsdown-specific hooks",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-create-tui",
+		"description": "สร้าง TUI application ด้วย Rust และ Ratatui",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-create-vite-plugins",
+		"description": "สร้าง Vite plugins ด้วย Plugin API มาตรฐาน",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-create-vitest-plugins",
+		"description": "สร้างและใช้งาน Vitest plugins ตาม Plugin API อย่างถูกต้อง (Vitest 3.1.0+)",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-create-vscode-extensions",
+		"description": "สร้าง VSCode extensions ด้วย TypeScript, official generator, หรือ reactive-vscode",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-create-web",
+		"description": "เลือกและสร้าง web project ตามประเภท landing, saas หรือ paas",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-create-web-landing",
+		"description": "สร้าง static landing website ด้วย SolidJS, TanStack และ UnoCSS",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-create-web-paas",
+		"description": "สร้าง SaaS+ ด้วย SolidJS, TanStack, oRPC, Elysia, UnoCSS และ advanced UX/UI",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-create-web-saas",
+		"description": "สร้าง SaaS website ด้วย SolidJS, TanStack, oRPC, Elysia, UnoCSS",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-create-website-rust",
+		"description": "สร้าง website ด้วย Rust WASM + Solid frontend ผ่าน Vite plugin",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-create-zed-extensions",
+		"description": "สร้าง Zed extensions ด้วย Rust/WASM และ extension manifest",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-data-structures",
+		"description": "เลือกและใช้งาน data structures ตามลักษณะข้อมูลและ operations",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-debugging",
+		"description": "หลักการ debug อย่างเป็นระบบ ตั้งแต่ reproduce ถึง fix และ prevent",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-deep",
+		"description": "พิจารณาและเรียก deep-* workflows ที่เกี่ยวข้องตาม context ของ task",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-deploy",
+		"description": "ตั้งค่า deployment configuration และ CI/CD ครบถ้วน",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-design-system",
+		"description": "Design system principles พื้นฐานที่ใช้ได้กับทุก platform (TUI, Web, Desktop, Mobile)",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-deterministic",
+		"description": "พัฒนาโปรเจกต์ด้วย deterministic programming พร้อม predictable outputs, no randomness",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-devin-global-subagents",
+		"description": "แบ่งงานซับซ้อนเป็น subtasks แล้วใช้ global subagents ตาม job roles ทำขนานกัน",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-devin-skills",
+		"description": "อ่านและใช้ skills ทีมีใน global และ project (.devin/skills) ตามทีเหมาะสม",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-dot-github",
+		"description": "จัดการ .github directory ครบถ้วน ทั้ง workflows, templates, policies, และ automation config",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-edgejs",
+		"description": "ใช้งาน Edge.js template engine สำหรับ Node.js ตาม official best practices",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-enter-dot",
+		"description": "จัดการเมื่อ user ส่ง \".\" โดยตรวจ state แล้วทำ continue, suggest, ship, idea-features หรือ ask-me",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-event-driven",
+		"description": "Implement Event-Driven Architecture สำหรับ async workflows และ loose coupling",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-flat-files",
+		"description": "แปลง references directory จากโครงสร้าง `<name>/SKILL.md` เป็น flat file `<name>.md`",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-flat-folders",
+		"description": "แปลงไฟล์ใน nested directories ให้เป็น flat structure ภายใน scope เดียว พร้อมอัปเดท references",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-framework-astro",
+		"description": "พัฒนา Astro 5 applications ด้วย Server Islands, Content Layer และ Actions",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-framework-capacitor",
+		"description": "แนวทางการพัฒนา Capacitor 8 cross-platform mobile apps ด้วย web technologies",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-framework-desktop-app",
+		"description": "สร้าง Desktop Applications ด้วย Tauri, SolidStart, และ UnoCSS",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-framework-dioxus",
+		"description": "ตั้งค่าและพัฒนา Desktop, Web และ Mobile Applications ด้วย Dioxus Rust framework",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-framework-flutter",
+		"description": "พัฒนา Flutter applications ด้วย Clean Architecture และ Riverpod",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-framework-leptos",
+		"description": "สร้าง reactive web applications ด้วย Rust พร้อม SSR และ CSR support",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-framework-nextjs",
+		"description": "แนวทางการจัดโครงสร้างและพัฒนา Next.js 16 applications",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-framework-nuxt",
+		"description": "สร้างหรือปรับปรุง Nuxt 4 project ด้วย Universal Rendering และ Nitro",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-framework-ratatui",
+		"description": "สร้าง TUI ด้วย Ratatui library สำหรับ Rust",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-framework-remotion",
+		"description": "Framework สำหรับสร้างวิดีโอแบบโปรแกรมมิ่งโดยใช้ React",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-framework-slidev",
+		"description": "ตั้งค่าและพัฒนา presentation slides ด้วย Slidev framework",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-framework-solidjs",
+		"description": "พัฒนา Solid.js applications ด้วย fine-grained reactivity และ performance optimization",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-framework-svelte",
+		"description": "ตั้งค่า Vite + Svelte 5 Runes + TypeScript (client-side only)",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-framework-svelte-kit",
+		"description": "สร้าง Svelte applications ด้วย SSR/CSR/Prerendering และ file-based routing ตามมาตรฐาน SvelteKit",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-framework-tauri",
+		"description": "สร้าง Desktop Applications ด้วย Tauri, Vite, React และ Rust backend",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-framework-wxt",
+		"description": "ตั้งค่าและพัฒนา Web Extensions ด้วย WXT framework ตาม best practices",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-git-flow",
+		"description": "ตั้งค่า git flow ใน repo สร้าง `dev` branch, hooks, worktree convention และอัปเดต AGENTS.md",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-git-workflows",
+		"description": "สลับไปยัง git branch ที่ถูกต้องสำหรับ workflow ที่ระบุชื่อ",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-github",
+		"description": "ตั้งค่า GitHub repository รวม metadata, branch protection และ .github templates",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-github-issue-templates",
+		"description": "สร้าง GitHub issue templates สำหรับ bug, feature, plan, test, questions และ agents-task",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-gitignore",
+		"description": "สร้างและจัดการ .gitignore ที่ root และ workspace โดยแจกจ่าย patterns ตาม responsibility",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-global-rules",
+		"description": "ตรวจสอบและอัปเดต global_rules.md ให้สอดคล้องกับ skills และ subagents",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-goal",
+		"description": "ตั้งเป้าหมายและวางแผนงานอย่างเป็นระบบ",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-harness-engineering",
+		"description": "สร้างและปรับปรุง AI agent harness เพื่อ reliability และ verifiable execution",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-incident-triage",
+		"description": "จัดลำดับความสำคัญของ incident และกำหนด action ที่เหมาะสม",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-lang-bun",
+		"description": "พัฒนาโปรเจกต์ด้วย Bun native APIs และ Web-standard APIs อย่างเต็มประสิทธิภาพ",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-lang-javascript",
+		"description": "เขียน JavaScript ตาม modern best practices และ ES2025+",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-lang-kotlin",
+		"description": "พัฒนา Kotlin applications ด้วย Clean Architecture และ Compose",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-lang-lua",
+		"description": "แนวทางการพัฒนา Lua ตาม best practices สำหรับ embedded scripting และ lightweight automation",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-lang-nodejs",
+		"description": "ใช้ Node.js JavaScript runtime สำหรับพัฒนาและรันโปรเจกต์ JavaScript/TypeScript ด้วย ecosystem",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-lang-php",
+		"description": "พัฒนา PHP projects ด้วย PSR standards และ modern best practices",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-lang-python",
+		"description": "แนวทางการพัฒนาโปรเจกต์ Python ด้วย best practices",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-lang-rust",
+		"description": "สร้างหรือปรับปรุง Rust project ด้วย Clean Architecture และ Workspace",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-lang-swift",
+		"description": "แนวทางการพัฒนา Swift applications ตาม Clean Architecture และ SwiftUI",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-lang-typescript",
+		"description": "พัฒนา TypeScript projects ด้วย type safety และ code quality best practices",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-lang-zig",
+		"description": "เขียน Zig ตาม best practices และ language conventions",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-layered-architecture",
+		"description": "จัดโครงสร้าง Frontend projects ด้วย Layered, Feature-based หรือ 4-layer architecture",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-lib-animejs",
+		"description": "JavaScript animation library สำหรับสร้าง animation ที่รวดเร็ว มีประสิทธิภาพ และใช้งานง่าย",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-lib-arktype",
+		"description": "TypeScript runtime validation ด้วย native type syntax 1:1, 20x faster than Zod",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-lib-better-auth",
+		"description": "ใช้งาน Better Auth สำหรับ authentication และ authorization",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-lib-css",
+		"description": "เขียน CSS ตาม best practices และ modern features",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-lib-drizzle",
+		"description": "ตั้งค่าและใช้งาน Drizzle ORM สำหรับ TypeScript-first database operations ด้วย SQL-like syntax",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-lib-effect-ts",
+		"description": "แนวทางการพัฒนาด้วย Effect-TS v3.x สำหรับ functional programming และ type-safe effects",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-lib-elysia",
+		"description": "แนวทางการพัฒนา API ด้วย Elysia บน Bun แบบ type-safe ตาม official best practices",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-lib-esm-sh",
+		"description": "ใช้ esm.sh CDN สำหรับโหลด ES Modules บน browser โดยไม่ต้อง bundler",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-lib-framework-agnostic",
+		"description": "พัฒนา libraries ที่ใช้ได้บน multiple frameworks โดยไม่ผูกติด framework ใด",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-lib-gritql",
+		"description": "ตั้งค่าและใช้งาน GritQL สำหรับ code search, transformation และ linting ใน Biome",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-lib-js-delivr",
+		"description": "ใช้ jsDelivr CDN สำหรับโหลด bun packages และ GitHub repositories บน web pages",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-lib-jspm",
+		"description": "JSPM เป็น ES Module Package Manager และ CDN ที่ใช้มาตรฐาน native ES modules พร้อม import maps",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-lib-license-md",
+		"description": "ตั้งค่าและจัดการ license สำหรับ project",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-lib-orpc",
+		"description": "แนวทางการพัฒนา API ด้วย oRPC แบบ type-safe ตาม official best practices",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-lib-pinia",
+		"description": "แนวทางการใช้งาน Pinia สำหรับ state management ใน Vue applications",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-lib-react",
+		"description": "พัฒนา React 19 applications ตาม best practices 2026",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-lib-shadcn-solid",
+		"description": "shadcn/ui port สำหรับ SolidJS - accessible, customizable components ที่ copy-paste ได้",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-lib-tanstack-ecosystem",
+		"description": "เลือกและใช้งาน TanStack libraries ใน project ตาม use case",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-lib-unocss",
+		"description": "ติดตั้งและตั้งค่า UnoCSS v66 พร้อม presetWind4 และ transformers",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-lib-unocss-theme",
+		"description": "ตั้งค่า theme colors และ Design System ด้วย UnoCSS แบบ HSL variables",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-lib-vue",
+		"description": "แนวทางการพัฒนา Vue 3 applications ตาม best practices 2026",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-lib-vueuse",
+		"description": "ใช้งาน VueUse v14 composables ตาม best practices 2026",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-lib-zaidian-ui",
+		"description": "ใช้ Zaidian UI สำหรับ SolidJS UI components ด้วย Kobalte, Corvu และ Tailwind CSS",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-lib-zod",
+		"description": "ตั้งค่าและใช้งาน Zod สำหรับ TypeScript-first schema validation ด้วย static type inference",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-loop-engineering",
+		"description": "ออกแบบ agentic loop ทีหา, triage, มอบหมาย, verify, และ persist state ได้เอง",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-math-algorithm-complexity",
+		"description": "วิเคราะห์ Big O, Omega, Theta, recurrence และ Master theorem สำหรับ algorithms",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-math-boolean-algebra",
+		"description": "เข้าใจและ simplify boolean expressions, logic gates, Karnaugh maps ใน programming",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-math-category-theory",
+		"description": "เข้าใจ categories, functors, monads และประยุกต์ใน functional programming และ type systems",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-math-combinatorics",
+		"description": "ใช้ permutations, combinations, counting principles ใน test cases และ algorithms",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-math-concepts",
+		"description": "คู่มือคณิตศาสตร์สำหรับ software development",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-math-cryptography",
+		"description": "เข้าใจ hashing, primes, symmetric/asymmetric encryption และประยุกต์ใน security",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-math-discrete-math",
+		"description": "ใช้ number theory, modular arithmetic, gcd, primes ใน hashing, cryptography และ algorithms",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-math-game-theory",
+		"description": "ใช้ minimax, Nash equilibrium, zero-sum games ใน AI opponents, scheduling และ decision systems",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-math-graph-theory",
+		"description": "ใช้ graphs, trees, DAGs, paths, cycles ใน dependencies, workflows, และ data structures",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-math-information-theory",
+		"description": "ใช้ entropy, encoding, compression, KL-divergence ใน data, logs, และ AI",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-math-linear-algebra",
+		"description": "ใช้ vectors, matrices, dot product ใน ML, graphics, embeddings และ transformations",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-math-numerical-methods",
+		"description": "จัดการ floating point, rounding, approximation และ precision ใน numerical computing",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-math-optimization",
+		"description": "หาค่า min/max ภายใต้ constraints ด้วย linear programming, gradient descent, dynamic programming",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-math-predicate-logic",
+		"description": "เข้าใจและใช้ predicate logic, quantifiers all/some, sets, และ inference ใน programming และ prompts",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-math-probability",
+		"description": "ใช้ probability, expected value, Bayes ใน randomness, testing, A/B tests, และ AI",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-math-proofs",
+		"description": "ใช้ proof techniques induction, contradiction, contrapositive ในการตรวจ invariants และ correctness",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-math-propositional-logic",
+		"description": "เข้าใจและใช้ตรรกศาสตร์ประพจน์ truth tables tautology boolean algebra ใน programming และ prompts",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-math-set-theory",
+		"description": "เข้าใจ set theory, operations, Venn diagrams และประยุกต์ใช้ใน programming",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-math-statistics",
+		"description": "ใช้ descriptive statistics, distributions, hypothesis testing ใน metrics, logs, benchmarks",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-microservices-architecture",
+		"description": "ออกแบบ distributed systems ด้วย Microservices, API Gateway, service discovery และ event-driven",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-monorepo",
+		"description": "สร้าง Monorepo Architecture สำหรับโปรเจกต์ขนาดใหญ่ที่มีหลาย packages หรือ applications",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-my-global-cli",
+		"description": "Run installed global CLI tools correctly based on context and environment",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-my-package-manager",
+		"description": "เลือก package manager ทีเหมาะสมกับ OS, program, และ action",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-my-tech-stack",
+		"description": "สรุป tech stack ที่ใช้ในการพัฒนา จัดกลุ่มตาม ecosystem",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-nextjs-architecture",
+		"description": "จัดโครงสร้าง Next.js App Router projects ด้วย modules, monorepo และ server/client patterns",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-orm",
+		"description": "ใช้งาน ORM และ data access patterns ด้วย repository pattern และ type-safe mappings",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-package-manifest",
+		"description": "ตั้งค่า scripts สำหรับ packages และ workspaces ใน monorepo",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-parallel",
+		"description": "รวม independent operations เป็น parallel execution เพื่อลดเวลาและเพิ่ม efficiency",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-plan",
+		"description": "อ่านแผนจาก AGENTS.md หรือเอกสาร plan แล้วทำตามทีละ step จนครบ พร้อม track ใน todo list",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-principles",
+		"description": "ระบุและใช้ principles ของ context นั้นๆ ในการทำงาน",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-principles-engineering",
+		"description": "ตรวจสอบว่าไฟล์ match กับ software engineering principles ตาม file name",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-release",
+		"description": "เลือกและตั้งค่า release strategy สำหรับ npm, crates, Docker, VSCode และ monorepo versioning",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-review",
+		"description": "เลือกและ execute review skill(s) ที่เหมาะสมกับ context",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-robots-txt",
+		"description": "สร้างหรือแก้ไข robots.txt สำหรับ web project ตามสถานะ public/private และการป้องกันการเข้าถึง",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-runtime-bun",
+		"description": "ใช้ Bun runtime สำหรับ run, install, test, build, config",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-secret-manager",
+		"description": "จัดการ secrets และ environment variables อย่างปลอดภัยด้วย secret manager (Infisical เป็น default)",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-service-aws-sdk",
+		"description": "ใช้ AWS SDK ตาม best practices สำหรับการเชื่อมต่อกับ AWS cloud services",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-service-cloudflare",
+		"description": "ใช้งาน Cloudflare Workers, Pages, D1, KV, R2 และ Nitro ผ่าน Wrangler CLI สำหรับ develop และ deploy",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-service-infisical",
+		"description": "ใช้งาน Infisical สำหรับจัดการ secrets และ environment variables อย่างปลอดภัย",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-service-instantdb",
+		"description": "ติดตั้งและใช้งาน InstantDB เป็น real-time backend สำหรับ frontend apps",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-service-run-on",
+		"description": "ติดตั้ง กำหนดค่า และ validate self-hosted GitHub Actions runners บน AWS ด้วย RunsOn",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-service-signoz",
+		"description": "????????????????? SigNoz ?????? Node/Bun/TypeScript ???? OpenTelemetry",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-service-stripe",
+		"description": "ใช้ Stripe สำหรับ payments, subscriptions, checkout, customer portal และ webhooks",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-service-supabase",
+		"description": "ใช้งาน Supabase สำหรับ build backend ด้วย PostgreSQL, Auth, Edge Functions, Realtime และ CLI",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-service-vercel",
+		"description": "Deploy applications บน Vercel พร้อม serverless และ edge functions",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-service-vercel-cli",
+		"description": "ใช้งาน Vercel CLI สำหรับ deploy และ manage projects บน Vercel",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-service-workos",
+		"description": "ใช้งาน WorkOS สำหรับ SSO, Directory Sync, และ Authentication",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-single-responsibility",
+		"description": "แยก task หรือ prompt ออกเป็นหน่วยงานย่อยทีละอย่าง (single responsibility)",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-skills-map",
+		"description": "แสดง map ของ skills ตาม task type และ ecosystem ช่วยเลือก skill เร็วขึ้น",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-software-engineering",
+		"description": "ออกแบบและเขียน software ที่ test ง่าย, scale ง่าย, debug ง่าย, และใช้งานง่าย",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-solid-tanstack",
+		"description": "ตั้งค่าและพัฒนา full-stack app ด้วย TanStack Start (SolidJS), oRPC, Elysia และ UnoCSS",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-solid-tanstack-architecture",
+		"description": "จัดโครงสร้าง TanStack Start + SolidJS apps ด้วย file-based routing, modules และ monorepo",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-tasks",
+		"description": "ตั้งค่า scripts ใน package.json หรือ Cargo.toml ตามมาตรฐาน",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-tdd",
+		"description": "พัฒนา feature ด้วย Test-Driven Development red-green-refactor",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-test",
+		"description": "ตั้งค่าและใช้งาน testing strategies ครบวงจร รวม regression testing ตามมาตรฐาน",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-tool-agent-browser",
+		"description": "ใช้ agent-browser CLI สำหรับ browser automation และ web testing อย่างครบถ้วน",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-tool-ast-grep",
+		"description": "ตั้งค่าและใช้งาน ast-grep สำหรับ code search, lint และ transformation ด้วย AST patterns",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-tool-aube",
+		"description": "แนวทางการใช้งาน Aube package manager สำหรับ Node.js projects",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-tool-auto-it",
+		"description": "ตั้งค่า Auto สำหรับ automated releases ด้วย conventional commits",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-tool-biome",
+		"description": "ตั้งค่าและใช้งาน Biome สำหรับ linting และ formatting แทน ESLint/Prettier",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-tool-build-packages",
+		"description": "ตั้งค่า build pipeline สำหรับ packages ใน monorepo ด้วย tsdown, vitest, turborepo",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-tool-bunup",
+		"description": "ตั้งค่า Bunup สำหรับ bundle TypeScript libraries ด้วย ESM, CJS, และ dts",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-tool-cargo",
+		"description": "ตั้งค่า Cargo lint rules และ workspace lint configuration",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-tool-changelogen",
+		"description": "สร้าง changelog และจัดการ releases ด้วย changelogen",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-tool-changesets",
+		"description": "ตั้งค่า Changesets สำหรับ versioning และ changelog management ใน monorepo",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-tool-clippy",
+		"description": "ตั้งค่า Clippy lint rules และ error handling standards",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-tool-crw",
+		"description": "แนวทางการใช้งาน CRW (fastCRW) สำหรับ web scraping, crawling, search และ serving",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-tool-devin",
+		"description": "Devin/Cascade AI coding assistant สำหรับ autonomous software engineering",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-tool-dprint",
+		"description": "ตั้งค่าและใช้งาน dprint สำหรับ formatting code หลายภาษาด้วย pluggable architecture",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-tool-eslint",
+		"description": "ตั้งค่า ESLint 9 พร้อม plugins ครบถ้วนสำหรับ TypeScript/Vue/Nuxt",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-tool-formatter",
+		"description": "ใช้งาน code formatter ใน project เพื่อรักษา style สม่ำเสมอ",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-tool-git",
+		"description": "ใช้งาน git commands ตามสถานการณ์",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-tool-git-branch",
+		"description": "จัดการ git branches ทั้งหมดใน repository",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-tool-githooks",
+		"description": "ใช้งาน Git hooks ใน project สำหรับ pre-commit, pre-push, pre-merge-commit",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-tool-github-actions",
+		"description": "ตั้งค่า GitHub Actions สำหรับ CI/CD ครบถ้วน",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-tool-github-project",
+		"description": "ใช้ `gh project` จัดการ GitHub Projects ผ่าน CLI แบบ interactive และ scripted",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-tool-hk",
+		"description": "ตั้งค่าและใช้งาน hk สำหรับ Git hooks แทน Lefthook/pre-commit",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-tool-jscpd",
+		"description": "ตั้งค่าและใช้งาน jscpd สำหรับตรวจจับ code duplication ใน codebase",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-tool-knip",
+		"description": "Setup and configure Knip for detecting unused files, dependencies, and exports in monorepos",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-tool-linter",
+		"description": "ใช้งาน linter ใน project",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-tool-loc",
+		"description": "ใช้งาน loc tool สำหรับนับ lines of code แบบเร็ว กรองไฟล์ และวิเคราะห์ขนาดไฟล์",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-tool-mise",
+		"description": "ตั้งค่าและใช้งาน mise สำหรับจัดการ dev tools, env vars, และ tasks",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-tool-moonrepo",
+		"description": "ใช้ moonrepo จัดการ monorepo build, tasks, และ project boundaries สำหรับหลาย stacks",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-tool-mutants-rs",
+		"description": "ตั้งค่าและใช้งาน cargo-mutants สำหรับ mutation testing ใน Rust projects",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-tool-nextest",
+		"description": "ตั้งค่าและใช้งาน cargo-nextest สำหรับ test runner ที่รวดเร็วใน Rust projects",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-tool-node-modules-inspector",
+		"description": "ตั้งค่าและใช้งาน Node Modules Inspector สำหรับตรวจสอบ node_modules แบบ interactive",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-tool-nvim",
+		"description": "ตั้งค่า Neovim configuration ด้วย lazy.nvim ตาม best practices",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-tool-oxlint",
+		"description": "ตั้งค่า eslint-plugin-oxlint สำหรับ fast linting ผ่าน ESLint 9+ flat config",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-tool-pitchfork",
+		"description": "ตั้งค่าและใช้งาน pitchfork สำหรับจัดการ daemons/processes ใน project",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-tool-pkg-new",
+		"description": "ตั้งค่า pkg.pr.new สำหรับ continuous preview releases",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-tool-playwright",
+		"description": "ติดตั้งและตั้งค่า Playwright สำหรับ E2E testing",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-tool-react-scan",
+		"description": "ตรวจหาและแก้ไข React performance issues ด้วย react-scan",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-tool-release-it",
+		"description": "ตั้งค่า release-it สำหรับ automated version bump, tag และ npm publish",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-tool-renovate",
+		"description": "ตั้งค่า Renovate สำหรับ auto update dependencies ผ่าน GitHub Actions",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-tool-renovate-json",
+		"description": "เขียนและตรวจ renovate.json config สำหรับ Renovate bot auto update dependencies",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-tool-rmux",
+		"description": "ตั้งค่าและใช้งาน RMUX terminal multiplexer สำหรับ automation และ scripting",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-tool-rolldown",
+		"description": "ตั้งค่าและใช้ Rolldown สำหรับ bundle JavaScript/TypeScript ด้วยความเร็วสูง",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-tool-scalar",
+		"description": "ใช้ Scalar สำหรับออกแบบ ทดสอบ และจัดทำเอกสาร API แบบครบวงจร",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-tool-semantic-release",
+		"description": "ใช้ Semantic Release สำหรับ automated version management และ package publishing",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-tool-storybook",
+		"description": "ตั้งค่าและใช้ Storybook สำหรับ component development และ documentation",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-tool-stryker-mutator",
+		"description": "ตั้งค่าและใช้งาน Stryker Mutator สำหรับ mutation testing ใน JavaScript/TypeScript projects",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-tool-taze",
+		"description": "ใช้ Taze สำหรับจัดการ dependencies อัตโนมัติใน projects และ monorepos",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-tool-template-starter",
+		"description": "ใช้ templates จาก template-starter repository ด้วย degit",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-tool-tsdown",
+		"description": "ตั้งค่า tsdown เป็น library bundler สำหรับ TypeScript ด้วย Rolldown",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-tool-turborepo",
+		"description": "ตั้งค่าและใช้ Turborepo v2.x สำหรับ monorepo task orchestration",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-tool-ultracite",
+		"description": "ตั้งค่า Ultracite กับ Biome สำหรับ zero-config linting และ formatting",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-tool-unlighthouse",
+		"description": "ตั้งค่า Unlighthouse สำหรับ site-wide Lighthouse audit ทั้ง dev และ CI",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-tool-usage",
+		"description": "สร้าง CLI spec ด้วย usage เพื่อ generate completions/docs/SDK",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-tool-validator",
+		"description": "ใช้งาน validator ใน project สำหรับ data, forms, API payloads, และ schemas",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-tool-vite",
+		"description": "ตั้งค่าและใช้ Vite 7+ สำหรับ modern web applications",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-tool-vitepress",
+		"description": "ตั้งค่า VitePress ด้วย UnoCSS, Shiki Twoslash, Group Icons และ Vue components สำหรับ project docs",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-tool-vitest",
+		"description": "ติดตั้งและตั้งค่า Vitest 4 สำหรับ unit testing ด้วย Vite",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-tool-websearch",
+		"description": "ใช้ crw สำหรับ web search และ scrape อย่างรวดเร็วและมีประสิทธิภาพ",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "follow-your-suggestion",
+		"description": "ทำตามคำแนะนำจากการวิเคราะห์ปัญหาและแก้ไข code ตามที่คุยกันก่อนหน้า",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "found-issue",
+		"description": "Map ปัญหา/อาการทั่วไปไปยัง skill หรือ workflow ทีถูกต้อง",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "from-downloads",
+		"description": "อ่านและ list ไฟล์จาก home downloads folder",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "from-recent-windows-capture",
+		"description": "ดึงกลุ่มภาพ capture ล่าสุดจาก Windows Screenshots เพื่อ analyze หลายไฟล์ตามช่วงเวลา ไม่ใช่ไฟล์เดียว",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "from-this-chat-session",
+		"description": "สกัดการทำงานจาก chat session นี้ไปสร้างเป็น skill ใหม่ใน repo",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "gen-3d-model",
+		"description": "สร้าง 3D model จาก prompt หรือรูปภาพด้วย AI CLI",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "gen-ai-images",
+		"description": "สร้างรูปภาพด้วย AI ผ่าน bunx CLI",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "gen-ai-videos",
+		"description": "สร้างวิดีโอด้วย AI ผ่าน bunx CLI",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "gen-changelog-md",
+		"description": "Generate CHANGELOG.md จาก git tags ด้วย Bun Shell script ไม่แก้ไขด้วยมือ",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "gen-image-character",
+		"description": "สร้างภาพตัวละครแบบ consistency จากคำอธิบาย สไตล์ ท่าทาง และสีหน้า",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "gen-subtitle-video",
+		"description": "สร้าง subtitle .srt จากวิดีโอด้วย bunx CLI",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "gen-voice",
+		"description": "สร้างเสียงพูดจากข้อความด้วย bunx TTS CLI",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "generalize",
+		"description": "แปลง how-to หรือ instructions เป็น solution patterns ทั่วไปที่ใช้ซ้ำได้",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "generate-prompt-from-image",
+		"description": "สร้าง image generation prompt จากรูปภาพด้วย AI vision ผ่าน bunx CLI",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "git-commit",
+		"description": "Commit ทุกไฟล์ที่เปลี่ยนแปลงด้วย conventional commits",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "git-commit-and-push",
+		"description": "Commit ไฟล์และ push ไปยัง remote repository",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "git-commit-at-devin-skills-global",
+		"description": "Commit ทุกไฟล์ที่มีการเปลี่ยนแปลงใน global devin skills ตามมาตรฐาน conventional commits",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "git-commit-selected-files",
+		"description": "Commit selected files from working tree with conventional commits",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "git-debug",
+		"description": "Debug ปัญหาที่เกี่ยวกับ git โดยใช้ bisect, blame, reflog, log และ diff",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "git-file-history",
+		"description": "ดู git file history ของไฟล์ที่ระบุผ่าน @wrikka/git-cli package ที่ release แล้ว โดยใช้คำสั่ง",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "git-push",
+		"description": "Push commits จาก local repository และ git submodules ไปยัง remote repository อย่างปลอดภัย",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "git-submodule-delete",
+		"description": "ลบ git submodule ออกจาก repository อย่างสมบูรณ์",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "grouping",
+		"description": "จัดกลุ่ม items ตามหมวดหมู่หรือคุณลักษณะ",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "how-to-works",
+		"description": "อธิบายกลไกการทำงานของระบบ tool library หรือ concept ที user ถาม",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "idea",
+		"description": "สร้างไอเดียตาม user context วิเคราะห์ gaps และ opportunities",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "idea-convert-my-global-cli-to-skills",
+		"description": "สร้างไอเดียและ draft แปลง CLI tools ที่ติดตั้งเป็น Devin skills",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "idea-create-devin-skills-global",
+		"description": "แนะนำ devin global skills จาก context ปัจจุบัน พร้อมสร้างไอเดียใหม่",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "idea-features",
+		"description": "สร้างไอเดียฟีเจอรใหม่/ขยาย และตอบกลับในแชท ไม่สร้างไฟล์",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "idea-improve-files-naming",
+		"description": "สร้างชื่อไฟล์และ directory สำหรับ idea ใหม่ตาม convention ของ project",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "idea-merge-files",
+		"description": "สร้างไอเดียการ merge ไฟล์หรือ skills ที่ซ้ำซ้อนให้เป็นหน่วยเดียว",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "idea-new-skills",
+		"description": "สร้างไอเดีย skill ใหม่ของ Devin โดยอิงจาก gaps, workflows และความต้องการของผู้ใช้",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "idea-refactor-devin-global-skills",
+		"description": "สร้างไอเดีย refactoring สำหรับ devin global skills repo",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "idea-refactor-files",
+		"description": "สร้างไอเดีย refactor สำหรับไฟล์ทีระบุ",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "idea-refactor-workspace",
+		"description": "สร้างไอเดีย refactor workspace ใน monorepo ด้วย /refactor-all-workspace",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "idea-use-skills-in-another-skills",
+		"description": "สร้างไอเดียการนำ skill หน่วงไปใช้ใน skills อื่นพร้อมตาราง",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "implement-features-to-mvp",
+		"description": "Implement features ที่จำเป็นสำหรับ MVP เท่านั้น หยุดเมื่อครบถ้วน",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "implement-from-notes-idea",
+		"description": "นำ note idea จาก repo D:\\newkub\\notes ไป implement ตาม numbered list",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "implement-github-issue",
+		"description": "นำ GitHub issue ไป implement จนพร้อม merge",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "implement-github-task",
+		"description": "นำ task จาก GitHub issue หรือ project item ไป implement",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "implement-mock",
+		"description": "แปลง MOCK, FAKE, STUB implementations เป็น production code",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "implement-plan",
+		"description": "อ่านแผนใน .devin/plan/<title-date>.md ทำงานให้ครบ แล้วลบแผน",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "implement-plan-from-github-issue",
+		"description": "อ่าน plan จาก GitHub issue แล้ว implement ตาม plan จนพร้อม merge",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "implement-todo-md",
+		"description": "อ่าน TODO.md แล้ว implement tasks ทั้งหมดตามลำดับ พร้อม update status",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "improve",
+		"description": "ปรับปรุงสิ่งใดๆ ใน project ตาม context โดยหา gaps แล้วแก้ไข",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "improve-uxui",
+		"description": "ปรับ UX/UI all routes และ all components ด้วย deep-thinking/pondering แล้ว follow-design-system",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "learn",
+		"description": "เรียนรู้ concept, tool, หรือ library อย่างเป็นระบบ ด้วย research และ practice",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "learn-from-cli",
+		"description": "เรียนรู้ command structure, subcommands, options, และ output ของ CLI tool ใดก็ได้",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "learn-from-pattern",
+		"description": "เรียนรู้จาก patterns ที่พบใน codebase, competitors, หรือ real-world implementations",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "learn-from-references",
+		"description": "เรียนรู้จาก references directory และ external sources เพื่อเขียน content ครอบคลุม",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "learn-from-web",
+		"description": "เรียนรู้จากเว็บไซต์หลักและเอกสารด้วย DeepWiki, Context7 และ Official Documentation",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "learn-with-slide",
+		"description": "เรียนรู้และสร้าง Slidev presentation สรุปความรู้ใน D:/newkub/slides/learn/",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "list-alternative",
+		"description": "List alternatives ที่ดีกว่าสำหรับ libraries, tools, frameworks หรือ patterns",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "list-brave-browser-history",
+		"description": "รายการประวัติการเข้าเว็บจาก Brave browser",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "list-chezmoi-files",
+		"description": "รายการไฟล์ทีถูก chezmoi จัดการ (chezmoi managed)",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "list-ci-configs",
+		"description": "รายการ CI/CD config files ใน repository แบบ read-only",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "list-cloudflare-projects",
+		"description": "รายการ Cloudflare projects ทั้งหมดในเครื่อง พร้อม local path, remote match และ status",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "list-cloudflare-worker-fails",
+		"description": "สรุป Cloudflare Workers/Pages ที deployment ล้มเหลวทั้งหมดใน account",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "list-computer-info",
+		"description": "แสดงข้อมูลเครื่องคอมพิวเตอร์ เช่น OS, CPU, RAM, disk, GPU, และ hostname",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "list-dependencies",
+		"description": "แสดงรายการ dependencies ทั้งหมดใน project พร้อมข้อมูลและการวิเคราะห์",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "list-deployment-fails",
+		"description": "สรุป deployment failures จาก CI/CD และ cloud (GitHub Actions, Cloudflare Workers)",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "list-devin-global-hooks",
+		"description": "List global and project-level devin hooks from common config paths",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "list-devin-global-mcp",
+		"description": "List configured global MCP servers and their tools",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "list-devin-global-skills",
+		"description": "แสดงรายการ Devin global skills ทั้งหมดพร้อมคำอธิบาย",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "list-devin-global-skills-relation",
+		"description": "แสดงตารางความสัมพันธ์และ flow ของ devin global skills จาก `related` และ `/skill-name` references",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "list-devin-global-subagents",
+		"description": "แสดงรายการ global subagents ทั้งหมดใน devin agents repo พร้อมรายละเอียด",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "list-devin-session",
+		"description": "แสดงรายการ Devin sessions ทั้งหมดพร้อม title, mode, model, และเวลาใช้งานล่าสุด",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "list-devin-user-request-all-session",
+		"description": "รายการ requests จาก user ทังหมด sessions จาก history summaries",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "list-devin-user-request-in-this-session",
+		"description": "รายการ requests จาก user ใน session ปัจจุบันจาก history summary",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "list-devin-user-request-this-repo",
+		"description": "รวมและแสดง user requests ทีเกิดใน repository ปัจจุบัน แบบไม่ซ้ำ",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "list-file-structure",
+		"description": "แสดงโครงสร้างไฟล์และโฟลเดอร์ของ project ในรูปแบบ tree โดยยกเว้นไฟล์ระบบและ build artifacts",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "list-git-branch",
+		"description": "แสดง branches ในเครื่องและ remote พร้อมข้อมูลล่าสุด",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "list-git-commit",
+		"description": "รายงาน git log สรุป commits, สถิติ, และ insights ในรูปแบบที่อ่านง่าย",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "list-git-release",
+		"description": "รายการ git tags และ releases จาก local repo พร้อม version, date, notes",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "list-git-stash",
+		"description": "แสดง stashes ทั้งหมดพร้อมข้อมูลและสถานะ",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "list-git-submodules",
+		"description": "รายการ git submodules ใน repo พร้อม status",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "list-git-tags",
+		"description": "แสดง tags ทั้งหมดพร้อมข้อมูลและ semantic versioning status",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "list-git-worktree",
+		"description": "รายการ git worktrees ใน repo พร้อม branch และ status",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "list-github-action-fail",
+		"description": "ดู GitHub Actions workflow runs ทีล้มเหลวทั้ง personal และ org repos",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "list-github-actions-fails",
+		"description": "สรุป GitHub Actions workflow runs ทีล้มเหลวทั้ง personal และ org repos",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "list-github-branch",
+		"description": "แสดง branches ทั้งหมดของ repo ที่ระบุบน GitHub",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "list-github-issue",
+		"description": "แสดงรายการ issues ของ repository ที่ระบุบน GitHub",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "list-github-pr",
+		"description": "แสดง pull requests ของ repo ที่ระบุพร้อม state และ metadata",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "list-github-project",
+		"description": "แสดงรายการ GitHub Projects ของ user หรือ org พร้อม filter ตาม source",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "list-github-release",
+		"description": "แสดง releases ทั้งหมดของ repo ที่ระบุบน GitHub",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "list-github-repo",
+		"description": "รายการ remote repositories ทั้งหมดบน GitHub ที่ผู้ใช้เป้นเจ้าของ โดยกรอง fork และ archived ออก",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "list-github-star-filter-bun",
+		"description": "แสดง 50 starred repositories ล่าสุดทีเกี่ยวข้องกับ Bun",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "list-github-star-filter-rust",
+		"description": "แสดง 50 starred repositories ล่าสุดทีภาษาหลักเป็น Rust",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "list-github-star-latest",
+		"description": "แสดง 50 starred repositories ล่าสุดของ authenticated user หรือ user ทีระบุ",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "list-my-npm-packages",
+		"description": "แสดงรายการ npm packages ทีผู้ใช้เป็น owner/author บน npm registry",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "list-notes",
+		"description": "แสดงรายการ notes ใน repo D:\\newkub\\notes",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "list-program-in-computer",
+		"description": "แสดงรายการ program ที่ติดตั้งในเครื่องจาก package manager ทั้งหมด",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "list-project-git-in-computer",
+		"description": "สแกนและรายการ git projects ทั้งหมดในเครื่อง ทุก drive พร้อม status",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "list-project-in-drive-d",
+		"description": "แสดง template shell script list projects ใน drive D ที่มี .git",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "list-raindrop-io",
+		"description": "รายการ bookmarks จาก Raindrop.io เรียงตามล่าสุด",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "list-repo-in-github-star",
+		"description": "แสดง 50 starred repositories ล่าสุดของ user บน GitHub",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "list-system-env",
+		"description": "แสดงรายการ OS, shell, environment variables และ global root paths",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "list-todo-md",
+		"description": "สแกนหา TODO.md ทั้งหมดใน current workspace และรายงาน summary/รายละเอียดในรูปแบบตาราง",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "list-website-all-routes",
+		"description": "รายการ routes ทั้งหมดใน website project สำหรับหลาย frameworks",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "list-workspaces",
+		"description": "แสดงรายการ workspaces ทั้งหมดใน monorepo พร้อม dependencies graph",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "loop-continuous",
+		"description": "วนปรับปรุงงานซ้ำจนถึงจุดทีดีพอ โดยหยุดก่อน over-engineer",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "loop-until-complete",
+		"description": "ทำซ้ำงานจนกว่าจะเสร็จสมบูรณ์",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "match",
+		"description": "หา match items จาก codebase แล้ว apply rules ที่ผู้ใช้กำหนดให้กับแต่ละ match",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "merge",
+		"description": "merge ไฟล์หรือ folder เข้าด้วยกันและลบ source เดิม",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "merge-git-branch",
+		"description": "Merge feature branch เข้า target branch ด้วย no-ff merge commit",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "merge-github-pr",
+		"description": "Merge pull request ด้วย strategy ทีเหมาะสม พร้อม validate ก่อน merge",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "more-file",
+		"description": "Add more files",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "move-to",
+		"description": "ย้ายไฟล์และอัพเดท reference",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "new-skills",
+		"description": "สร้าง global Devin skills หนึ่งรายการขึ้นไปโดยปฏิบัติตามมาตรฐานของ update-devin-global-skills",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "open-all-cloudflare-projects",
+		"description": "เปิดหน้า dashboard ของ Cloudflare projects ทั้งหมดทีพบในเครื่องบน web",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "open-cloudflare-workers",
+		"description": "เปิดหน้า Cloudflare Workers dashboard ใน browser",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "open-devin-in-web",
+		"description": "สร้าง web graph ของ devin global skills, subagents, MCP, global rules พร้อม UX ดี",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "open-files-in-web",
+		"description": "เปิดไฟล์, directory, หรือ URL ใน web browser ด้วย open-in-open-terminal CLI พร้อม preview สวยงาม",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "open-github-issue",
+		"description": "เปิดหน้า GitHub issue ใน browser",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "open-github-pr",
+		"description": "เปิดหน้า GitHub pull request ใน browser",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "open-github-repo",
+		"description": "เปิด GitHub repo บน website ที branch ปัจจุบัน",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "open-github-repo-org",
+		"description": "เปิดหน้า repositories ของ GitHub organization ใน browser",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "open-github-repo-personal",
+		"description": "เปิดหน้า repositories ของ GitHub profile ส่วนตัวใน browser",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "open-github-secrets",
+		"description": "เปิดหน้า GitHub Secrets สำหรับตั้งค่า",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "open-in-devin",
+		"description": "เปิด directory หรือ file ใน Devin session ใหม่",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "open-in-explorer",
+		"description": "เปิดไฟล์หรือ directory ใน Windows Explorer ด้วย explorer <path>",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "open-in-wezterm",
+		"description": "เปิด directory ใน WezTerm terminal ด้วย wezterm start --cwd",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "open-in-windows-terminal",
+		"description": "เปิด directory ใน Windows Terminal ด้วย wt -d <path>",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "open-in-zed",
+		"description": "เปิดไฟล์หรือ directory ใน Zed editor ผ่าน CLI ที่ถูกต้องตาม OS",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "open-readme-html",
+		"description": "สร้างและเปิดไฟล์ README.html ด้วย Element Plus + Tailwind CSS, tab system 7 tabs พร้อม search,",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "open-web",
+		"description": "เปิด website ด้วย native OS command",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "open-web-dependencies",
+		"description": "เปิด website ของ dependencies จาก package manifest",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "open-web-for-config-secret",
+		"description": "อ่าน .env.example แล้วเปิด URLs สำหรับสร้าง API keys และ secret manager dashboard ให้ user กรอกเอง",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "optimize-codebase",
+		"description": "วิเคราะห์และ optimize codebase เพื่อความเร็ว ขนาด โครงสร้าง และลบสิ่งไม่จำเป็น",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "optimize-everything",
+		"description": "Optimize ทุกอย่างที detect ได้: SEO, performance, bundle, images, a11y, CWV",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "pick-bestest",
+		"description": "ถาม user เลือกอันดีทีสุดจาก list ตัวเลือก เลือกได้แค่อันเดียว",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "plan",
+		"description": "วางแผนงานและ architecture อย่างเป็นระบบก่อนเริ่ม implement",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "plan-with-me",
+		"description": "วางแผนร่วมกับผู้ใช้ ใช้ /follow-deep /deep-report /ask-me เมื่อยังไม่แน่ใจ",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "pondering",
+		"description": "ครุ่นคิดและทบทวนอย่างลึกซึ้งก่อนตัดสินใจหรือดำเนินการ",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "prepare-skills-context",
+		"description": "ตรวจจับ AI tool อ่าน global rules related skills และเลือก template ก่อนเขียน skill",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "prioritize",
+		"description": "จัดลำดับความสำคัญของ tasks และ improvements ตาม impact และ effort",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "publish-package-to-registry",
+		"description": "Auto-detect registry แล้ว publish package ไปยัง npm, crates.io หรือ registry อืน",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "re-answer",
+		"description": "ทบทวนคำถามและตอบใหม่อย่างละเอียดและครบถ้วนขึ้น",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "read-all-files",
+		"description": "อ่านไฟล์ทั้งหมดในโปรเจกต์เพื่อวิเคราะห์",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "read-devin-context",
+		"description": "อ่านและสรุป devin context ทั้งหมดก่อนเริ่มงาน",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "read-related",
+		"description": "อ่านและสรุป skills ที่เกี่ยวข้องแบบ recursive",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "realize-implementation",
+		"description": "แปลงทุกอย่างเป็น production code จริง ครบทุกมิติ",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "record-video-terminal",
+		"description": "บันทึกวิดีโอและ session จาก terminal สำหรับ CLI testing",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "record-video-web",
+		"description": "บันทึกวิดีโอจากหน้าเว็บด้วย agent-browser CLI",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "refactor",
+		"description": "Refactor ตาม context โดยเรียก sub-skill ทีเหมาะสม",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "refactor-all-workspace",
+		"description": "Deep refactoring ทุก workspace ใน monorepo ด้วย comprehensive analysis และ safety measures",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "refactor-codebase",
+		"description": "Refactor codebase ครบวงจร — SRP, boundaries, code styles, consistency, maintainability",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "refactor-commit",
+		"description": "Refactor commits ด้วย rebase (break down, edit, squash, fixup, autosquash, force push, rollback)",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "refactor-files",
+		"description": "Refactor ไฟล์ทีระบุตาม context",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "refactor-to-single-responsibility",
+		"description": "Refactor code ให้เป็น SRP โดยวิเคราะห์ structure และอัปเดท references",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "refactor-workspace",
+		"description": "Refactor workspace members ให้มี SRP, แนะนำ workspace layout",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "relocation",
+		"description": "ย้ายไฟล์และโฟลเดอร์ไปยังตำแหน่งที่เหมาะสมตาม domain และ responsibility",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "rename",
+		"description": "เปลี่ยนชื่อ identifier ใน code ด้วย ast-grep และอัปเดท references ทั้งหมด",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "rename-project",
+		"description": "Rename project ทั่วทุกจุด ทั้ง local, GitHub, Cloudflare, secrets, env, และ code",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "replace",
+		"description": "แทนที่เนื้อหาในไฟล์หรือโค้ดด้วย regex หรือ AST-based patterns",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "report",
+		"description": "ตอบในแชทเป็นตารางพร้อมคอลัมน์ No. เรียงลำดับ 1, 2, 3, ...",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "report-and-continue",
+		"description": "รายงานผลและแนะนำ next action เพื่อทำงานต่อ",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "report-ansi",
+		"description": "สร้างรายงาน terminal ด้วย ANSI colors, progress bars, status symbols sketches/diagrams",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "report-architecture-diagram",
+		"description": "วาด architecture diagram ด้วย ANSI box-drawing characters ในแชทจาก codebase จริง",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "report-before",
+		"description": "รายงานสถานะปัจจุบันตาม context ก่อนเริ่มทำอะไร",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "report-before-after",
+		"description": "รายงานแผนการทำงานก่อนดำเนินการ และแสดง before-after comparison",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "report-bundle",
+		"description": "สรุปขนาด bundle ต่อ chunk, dependency, tree-shaking effectiveness",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "report-changelog",
+		"description": "สร้าง changelog รายงานจาก git log ระหว่าง tags หรือ releases",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "report-codeblock",
+		"description": "จัดรูปแบบ code blocks, diffs, JSON และ markdown documents",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "report-config-files",
+		"description": "Report configuration files, defaults, and drift in the project",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "report-enhance-prompt",
+		"description": "ปรับปรุง prompt ให้ชัดเจน เป็นระเบียบ แยกหน่วยงาน และสร้างแผน",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "report-features",
+		"description": "รายงาน features ทั้งหมดใน project เป็นตารางจาก generated TypeScript files",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "report-file-structure",
+		"description": "แสดงโครงสร้างไฟล์ โฟลเดอร์ พร้อม metadata สถิติ และคำแนะนำ",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "report-flow",
+		"description": "สรุปขั้นตอน workflow หรือกระบวนการเป็นลำดับ step ทีอ่านง่าย",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "report-git-diff",
+		"description": "รายงาน git diff พร้อมสรุปการเปลี่ยนแปลง สถิติ และ insights ในรูปแบบที่อ่านง่าย",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "report-idea",
+		"description": "สร้างและรายงานไอเดียตาม user context ทั่วไป",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "report-idea-cleanup-files-in-computer",
+		"description": "รายงานไอเดียไฟล์และโฟลเดอร์ในเครื่องที่สามารถลบหรือทำความสะอาดได้",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "report-in-html",
+		"description": "สร้างไฟล์ HTML โต้ตอบได้สำหรับรายงานบน browser พร้อมตาราง, dropdown, sort/filter",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "report-math-equation",
+		"description": "ตอบคำถามหรือเปรียบเทียบทางเลือกในรูปแบบสมการ + - = ให้เข้าใจง่าย",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "report-math-formula",
+		"description": "แปลง code/description/ปัญหาให้เป้นสูตรคณิตศาสตร",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "report-my-cli-update",
+		"description": "รายงานอัปเดต CLI tools ที่ติดตั้งในเครื่องรายสัปดาห์",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "report-my-global-cli",
+		"description": "รายงาน CLI tools ที่ติดตั้งและ commands ที่ควรแปลงเป็น skills",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "report-my-tech-stack-update",
+		"description": "รายงานอัปเดต tech stack ที่ใช้ในการพัฒนารายสัปดาห์",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "report-numbered-bullet",
+		"description": "รายงานผลในรูปแบบ numbered, bullet, หรือ numbered + bullet ตามความเหมาะสม",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "report-plan",
+		"description": "รายงานแผนงานในแชทก่อนลงมือ implement โดยแบ่งเป็น sections ตามมาตรฐาน",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "report-progress",
+		"description": "รายงานสถานะและความคืบหน้าของ agent session รวม completed, pending, blockers และ next actions",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "report-public-api",
+		"description": "รายงาน public API ของ project หรือ library ในรูปแบบ markdown table",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "report-release-changelog",
+		"description": "ดึงและจัดรูปแบบ release changelog จาก GitHub diff ระหว่าง tags",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "report-review",
+		"description": "รายงานผล review ครบทุกมิติอย่างละเอียดที่สุด พร้อม severity และ recommendations",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "report-scan-todo",
+		"description": "รวบรวม TODO/FIXME/HACK markers จาก codebase พร้อมตำแหน่งและความสำคัญ",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "report-table",
+		"description": "จัดรูปแบบตาราง, bullet, numbered list, และ metrics สำหรับรายงาน",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "report-todo",
+		"description": "รายงานสิ่งที AI จะทำต่อไปในรูปแบบตาราง ไม่ใช่สำหรับอ่าน TODO.md",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "report-usage",
+		"description": "Report usage statistics and patterns of APIs, functions, or skills",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "report-usage-md",
+		"description": "Report the status and coverage of USAGE.md in workspace",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "report-uxui-all-routes",
+		"description": "สร้างรายงาน routes ทั้งหมดของ app/website ใน markdown table สำหรับ UX/UI",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "report-uxui-sketch",
+		"description": "สร้างรายงาน UX/UI sketch ใน markdown สำหรับ app/website จาก context ที่ให้มา",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "report-what-you-do",
+		"description": "รายงานสิ่งที agent กำลังทำ ทำไม และขั้นตอนถัดไปแบบ real-time",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "report-workspace-graph",
+		"description": "รายงานความสัมพันธ์ระหว่าง workspaces ใน monorepo พร้อม dependency graph",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "research-api-references",
+		"description": "ค้นหา API references จากหลายแหล่งด้วย /deep-research",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "research-dependencies",
+		"description": "Research dependencies/libraries สำหรับ project โดยเปรียบเทียบ NPM, crates, Go modules, Python",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "research-setup",
+		"description": "ค้นหา setup, config, CI และ integration ของ tool/service จากหลายแหล่ง",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "reset-context",
+		"description": "ลบ context ของบทสนทนาก่อนหน้าและดำเนินการต่อเหมือนกับ session ใหม่",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "resolve-all-cloudflare-worker-fails",
+		"description": "หาและแก้ไข Cloudflare Workers/Pages ที deployment ล้มเหลวทั้งหมดใน account",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "resolve-all-github-actions-fails",
+		"description": "หาและ resolve GitHub Actions workflow runs ทีล้มเหลวทั้ง personal และ org repos",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "resolve-errors",
+		"description": "แก้ไข error อย่างเป็นระบบ รวดเร็ว และแม่นยำ — ระบุ root cause แก้น้อยที่สุด ใช้ scripts automate",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "resolve-github-pr",
+		"description": "Resolve pull request ด้วยการ merge, squash, หรือ rebase ตาม project conventions",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "resolve-merge-conflicts",
+		"description": "แก้ไข git merge conflicts อย่างปลอดภัย ไม่สูญเสีย changes",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "restore-from-devin-history",
+		"description": "กู้คืนไฟล์ที่เสียหายรุนแรงโดยอ่านประวัติ Devin session แทน git restore เมื่อง git ใช้ไม่ได้แล้ว",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "restore-from-git-log",
+		"description": "กู้คืนไฟล์จาก git log โดยเริ่มจาก commit ล่าสุดถอยหลังจนกว่าจะพบ",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "restore-from-my-dotfiles",
+		"description": "กู้คืน dotfiles จาก git log ของ chezmoi repo แล้ว chezmoi apply",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "restructure",
+		"description": "ปรับโครงสร้างไฟล์และโฟลเดอร์ให้มี single responsibility ตาม domain",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "rethink",
+		"description": "ทบทวนและ re-evaluate การตัดสินใจ แผน หรือ implementation เมื่อติดหรือมีข้อมูลใหม",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "review",
+		"description": "Review ตาม context โดยเลือก review skill ที่เหมาะสม",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "review-and-fix",
+		"description": "Review แล้วแก้ไขตาม context โดยขอ user confirm",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "review-app-usage",
+		"description": "ตรวจสอบ usage.kdl spec และ USAGE.md ก่อน update-usage-md แก้ไข",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "review-architecture",
+		"description": "Review architecture, modularity, isolation, resilience, reliability, governance",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "review-backend",
+		"description": "Orchestrator backend review ครอบคลุม 7 sub-review workflows แบบ parallel",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "review-best-practices",
+		"description": "ตรวจสอบ code หรือ project ว่าปฏิบัติตาม best practices หรือไม และแนะนำการแก้ไข",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "review-business",
+		"description": "Review business logic ครอบคลุม payment, subscription, multi-tenancy, feature flags, realtime, email",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "review-by-stakeholder",
+		"description": "Review project โดยเลือก roleplay stakeholders ตาม status และ context ของ project",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "review-codebase-everything",
+		"description": "(Deprecated) เนื้อหา CLI-driven review ย้ายไปยัง /deep-review",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "review-compliance",
+		"description": "Review compliance ครอบคลุม GDPR, CCPA, HIPAA, PCI-DSS, SOC2, PDPA, consent, DSAR, audit, retention",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "review-config",
+		"description": "Review config files หา drift, missing, duplicate, shared config และ dependencies catalog",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "review-consistency",
+		"description": "ตรวจสอบและปรับปรุงความสอดคล้องของ skill files ทั้งภายในและข้าม skill",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "review-content-coverage",
+		"description": "เขียน content ครอบคลุมทุก features, APIs, และ use cases",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "review-correctness",
+		"description": "Review implementation correctness ตรวจ logic, types, edge cases, contracts, concurrency, tests",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "review-delivery",
+		"description": "Review delivery: docs, DX, efficiency, config, CI/CD, infra, performance, security",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "review-deploy",
+		"description": "Review deployment readiness ก่อน deploy",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "review-devin-global-skills",
+		"description": "Review, refactor และตรวจ cross-skill consistency ของ devin skills repo",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "review-devin-global-subagents",
+		"description": "ตรวจสอบ subagent ก่อน update-devin-global-subagents แก้ไข ครอบคลุม format",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "review-diff",
+		"description": "รีวิว git diff ก่อนตัดสินใจ keep, revert หรือดำเนินการต่อ",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "review-docs",
+		"description": "ตรวจสอบ docs structure ก่อน update-docs แก้ไข ครอบคลุม VitePress config และ content",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "review-dot-devin",
+		"description": "ตรวจสอบโครงสร้าง .devin ก่อน update-dot-devin แก้ไข ครอบคลุม hooks และ workspace",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "review-features",
+		"description": "ตรวจสอบ features documentation ก่อน update-features-md แก้ไข",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "review-flow",
+		"description": "Review workflow เพื่อให้เร็ว ปลอดภัย ใช้ง่าย มีประสิทธิภาพ และไม่ซ้ำซ้อน",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "review-frontend",
+		"description": "Review frontend code quality, components, state, rendering, type safety, CSS, forms, testing",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "review-gaps",
+		"description": "Meta-review รวบรวม findings จาก dimensional reviews เป็น prioritized improvement list",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "review-github-issue",
+		"description": "ตรวจสอบเนื้อหา, labels และความพร้อมของ GitHub issue",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "review-github-pr",
+		"description": "Review pull request ทั้งหมดก่อน merge โดยตรวจสอบ diff, commits, PR metadata, CI และ code changes",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "review-implement",
+		"description": "Review implementation readiness ก่อน execute implement-* skills",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "review-issue",
+		"description": "ตรวจสอบ issue ใดๆ เพื่อดูความชัดเจน, scope, acceptance criteria และความพร้อม",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "review-migration",
+		"description": "Review migration plan พร้อม execution checklist ก่อนลงมือ",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "review-naming",
+		"description": "ตรวจชื่อ variables, functions, files, skills ให้ชัดเจน สม่ำเสมอ",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "review-observability",
+		"description": "Review observability: metrics, tracing, logging, alerting, dashboards, SLO/SLI, APM, incidents",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "review-performance",
+		"description": "Review application performance ครอบคลุม network, build, runtime, memory, I/O, database, caching",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "review-plan",
+		"description": "Review plan quality ก่อน execute plan",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "review-platform",
+		"description": "Review platform ครอบคลุมทุก dimension พร้อม review score",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "review-quality",
+		"description": "Review code quality, bug-prone patterns, correctness, and overall quality with score",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "review-readability",
+		"description": "ตรวจอ่านง่ายของ code และ text พร้อม actionable feedback",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "review-readme-md",
+		"description": "ตรวจสอบ README.md ก่อน update-readme-md แก้ไข ครอบคลุม section order และ format",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "review-realize-implementation",
+		"description": "Review implementation completeness หา TODO, MOCK, STUB, placeholder, flows ขาด UX/UI",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "review-redundancy",
+		"description": "ตรวจหา skills ที่ซ้ำซ้อนกันใน devin skills repo",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "review-refactor",
+		"description": "Review codebase before refactor to establish baseline and identify refactor targets",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "review-references",
+		"description": "ตรวจสอบ references ระหว่าง devin global skills และ AGENTS.md ไม่ให้ขาด/ซ้ำ/วน",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "review-release",
+		"description": "Review release readiness ก่อน publish",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "review-restructure",
+		"description": "Review file/folder structure before restructure to plan relocation and dry-run",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "review-risk",
+		"description": "Review project, plan, or implementation risks ครอบคลุม probability, impact, mitigation",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "review-rules",
+		"description": "ตรวจสอบ .devin/rules, ast-grep rules และ AGENTS.md ให้ถูกต้อง ครบถ้วน ไม่ซ้ำซ้อน",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "review-security",
+		"description": "Review security ครอบคลุม auth, authorization, OWASP, secrets, injection, supply chain, encryption",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "review-seo",
+		"description": "Review SEO ครอบคลุม technical, on-page, structured data, CWV, hreflang",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "review-stability",
+		"description": "Review app stability, error handling, debuggability, recovery, monitoring and score",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "review-techstack",
+		"description": "Review tech stack, dependencies และ library design ครอบคลุม versions, security, API, bundle",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "review-test",
+		"description": "Review test strategy, quality, และผลลัพธ์หลัง run tests พร้อมสรุป action ถัดไป",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "review-update",
+		"description": "Review drift between current and target state to determine update priority order",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "review-usage-md",
+		"description": "Review USAGE.md quality, coverage, and consistency in workspace",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "review-uxui",
+		"description": "Review UX/UI design quality, design system, visual, interaction, accessibility, handoff",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "review-workflow",
+		"description": "Review workflow ให้เร็ว ปลอดภัย ใช้ง่าย มีประสิทธิภาพ ไม่ซ้ำซ้อน และไม่เกิน scope",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "review-workspace",
+		"description": "Review workspace ใน monorepo หรือ project เดี่ยว ครอบคลุม manifest, dependencies, scripts, config",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "review-writing",
+		"description": "Review writing quality, naming conventions, and discoverability across docs, code, features",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "rewrite",
+		"description": "rewrite ไฟล์หรือหลายไฟล์ใหม่ทั้งหมดโดยไม่อ้างอิง context ก่อนหน้า",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "roleplay-stakeholder",
+		"description": "รับบทตาม persona / stakeholder ทีระบุ เพื่อ review code/project จากมุมมองนั้น",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "run-audit",
+		"description": "Audit dependencies และ security เพื่อตรวจสอบ vulnerabilities",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "run-bench",
+		"description": "รัน benchmark tests เพื่อวัดประสิทธิภาพและเปรียบเทียบ performance",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "run-build",
+		"description": "รัน build process อย่างเป็นระบบเพื่อสร้าง production-ready artifacts",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "run-check",
+		"description": "รัน lint, typecheck และ scan เพื่อตรวจสอบคุณภาพ",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "run-clean",
+		"description": "Clean build artifacts และ cache เพื่อเริ่มต้นใหม่",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "run-cleanup",
+		"description": "Run Cleanup",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "run-deploy",
+		"description": "Deploy application ไปยัง platform ที่กำหนด พร้อม commit, push และ watch จน live",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "run-dev",
+		"description": "รัน development server และแก้ไขข้อผิดพลาด",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "run-docs",
+		"description": "รัน documentation site และแก้ไขข้อผิดพลาด",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "run-drizzle-studio",
+		"description": "รัน Drizzle Studio สำหรับจัดการ database ผ่าน GUI",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "run-examples",
+		"description": "เขียน examples ครอบคลุมทุก API ในโปรเจกต์",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "run-format",
+		"description": "ฟอร์แมตโค้ดและแก้ไขปัญหาจาก formatter",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "run-install",
+		"description": "ติดตั้ง dependencies และแก้ไขปัญหา installation",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "run-lint",
+		"description": "รัน lint และแก้ code เพื่อให้ผ่าน โดยไม่ใช้ ignore patterns และห้ามแก้ไข config ไฟล์",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "run-preview",
+		"description": "รัน preview build เพื่อทดสอบก่อน deploy จริง",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "run-profiler",
+		"description": "Profile performance เพื่อหา bottlenecks และ optimize",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "run-program",
+		"description": "รันโปรแกรมหลักและทำให้ทำงานได้จริง",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "run-release",
+		"description": "Auto-detect platforms, release ไปยัง external platforms, gen CHANGELOG",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "run-review",
+		"description": "รัน review CLI วิเคราะห์ผล และแนะนำ action items ตาม findings",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "run-review-codebase-cli",
+		"description": "Run the Solid UI review-codebase CLI",
+		"source": "D:\\newkub\\solid-ui\\.devin\\skills"
+	},
+	{
+		"name": "run-scan",
+		"description": "รัน ast-grep scan เพื่อตรวจสอบ codebase ด้วย AST-based patterns",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "run-solid-ui-generator",
+		"description": "Run the Solid UI component generator",
+		"source": "D:\\newkub\\solid-ui\\.devin\\skills"
+	},
+	{
+		"name": "run-solid-ui-mcp",
+		"description": "Run and test the Solid UI MCP server",
+		"source": "D:\\newkub\\solid-ui\\.devin\\skills"
+	},
+	{
+		"name": "run-solid-ui-website",
+		"description": "Run, build, and deploy the Solid UI website",
+		"source": "D:\\newkub\\solid-ui\\.devin\\skills"
+	},
+	{
+		"name": "run-task-all",
+		"description": "รันงานที่ค้างอยู่ทั้งหมดจากคิวตามลำดับ",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "run-test",
+		"description": "รัน unit tests (alias สำหรับ /run-test-unit)",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "run-test-all",
+		"description": "รัน test suite อย่างเป็นระบบ จำแนก failures ว่าควรแก้ source หรือ test โดยไม่แก้ให้ผ่านอัตโนมัติ",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "run-test-api",
+		"description": "รัน API tests โดยเรียก endpoints และตรวจสอบ responses ด้วย scripts",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "run-test-coverage",
+		"description": "รัน test coverage analysis ตรวจสอบ framework และบรรลุ 100% coverage",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "run-test-e2e",
+		"description": "รัน E2E tests ด้วย Playwright หรือ Cypress",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "run-test-integration",
+		"description": "รัน integration tests สำหรับ module interactions และ data flow",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "run-test-unit",
+		"description": "รัน unit tests สำหรับ pure functions และ business logic",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "run-typecheck",
+		"description": "Run typecheck with config check",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "run-until-pass",
+		"description": "run command จนกว่าจะผ่าน และแก้ไข error ทั้งหมด",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "run-verify",
+		"description": "รัน verify แบบครบวงจรบน local หรือ CI/CD ตามขนาด project",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "run-watch-build",
+		"description": "รัน build แบบ watch mode เพื่อตรวจสอบ build errors อย่างต่อเนื่อง",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "run-watch-test",
+		"description": "รัน tests แบบ watch mode เพื่อตรวจสอบ test failures อย่างต่อเนื่อง",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "run-watch-typecheck",
+		"description": "รัน type checking แบบ watch mode เพื่อตรวจสอบ type errors อย่างต่อเนื่อง",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "save-to-devin-global-skills",
+		"description": "รับ link, resource, topic หรือ prompt แล้วบันทึกลง global skill ทีเหมาะสม",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "save-to-new-notes",
+		"description": "สร้าง note ใหม่ใน repo D:\\newkub\\notes จากไฟล์หรือข้อความท่ีระบุ",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "save-to-notes-idea",
+		"description": "สร้าง note idea ใน repo D:\\newkub\\notes โดย enhance เป็น numbered list ก่อนบันทึก",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "scan-codebase",
+		"description": "Scan codebase อย่างรวดเร็วเพื่อเข้าใจ structure, patterns, และ quality ใน 3 นาที",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "search-files-patterns",
+		"description": "Search file name and content patterns across codebases with glob, grep, and ast-grep",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "search-files-patterns-in-drive-d",
+		"description": "Search file and folder patterns in drive D using fd with parallel pattern types",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "search-in-git",
+		"description": "ค้นหา git history, commits, diffs ด้วย log/grep/blame/pickaxe",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "search-in-github-star",
+		"description": "ค้นหา repositories จาก GitHub stars ด้วย gh CLI",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "search-in-raindrop-io",
+		"description": "Search Raindrop.io bookmarks via raindrop CLI with filters, output formats, and result parsing",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "search-mcp",
+		"description": "ค้นหา MCP และ internet ที่เกี่ยวข้องและน่าสนใจ",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "search-npm-libraries",
+		"description": "หา libraries ตามที่บอกหรือคล้ายที่บอก โดย libraries นั้น ต้อง",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "search-project-in-drive-d",
+		"description": "ค้นหา project ใน drive D ที่ตรงกับ keyword หรือ pattern",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "search-similar",
+		"description": "ค้นหา skills, code, หรือ patterns ทีคล้ายกับสิ่งทีระบุ",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "search-skills",
+		"description": "ค้นหา skills ด้วย command `skills find <keyword>` อย่างมีประสิทธิภาพ",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "setup-cicd",
+		"description": "ตรวจจับ platform และตั้งค่า CI/CD config files, secrets และ workflows",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "setup-package",
+		"description": "ตั้งค่า package manifest ให้พร้อม build, publish และ release",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "setup-release",
+		"description": "ตั้งค่า release tool, workflow และ changelog generation",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "ship-code",
+		"description": "จัดเตรียมและแก้ไข code ก่อนขั้นตอน verify โดยไม่รัน test/build",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "ship-release",
+		"description": "Release patch from dev: deep validation, PR to main, review, merge, release, then back to dev",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "ship-verify-cicd",
+		"description": "เรียก ship-code + verify แล้ว push ขึ้น CI/CD และ watch จนกระบวนการผ่าน",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "ship-verify-local",
+		"description": "เรียก ship-code แล้ว optimize และ verify บน local แล้ว commit โดยไม่ push",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "simplify",
+		"description": "ลดความซับซ้อนของ content code architecture และ workflows",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "suggest-me",
+		"description": "ถามผู้ใช้เพื่อเข้าใจว่าอยากทำอะไรหรือได้ features อะไร โดยไม่สร้าง report files",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "suggest-next-action",
+		"description": "วิเคราะห์สถานการณ์และแนะนำ action ถัดไปที่ควรทำ",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "sumarize-your-understand",
+		"description": "สรุปความเข้าใจของคำสั่งหรือ task ก่อนลงมือ และถาม user ยืนยัน",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "summarize",
+		"description": "สรุปเนื้อหาตาม context ทั่วไป",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "summarize-prompt",
+		"description": "สรุปการสนทนาเป็น prompt ที่ชัดเจน",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "summarize-this-chat-session",
+		"description": "สรุป chat session ทีคุยในครังนี้",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "summarize-this-project",
+		"description": "สรุป project ปัจจุบัน features และ solutions",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "sync-drive-d-submodules",
+		"description": "Sync และอัพเดท git submodules ใน D drive กับ remote repositories",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "taxonomy",
+		"description": "สร้าง taxonomy หรือจัดหมวดหมู่ items ตาม context ปัจจุบัน",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "test-release",
+		"description": "สร้าง release artifact, รัน smoke test, และตรวจสอบก่อน publish จริง",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "test-usage",
+		"description": "ทดสอบ usage examples จาก README/docs/package.json เพื่อยื่นยันว่าทำงานได่จริงก่อน ship",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "translate-to-lang-en",
+		"description": "ใช้ภาษาอังกฤษในการสื่อสารและทำงาน",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "translate-to-lang-th",
+		"description": "ใช้ภาษาไทยเป็นภาษาหลักในการสื่อสารและทำงาน",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "try-again",
+		"description": "ทำตาม user prompt ล่าสุดอีกครั้ง",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "try-in-temp",
+		"description": "รันคำสั่งหรือการทดลองใน OS temp directory โดยไม่แตะต้อง workspace",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "understand-me",
+		"description": "คิดถามผู้ใช้เพื่อเข้าใจ preferences และ style การทำงาน",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "unified-review-and-merge-pr",
+		"description": "Review pull request ทีหนึ่ง แล้ว merge ถ้าผ่าน หรือ request changes ถ้าไม่ผ่าน",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "uninstall-program-in-computer",
+		"description": "ลบ program ออกจากเครื่องโดยเลือก package manager ทีเหมาะสม",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "update-agents-md",
+		"description": "สร้างหรืออัปเดต AGENTS.md ด้วย architecture, platform, target user, lib mapping และ workspace rules",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "update-all-devin-global-skills",
+		"description": "อัปเดต devin skills repo ทั้งหมดหรือเฉพาะที่ระบุโดย orchestrate update-devin-global-skills ต่อ skill",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "update-all-program-in-computer",
+		"description": "อัปเดต programs ทั้งหมดในเครื่องทีติดตั้งผ่าน package managers",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "update-chezmoi",
+		"description": "อัปเดต dotfiles ด้วย chezmoi รวมถึง chezmoi readd",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "update-config",
+		"description": "อัปเดต project config ให้ครบถ้วน สอดคล้อง ลด duplication โดยใช้ shared config/dependencies catalog",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "update-contributing-md",
+		"description": "อัปเดต CONTRIBUTING.md ให้สอดคล้องกับ project workflows และ conventions",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "update-create-analyze-cli",
+		"description": "ตรวจสอบและสร้าง/อัปเดต tools/analyze CLI สำหรับ deep codebase analysis",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "update-dependencies-latest",
+		"description": "อัพเดท dependencies ในทุก workspace ให้เป็น latest version ทั้ง major, minor, patch",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "update-devin-global-mcp",
+		"description": "Add, update, remove, or sync global MCP servers in devin mcp_config.json with dotfiles check",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "update-devin-global-rules",
+		"description": "ทำให้ global rules สอดคล้องกับ skills และ global subagents ไม่ขัดแย้ง",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "update-devin-global-skills",
+		"description": "สร้างหรืออัปเดต skill หนึ่งตัวหรือหลายตัวใน devin skills repo ตามมาตรฐาน",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "update-devin-global-subagents",
+		"description": "สร้างหรืออัปเดต global subagent ใน devin agents repo ให้ถูกต้องตาม AGENT.md",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "update-devin-harness",
+		"description": "อัปเดต global rules, global skills และ global subagents ให้สอดคล้องกัน",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "update-docs",
+		"description": "สร้าง documentation สำหรับ project ด้วย VitePress + markdown ไม่ใช้ HTML/UX",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "update-dot-devin",
+		"description": "สร้าง .devin structure ครบถ้วนรวม rules และ hooks โดยไม่มี workflows directory",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "update-dot-vscode",
+		"description": "อัปเดต .vscode สำหรับ workspace settings, extensions, tasks, launch, snippets, editor associations",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "update-everythink-in-computer",
+		"description": "อัปเดตทุกอย่างในเครื่อง: programs, chezmoi dotfiles, devin global skills",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "update-examples",
+		"description": "เขียน examples ครอบคลุมทุก API ในโปรเจกต์สำหรับ docs, tests, และ onboarding",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "update-features-md",
+		"description": "วิเคราะห์ features ที่มีอยู่ใน project และเขียน FEATURES.md ที่ root ของ workspace",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "update-github-metadata",
+		"description": "อัปเดต GitHub repo metadata (description, homepage, topics, license, default branch)",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "update-github-task",
+		"description": "อัปเดต fields และสถานะของงานใน GitHub Project",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "update-gitignore",
+		"description": "อัปเดต .gitignore ให้ครบถ้วนตาม stack และ artifacts ทีใช้",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "update-project",
+		"description": "อัปเดต root project โดยเช็ค git log และ sync project docs/config/rules/tooling",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "update-project-all-drive-d",
+		"description": "อัปเดต project ทั้งหมดใน drive D โดย pull/fetch/sync submodules/อัปเดต project files ตาม state",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "update-project-rules",
+		"description": "สร้าง skills ที่ขาดจาก dependencies ใน package manifest ที่ยังไม่มีใน global",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "update-project-skills",
+		"description": "สร้างและอัปเดต project skills ใน .devin/skills/ ตามมาตรฐาน update-devin-global-skills",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "update-readme-md",
+		"description": "สร้าง README.md ครบถ้วนด้วย template มาตรฐานและข้อมูลจริงจากโปรเจกต์",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "update-references",
+		"description": "อัปเดท references ทั้งหมดที่เกี่ยวข้องเมื่อมีการแก้ไข ย้าย หรือลบไฟล์",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "update-review-cli",
+		"description": "อัปเดต tools/review-codebase CLI ให้ keep up ทันกับ codebase features",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "update-specs",
+		"description": "สร้างหรืออัปเดต `<workspace>/specs/` สำหรับ test specs ตาม project type",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "update-test-everything",
+		"description": "เขียนและอัปเดต test ตาม code ให้ครอบคลุมทุกกรณีใช้งาน ใช้ได้กับทุกภาษา",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "update-to-projects-wrikka-com",
+		"description": "อัปเดตและ maintain project projects-wrikka-com ที D:\\newkub\\projects-wrikka-com",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "update-todo-md",
+		"description": "เพิ่ม อ่าน และ enhance prompt จาก TODO.md ใน project root",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "update-usage-md",
+		"description": "อัปเดต usage.kdl แล้ว generate USAGE.md completions และ manpages",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "update-version-latest",
+		"description": "อัปเดตทุก versioned สิ่งใน project/computer ให้เป็น latest deps, runtimes, tools, config",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "use-ast-grep",
+		"description": "ตั้งค่าและใช้งาน ast-grep สำหรับ code search, lint และ refactoring ด้วย AST-based patterns",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "use-ast-grep-programatic",
+		"description": "ใช้งาน ast-grep แบบ programmatic ผ่าน scripts เพื่อ automate analysis และ integrate กับ review CLI",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "use-bun-native-api",
+		"description": "ใช้ Bun native APIs แทน Node.js libraries เพื่อ performance และ simplicity",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "use-bun-scripts",
+		"description": "สร้าง Bun scripts สำหรับ automate งาน",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "use-bun-shell",
+		"description": "ใช้ Bun shell สำหรับ execute commands ด้วย bun -e",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "use-create-pr",
+		"description": "สร้าง PR พร้อม template, test cases, screenshots, และ preview links",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "use-git-worktrees",
+		"description": "ใช้ git worktrees ครบวงจร: สร้าง ทำงาน merge กลับ และ cleanup",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "use-github-ship-bots",
+		"description": "สร้าง ship bot project จาก plan/issue จนถึง deploy ผ่าน PR",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "use-lib-effective",
+		"description": "วิเคราะห์ dependencies และใช้งาน libraries ให้ครบและครอบคลุม ไม่ reinvent",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "use-my-packages-on-registry",
+		"description": "ดึงรายการ packages ที user เป็นเจ้าของจาก registry แล้วติดตั้งใช้ใน project",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "use-nu-shell",
+		"description": "ใช้ Nushell สำหรับ shell commands, structured data pipelines, และ scripting",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "use-pwsh-shell",
+		"description": "ใช้ PowerShell สำหรับ shell commands, scripting, และ automation",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "use-scripts",
+		"description": "สร้าง scripts สำหรับ automate งานด้วย Bun, nushell, pwsh, หรือ ast-grep",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "validate-idea",
+		"description": "ตรวจสอบและประเมินไอเดียก่อน implement ว่าคุ้มค่า ทำได้ และสอดคล้องกับ project",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "view",
+		"description": "ดูไฟล์ใน terminal ด้วย codebase-style headers, line numbers, และ syntax highlighting",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "view-devin-global-rules",
+		"description": "แสดง devin global rules ในเทอร์มินัลพร้อม syntax highlighting",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "view-diff",
+		"description": "แสดง git diff บน terminal พร้อม syntax highlighting และ file headers",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "view-issue",
+		"description": "แสดงรายละเอียด GitHub issue บน terminal พร้อม metadata และ comments",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "view-pr",
+		"description": "แสดงรายละเอียด PR ใน terminal พร้อม metadata และ diff",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "view-repo",
+		"description": "แสดง metadata, health และ summary ของ GitHub repository",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "visualize-in-markdown-graph",
+		"description": "ตอบกลับเป็น markdown graph แสดงความเชื่อมโยงของข้อมูล",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "visualize-in-web",
+		"description": "สร้าง visual แบบ Web ใน browser บน OS temp directory",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "visualize-project",
+		"description": "สร้าง Vite + Solid + TanStack project ชั่วคราวใน temp เพื่อ visualize",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "visualize-repo-in-web",
+		"description": "สร้าง web graph visualize repo ด้วย Rust สแกน + SolidJS แสดงผล พร้อม src",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "vs",
+		"description": "เปรียบเทียบ options, tools, หรือ solutions เพื่อเลือกตัวเลือกทีเหมาะสมทีสุด",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "watch-all-task",
+		"description": "เฝ้าติดตามไฟล์งานและรันงานที่ค้างอยู่อัตโนมัติเมื่อมีการเปลี่ยนแปลง",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "watch-browser-and-fix",
+		"description": "เปิด browser ด้วย agent-browser แล้ว capture แก้ไข และ confirm web server",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "watch-browser-and-improve-uxui",
+		"description": "เปิด browser แล้ว capture หน้าด้วย capture-image-app-to-screenshot เพื่อ review ปรับปรุง UX/UI",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "watch-browser-and-test-all-routes",
+		"description": "เปิด browser แล้ว list ทุกหน้า ทดสอบ actions ทุกอย่าง ทุกหน้า และใช้ /review-by-stakeholder",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "watch-browser-console",
+		"description": "Watch browser console อย่างต่อเนื่อง จัดการ errors อัตโนมัติด้วย agent-browser",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "watch-build",
+		"description": "Watch build status และ fix build errors จนกว่าจะผ่าน",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "watch-cicd-and-resolve",
+		"description": "ติดตาม CI/CD pipeline จาก trigger จนผ่าน/live/healthy พร้อม resolve และ re-run/re-deploy",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "watch-deploy",
+		"description": "Poll a deployed URL and report when it becomes healthy after deployment",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "watch-github-actions",
+		"description": "รันและตรวจสอบ GitHub Actions จนกว่าจะผ่าน",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "watch-lint",
+		"description": "ตรวจสอบและ monitor linting ในโปรเจกต์อย่างต่อเนื่อง พร้อมจัดการ errors อัตโนมัติ",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "watch-release",
+		"description": "ตรวจสอบ release บน registry หรือ GitHub จนกว่าจะ live",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "watch-terminal",
+		"description": "เปิดเบราว์เซอร์และ watch terminal ทุก 5 วินาที พร้อมจัดการ error อัตโนมัติ",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "watch-test",
+		"description": "Watch test status และ fix test failures จนกว่าจะผ่านทั้งหมด",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "watch-typecheck",
+		"description": "Watch typecheck status และ fix type errors จนกว่าจะผ่าน",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "watch-vercel",
+		"description": "Watch Vercel deployment status และ fix จนกว่าจะ live สำเร็จ",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "write-explicit",
+		"description": "เขียนหรือแก้ instructions ให้ชัดเจน วัดผลได้ และมี single responsibility",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "write-how-to",
+		"description": "เขียน how-to guides และ tutorials อย่างมีประสิทธิภาพ",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	},
+	{
+		"name": "write-solutions",
+		"description": "เขียน solution documents และ problem-solving workflows",
+		"source": "C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills"
+	}
+]

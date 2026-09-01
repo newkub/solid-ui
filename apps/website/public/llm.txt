@@ -1,0 +1,70 @@
+# llm.txt — solid-ui
+
+> Machine-readable project summary for LLMs and AI agents.
+
+## Overview
+
+solid-ui is a Bun/SolidJS design-system monorepo with a documentation website,
+an MCP server, an internal CLI, and supporting tooling. It ships 60+ accessible
+UI components, form/table/image/transition utilities, dark mode, and responsive
+design out of the box.
+
+## Tech Stack
+
+- runtime: Bun 1.3.14+ (Node compatibility 20.19.0)
+- language: TypeScript
+- framework: SolidJS
+- router-store: @tanstack/solid-router
+- styling: UnoCSS (semantic tokens: bg-surface, text-foreground, border-border)
+- lint-format: Biome
+- bundler: Vite
+- deployment: Cloudflare Workers via wrangler
+
+## Commands
+
+```bash
+bun install
+bun run lint
+bun run format
+bun run typecheck
+bun run build
+bun run --filter @wrikka/website typecheck
+bun run --filter @wrikka/website build
+bun run review-codebase
+bun run deploy
+```
+
+## Workspaces
+
+- packages/solid-ui — component registry and templates (@wrikka/solid-ui)
+- packages/command-palette — command palette with search, snippets, workflows
+- packages/form — form primitives and validation helpers
+- packages/image — image and media components
+- packages/table — table and data-grid components
+- packages/transitions — transition and animation utilities
+- apps/website — documentation and showcase site (@wrikka/website)
+- apps/mcp — MCP server for component discovery (@wrikka/mcp)
+- apps/cli — CLI for listing and generating components (@wrikka/cli)
+- tools/analyze — 64-category analyzer suite
+- tools/review-codebase — Clean Architecture review CLI
+
+## Documentation Sections
+
+- getting-started: Introduction, Installation
+- theming: Theming
+- integrations: MCP Server, CLI
+- primitives: Primitives, Button, Input, Textarea, Select, Checkbox, Radio, Switch, Label, Form, FormField, FileInput, Slider, DatePicker
+- components: Components, Card, Box, Flex, Grid, Stack, Separator, AspectRatio, Skeleton, Spinner, Loading, Progress, Avatar, Badge, Breadcrumb, Tabs, Pagination, Steps, Timeline, Menubar, NavigationMenu, TreeView, Dialog, Modal, Sheet, Drawer, Tooltip, Popover, Toast, Toaster, Alert, Command, CommandPalette, Notification, Table, DataTable, VirtualList, ScrollArea, Image, Chart, Calendar, Transition, Collapsible, Accordion, DropdownMenu, Toggle, ToggleGroup, Resizable
+- templates: Templates, Form template, Table template, Image template, Transitions template
+
+## Components
+
+solid-ui ships 60 components:
+
+Accordion, Alert, AspectRatio, Avatar, Badge, Box, Breadcrumb, Button, Calendar, Card, Chart, Checkbox, Collapsible, Command, CommandPalette, DataTable, DatePicker, Dialog, Drawer, DropdownMenu, FileInput, Flex, Form, FormField, Grid, Image, Input, Label, Loading, Menubar, Modal, NavigationMenu, Notification, Pagination, Popover, Progress, Radio, Resizable, ScrollArea, Select, Separator, Sheet, Skeleton, Slider, Spinner, Stack, Steps, Switch, Table, Tabs, Textarea, Timeline, Toast, Toaster, Toggle, ToggleGroup, Tooltip, Transition, TreeView, VirtualList
+
+## Notes
+
+- Prefer UnoCSS semantic tokens over raw color utilities.
+- Import components from the workspace package: `import { Button, Card } from "@wrikka/solid-ui"`.
+- This file is also served statically at `/llm.txt` and rendered at `/llm`.

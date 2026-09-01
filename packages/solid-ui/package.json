@@ -22,7 +22,8 @@
 		"build": "tsdown",
 		"typecheck": "tsc --noEmit",
 		"lint": "biome check src",
-		"format": "biome format --write src"
+		"format": "biome format --write src",
+		"test": "vitest run"
 	},
 	"dependencies": {
 		"@wrikka/form": "workspace:*",
@@ -34,7 +35,8 @@
 	},
 	"devDependencies": {
 		"tsdown": "catalog:",
-		"typescript": "catalog:"
+		"typescript": "catalog:",
+		"vitest": "catalog:"
 	},
 	"repository": {
 		"type": "git",
