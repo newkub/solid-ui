@@ -16,6 +16,7 @@ const selfClosing = new Set([
 	"Image",
 	"Avatar",
 	"Badge",
+	"Button",
 	"Spinner",
 	"Skeleton",
 	"Loading",
@@ -23,14 +24,11 @@ const selfClosing = new Set([
 	"Separator",
 ]);
 
-const colored = new Set(["Button"]);
-
 const previewClass =
 	"flex h-20 w-full items-center justify-center gap-2 rounded-lg border border-border bg-background p-3 text-sm";
 
 const overlay = new Set(["Dialog", "Modal", "Drawer", "Sheet", "Popover", "Tooltip", "DropdownMenu"]);
 const feedback = new Set(["Alert", "Notification", "Toast", "Toaster", "Loading", "Spinner", "Skeleton", "Progress"]);
-const interactive = new Set([...overlay, ...feedback]);
 const layout = new Set([
 	"Box",
 	"Card",
@@ -180,25 +178,6 @@ function SampleToggleGroup() {
 	);
 }
 
-function SampleTable() {
-	return (
-		<table class="w-full text-left text-xs">
-			<thead>
-				<tr class="border-b border-border text-muted-foreground">
-					<th class="pb-1 font-medium">A</th>
-					<th class="pb-1 font-medium">B</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr class="text-foreground">
-					<td class="py-1">One</td>
-					<td class="py-1">Two</td>
-				</tr>
-			</tbody>
-		</table>
-	);
-}
-
 function SampleChart() {
 	return (
 		<SolidUI.Chart
@@ -258,15 +237,6 @@ function SampleForm() {
 		<div class="w-full space-y-1.5 text-left">
 			<div class="text-[10px] font-medium text-muted-foreground">Label</div>
 			<div class="h-7 w-full rounded border border-border bg-background" />
-		</div>
-	);
-}
-
-function SampleLoading() {
-	return (
-		<div class="flex items-center gap-2 text-sm text-muted-foreground">
-			<SolidUI.Spinner />
-			<span>Loading…</span>
 		</div>
 	);
 }
@@ -392,29 +362,281 @@ function SampleToaster() {
 	);
 }
 
-function PreviewContent(props: { name: string; tag: string }) {
-	const category = findCategory(props.name)?.id;
+function SampleBox(C: AnyComp) {
+	return (
+		<C class={previewClass}>
+			<div class="h-8 w-8 rounded bg-primary" />
+		</C>
+	);
+}
+
+function SampleCard(C: AnyComp) {
+	return (
+		<C class="w-full text-left">
+			<SolidUI.CardHeader>
+				<h4 class="text-sm font-semibold">Card title</h4>
+				<p class="text-xs text-muted-foreground">Card description</p>
+			</SolidUI.CardHeader>
+			<SolidUI.CardContent>
+				<p class="text-xs text-muted-foreground">Card content area.</p>
+			</SolidUI.CardContent>
+			<SolidUI.CardFooter>
+				<SolidUI.Button variant="secondary" size="sm">
+					Action
+				</SolidUI.Button>
+			</SolidUI.CardFooter>
+		</C>
+	);
+}
+
+function SampleStack(C: AnyComp) {
+	return (
+		<C direction="horizontal" gap={8} align="center" justify="center" class={previewClass}>
+			<div class="h-6 w-6 rounded bg-primary" />
+			<div class="h-6 w-6 rounded bg-secondary" />
+			<div class="h-6 w-6 rounded bg-accent" />
+		</C>
+	);
+}
+
+function SampleFlex(C: AnyComp) {
+	return (
+		<C gap={8} align="center" justify="center" wrap class={previewClass}>
+			<div class="h-6 w-6 rounded bg-primary" />
+			<div class="h-6 w-6 rounded bg-secondary" />
+			<div class="h-6 w-6 rounded bg-accent" />
+		</C>
+	);
+}
+
+function SampleGrid(C: AnyComp) {
+	return (
+		<C columns={3} gap={4} class={previewClass}>
+			<div class="h-6 w-full rounded bg-primary" />
+			<div class="h-6 w-full rounded bg-secondary" />
+			<div class="h-6 w-full rounded bg-accent" />
+			<div class="h-6 w-full rounded bg-primary" />
+		</C>
+	);
+}
+
+function SampleAspectRatio(C: AnyComp) {
+	return (
+		<C ratio={16 / 9} class="w-32">
+			<div class="h-full w-full rounded-md bg-primary" />
+		</C>
+	);
+}
+
+function SampleScrollArea(C: AnyComp) {
+	return (
+		<C class={previewClass}>
+			<div class="h-24 w-48 space-y-2 text-left text-xs text-muted-foreground">
+				<p>Line one of scrolling content.</p>
+				<p>Line two of scrolling content.</p>
+				<p>Line three of scrolling content.</p>
+				<p>Line four of scrolling content.</p>
+			</div>
+		</C>
+	);
+}
+
+function SampleResizable(C: AnyComp) {
+	const [sizes, setSizes] = createSignal<number[]>([40, 60]);
+	return (
+		<C direction="horizontal" onResize={setSizes} class="h-24 w-full" style={{ height: "96px" }}>
+			<SolidUI.ResizablePanel defaultSize={sizes()[0]} class="flex items-center justify-center text-xs">
+				Panel A
+			</SolidUI.ResizablePanel>
+			<SolidUI.ResizableHandle />
+			<SolidUI.ResizablePanel defaultSize={sizes()[1]} class="flex items-center justify-center text-xs">
+				Panel B
+			</SolidUI.ResizablePanel>
+		</C>
+	);
+}
+
+function SampleVirtualList(C: AnyComp) {
+	return (
+		<C
+			itemCount={1000}
+			itemHeight={28}
+			renderItem={(index: number) => <div class="px-2 text-xs text-muted-foreground">Item {index + 1}</div>}
+			class={previewClass}
+			height={80}
+			overscan={5}
+		/>
+	);
+}
+
+function SampleTransition(C: AnyComp) {
+	const [show, setShow] = createSignal(true);
+	return (
+		<div class="flex items-center gap-2">
+			<C show={show()} enter="opacity-100 translate-y-0" exit="opacity-0 -translate-y-2" duration={300}>
+				<div class="h-8 w-8 rounded bg-primary" />
+			</C>
+			<SolidUI.Button variant="secondary" size="sm" onClick={() => setShow(!show())}>
+				Toggle
+			</SolidUI.Button>
+		</div>
+	);
+}
+
+function SampleCollapsible(C: AnyComp) {
+	return (
+		<C open class="w-full text-left">
+			<SolidUI.CollapsibleTrigger>Toggle</SolidUI.CollapsibleTrigger>
+			<SolidUI.CollapsibleContent>
+				<p class="py-2 text-xs text-muted-foreground">Collapsible content.</p>
+			</SolidUI.CollapsibleContent>
+		</C>
+	);
+}
+
+function SampleTable(C: AnyComp) {
+	return (
+		<C class="w-full text-left text-xs">
+			<thead>
+				<tr class="border-b border-border text-muted-foreground">
+					<th class="pb-1 font-medium">Name</th>
+					<th class="pb-1 font-medium">Role</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="text-foreground">
+					<td class="py-1">Alice</td>
+					<td class="py-1">Admin</td>
+				</tr>
+				<tr class="text-foreground">
+					<td class="py-1">Bob</td>
+					<td class="py-1">Editor</td>
+				</tr>
+			</tbody>
+		</C>
+	);
+}
+
+function SampleDataTable(C: AnyComp) {
+	type Person = { name: string; role: string; status: string };
+	const tableData: Person[] = [
+		{ name: "Alice", role: "Admin", status: "Active" },
+		{ name: "Bob", role: "Editor", status: "Away" },
+		{ name: "Carol", role: "Viewer", status: "Active" },
+		{ name: "Dave", role: "Editor", status: "Offline" },
+		{ name: "Eve", role: "Admin", status: "Active" },
+	];
+	const columns = [
+		{ accessorKey: "name", header: "Name" },
+		{ accessorKey: "role", header: "Role" },
+		{ accessorKey: "status", header: "Status" },
+	];
+	return <C data={tableData} columns={columns as unknown[]} pageSize={3} sortable paginate class="w-full text-xs" />;
+}
+
+function SampleMenubar(C: AnyComp) {
+	const [value, setValue] = createSignal("file");
+	return (
+		<C value={value()} onValueChange={setValue} class={previewClass}>
+			<SolidUI.MenubarMenu value="file">
+				<SolidUI.MenubarTrigger>File</SolidUI.MenubarTrigger>
+				<SolidUI.MenubarContent>
+					<SolidUI.MenubarItem>New</SolidUI.MenubarItem>
+					<SolidUI.MenubarItem>Open</SolidUI.MenubarItem>
+				</SolidUI.MenubarContent>
+			</SolidUI.MenubarMenu>
+			<SolidUI.MenubarMenu value="edit">
+				<SolidUI.MenubarTrigger>Edit</SolidUI.MenubarTrigger>
+				<SolidUI.MenubarContent>
+					<SolidUI.MenubarItem>Cut</SolidUI.MenubarItem>
+					<SolidUI.MenubarItem>Copy</SolidUI.MenubarItem>
+				</SolidUI.MenubarContent>
+			</SolidUI.MenubarMenu>
+		</C>
+	);
+}
+
+function SampleNavigationMenu(C: AnyComp) {
+	const [value, setValue] = createSignal("products");
+	return (
+		<C value={value()} onValueChange={setValue} class={previewClass}>
+			<SolidUI.NavigationMenuItem value="products">
+				<SolidUI.NavigationMenuTrigger>Products</SolidUI.NavigationMenuTrigger>
+				<SolidUI.NavigationMenuContent>
+					<p class="text-xs text-muted-foreground">Product listing.</p>
+				</SolidUI.NavigationMenuContent>
+			</SolidUI.NavigationMenuItem>
+			<SolidUI.NavigationMenuItem value="docs">
+				<SolidUI.NavigationMenuTrigger>Docs</SolidUI.NavigationMenuTrigger>
+				<SolidUI.NavigationMenuContent>
+					<p class="text-xs text-muted-foreground">Documentation links.</p>
+				</SolidUI.NavigationMenuContent>
+			</SolidUI.NavigationMenuItem>
+		</C>
+	);
+}
+
+function SampleDropdownMenu(C: AnyComp) {
+	const [open, setOpen] = createSignal(false);
+	return (
+		<C open={open()} onOpenChange={setOpen}>
+			<SolidUI.DropdownMenuTrigger>
+				<SolidUI.Button variant="secondary" size="sm" onClick={() => setOpen(!open())}>
+					Open Menu
+				</SolidUI.Button>
+			</SolidUI.DropdownMenuTrigger>
+			<SolidUI.DropdownMenuContent>
+				<SolidUI.DropdownMenuItem onClick={() => setOpen(false)}>Profile</SolidUI.DropdownMenuItem>
+				<SolidUI.DropdownMenuItem onClick={() => setOpen(false)}>Settings</SolidUI.DropdownMenuItem>
+				<SolidUI.DropdownMenuSeparator />
+				<SolidUI.DropdownMenuItem onClick={() => setOpen(false)}>Log out</SolidUI.DropdownMenuItem>
+			</SolidUI.DropdownMenuContent>
+		</C>
+	);
+}
+
+function SampleTreeView(C: AnyComp) {
+	return (
+		<C class="w-full text-left text-xs">
+			<SolidUI.TreeItem label="src" defaultExpanded>
+				<SolidUI.TreeItem label="components" defaultExpanded>
+					<SolidUI.TreeItem label="Button.tsx" />
+					<SolidUI.TreeItem label="Input.tsx" />
+				</SolidUI.TreeItem>
+				<SolidUI.TreeItem label="index.ts" />
+			</SolidUI.TreeItem>
+		</C>
+	);
+}
+
+function PreviewContent(C: AnyComp, name: string, tag: string) {
+	if (selfClosing.has(name)) {
+		return <div class={previewClass}>{renderSelfClosing(C, name)}</div>;
+	}
+
+	const category = findCategory(name)?.id;
 
 	switch (category) {
 		case "templates":
-			if (props.name === "Table" || props.name === "DataTable") return <SampleTable />;
-			if (props.name === "Image") return null;
-			if (props.name === "Form") return <SampleForm />;
-			if (props.name === "Transition") return <SampleBlocks />;
+			if (name === "Table") return SampleTable(C);
+			if (name === "DataTable") return SampleDataTable(C);
+			if (name === "Image") return null;
+			if (name === "Form") return <SampleForm />;
+			if (name === "Transition") return SampleTransition(C);
 			return <SampleList />;
 		case "primitives":
-			if (props.name === "Button") return <SolidUI.Badge>{props.name}</SolidUI.Badge>;
+			if (name === "Button") return renderSelfClosing(C, name);
 			return <SampleForm />;
 		default:
 			break;
 	}
 
-	if (props.name === "Accordion") return <SampleAccordion />;
-	if (props.name === "Terminal") return <SampleTerminal />;
-	if (props.name === "Motion") return <SampleMotion />;
+	if (name === "Accordion") return <SampleAccordion />;
+	if (name === "Terminal") return <SampleTerminal />;
+	if (name === "Motion") return <SampleMotion />;
 
-	if (overlay.has(props.name)) {
-		switch (props.name) {
+	if (overlay.has(name)) {
+		switch (name) {
 			case "Dialog":
 				return <SampleDialog />;
 			case "Modal":
@@ -427,17 +649,19 @@ function PreviewContent(props: { name: string; tag: string }) {
 				return <SamplePopover />;
 			case "Tooltip":
 				return <SampleTooltip />;
+			case "DropdownMenu":
+				return SampleDropdownMenu(C);
 			default:
 				return (
 					<SolidUI.Button variant="secondary" size="sm">
-						{props.name}
+						{name}
 					</SolidUI.Button>
 				);
 		}
 	}
 
-	if (feedback.has(props.name)) {
-		switch (props.name) {
+	if (feedback.has(name)) {
+		switch (name) {
 			case "Alert":
 				return (
 					<SolidUI.Alert title="Heads up" variant="info" class="w-full text-left">
@@ -454,22 +678,52 @@ function PreviewContent(props: { name: string; tag: string }) {
 				return <SolidUI.Toast title="Sample toast" description="A real toast message." onClose={() => {}} />;
 			case "Toaster":
 				return <SampleToaster />;
-			case "Loading":
-				return <SolidUI.Loading class="h-6 w-6" />;
-			case "Spinner":
-				return <SolidUI.Spinner class="h-6 w-6" />;
-			case "Skeleton":
-				return <SolidUI.Skeleton class="h-2 w-24" />;
-			case "Progress":
-				return <SolidUI.Progress value={60} max={100} class="w-24" />;
 			default:
-				return <SampleLoading />;
+				return (
+					<div class={previewClass}>
+						<SampleBlocks />
+					</div>
+				);
 		}
 	}
 
-	if (layout.has(props.name)) return <SampleBlocks />;
-	if (nav.has(props.name)) {
-		switch (props.name) {
+	if (layout.has(name)) {
+		switch (name) {
+			case "Box":
+				return SampleBox(C);
+			case "Card":
+				return SampleCard(C);
+			case "Stack":
+				return SampleStack(C);
+			case "Flex":
+				return SampleFlex(C);
+			case "Grid":
+				return SampleGrid(C);
+			case "AspectRatio":
+				return SampleAspectRatio(C);
+			case "ScrollArea":
+				return SampleScrollArea(C);
+			case "Resizable":
+				return SampleResizable(C);
+			case "VirtualList":
+				return SampleVirtualList(C);
+			case "Transition":
+				return SampleTransition(C);
+			case "Collapsible":
+				return SampleCollapsible(C);
+			case "Separator":
+				return <C class="w-24" />;
+			default:
+				return (
+					<C class={previewClass}>
+						<SampleBlocks />
+					</C>
+				);
+		}
+	}
+
+	if (nav.has(name)) {
+		switch (name) {
 			case "Tabs":
 				return <SampleTabs />;
 			case "Breadcrumb":
@@ -482,35 +736,49 @@ function PreviewContent(props: { name: string; tag: string }) {
 				return <SampleTimeline />;
 			case "ToggleGroup":
 				return <SampleToggleGroup />;
+			case "Menubar":
+				return SampleMenubar(C);
+			case "NavigationMenu":
+				return SampleNavigationMenu(C);
+			case "TreeView":
+				return SampleTreeView(C);
 			default:
 				return <SampleNav />;
 		}
 	}
-	if (form.has(props.name)) return <SampleForm />;
-	if (data.has(props.name)) {
-		if (props.name === "Chart") return <SampleChart />;
-		if (props.name === "Calendar") return <SampleCalendar />;
-		if (props.name === "DataTable") return <SampleTable />;
+
+	if (form.has(name)) return <SampleForm />;
+
+	if (data.has(name)) {
+		if (name === "Chart") return <SampleChart />;
+		if (name === "Calendar") return <SampleCalendar />;
+		if (name === "Table") return SampleTable(C);
+		if (name === "DataTable") return SampleDataTable(C);
 		return <SampleCommand />;
 	}
-	return <PreviewFallback name={props.name} tag={props.tag} />;
+
+	return <PreviewFallback name={name} tag={tag} />;
 }
 
 const selfClosingRenderers: Record<string, (C: AnyComp, name: string) => JSX.Element> = {
-	Image: (C) => <C src={PREVIEW_IMAGE_SMALL_SRC} alt="" width={120} height={80} />,
-	Avatar: (C) => (
-		<C>
-			<img src={PREVIEW_IMAGE_TINY_SRC} alt="" />
-		</C>
+	Image: (C) => (
+		<C src={PREVIEW_IMAGE_SMALL_SRC} alt="Preview" fallback="IMG" class="h-16 w-24 rounded-md object-cover" />
 	),
+	Avatar: (C) => <C src={PREVIEW_IMAGE_TINY_SRC} alt="A" fallback="A" class="h-8 w-8" />,
 	Badge: (C, name) => <C>{name}</C>,
 	Button: (C) => (
 		<C variant="primary" size="sm">
 			Button
 		</C>
 	),
-	Input: (C) => <C type="text" placeholder="Input" readOnly />,
-	Textarea: (C) => <C placeholder="Textarea" readOnly />,
+	Input: (C) => {
+		const [value, setValue] = createSignal("");
+		return <C value={value()} onChange={setValue} placeholder="Input" />;
+	},
+	Textarea: (C) => {
+		const [value, setValue] = createSignal("");
+		return <C value={value()} onChange={setValue} placeholder="Textarea" />;
+	},
 	Checkbox: (C) => {
 		const [checked, setChecked] = createSignal(false);
 		return <C checked={checked()} onChange={setChecked} aria-label="Preview checkbox" />;
@@ -541,6 +809,10 @@ const selfClosingRenderers: Record<string, (C: AnyComp, name: string) => JSX.Ele
 		);
 	},
 	Progress: (C) => <C value={60} max={100} />,
+	Skeleton: (C) => <C class="h-2 w-24" />,
+	Spinner: (C) => <C class="h-5 w-5" />,
+	Loading: (C) => <C class="h-5 w-5" />,
+	Separator: (C) => <C class="w-24" />,
 	FileInput: (C) => {
 		const [, setFiles] = createSignal<File[]>([]);
 		return <C multiple onChange={setFiles} aria-label="Preview file input" />;
@@ -562,26 +834,5 @@ export function ComponentPreview(props: { name: string; tag: string }) {
 	if (typeof C !== "function") return <PreviewFallback name={props.name} tag={props.tag} />;
 	const AnyC = C as AnyComp;
 
-	if (interactive.has(props.name)) {
-		return (
-			<div class={previewClass}>
-				<PreviewContent name={props.name} tag={props.tag} />
-			</div>
-		);
-	}
-
-	if (selfClosing.has(props.name)) {
-		return <div class={previewClass}>{renderSelfClosing(AnyC, props.name)}</div>;
-	}
-
-	if (colored.has(props.name)) {
-		return (
-			<AnyC variant="primary" size="sm">
-				{props.name}
-			</AnyC>
-		);
-	}
-
-	const content = <PreviewContent name={props.name} tag={props.tag} />;
-	return <AnyC class={previewClass}>{content}</AnyC>;
+	return PreviewContent(AnyC, props.name, props.tag);
 }

@@ -113,6 +113,7 @@
       "name": "@wrikka/solid-ui",
       "version": "0.0.1",
       "dependencies": {
+        "@tanstack/solid-table": "^9.2.4",
         "@wrikka/form": "workspace:*",
         "@wrikka/image": "workspace:*",
         "@wrikka/table": "workspace:*",

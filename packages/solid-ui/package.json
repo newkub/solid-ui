@@ -26,6 +26,7 @@
 		"test": "vitest run"
 	},
 	"dependencies": {
+		"@tanstack/solid-table": "^9.2.4",
 		"@wrikka/form": "workspace:*",
 		"@wrikka/image": "workspace:*",
 		"@wrikka/table": "workspace:*",
