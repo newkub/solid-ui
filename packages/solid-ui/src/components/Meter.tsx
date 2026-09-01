@@ -11,20 +11,10 @@ export interface MeterProps
 }
 
 export function Meter(props: MeterProps) {
-	const [local, rest] = splitProps(props, ["class", "children"]);
+	const [local, rest] = splitProps(props, ["class"]);
 	const merged = mergeProps({ value: 0, min: 0, max: 100, low: 0, high: 100, optimum: 100 }, rest);
 
 	const className = () => ["h-4 w-full", local.class ?? ""].filter(Boolean).join(" ");
 
-	return (
-		<meter
-			class={className()}
-			value={merged.value}
-			min={merged.min}
-			max={merged.max}
-			low={merged.low}
-			high={merged.high}
-			optimum={merged.optimum}
-		/>
-	);
+	return <meter class={className()} {...merged} />;
 }

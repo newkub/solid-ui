@@ -368,10 +368,9 @@ export function NavLayout(props: { children: JSX.Element }) {
 					<Brand />
 				</div>
 				<div class="flex items-center gap-2">
-					<SearchButton onClick={() => setCommandOpen(true)} class="hidden sm:inline-flex" />
 					<SearchButton
 						onClick={() => setCommandOpen(true)}
-						class="inline-flex h-9 w-9 items-center justify-center p-0 sm:hidden"
+						class="hidden h-9 w-9 justify-center p-0 sm:inline-flex sm:h-9 sm:w-auto sm:px-3"
 					/>
 					<DevToolsButton open={devToolsOpen()} onToggle={() => setDevToolsOpen((v) => !v)} />
 					<ThemePicker />
