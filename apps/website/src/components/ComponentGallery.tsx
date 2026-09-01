@@ -105,25 +105,37 @@ function sortIcon(state: "asc" | "desc" | false) {
 
 function HeroSection(props: { totalCount: number }) {
 	return (
-		<section class="py-12 text-center md:py-16">
-			<h2 class="text-3xl font-extrabold tracking-tight md:text-5xl mb-4">A comprehensive SolidJS UI library</h2>
-			<p class="mx-auto max-w-2xl text-lg text-muted-foreground mb-6">
-				solid-ui ships with {props.totalCount} components, real form/table/image/transition packages, and the docs
-				website you are viewing now.
-			</p>
-			<div class="flex flex-wrap items-center justify-center gap-3">
-				<Link
-					to="/components"
-					class="inline-flex h-10 items-center rounded-md bg-primary px-5 text-sm font-medium text-primary-foreground shadow-sm no-underline transition-all hover:bg-primary-hover hover:shadow-md focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
-				>
-					Browse components
-				</Link>
-				<Link
-					to="/docs/intro"
-					class="inline-flex h-10 items-center rounded-md border border-border bg-background px-5 text-sm font-medium no-underline transition-all hover:bg-muted hover:border-border-hover focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
-				>
-					Read docs
-				</Link>
+		<section class="relative overflow-hidden rounded-2xl border border-border bg-surface px-4 py-12 text-center sm:px-6 sm:py-16">
+			<div class="pointer-events-none absolute inset-0 -z-10 opacity-40" aria-hidden="true">
+				<div class="absolute -left-20 -top-20 h-64 w-64 rounded-full bg-primary/10 blur-3xl" />
+				<div class="absolute -bottom-20 -right-20 h-64 w-64 rounded-full bg-accent/20 blur-3xl" />
+			</div>
+			<div class="mx-auto max-w-3xl">
+				<div class="mb-4 inline-flex items-center rounded-full border border-border bg-muted px-3 py-1 text-xs font-medium text-muted-foreground">
+					<span class="mr-1.5 h-2 w-2 rounded-full bg-primary" />
+					{props.totalCount} components available
+				</div>
+				<h2 class="mb-4 text-3xl font-extrabold tracking-tight sm:text-4xl md:text-5xl">
+					A comprehensive <span class="text-primary">SolidJS</span> UI library
+				</h2>
+				<p class="mx-auto mb-6 max-w-2xl text-base text-muted-foreground sm:text-lg">
+					solid-ui ships with {props.totalCount} components, real form/table/image/transition packages, and the docs
+					website you are viewing now.
+				</p>
+				<div class="flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
+					<Link
+						to="/components"
+						class="inline-flex h-10 w-full items-center justify-center rounded-md bg-primary px-5 text-sm font-medium text-primary-foreground shadow-sm no-underline transition-all hover:bg-primary-hover hover:shadow-md focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring sm:w-auto"
+					>
+						Browse components
+					</Link>
+					<Link
+						to="/docs/intro"
+						class="inline-flex h-10 w-full items-center justify-center rounded-md border border-border bg-background px-5 text-sm font-medium no-underline transition-all hover:bg-muted hover:border-border-hover focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring sm:w-auto"
+					>
+						Read docs
+					</Link>
+				</div>
 			</div>
 		</section>
 	);
@@ -148,12 +160,19 @@ function GalleryToolbar(props: {
 	view: "grid" | "list" | "timeline" | "pinterest";
 	onViewChange: (view: "grid" | "list" | "timeline" | "pinterest") => void;
 }) {
+	const viewOptions: { id: "grid" | "list" | "timeline" | "pinterest"; label: string }[] = [
+		{ id: "grid", label: "Grid" },
+		{ id: "list", label: "List" },
+		{ id: "timeline", label: "Timeline" },
+		{ id: "pinterest", label: "Pinterest" },
+	];
+
 	return (
 		<div class="mb-6 flex flex-col gap-3 rounded-xl border border-border bg-surface p-4 sm:flex-row sm:items-center sm:justify-between">
 			<div class="flex flex-1 flex-col gap-3 sm:flex-row sm:items-center">
 				<input
 					type="search"
-					class="flex h-9 w-full min-w-0 rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+					class="flex h-9 w-full min-w-0 rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
 					placeholder="Search components…"
 					value={props.globalFilter}
 					onInput={(e) => props.onFilterChange(e.currentTarget.value)}
@@ -161,7 +180,7 @@ function GalleryToolbar(props: {
 					autocomplete="off"
 				/>
 				<select
-					class="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring sm:w-40"
+					class="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring sm:w-40"
 					value={props.categoryFilter}
 					onChange={(e) => props.onCategoryFilterChange(e.currentTarget.value)}
 					aria-label="Filter by category"
@@ -169,7 +188,7 @@ function GalleryToolbar(props: {
 					<For each={CATEGORY_OPTIONS}>{(opt) => <option value={opt.id}>{opt.label}</option>}</For>
 				</select>
 				<select
-					class="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring sm:w-44"
+					class="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring sm:w-44"
 					value={props.groupBy ? "category" : "none"}
 					onChange={(e) => props.onGroupByChange(e.currentTarget.value === "category")}
 					aria-label="Group by"
@@ -178,43 +197,22 @@ function GalleryToolbar(props: {
 					<option value="category">Group by category</option>
 				</select>
 			</div>
-			<div class="flex flex-wrap rounded-lg border border-border bg-background p-1">
-				<button
-					type="button"
-					class="rounded-md px-3 py-1.5 text-sm"
-					classList={{ "bg-primary text-primary-foreground": props.view === "grid" }}
-					onClick={() => props.onViewChange("grid")}
-					aria-pressed={props.view === "grid"}
-				>
-					Grid
-				</button>
-				<button
-					type="button"
-					class="rounded-md px-3 py-1.5 text-sm"
-					classList={{ "bg-primary text-primary-foreground": props.view === "list" }}
-					onClick={() => props.onViewChange("list")}
-					aria-pressed={props.view === "list"}
-				>
-					List
-				</button>
-				<button
-					type="button"
-					class="rounded-md px-3 py-1.5 text-sm"
-					classList={{ "bg-primary text-primary-foreground": props.view === "timeline" }}
-					onClick={() => props.onViewChange("timeline")}
-					aria-pressed={props.view === "timeline"}
-				>
-					Timeline
-				</button>
-				<button
-					type="button"
-					class="rounded-md px-3 py-1.5 text-sm"
-					classList={{ "bg-primary text-primary-foreground": props.view === "pinterest" }}
-					onClick={() => props.onViewChange("pinterest")}
-					aria-pressed={props.view === "pinterest"}
-				>
-					Pinterest
-				</button>
+			<div class="grid grid-cols-2 gap-1 rounded-lg border border-border bg-background p-1 sm:flex sm:items-center">
+				<For each={viewOptions}>
+					{(opt) => (
+						<button
+							type="button"
+							class={`rounded-md px-3 py-1.5 text-sm font-medium transition-colors w-full sm:w-auto ${
+								props.view === opt.id ? "bg-primary text-primary-foreground" : "text-foreground hover:bg-muted"
+							}`}
+							onClick={() => props.onViewChange(opt.id)}
+							aria-pressed={props.view === opt.id}
+							aria-label={`Switch to ${opt.label} view`}
+						>
+							{opt.label}
+						</button>
+					)}
+				</For>
 			</div>
 		</div>
 	);
@@ -223,7 +221,7 @@ function GalleryToolbar(props: {
 function GalleryListView(props: { table: ReturnType<typeof createTable<typeof features, ComponentItem>> }) {
 	return (
 		<div class="overflow-x-auto rounded-xl border border-border">
-			<table class="w-full text-sm">
+			<table class="w-full min-w-[640px] text-sm">
 				<thead class="bg-muted">
 					<For each={props.table.getHeaderGroups()}>
 						{(headerGroup) => (
@@ -334,10 +332,10 @@ function flatLeafRows(table: ReturnType<typeof createTable<typeof features, Comp
 function GalleryPinterestView(props: { table: ReturnType<typeof createTable<typeof features, ComponentItem>> }) {
 	const items = () => flatLeafRows(props.table);
 	return (
-		<div class="columns-1 gap-4 space-y-4 sm:columns-2 lg:columns-3 xl:columns-4">
+		<div class="columns-1 gap-4 sm:columns-2 lg:columns-3 xl:columns-4">
 			<For each={items()}>
 				{({ original }) => (
-					<div class="break-inside-avoid">
+					<div class="break-inside-avoid mb-4">
 						<ComponentCard name={original.name} />
 					</div>
 				)}
@@ -382,19 +380,46 @@ function GalleryHeading(props: { table: ReturnType<typeof createTable<typeof fea
 	);
 }
 
+function EmptyState(props: { onClear: () => void }) {
+	return (
+		<div class="flex flex-col items-center justify-center rounded-xl border border-border bg-surface px-4 py-16 text-center">
+			<div class="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-muted">
+				<svg
+					class="h-6 w-6 text-muted-foreground"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					role="img"
+					aria-label="Search icon"
+				>
+					<title>Search icon</title>
+					<circle cx="11" cy="11" r="8" />
+					<path d="m21 21-4.3-4.3" />
+				</svg>
+			</div>
+			<h3 class="mb-1 text-base font-semibold text-foreground">No components found</h3>
+			<p class="mb-4 max-w-sm text-sm text-muted-foreground">
+				Try adjusting your search or filters to find what you are looking for.
+			</p>
+			<button
+				type="button"
+				onClick={props.onClear}
+				class="inline-flex h-9 items-center rounded-md bg-secondary px-4 text-sm font-medium text-secondary-foreground transition-colors hover:bg-secondary-hover focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+			>
+				Clear filters
+			</button>
+		</div>
+	);
+}
+
 function GalleryResults(props: {
 	table: ReturnType<typeof createTable<typeof features, ComponentItem>>;
 	view: "grid" | "list" | "timeline" | "pinterest";
+	onClear: () => void;
 }) {
 	return (
-		<Show
-			when={props.table.getRowModel().rows.length > 0}
-			fallback={
-				<div class="rounded-xl border border-border bg-surface py-12 text-center text-muted-foreground">
-					<p>No components match your search.</p>
-				</div>
-			}
-		>
+		<Show when={props.table.getRowModel().rows.length > 0} fallback={<EmptyState onClear={props.onClear} />}>
 			<Show when={props.view === "list"}>
 				<GalleryListView table={props.table} />
 			</Show>
@@ -470,6 +495,14 @@ export function ComponentGallery(props: { withHero?: boolean }) {
 		table.setGrouping(enabled ? ["categoryLabel"] : []);
 	};
 
+	const clearFilters = () => {
+		setGlobalFilter("");
+		setCategoryFilter("");
+		applyCategoryFilter("");
+		table.setGrouping(groupBy() ? ["categoryLabel"] : []);
+		navigate({ to: location().pathname, search: {} });
+	};
+
 	return (
 		<section class="page">
 			<Show when={props.withHero}>
@@ -489,7 +522,7 @@ export function ComponentGallery(props: { withHero?: boolean }) {
 				onViewChange={setView}
 			/>
 
-			<GalleryResults table={table} view={view()} />
+			<GalleryResults table={table} view={view()} onClear={clearFilters} />
 		</section>
 	);
 }
