@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/solid-router";
 import { For, Show } from "solid-js";
 import skillsData from "../data/skills.json";
 import { useSearch } from "../hooks/useSearch";
@@ -22,14 +23,19 @@ function matchesQuery(skill: Skill, query: string): boolean {
 
 function SkillCard(props: { skill: Skill }) {
 	return (
-		<li class="flex flex-col gap-2 rounded-xl border border-border bg-surface p-4 shadow-sm transition-shadow hover:shadow-md">
-			<div class="flex items-start justify-between gap-2">
-				<h3 class="text-base font-semibold text-foreground">{props.skill.name}</h3>
-				<Tag label="skill" />
-			</div>
-			<p class="flex-1 text-sm text-muted-foreground line-clamp-3">
-				{props.skill.description || "No description available."}
-			</p>
+		<li>
+			<Link
+				to={`/skills/${props.skill.name}`}
+				class="group flex h-full flex-col gap-2 rounded-xl border border-border bg-surface p-4 shadow-sm no-underline transition-all hover:border-primary/50 hover:shadow-md hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+			>
+				<div class="flex items-start justify-between gap-2">
+					<h3 class="text-base font-semibold text-foreground group-hover:text-primary">{props.skill.name}</h3>
+					<Tag label="skill" />
+				</div>
+				<p class="flex-1 text-sm text-muted-foreground line-clamp-3">
+					{props.skill.description || "No description available."}
+				</p>
+			</Link>
 		</li>
 	);
 }

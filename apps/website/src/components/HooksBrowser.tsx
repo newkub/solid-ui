@@ -1,8 +1,8 @@
 import { createEffect, createSignal, For, Show } from "solid-js";
 import { useSearch } from "../hooks/useSearch";
+import { DocsLayout } from "./DocsLayout";
 import { EmptyState } from "./EmptyState";
 import { PageHeader } from "./PageHeader";
-import { PageLayout } from "./PageLayout";
 import { SearchInput } from "./SearchInput";
 import { Seo } from "./Seo";
 
@@ -208,7 +208,7 @@ export function HooksBrowser() {
 				count={filtered().length}
 			/>
 			<Show when={filtered().length > 0} fallback={<EmptyState query={debouncedQuery()} label="hooks" />}>
-				<PageLayout
+				<DocsLayout
 					sidebar={
 						<HookSidebar
 							hooks={filtered()}
@@ -222,7 +222,7 @@ export function HooksBrowser() {
 					<div class="space-y-6">
 						<For each={filtered()}>{(hook) => <HookDetail hook={hook} />}</For>
 					</div>
-				</PageLayout>
+				</DocsLayout>
 			</Show>
 		</section>
 	);

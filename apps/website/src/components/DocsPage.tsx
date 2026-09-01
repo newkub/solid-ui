@@ -1,9 +1,10 @@
 import { useParams } from "@tanstack/solid-router";
 import { registry } from "@wrikka/solid-ui";
-import { type Accessor, createMemo, type JSX, Show } from "solid-js";
+import { type Accessor, createMemo, Show } from "solid-js";
 import { categories } from "../categories";
 import { docs } from "../docs/generated";
 import { ComponentPlayground } from "./ComponentPlayground";
+import { DocsLayout } from "./DocsLayout";
 import { Markdown } from "./Markdown";
 import { Seo } from "./Seo";
 import { Sidebar } from "./Sidebar";
@@ -18,15 +19,6 @@ function toPlainExcerpt(markdown: string, maxLength = 160): string {
 		.replace(/\s+/g, " ")
 		.trim();
 	return plain.length > maxLength ? `${plain.slice(0, maxLength).trimEnd()}…` : plain;
-}
-
-export function DocsLayout(props: { children: JSX.Element }) {
-	return (
-		<div class="flex flex-col gap-8 lg:flex-row lg:items-start">
-			<Sidebar />
-			<main class="min-w-0 flex-1">{props.children}</main>
-		</div>
-	);
 }
 
 export function DocsPage() {
@@ -61,8 +53,8 @@ export function DocsPage() {
 	});
 
 	return (
-		<DocsLayout>
-			<Show when={page()} fallback={<div class="page text-muted-foreground">Docs page not found</div>}>
+		<DocsLayout sidebar={<Sidebar />}>
+			<Show when={page()} fallback={<div class="text-muted-foreground">Docs page not found</div>}>
 				{(page) => (
 					<article class="max-w-3xl">
 						<Seo title={seoTitle()} description={seoDescription()} />

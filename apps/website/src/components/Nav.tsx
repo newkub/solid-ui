@@ -1,13 +1,12 @@
-import { Link } from "@tanstack/solid-router";
-import { createSignal, For, type JSX, Show } from "solid-js";
-import { categories } from "../categories";
+import { Link, useNavigate } from "@tanstack/solid-router";
+import { createSignal, For, type JSX } from "solid-js";
+import { ContextMenu } from "./ContextMenu";
 import { Logo } from "./Logo";
 import { ThemePicker } from "./ThemePicker";
 
-type IconName = "home" | "components" | "theme" | "template" | "mcp" | "docs" | "skills" | "layouts" | "hooks" | "cli";
+type IconName = "components" | "theme" | "template" | "mcp" | "docs" | "skills" | "layouts" | "hooks" | "cli";
 
 const iconPaths: Record<IconName, () => JSX.Element> = {
-	home: () => <path d="M2 8.5 8 3l6 5.5M4 7v6.5a.5.5 0 0 0 .5.5H6.5v-4h3v4H11.5a.5.5 0 0 0 .5-.5V7" />,
 	components: () => (
 		<>
 			<rect x="2" y="2" width="5" height="5" rx="1" />
@@ -77,27 +76,8 @@ function NavIcon(props: { name: IconName }) {
 	);
 }
 
-function Chevron(props: { open: boolean }) {
-	return (
-		<svg
-			width="12"
-			height="12"
-			viewBox="0 0 24 24"
-			fill="none"
-			stroke="currentColor"
-			stroke-width="2"
-			stroke-linecap="round"
-			stroke-linejoin="round"
-			class={`shrink-0 transition-transform ${props.open ? "rotate-180" : ""}`}
-			aria-hidden="true"
-		>
-			<path d="m6 9 6 6 6-6" />
-		</svg>
-	);
-}
-
 const simpleLinks: Array<{ to: string; label: string; icon: IconName }> = [
-	{ to: "/theme", label: "Theme", icon: "theme" },
+	{ to: "/components", label: "Components", icon: "components" },
 	{ to: "/docs/intro", label: "Docs", icon: "docs" },
 	{ to: "/layouts", label: "Layouts", icon: "layouts" },
 	{ to: "/hooks", label: "Hooks", icon: "hooks" },
@@ -106,35 +86,6 @@ const simpleLinks: Array<{ to: string; label: string; icon: IconName }> = [
 	{ to: "/templates", label: "Templates", icon: "template" },
 	{ to: "/mcp", label: "MCP", icon: "mcp" },
 ];
-
-function ComponentsMegaMenu(props: { onClose: () => void }) {
-	return (
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-3">
-			<For each={categories}>
-				{(cat) => (
-					<div>
-						<h3 class="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">{cat.label}</h3>
-						<ul class="space-y-1">
-							<For each={cat.items}>
-								{(name) => (
-									<li>
-										<Link
-											to={`/docs/${cat.id}/${name.toLowerCase()}`}
-											class="block rounded-md px-2 py-1.5 text-sm text-muted-foreground hover:bg-muted hover:text-foreground"
-											onClick={props.onClose}
-										>
-											{name}
-										</Link>
-									</li>
-								)}
-							</For>
-						</ul>
-					</div>
-				)}
-			</For>
-		</div>
-	);
-}
 
 function SimpleLink(props: { to: string; label: string; icon: IconName; onClick?: () => void }) {
 	return (
@@ -153,22 +104,43 @@ function SimpleLink(props: { to: string; label: string; icon: IconName; onClick?
 	);
 }
 
+function LogoContextMenu(props: { children: JSX.Element }) {
+	const navigate = useNavigate();
+	async function copyHomeLink() {
+		try {
+			await navigator.clipboard.writeText(window.location.origin);
+		} catch {}
+	}
+	const items = [
+		{ label: "Home", onClick: () => navigate({ to: "/" }) },
+		{ label: "Copy home link", onClick: copyHomeLink },
+		{ label: "Reload", onClick: () => window.location.reload() },
+		{
+			label: "View on GitHub",
+			onClick: () => window.open("https://github.com/newkub/solid-ui", "_blank", "noopener,noreferrer"),
+		},
+	];
+	return <ContextMenu items={items}>{props.children}</ContextMenu>;
+}
+
 export function Nav() {
 	const [menuOpen, setMenuOpen] = createSignal(false);
-	const [megaOpen, setMegaOpen] = createSignal(false);
 	const menuId = "site-nav";
 
 	return (
-		<header class="sticky top-0 z-sticky border-b border-border bg-surface/95 backdrop-blur supports-[not(backdrop-filter:blur(0))]:bg-surface">
+		<header class="sticky top-0 z-sticky border-b border-border bg-surface/95 font-sans backdrop-blur supports-[not(backdrop-filter:blur(0))]:bg-surface">
 			<div class="mx-auto flex h-16 max-w-7xl items-center gap-4 px-4 sm:px-6 lg:px-8">
 				<h1 class="text-xl font-bold tracking-tight">
-					<Link
-						to="/"
-						class="flex items-center gap-2 text-foreground no-underline hover:text-primary transition-colors"
-					>
-						<Logo class="text-primary" />
-						<span>solid-ui</span>
-					</Link>
+					<LogoContextMenu>
+						<Link
+							to="/"
+							class="flex items-center gap-2 text-foreground no-underline hover:text-primary transition-colors"
+							onContextMenu={(e) => e.preventDefault()}
+						>
+							<Logo class="text-primary" />
+							<span class="font-sans">solid-ui</span>
+						</Link>
+					</LogoContextMenu>
 				</h1>
 
 				<nav
@@ -179,50 +151,6 @@ export function Nav() {
 					aria-label="Main navigation"
 				>
 					<div class="flex flex-col gap-1 md:flex-row md:items-center">
-						<Link
-							to="/"
-							class="flex items-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium text-muted-foreground no-underline transition-colors hover:bg-muted hover:text-foreground"
-							activeProps={() => ({
-								class:
-									"flex items-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium bg-primary text-primary-foreground",
-							})}
-							activeOptions={{ exact: true }}
-							onClick={() => setMenuOpen(false)}
-						>
-							<NavIcon name="home" />
-							Home
-						</Link>
-
-						<div class="relative">
-							<button
-								type="button"
-								class="flex w-full items-center gap-1.5 rounded-md px-3 py-2 text-left text-sm font-medium text-muted-foreground no-underline transition-colors hover:bg-muted hover:text-foreground md:w-auto"
-								onClick={() => {
-									setMegaOpen((v) => !v);
-									setMenuOpen(false);
-								}}
-								aria-expanded={megaOpen()}
-							>
-								<NavIcon name="components" />
-								<span>Components</span>
-								<Chevron open={megaOpen()} />
-							</button>
-							<Show when={megaOpen()}>
-								<div class="relative z-dropdown mt-1 rounded-lg border border-border bg-surface p-2 shadow-lg md:absolute md:left-0 md:top-full md:mt-2 md:w-screen md:max-w-2xl">
-									<ComponentsMegaMenu onClose={() => setMegaOpen(false)} />
-									<div class="border-t border-border p-2">
-										<Link
-											to="/components"
-											class="block rounded-md px-2 py-1.5 text-sm font-medium text-primary hover:bg-muted"
-											onClick={() => setMegaOpen(false)}
-										>
-											Browse all components
-										</Link>
-									</div>
-								</div>
-							</Show>
-						</div>
-
 						<For each={simpleLinks}>
 							{(link) => (
 								<SimpleLink to={link.to} label={link.label} icon={link.icon} onClick={() => setMenuOpen(false)} />
@@ -234,14 +162,14 @@ export function Nav() {
 				<div class="flex items-center gap-2">
 					<Link
 						to="/docs/intro"
-						class="hidden md:inline-flex h-9 items-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground no-underline transition-colors hover:bg-primary/90"
+						class="hidden md:inline-flex h-10 items-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground no-underline shadow-sm transition-all hover:bg-primary-hover hover:shadow-md focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
 					>
 						Get Started
 					</Link>
 					<ThemePicker />
 					<button
 						type="button"
-						class="inline-flex h-9 w-9 items-center justify-center rounded-md border border-border bg-background text-foreground md:hidden"
+						class="inline-flex h-9 w-9 items-center justify-center rounded-md border border-border bg-background text-foreground transition-colors hover:bg-muted md:hidden focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
 						aria-label={menuOpen() ? "Close menu" : "Open menu"}
 						aria-expanded={menuOpen()}
 						aria-controls={menuId}

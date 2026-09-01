@@ -35,7 +35,7 @@ export function SearchInput(props: SearchInputProps): JSX.Element {
 				onInput={(e) => props.onInput(e.currentTarget.value)}
 				autocomplete="off"
 				autofocus={props.autoFocus}
-				class="h-9 w-full rounded-md border border-input bg-background py-1 pl-9 pr-3 text-sm shadow-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+				class="h-9 w-full rounded-md border border-input bg-background py-1 pl-9 pr-3 text-sm text-foreground shadow-sm placeholder:text-muted-foreground transition-all hover:border-border-hover focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
 			/>
 		</div>
 	);

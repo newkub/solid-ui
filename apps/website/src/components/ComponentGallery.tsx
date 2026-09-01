@@ -89,7 +89,7 @@ const columns = columnHelper.columns([
 		cell: ({ row }) => (
 			<Link
 				to={`/docs/${row.original.category}/${row.original.name.toLowerCase()}`}
-				class="inline-flex h-8 items-center rounded-md bg-secondary px-3 text-xs font-medium text-secondary-foreground hover:bg-secondary/80"
+				class="inline-flex h-8 items-center rounded-md bg-secondary px-3 text-xs font-medium text-secondary-foreground no-underline shadow-sm transition-all hover:bg-secondary-hover hover:shadow-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
 			>
 				View
 			</Link>
@@ -114,13 +114,13 @@ function HeroSection(props: { totalCount: number }) {
 			<div class="flex flex-wrap items-center justify-center gap-3">
 				<Link
 					to="/components"
-					class="inline-flex h-10 items-center rounded-md bg-primary px-5 text-sm font-medium text-primary-foreground hover:bg-primary/90"
+					class="inline-flex h-10 items-center rounded-md bg-primary px-5 text-sm font-medium text-primary-foreground shadow-sm no-underline transition-all hover:bg-primary-hover hover:shadow-md focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
 				>
 					Browse components
 				</Link>
 				<Link
 					to="/docs/intro"
-					class="inline-flex h-10 items-center rounded-md border border-border bg-background px-5 text-sm font-medium hover:bg-muted"
+					class="inline-flex h-10 items-center rounded-md border border-border bg-background px-5 text-sm font-medium no-underline transition-all hover:bg-muted hover:border-border-hover focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
 				>
 					Read docs
 				</Link>

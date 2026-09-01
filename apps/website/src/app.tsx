@@ -4,6 +4,8 @@ import { ErrorBoundary, For } from "solid-js";
 import { CliPage } from "./components/CliPage";
 import { CodeBlock } from "./components/CodeBlock";
 import { ComponentGallery } from "./components/ComponentGallery";
+import { ComponentSidebar } from "./components/ComponentSidebar";
+import { DocsLayout } from "./components/DocsLayout";
 import { DocsPage } from "./components/DocsPage";
 import { Footer } from "./components/Footer";
 import { HooksPage } from "./components/HooksPage";
@@ -11,7 +13,9 @@ import { LayoutsPage } from "./components/LayoutsPage";
 import { LlmTxtPage } from "./components/LlmTxtPage";
 import { McpPage } from "./components/McpPage";
 import { Nav } from "./components/Nav";
+import { PageLayout } from "./components/PageLayout";
 import { Seo } from "./components/Seo";
+import { SkillDetailPage } from "./components/SkillDetailPage";
 import { SkillsPage } from "./components/SkillsPage";
 import { TemplatesPage } from "./components/TemplatesPage";
 import { ThemePage } from "./components/ThemePage";
@@ -73,19 +77,19 @@ function Root() {
 
 function Home() {
 	return (
-		<>
+		<PageLayout>
 			<Seo title="solid-ui — SolidJS component library" description={HOME_DESCRIPTION} path="/" />
 			<ComponentGallery withHero />
-		</>
+		</PageLayout>
 	);
 }
 
 function ComponentsPage() {
 	return (
-		<>
+		<DocsLayout sidebar={<ComponentSidebar />}>
 			<Seo title="Components — solid-ui" description={COMPONENTS_DESCRIPTION} path="/components" />
 			<ComponentGallery withHero={false} />
-		</>
+		</DocsLayout>
 	);
 }
 
@@ -287,6 +291,12 @@ const skillsRoute = createRoute({
 	component: SkillsPageWrapper,
 });
 
+const skillDetailRoute = createRoute({
+	getParentRoute: () => rootRoute,
+	path: "/skills/$name",
+	component: SkillDetailPage,
+});
+
 const mcpRoute = createRoute({
 	getParentRoute: () => rootRoute,
 	path: "/mcp",
@@ -327,6 +337,7 @@ export const routeTree = rootRoute.addChildren([
 	transitionsRoute,
 	llmTxtRoute,
 	skillsRoute,
+	skillDetailRoute,
 	mcpRoute,
 	templatesRoute,
 	layoutsRoute,

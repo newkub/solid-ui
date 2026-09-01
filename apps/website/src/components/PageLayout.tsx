@@ -1,17 +1,10 @@
 import type { JSX } from "solid-js";
 
 interface PageLayoutProps {
-	sidebar: JSX.Element;
 	children: JSX.Element;
+	class?: string;
 }
 
 export function PageLayout(props: PageLayoutProps) {
-	return (
-		<div class="flex flex-col gap-8 lg:flex-row lg:items-start">
-			<aside class="lg:sticky lg:top-24 lg:w-64 lg:shrink-0" aria-label="Page sidebar">
-				{props.sidebar}
-			</aside>
-			<main class="min-w-0 flex-1">{props.children}</main>
-		</div>
-	);
+	return <div class={`space-y-8 ${props.class ?? ""}`}>{props.children}</div>;
 }

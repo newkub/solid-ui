@@ -51,11 +51,11 @@ export function ComponentCard(props: { name: string | (() => string) }) {
 				<CopyButton
 					text={importText()}
 					label={`Copy ${name()} import`}
-					class="inline-flex h-8 flex-1 items-center justify-center rounded-md border border-border bg-background text-xs font-medium hover:bg-muted"
+					class="inline-flex h-8 flex-1 items-center justify-center rounded-md border border-border bg-background text-xs font-medium transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
 				/>
 				<Link
 					to={`/docs/${group()?.id ?? "components"}/${name().toLowerCase()}`}
-					class="inline-flex h-8 items-center rounded-md bg-secondary px-3 text-xs font-medium text-secondary-foreground hover:bg-secondary/80"
+					class="inline-flex h-8 items-center rounded-md bg-secondary px-3 text-xs font-medium text-secondary-foreground no-underline shadow-sm transition-all hover:bg-secondary-hover hover:shadow-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
 					aria-label={`View ${name()} documentation`}
 				>
 					View
