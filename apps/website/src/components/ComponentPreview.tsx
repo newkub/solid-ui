@@ -1,5 +1,5 @@
 import * as SolidUI from "@wrikka/solid-ui";
-import { For, type JSX } from "solid-js";
+import type { JSX } from "solid-js";
 import { categories } from "../categories";
 import { PREVIEW_IMAGE_SMALL_SRC, PREVIEW_IMAGE_TINY_SRC } from "../lib/config";
 
@@ -100,24 +100,23 @@ function SampleTable() {
 
 function SampleChart() {
 	return (
-		<div class="flex h-12 w-full items-end justify-center gap-1">
-			<div class="w-3 rounded-t bg-primary/80" style={{ height: "40%" }} />
-			<div class="w-3 rounded-t bg-primary/80" style={{ height: "70%" }} />
-			<div class="w-3 rounded-t bg-primary/80" style={{ height: "50%" }} />
-			<div class="w-3 rounded-t bg-primary/80" style={{ height: "90%" }} />
-			<div class="w-3 rounded-t bg-primary/80" style={{ height: "60%" }} />
-		</div>
+		<SolidUI.Chart
+			height={80}
+			data={[
+				{ label: "Mon", value: 40 },
+				{ label: "Tue", value: 70 },
+				{ label: "Wed", value: 50 },
+				{ label: "Thu", value: 90 },
+				{ label: "Fri", value: 60 },
+			]}
+		/>
 	);
 }
 
 function SampleCalendar() {
 	return (
-		<div class="grid grid-cols-7 gap-1 text-center text-[10px] text-muted-foreground">
-			<For each={Array.from({ length: 14 }, (_, i) => i + 1)}>
-				{(day) => (
-					<div class={`h-5 w-5 rounded-sm ${day === 8 ? "bg-primary text-primary-foreground" : "bg-muted"}`}>{day}</div>
-				)}
-			</For>
+		<div class="w-full overflow-hidden">
+			<SolidUI.Calendar />
 		</div>
 	);
 }
@@ -142,15 +141,14 @@ function SampleMotion() {
 
 function SampleCommand() {
 	return (
-		<div class="w-full space-y-1.5 text-left">
-			<div class="h-7 w-full rounded border border-border bg-background px-2 text-xs text-muted-foreground flex items-center">
-				Search…
-			</div>
-			<div class="space-y-1">
-				<div class="h-5 w-3/4 rounded bg-muted" />
-				<div class="h-5 w-1/2 rounded bg-muted" />
-			</div>
-		</div>
+		<SolidUI.Command
+			items={[
+				{ value: "profile", label: "Profile", shortcut: "⌘P" },
+				{ value: "settings", label: "Settings", shortcut: "⌘," },
+				{ value: "logout", label: "Log out" },
+			]}
+			class="max-h-28"
+		/>
 	);
 }
 

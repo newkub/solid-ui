@@ -60,6 +60,118 @@ function Example() {
 - \`AccordionItem\` accepts \`title\`, \`children\`, and \`defaultOpen\`
 `;
 	}
+	if (name === "Calendar") {
+		return `# Calendar
+
+A month grid with previous/next navigation.
+
+## Usage
+
+\`\`\`tsx
+import { Calendar } from "@wrikka/solid-ui";
+
+function Example() {
+	return <Calendar value={new Date()} onChange={(date) => console.log(date)} />;
+}
+\`\`\`
+
+## Props
+
+- \`value\` — selected date
+- \`onChange\` — called when a day is selected
+- Accepts \`class\` for custom styling
+`;
+	}
+	if (name === "Chart") {
+		return `# Chart
+
+A simple bar chart for data visualization.
+
+## Usage
+
+\`\`\`tsx
+import { Chart } from "@wrikka/solid-ui";
+
+function Example() {
+	return (
+		<Chart
+			title="Weekly views"
+			data={[
+				{ label: "Mon", value: 40 },
+				{ label: "Tue", value: 70 },
+			]}
+		/>
+	);
+}
+\`\`\`
+
+## Props
+
+- \`data\` — array of { label, value, color? }
+- \`title\` — optional chart title
+- \`height\` — bar area height in pixels
+`;
+	}
+	if (name === "Command") {
+		return `# Command
+
+A searchable list for command selection.
+
+## Usage
+
+\`\`\`tsx
+import { Command } from "@wrikka/solid-ui";
+
+function Example() {
+	return (
+		<Command
+			items={[
+				{ value: "profile", label: "Profile" },
+				{ value: "settings", label: "Settings" },
+			]}
+			onSelect={(item) => console.log(item.value)}
+		/>
+	);
+}
+\`\`\`
+
+## Props
+
+- \`items\` — array of { value, label, shortcut?, onSelect? }
+- \`placeholder\` — input placeholder
+- \`emptyText\` — message when no results match
+`;
+	}
+	if (name === "CommandPalette") {
+		return `# Command Palette
+
+A full-screen overlay with a searchable command list.
+
+## Usage
+
+\`\`\`tsx
+import { CommandPalette } from "@wrikka/solid-ui";
+
+function Example() {
+	return (
+		<CommandPalette
+			items={[
+				{ value: "home", label: "Go home" },
+				{ value: "docs", label: "Open docs" },
+			]}
+			onSelect={(item) => console.log(item.value)}
+		/>
+	);
+}
+\`\`\`
+
+## Props
+
+- \`open\` — controlled open state
+- \`onOpenChange\` — called when the overlay is toggled
+- Toggle with \`Cmd+K\` (macOS) or \`Ctrl+K\` (Windows/Linux)
+`;
+	}
 	return `# ${name}
 
 Renders a \`<${tag}>\` element.

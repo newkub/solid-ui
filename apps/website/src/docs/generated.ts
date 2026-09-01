@@ -361,14 +361,14 @@ export const docs: Record<string, DocPage> = {
 		group: "components",
 		order: 1,
 		content:
-			'# Command\n\nRenders a `<div>` element.\n\n## Usage\n\n```tsx\nimport { Command } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn <Command class="my-command">Command content</Command>;\n}\n```\n## Props\n\n- Extends the standard JSX attributes for `<div>`\n- Accepts `class` for custom styling\n',
+			'# Command\n\nA searchable list for command selection.\n\n## Usage\n\n```tsx\nimport { Command } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn (\n\t\t<Command\n\t\t\titems={[\n\t\t\t\t{ value: "profile", label: "Profile" },\n\t\t\t\t{ value: "settings", label: "Settings" },\n\t\t\t]}\n\t\t\tonSelect={(item) => console.log(item.value)}\n\t\t/>\n\t);\n}\n```\n\n## Props\n\n- `items` — array of { value, label, shortcut?, onSelect? }\n- `placeholder` — input placeholder\n- `emptyText` — message when no results match\n',
 	},
 	"components/commandpalette": {
 		title: "CommandPalette",
 		group: "components",
 		order: 1,
 		content:
-			'# CommandPalette\n\nRenders a `<div>` element.\n\n## Usage\n\n```tsx\nimport { CommandPalette } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn <CommandPalette class="my-commandpalette">CommandPalette content</CommandPalette>;\n}\n```\n## Props\n\n- Extends the standard JSX attributes for `<div>`\n- Accepts `class` for custom styling\n',
+			'# Command Palette\n\nA full-screen overlay with a searchable command list.\n\n## Usage\n\n```tsx\nimport { CommandPalette } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn (\n\t\t<CommandPalette\n\t\t\titems={[\n\t\t\t\t{ value: "home", label: "Go home" },\n\t\t\t\t{ value: "docs", label: "Open docs" },\n\t\t\t]}\n\t\t\tonSelect={(item) => console.log(item.value)}\n\t\t/>\n\t);\n}\n```\n\n## Props\n\n- `open` — controlled open state\n- `onOpenChange` — called when the overlay is toggled\n- Toggle with `Cmd+K` (macOS) or `Ctrl+K` (Windows/Linux)\n',
 	},
 	"components/notification": {
 		title: "Notification",
@@ -417,14 +417,14 @@ export const docs: Record<string, DocPage> = {
 		group: "components",
 		order: 1,
 		content:
-			'# Chart\n\nRenders a `<div>` element.\n\n## Usage\n\n```tsx\nimport { Chart } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn <Chart class="my-chart">Chart content</Chart>;\n}\n```\n## Props\n\n- Extends the standard JSX attributes for `<div>`\n- Accepts `class` for custom styling\n',
+			'# Chart\n\nA simple bar chart for data visualization.\n\n## Usage\n\n```tsx\nimport { Chart } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn (\n\t\t<Chart\n\t\t\ttitle="Weekly views"\n\t\t\tdata={[\n\t\t\t\t{ label: "Mon", value: 40 },\n\t\t\t\t{ label: "Tue", value: 70 },\n\t\t\t]}\n\t\t/>\n\t);\n}\n```\n\n## Props\n\n- `data` — array of { label, value, color? }\n- `title` — optional chart title\n- `height` — bar area height in pixels\n',
 	},
 	"components/calendar": {
 		title: "Calendar",
 		group: "components",
 		order: 1,
 		content:
-			'# Calendar\n\nRenders a `<div>` element.\n\n## Usage\n\n```tsx\nimport { Calendar } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn <Calendar class="my-calendar">Calendar content</Calendar>;\n}\n```\n## Props\n\n- Extends the standard JSX attributes for `<div>`\n- Accepts `class` for custom styling\n',
+			'# Calendar\n\nA month grid with previous/next navigation.\n\n## Usage\n\n```tsx\nimport { Calendar } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn <Calendar value={new Date()} onChange={(date) => console.log(date)} />;\n}\n```\n\n## Props\n\n- `value` — selected date\n- `onChange` — called when a day is selected\n- Accepts `class` for custom styling\n',
 	},
 	"components/transition": {
 		title: "Transition",
