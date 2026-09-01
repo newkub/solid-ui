@@ -51,7 +51,7 @@ export const hooks: HookItem[] = [
 	{
 		name: "createEffect",
 		description: "Run side effects when signals used inside change.",
-		example: "createEffect(() => console.log(count()));",
+		example: "createEffect(() => { track(count()); });",
 	},
 	{
 		name: "createMemo",

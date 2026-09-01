@@ -171,7 +171,9 @@ function SpaceSection(props: { space: ThemeSpace }) {
 							onClick={() => setThemeSpace(space)}
 						>
 							<div class="font-medium capitalize">{space}</div>
-							<div class="text-sm text-muted-foreground">Sample gap: {spaceScales[space]["4"]}</div>
+							<div class={`text-sm ${props.space === space ? "text-primary-foreground" : "text-muted-foreground"}`}>
+								Sample gap: {spaceScales[space]["4"]}
+							</div>
 						</button>
 					)}
 				</For>

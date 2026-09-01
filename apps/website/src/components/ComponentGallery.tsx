@@ -268,30 +268,32 @@ function GalleryListView(props: { table: ReturnType<typeof createTable<typeof fe
 
 function GalleryGridView(props: { table: ReturnType<typeof createTable<typeof features, ComponentItem>> }) {
 	return (
-		<For each={props.table.getRowModel().rows}>
-			{(row) => (
-				<Show when={!row.getParentRow()}>
-					<Show when={row.getIsGrouped()} fallback={<ComponentCard name={row.original.name} />}>
-						<div class="col-span-full w-full">
-							<button
-								type="button"
-								class="my-3 flex w-full items-center gap-2 text-left text-lg font-semibold"
-								onClick={row.getToggleExpandedHandler()}
-							>
-								<span>{row.getIsExpanded() ? "−" : "+"}</span>
-								<span>{row.getValue("categoryLabel") as string}</span>
-								<span class="text-sm text-muted-foreground">({row.subRows.length})</span>
-							</button>
-							<Show when={row.getIsExpanded()}>
-								<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-									<For each={row.subRows}>{(sub) => <ComponentCard name={sub.original.name} />}</For>
-								</div>
-							</Show>
-						</div>
+		<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+			<For each={props.table.getRowModel().rows}>
+				{(row) => (
+					<Show when={!row.getParentRow()}>
+						<Show when={row.getIsGrouped()} fallback={<ComponentCard name={row.original.name} />}>
+							<div class="col-span-full w-full">
+								<button
+									type="button"
+									class="my-3 flex w-full items-center gap-2 text-left text-lg font-semibold"
+									onClick={row.getToggleExpandedHandler()}
+								>
+									<span>{row.getIsExpanded() ? "−" : "+"}</span>
+									<span>{row.getValue("categoryLabel") as string}</span>
+									<span class="text-sm text-muted-foreground">({row.subRows.length})</span>
+								</button>
+								<Show when={row.getIsExpanded()}>
+									<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+										<For each={row.subRows}>{(sub) => <ComponentCard name={sub.original.name} />}</For>
+									</div>
+								</Show>
+							</div>
+						</Show>
 					</Show>
-				</Show>
-			)}
-		</For>
+				)}
+			</For>
+		</div>
 	);
 }
 
@@ -340,7 +342,7 @@ export function ComponentGallery(props: { withHero?: boolean }) {
 
 	const [data] = createSignal(allItems);
 	const [view, setView] = createSignal<"grid" | "list">("grid");
-	const [groupBy, setGroupBy] = createSignal(false);
+	const [groupBy, setGroupBy] = createSignal(true);
 	const [globalFilter, setGlobalFilter] = createSignal("");
 	const [categoryFilter, setCategoryFilter] = createSignal(search().category ?? "");
 	const debouncedFilter = useDebounce(globalFilter, 150);

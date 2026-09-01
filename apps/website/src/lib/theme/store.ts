@@ -6,6 +6,13 @@ import type { ThemeColor, ThemeFont, ThemeMode, ThemeRadius, ThemeSpace, ThemeSt
 
 const STORAGE_KEY = "solid-ui-theme";
 
+function adjustLightness(hsl: string, delta: number): string {
+	const match = hsl.match(/^([\d.]+)\s+([\d.]+)%\s+([\d.]+)%$/);
+	if (!match) return hsl;
+	const [h, s, l] = match.slice(1).map(Number);
+	return `${h} ${s}% ${Math.max(0, Math.min(100, l + delta))}%`;
+}
+
 function getSystemMode(): ThemeMode {
 	if (typeof window !== "undefined" && window.matchMedia("(prefers-color-scheme: dark)").matches) {
 		return "dark";
@@ -48,13 +55,21 @@ export function applyThemeState(state: ThemeState) {
 
 	const colorSet = colorSchemes[state.color][state.mode];
 	const baseForeground = state.mode === "dark" ? "222 47% 11%" : "0 0% 100%";
+	const primaryShift = state.mode === "dark" ? -5 : 5;
+	const surfaceShift = state.mode === "dark" ? 5 : -5;
 
 	html.style.setProperty("--color-primary", colorSet.primary);
 	html.style.setProperty("--color-primary-foreground", colorSet.primaryForeground);
+	html.style.setProperty("--color-primary-hover", adjustLightness(colorSet.primary, primaryShift));
+	html.style.setProperty("--color-primary-active", adjustLightness(colorSet.primary, primaryShift * 2));
 	html.style.setProperty("--color-secondary", colorSet.secondary);
 	html.style.setProperty("--color-secondary-foreground", colorSet.secondaryForeground);
+	html.style.setProperty("--color-secondary-hover", adjustLightness(colorSet.secondary, surfaceShift));
+	html.style.setProperty("--color-secondary-active", adjustLightness(colorSet.secondary, surfaceShift * 2));
 	html.style.setProperty("--color-accent", colorSet.accent);
 	html.style.setProperty("--color-accent-foreground", colorSet.accentForeground);
+	html.style.setProperty("--color-accent-hover", adjustLightness(colorSet.accent, surfaceShift));
+	html.style.setProperty("--color-accent-active", adjustLightness(colorSet.accent, surfaceShift * 2));
 	html.style.setProperty("--color-ring", colorSet.ring);
 	html.style.setProperty("--color-info", colorSet.info);
 	html.style.setProperty("--color-info-foreground", baseForeground);
@@ -64,6 +79,8 @@ export function applyThemeState(state: ThemeState) {
 	html.style.setProperty("--color-warning-foreground", baseForeground);
 	html.style.setProperty("--color-destructive", colorSet.destructive);
 	html.style.setProperty("--color-destructive-foreground", baseForeground);
+	html.style.setProperty("--color-destructive-hover", adjustLightness(colorSet.destructive, primaryShift));
+	html.style.setProperty("--color-destructive-active", adjustLightness(colorSet.destructive, primaryShift * 2));
 	html.style.setProperty("--su-font-sans", fontStacks[state.font]);
 
 	const spaces = spaceScales[state.space];

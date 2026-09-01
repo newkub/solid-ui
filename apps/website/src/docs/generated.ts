@@ -32,7 +32,7 @@ export const docs: Record<string, DocPage> = {
 		group: "integrations",
 		order: 0,
 		content:
-			"# MCP Server\n\nThe solid-ui MCP server exposes component discovery and template generation tools.\n\n## Start\n\n```bash\nbun run --filter @wrikka/mcp start\n```\n\n## Tools\n\n- `list_components` — list all components in the registry\n- `show_component` — show metadata for a component\n- `generate_component` — generate a Solid component template\n",
+			"# MCP Server\n\nThe solid-ui MCP server exposes component discovery and template generation tools.\n\n## Start\n\n```bash\nbun run --filter @wrikka/mcp start\n```\n\n## Tools\n\n- `list-components` — list every component in the registry with tag and description\n- `get-component` — get details, usage template, and import path for a component\n- `search-components` — search the registry by name, tag, or description\n- `count-components` — return the total number of components\n- `check-component-exists` — verify whether a component exists\n- `get-usage-snippet` — generate a SolidJS import and usage snippet\n",
 	},
 	cli: {
 		title: "CLI",
@@ -445,7 +445,7 @@ export const docs: Record<string, DocPage> = {
 		group: "components",
 		order: 1,
 		content:
-			'# Accordion\n\nA vertically stacked set of expandable panels.\n\n## Usage\n\n```tsx\nimport { Accordion, AccordionItem } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn (\n\t\t<Accordion class="my-accordion">\n\t\t\t<AccordionItem title="Section one">\n\t\t\t\tFirst panel content.\n\t\t\t</AccordionItem>\n\t\t\t<AccordionItem title="Section two" defaultOpen>\n\t\t\t\tSecond panel content.\n\t\t\t</AccordionItem>\n\t\t</Accordion>\n\t);\n}\n```\n## Props\n\n- `Accordion` extends the standard JSX attributes for `<div>`\n- `AccordionItem` accepts `title`, `children`, and `defaultOpen`\n',
+			'# Accordion\n\nRenders a `<div>` element.\n\n## Usage\n\n```tsx\nimport { Accordion } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn <Accordion class="my-accordion">Accordion content</Accordion>;\n}\n```\n## Props\n\n- Extends the standard JSX attributes for `<div>`\n- Accepts `class` for custom styling\n',
 	},
 	"components/dropdownmenu": {
 		title: "DropdownMenu",

@@ -2,6 +2,7 @@ import { useSelector } from "@tanstack/solid-store";
 import { createSignal, For, onCleanup, onMount, Show } from "solid-js";
 import {
 	colorSchemes,
+	fontStacks,
 	presets,
 	setThemeColor,
 	setThemeFont,
@@ -47,6 +48,8 @@ function PresetSection(props: { state: ThemeState; onSelect: () => void }) {
 						<button
 							type="button"
 							class="flex items-center gap-2 w-full text-left rounded-md px-2 py-2 text-sm hover:bg-muted"
+							role="option"
+							aria-selected={props.state.name === preset.label}
 							classList={{ "bg-muted": props.state.name === preset.label }}
 							onClick={() => {
 								setThemeName(preset.name);
@@ -78,6 +81,8 @@ function ModeSection(props: { mode: ThemeMode }) {
 						<button
 							type="button"
 							class="rounded-md border border-border px-3 py-2 text-sm hover:bg-muted"
+							role="option"
+							aria-selected={props.mode === mode}
 							classList={{ "bg-primary text-primary-foreground": props.mode === mode }}
 							onClick={() => setThemeMode(mode)}
 						>
@@ -101,7 +106,9 @@ function ColorSection(props: { color: ThemeColor; mode: ThemeMode }) {
 							type="button"
 							class="flex items-center justify-center rounded-md border border-border p-2 hover:bg-muted"
 							classList={{ "ring-2 ring-ring": props.color === color }}
+							role="option"
 							aria-label={`Color ${color}`}
+							aria-selected={props.color === color}
 							onClick={() => setThemeColor(color)}
 						>
 							<span
@@ -127,7 +134,9 @@ function FontSection(props: { font: ThemeFont }) {
 							type="button"
 							class="rounded-md border border-border px-3 py-2 text-sm hover:bg-muted"
 							classList={{ "bg-primary text-primary-foreground": props.font === font }}
-							style={{ "font-family": font === "serif" ? "serif" : font === "mono" ? "monospace" : "sans-serif" }}
+							role="option"
+							aria-selected={props.font === font}
+							style={{ "font-family": fontStacks[font] }}
 							onClick={() => setThemeFont(font)}
 						>
 							{font}
@@ -149,6 +158,8 @@ function SpaceSection(props: { space: ThemeSpace }) {
 						<button
 							type="button"
 							class="rounded-md border border-border px-3 py-2 text-sm hover:bg-muted"
+							role="option"
+							aria-selected={props.space === space}
 							classList={{ "bg-primary text-primary-foreground": props.space === space }}
 							onClick={() => setThemeSpace(space)}
 						>
@@ -171,6 +182,8 @@ function RadiusSection(props: { radius: ThemeRadius }) {
 						<button
 							type="button"
 							class="rounded-md border border-border px-2 py-2 text-sm hover:bg-muted"
+							role="option"
+							aria-selected={props.radius === radius}
 							classList={{ "bg-primary text-primary-foreground": props.radius === radius }}
 							onClick={() => setThemeRadius(radius)}
 						>

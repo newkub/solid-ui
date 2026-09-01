@@ -30,6 +30,36 @@ Many primitive components accept a \`class\` prop. Higher-level components such 
 `
 			: "";
 	const isSelfClose = ["input", "img", "progress", "hr", "br"].includes(tag);
+	if (name === "Accordion") {
+		return `# Accordion
+
+A vertically stacked set of expandable panels.
+
+## Usage
+
+\`\`\`tsx
+import { Accordion, AccordionItem } from "@wrikka/solid-ui";
+
+function Example() {
+	return (
+		<Accordion class="my-accordion">
+			<AccordionItem title="Section one">
+				First panel content.
+			</AccordionItem>
+			<AccordionItem title="Section two" defaultOpen>
+				Second panel content.
+			</AccordionItem>
+		</Accordion>
+	);
+}
+\`\`\`
+
+## Props
+
+- \`Accordion\` extends the standard JSX attributes for \`<div>\`
+- \`AccordionItem\` accepts \`title\`, \`children\`, and \`defaultOpen\`
+`;
+	}
 	return `# ${name}
 
 Renders a \`<${tag}>\` element.
@@ -138,9 +168,12 @@ bun run --filter @wrikka/mcp start
 
 ## Tools
 
-- \`list_components\` — list all components in the registry
-- \`show_component\` — show metadata for a component
-- \`generate_component\` — generate a Solid component template
+- \`list-components\` — list every component in the registry with tag and description
+- \`get-component\` — get details, usage template, and import path for a component
+- \`search-components\` — search the registry by name, tag, or description
+- \`count-components\` — return the total number of components
+- \`check-component-exists\` — verify whether a component exists
+- \`get-usage-snippet\` — generate a SolidJS import and usage snippet
 `,
 );
 

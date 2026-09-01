@@ -57,6 +57,7 @@ export function SkillsPage() {
 				title="Skills"
 				description={`${skills.length} solid-ui project skills and reusable prompts.`}
 				count={filtered().length}
+				countLabel="skills"
 			>
 				<SearchInput
 					id="skills-search"

@@ -166,6 +166,7 @@ function SidebarGroup(props: { section: SidebarSection; activeGroup: string; act
 											"block rounded-md border-l-2 border-primary bg-muted py-1.5 pl-4 pr-2 text-sm font-medium text-primary",
 									})}
 									activeOptions={{ exact: true }}
+									aria-current={active ? "page" : undefined}
 								>
 									{item.title}
 								</Link>

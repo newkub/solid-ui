@@ -1,4 +1,4 @@
-import { createResource, createSignal, For, Show } from "solid-js";
+import { createResource, createSignal, For, Match, onCleanup, Show, Switch } from "solid-js";
 import { PageHeader } from "./PageHeader";
 import { Seo } from "./Seo";
 
@@ -8,8 +8,21 @@ type Report = {
 	invalid: { file: string; line: number; className: string; reason: string }[];
 };
 
+function useViewport() {
+	const [width, setWidth] = createSignal(0);
+
+	const onResize = () => setWidth(window.innerWidth);
+	if (typeof window !== "undefined") {
+		setWidth(window.innerWidth);
+		window.addEventListener("resize", onResize);
+		onCleanup(() => window.removeEventListener("resize", onResize));
+	}
+
+	return { width };
+}
+
 function BreakpointBadge() {
-	const [width, setWidth] = createSignal(typeof window !== "undefined" ? window.innerWidth : 0);
+	const { width } = useViewport();
 	const breakpoint = () => {
 		const w = width();
 		if (w >= 1536) return "2xl";
@@ -19,10 +32,6 @@ function BreakpointBadge() {
 		if (w >= 640) return "sm";
 		return "xs";
 	};
-
-	if (typeof window !== "undefined") {
-		window.addEventListener("resize", () => setWidth(window.innerWidth));
-	}
 
 	return (
 		<div class="inline-flex items-center gap-2 rounded-lg border border-border bg-surface px-3 py-2 text-sm">
@@ -68,7 +77,9 @@ function ThemeValidatorCard() {
 								<div class="text-xs text-muted-foreground">Invalid</div>
 							</div>
 							<div class="rounded-lg bg-muted p-3 text-center">
-								<div class="text-2xl font-bold">{r().invalid.length === 0 ? "Pass" : "Fail"}</div>
+								<div class={`text-2xl font-bold ${r().invalid.length === 0 ? "text-success" : "text-destructive"}`}>
+									{r().invalid.length === 0 ? "Pass" : "Fail"}
+								</div>
 								<div class="text-xs text-muted-foreground">Status</div>
 							</div>
 						</div>
@@ -76,11 +87,14 @@ function ThemeValidatorCard() {
 							when={r().invalid.length > 0}
 							fallback={<div class="text-sm font-medium text-success">All color classes match the theme.</div>}
 						>
-							<ul class="list-disc space-y-1 pl-5 text-sm text-destructive">
+							<ul class="space-y-1 text-sm text-destructive">
 								<For each={r().invalid}>
 									{(item) => (
-										<li>
-											{item.file}:{item.line} {item.className} — {item.reason}
+										<li class="flex items-start gap-2">
+											<span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-destructive" aria-hidden="true" />
+											<span>
+												{item.file}:{item.line} {item.className} — {item.reason}
+											</span>
 										</li>
 									)}
 								</For>
@@ -144,6 +158,32 @@ function HealthCard() {
 	);
 }
 
+interface TabButtonProps {
+	active: boolean;
+	label: string;
+	tabId: string;
+	panelId: string;
+	onClick: () => void;
+}
+
+function TabButton(props: TabButtonProps) {
+	return (
+		<button
+			type="button"
+			id={props.tabId}
+			role="tab"
+			aria-selected={props.active}
+			aria-controls={props.panelId}
+			onClick={props.onClick}
+			class={`rounded-md px-3 py-1.5 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring ${
+				props.active ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground hover:bg-muted/80"
+			}`}
+		>
+			{props.label}
+		</button>
+	);
+}
+
 export function PluginsPage() {
 	const [tab, setTab] = createSignal("validator");
 
@@ -159,51 +199,47 @@ export function PluginsPage() {
 				description="Developer tools for validating, inspecting, and keeping your design system healthy."
 			/>
 
-			<div class="mb-6 flex flex-wrap gap-2">
-				<button
-					type="button"
+			<div class="mb-6 flex flex-wrap gap-2" role="tablist" aria-label="Plugin tools">
+				<TabButton
+					active={tab() === "validator"}
+					label="Theme Validator"
+					tabId="tab-validator"
+					panelId="panel-validator"
 					onClick={() => setTab("validator")}
-					class={`rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
-						tab() === "validator"
-							? "bg-primary text-primary-foreground"
-							: "bg-muted text-muted-foreground hover:bg-muted/80"
-					}`}
-				>
-					Theme Validator
-				</button>
-				<button
-					type="button"
+				/>
+				<TabButton
+					active={tab() === "responsive"}
+					label="Responsive"
+					tabId="tab-responsive"
+					panelId="panel-responsive"
 					onClick={() => setTab("responsive")}
-					class={`rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
-						tab() === "responsive"
-							? "bg-primary text-primary-foreground"
-							: "bg-muted text-muted-foreground hover:bg-muted/80"
-					}`}
-				>
-					Responsive
-				</button>
-				<button
-					type="button"
+				/>
+				<TabButton
+					active={tab() === "health"}
+					label="Health"
+					tabId="tab-health"
+					panelId="panel-health"
 					onClick={() => setTab("health")}
-					class={`rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
-						tab() === "health"
-							? "bg-primary text-primary-foreground"
-							: "bg-muted text-muted-foreground hover:bg-muted/80"
-					}`}
-				>
-					Health
-				</button>
+				/>
 			</div>
 
-			<Show when={tab() === "validator"}>
-				<ThemeValidatorCard />
-			</Show>
-			<Show when={tab() === "responsive"}>
-				<ResponsiveToolsCard />
-			</Show>
-			<Show when={tab() === "health"}>
-				<HealthCard />
-			</Show>
+			<Switch>
+				<Match when={tab() === "validator"}>
+					<div id="panel-validator" role="tabpanel" aria-labelledby="tab-validator">
+						<ThemeValidatorCard />
+					</div>
+				</Match>
+				<Match when={tab() === "responsive"}>
+					<div id="panel-responsive" role="tabpanel" aria-labelledby="tab-responsive">
+						<ResponsiveToolsCard />
+					</div>
+				</Match>
+				<Match when={tab() === "health"}>
+					<div id="panel-health" role="tabpanel" aria-labelledby="tab-health">
+						<HealthCard />
+					</div>
+				</Match>
+			</Switch>
 		</section>
 	);
 }

@@ -1,4 +1,4 @@
-import { useParams } from "@tanstack/solid-router";
+import { Link, useParams } from "@tanstack/solid-router";
 import { registry } from "@wrikka/solid-ui";
 import { type Accessor, createMemo, Show } from "solid-js";
 import { categories } from "../categories";
@@ -6,6 +6,7 @@ import { docs } from "../docs/generated";
 import { ComponentPlayground } from "./ComponentPlayground";
 import { DocsLayout } from "./DocsLayout";
 import { Markdown } from "./Markdown";
+import { PageSection } from "./PageSection";
 import { Seo } from "./Seo";
 import { Sidebar } from "./Sidebar";
 import { Toc } from "./Toc";
@@ -54,7 +55,19 @@ export function DocsPage() {
 
 	return (
 		<DocsLayout sidebar={<Sidebar />}>
-			<Show when={page()} fallback={<div class="text-muted-foreground">Docs page not found</div>}>
+			<Show
+				when={page()}
+				fallback={
+					<PageSection title="Page not found">
+						<div class="space-y-4">
+							<p class="text-muted-foreground">The requested docs page does not exist.</p>
+							<Link to="/docs/intro" class="text-primary hover:underline">
+								Back to docs
+							</Link>
+						</div>
+					</PageSection>
+				}
+			>
 				{(page) => (
 					<article class="mx-auto w-full max-w-5xl">
 						<Seo title={seoTitle()} description={seoDescription()} />

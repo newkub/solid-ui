@@ -1,10 +1,15 @@
 import { Link, useNavigate } from "@tanstack/solid-router";
-import { createSignal, For, type JSX, onCleanup, onMount } from "solid-js";
+import { createSignal, For, type JSX, onCleanup, onMount, Show } from "solid-js";
 import { toggleThemeMode } from "../lib/theme";
 import { CommandPalette } from "./CommandPalette";
 import { ContextMenu } from "./ContextMenu";
 import { Logo } from "./Logo";
 import { ThemePicker } from "./ThemePicker";
+
+function isApplePlatform() {
+	if (typeof navigator === "undefined") return false;
+	return /(Mac|iPhone|iPad|iPod)/.test(navigator.platform ?? navigator.userAgent);
+}
 
 type IconName =
 	| "components"
@@ -99,6 +104,7 @@ function NavIcon(props: { name: IconName }) {
 const simpleLinks: Array<{ to: string; label: string; icon: IconName }> = [
 	{ to: "/components", label: "Components", icon: "components" },
 	{ to: "/docs/intro", label: "Docs", icon: "docs" },
+	{ to: "/theme", label: "Theme", icon: "theme" },
 	{ to: "/layouts", label: "Layouts", icon: "layouts" },
 	{ to: "/hooks", label: "Hooks", icon: "hooks" },
 	{ to: "/cli", label: "CLI", icon: "cli" },
@@ -114,7 +120,8 @@ function SimpleLink(props: { to: string; label: string; icon: IconName; onClick?
 			to={props.to}
 			class="flex items-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium text-muted-foreground no-underline transition-colors hover:bg-muted hover:text-foreground"
 			activeProps={() => ({
-				class: "flex items-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium bg-primary text-primary-foreground",
+				class:
+					"flex items-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground",
 			})}
 			activeOptions={{ exact: true }}
 			onClick={props.onClick}
@@ -180,7 +187,7 @@ export function Nav() {
 					id={menuId}
 					class={`absolute left-0 right-0 top-full flex-col border-b border-border bg-surface p-4 shadow-lg md:static md:flex-1 md:flex md:flex-row md:items-center md:justify-center md:gap-1 md:border-0 md:bg-transparent md:p-0 md:shadow-none ${
 						menuOpen() ? "flex" : "hidden"
-					}`}
+					} max-h-[calc(100vh-4rem)] overflow-y-auto`}
 					aria-label="Main navigation"
 				>
 					<div class="flex flex-col gap-1 md:flex-row md:items-center">
@@ -196,7 +203,7 @@ export function Nav() {
 					<button
 						type="button"
 						onClick={() => setCommandOpen(true)}
-						class="hidden md:inline-flex h-10 items-center gap-2 rounded-md border border-border bg-background px-3 text-sm font-medium text-muted-foreground transition-all hover:border-border-hover hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+						class="hidden h-10 items-center gap-2 rounded-md border border-border bg-background px-3 text-sm font-medium text-muted-foreground transition-all hover:border-border-hover hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring md:inline-flex"
 					>
 						<svg
 							width="16"
@@ -212,25 +219,16 @@ export function Nav() {
 							<circle cx="11" cy="11" r="8" />
 							<path d="m21 21-4.3-4.3" />
 						</svg>
-						<span>Search…</span>
+						<span class="hidden sm:inline">Search…</span>
 						<kbd class="ml-1 hidden rounded bg-muted px-1.5 py-0.5 text-[10px] font-semibold text-muted-foreground lg:inline">
-							⌘K
+							{isApplePlatform() ? "⌘K" : "Ctrl+K"}
 						</kbd>
 					</button>
-					<Link
-						to="/docs/intro"
-						class="hidden md:inline-flex h-10 items-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground no-underline shadow-sm transition-all hover:bg-primary-hover hover:shadow-md focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
-					>
-						Get Started
-					</Link>
-					<ThemePicker />
 					<button
 						type="button"
-						class="inline-flex h-9 w-9 items-center justify-center rounded-md border border-border bg-background text-foreground transition-colors hover:bg-muted md:hidden focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
-						aria-label={menuOpen() ? "Close menu" : "Open menu"}
-						aria-expanded={menuOpen()}
-						aria-controls={menuId}
-						onClick={() => setMenuOpen((v) => !v)}
+						onClick={() => setCommandOpen(true)}
+						class="inline-flex h-9 w-9 items-center justify-center rounded-md border border-border bg-background text-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring md:hidden"
+						aria-label="Search"
 					>
 						<svg
 							width="18"
@@ -243,10 +241,59 @@ export function Nav() {
 							stroke-linejoin="round"
 							aria-hidden="true"
 						>
-							<line x1="4" y1="6" x2="20" y2="6" />
-							<line x1="4" y1="12" x2="20" y2="12" />
-							<line x1="4" y1="18" x2="20" y2="18" />
+							<circle cx="11" cy="11" r="8" />
+							<path d="m21 21-4.3-4.3" />
 						</svg>
+					</button>
+					<Link
+						to="/docs/intro"
+						class="hidden md:inline-flex h-10 items-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground no-underline shadow-sm transition-all hover:bg-primary-hover hover:shadow-md focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+					>
+						Get Started
+					</Link>
+					<ThemePicker />
+					<button
+						type="button"
+						class="inline-flex h-9 w-9 items-center justify-center rounded-md border border-border bg-background text-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring md:hidden"
+						aria-label={menuOpen() ? "Close menu" : "Open menu"}
+						aria-expanded={menuOpen()}
+						aria-controls={menuId}
+						onClick={() => setMenuOpen((v) => !v)}
+					>
+						<Show
+							when={menuOpen()}
+							fallback={
+								<svg
+									width="18"
+									height="18"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									aria-hidden="true"
+								>
+									<line x1="4" y1="6" x2="20" y2="6" />
+									<line x1="4" y1="12" x2="20" y2="12" />
+									<line x1="4" y1="18" x2="20" y2="18" />
+								</svg>
+							}
+						>
+							<svg
+								width="18"
+								height="18"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								aria-hidden="true"
+							>
+								<path d="M18 6 6 18M6 6l12 12" />
+							</svg>
+						</Show>
 					</button>
 				</div>
 			</div>

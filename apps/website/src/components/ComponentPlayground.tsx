@@ -1,6 +1,6 @@
 import * as SolidUI from "@wrikka/solid-ui";
 import { registry } from "@wrikka/solid-ui";
-import { createSignal, For, type JSX, Match, Show, Switch } from "solid-js";
+import { createSignal, ErrorBoundary, For, type JSX, Match, Show, Switch } from "solid-js";
 import { PLAYGROUND_IMAGE_SRC } from "../lib/config";
 import { CodeBlock } from "./CodeBlock";
 
@@ -273,7 +273,17 @@ export function ComponentPlayground(props: { name: string }) {
 
 	return (
 		<div class="playground">
-			<div class="playground-stage">{renderPreview()}</div>
+			<div class="playground-stage">
+				<ErrorBoundary
+					fallback={(err) => (
+						<div class="rounded-lg border border-destructive bg-destructive/10 p-4 text-sm text-destructive">
+							Preview error: {err instanceof Error ? err.message : String(err)}
+						</div>
+					)}
+				>
+					{renderPreview()}
+				</ErrorBoundary>
+			</div>
 
 			<div class="playground-controls">
 				<PlaygroundControls

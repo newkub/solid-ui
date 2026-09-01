@@ -196,6 +196,11 @@ export function CommandPalette(props: CommandPaletteProps) {
 							class="flex-1 bg-transparent text-base text-foreground placeholder:text-muted-foreground outline-none"
 							autocomplete="off"
 							autofocus
+							role="combobox"
+							aria-autocomplete="list"
+							aria-expanded={filtered().length > 0}
+							aria-controls="cmd-list"
+							aria-activedescendant={activeId() ? `cmd-item-${activeId()}` : undefined}
 							aria-label="Search commands"
 						/>
 						<kbd class="hidden rounded-md border border-border bg-background px-2 py-0.5 text-xs font-medium text-muted-foreground sm:inline-block">
@@ -217,7 +222,7 @@ export function CommandPalette(props: CommandPaletteProps) {
 										<p class="px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
 											{group}
 										</p>
-										<div class="space-y-0.5" role="listbox" aria-label={group}>
+										<div class="space-y-0.5" id="cmd-list" role="listbox" aria-label={group}>
 											<For each={items}>
 												{(command) => {
 													const active = activeId() === command.id;

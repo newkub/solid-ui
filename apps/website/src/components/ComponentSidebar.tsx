@@ -16,6 +16,7 @@ export function ComponentSidebar() {
 									class="block rounded-md px-2 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
 									activeProps={() => ({
 										class: "block rounded-md px-2 py-1.5 text-sm font-medium bg-primary text-primary-foreground",
+										"aria-current": "page",
 									})}
 									activeOptions={{ exact: true, includeSearch: true }}
 								>
@@ -37,6 +38,7 @@ export function ComponentSidebar() {
 									class="block rounded-md px-2 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
 									activeProps={() => ({
 										class: "block rounded-md px-2 py-1.5 text-sm font-medium bg-primary text-primary-foreground",
+										"aria-current": "page",
 									})}
 								>
 									{item.name}
