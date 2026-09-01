@@ -56,6 +56,27 @@ const selfClosingRenderers: Record<string, (C: AnyComp, name: string) => JSX.Ele
 	Progress: (C) => <C value={60} max={100} />,
 };
 
+function PreviewTable(C: AnyComp, name: string, tag: string) {
+	return (
+		<C class="w-full text-sm">
+			<thead>
+				<tr>
+					<th class="border border-border px-2 py-1 text-left font-medium">A</th>
+					<th class="border border-border px-2 py-1 text-left font-medium">B</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td class="border border-border px-2 py-1">
+						<SolidUI.Badge>{tag}</SolidUI.Badge>
+					</td>
+					<td class="border border-border px-2 py-1">{name}</td>
+				</tr>
+			</tbody>
+		</C>
+	);
+}
+
 function renderSelfClosing(C: AnyComp, name: string) {
 	const renderer = selfClosingRenderers[name];
 	if (renderer) return renderer(C, name);
@@ -71,6 +92,10 @@ export function ComponentPreview(props: { name: string; tag: string }) {
 		return renderSelfClosing(AnyC, props.name);
 	}
 
+	if (props.name === "Table" || props.name === "DataTable") {
+		return PreviewTable(AnyC, props.name, props.tag);
+	}
+
 	if (colored.has(props.name)) {
 		return (
 			<AnyC variant="primary" size="sm">
@@ -80,7 +105,7 @@ export function ComponentPreview(props: { name: string; tag: string }) {
 	}
 
 	return (
-		<AnyC class="flex items-center gap-2 rounded-lg border border-border bg-background p-3 text-sm">
+		<AnyC class="flex h-20 w-full items-center justify-center gap-2 rounded-lg border border-border bg-background p-3 text-sm">
 			<SolidUI.Badge>{props.tag}</SolidUI.Badge>
 			{props.name}
 		</AnyC>

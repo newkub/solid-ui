@@ -1,0 +1,17 @@
+feat(website): centered nav with mega menu, icon theme, hooks/cli/layouts pages
+
+- Center nav menu and remove underlines from nav links.
+- Make ThemePicker compact icon-only button with dropdown.
+- Add Components mega menu grouped by category.
+- Add Layouts, Hooks, and CLI links and pages.
+- Regenerate skills.json from only project .devin/skills.
+- Update SkillsPage to show project skills with no broken Run link.
+- Make ComponentCard name prop robust against reactive accessors.
+- Improve ComponentPreview with fixed-height generic preview and Table/DataTable renderer.
+- Add Seo to new pages.
+
+Verified: website typecheck, biome, build pass.
+
+Generated with [Devin](https://devin.ai)
+
+Co-Authored-By: Devin <158243242+devin-ai-integration[bot]@users.noreply.github.com>

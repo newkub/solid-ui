@@ -1,10 +1,7 @@
 import { readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
-const SKILL_DIRS = [
-	"C:\\Users\\Veerapong\\AppData\\Roaming\\devin\\skills",
-	"D:\\newkub\\solid-ui\\.devin\\skills",
-];
+const SKILL_DIRS = ["D:\\newkub\\solid-ui\\.devin\\skills"];
 
 function parseFrontmatter(content) {
 	const match = content.match(/^---\r?\n([\s\S]*?)\r?\n---/);

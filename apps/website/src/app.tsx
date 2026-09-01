@@ -1,10 +1,13 @@
 import { createRootRoute, createRoute, createRouter, Navigate, Outlet } from "@tanstack/solid-router";
 import * as SolidUI from "@wrikka/solid-ui";
 import { ErrorBoundary, For } from "solid-js";
+import { CliPage } from "./components/CliPage";
 import { CodeBlock } from "./components/CodeBlock";
 import { ComponentGallery } from "./components/ComponentGallery";
 import { DocsPage } from "./components/DocsPage";
 import { Footer } from "./components/Footer";
+import { HooksPage } from "./components/HooksPage";
+import { LayoutsPage } from "./components/LayoutsPage";
 import { LlmTxtPage } from "./components/LlmTxtPage";
 import { McpPage } from "./components/McpPage";
 import { Nav } from "./components/Nav";
@@ -296,6 +299,24 @@ const templatesRoute = createRoute({
 	component: TemplatesPage,
 });
 
+const layoutsRoute = createRoute({
+	getParentRoute: () => rootRoute,
+	path: "/layouts",
+	component: LayoutsPage,
+});
+
+const hooksRoute = createRoute({
+	getParentRoute: () => rootRoute,
+	path: "/hooks",
+	component: HooksPage,
+});
+
+const cliRoute = createRoute({
+	getParentRoute: () => rootRoute,
+	path: "/cli",
+	component: CliPage,
+});
+
 export const routeTree = rootRoute.addChildren([
 	homeRoute,
 	componentsRoute,
@@ -308,6 +329,9 @@ export const routeTree = rootRoute.addChildren([
 	skillsRoute,
 	mcpRoute,
 	templatesRoute,
+	layoutsRoute,
+	hooksRoute,
+	cliRoute,
 	docsIndexRoute,
 	docsGroupRoute,
 	docsComponentRoute,

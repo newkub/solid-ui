@@ -1,4 +1,3 @@
-import { Link } from "@tanstack/solid-router";
 import { createMemo, createSignal, For, Show } from "solid-js";
 import skillsData from "../data/skills.json";
 
@@ -23,13 +22,9 @@ function SkillCard(props: { skill: Skill }) {
 			<p class="flex-1 text-sm text-muted-foreground line-clamp-3">
 				{props.skill.description || "No description available."}
 			</p>
-			<Link
-				to={`/skills/${props.skill.name}`}
-				class="inline-flex h-8 w-fit items-center rounded-md bg-primary px-3 text-xs font-medium text-primary-foreground hover:bg-primary/90"
-				aria-label={`Run ${props.skill.name} skill`}
-			>
-				Run
-			</Link>
+			<span class="inline-flex h-8 w-fit items-center rounded-md bg-muted px-3 text-xs font-medium text-muted-foreground">
+				project skill
+			</span>
 		</li>
 	);
 }
@@ -60,7 +55,7 @@ export function SkillsPage() {
 		<section class="page flex flex-col gap-6">
 			<header class="flex flex-col gap-2">
 				<h2 class="text-2xl font-bold tracking-tight text-foreground">Skills</h2>
-				<p class="text-sm text-muted-foreground">{skills.length} skills available from the Devin skill library.</p>
+				<p class="text-sm text-muted-foreground">{skills.length} solid-ui project skills.</p>
 				<SearchInput value={query()} onInput={setQuery} />
 			</header>
 			<Show
