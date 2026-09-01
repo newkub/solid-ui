@@ -16,6 +16,12 @@ export const categories = [
 			"FileInput",
 			"Slider",
 			"DatePicker",
+			"CheckboxGroup",
+			"Combobox",
+			"MultiSelect",
+			"PinInput",
+			"RadioGroup",
+			"TagsInput",
 		],
 	},
 	{
@@ -81,6 +87,10 @@ export const categories = [
 			"Meter",
 			"Stat",
 			"SkeletonText",
+			"AlertDialog",
+			"HoverCard",
+			"ContextMenu",
+			"SkeletonCircle",
 		],
 	},
 	{

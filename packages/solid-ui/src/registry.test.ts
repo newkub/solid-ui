@@ -2,9 +2,9 @@ import { describe, expect, it } from "vitest";
 import { registry } from "./registry";
 
 describe("@wrikka/solid-ui registry", () => {
-	it("exposes exactly 72 registry entries", () => {
+	it("exposes exactly 82 registry entries", () => {
 		expect(Array.isArray(registry)).toBe(true);
-		expect(registry).toHaveLength(72);
+		expect(registry).toHaveLength(82);
 	});
 
 	it("includes well-known components with a name, tag, and description", () => {

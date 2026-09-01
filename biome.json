@@ -7,7 +7,7 @@
 		}
 	],
 	"files": {
-		"includes": ["**", "!**/dist", "!**/node_modules", "!**/.bun"],
+		"includes": ["**", "!**/dist", "!**/node_modules", "!**/.bun", "!**/coverage"],
 		"ignoreUnknown": true
 	},
 	"formatter": {
