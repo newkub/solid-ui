@@ -1,81 +1,49 @@
-import { Link } from "@tanstack/solid-router";
-import { For } from "solid-js";
+import { For, Show } from "solid-js";
+import { useSearch } from "../hooks/useSearch";
+import { EmptyState } from "./EmptyState";
+import { LayoutCard, layouts } from "./LayoutPreview";
+import { PageHeader } from "./PageHeader";
+import { SearchInput } from "./SearchInput";
 import { Seo } from "./Seo";
 
-const layouts = [
-	{
-		name: "Box",
-		description: "A foundational container with theme-aware background, border, and spacing.",
-		slug: "box",
-	},
-	{
-		name: "Flex",
-		description: "Flexible layout component using CSS flexbox.",
-		slug: "flex",
-	},
-	{
-		name: "Grid",
-		description: "CSS grid layout component.",
-		slug: "grid",
-	},
-	{
-		name: "Stack",
-		description: "Vertically or horizontally stacked children with consistent spacing.",
-		slug: "stack",
-	},
-	{
-		name: "Separator",
-		description: "Visual divider between sections or items.",
-		slug: "separator",
-	},
-	{
-		name: "AspectRatio",
-		description: "Locks child content to a specific aspect ratio.",
-		slug: "aspect-ratio",
-	},
-	{
-		name: "ScrollArea",
-		description: "Scrollable container with custom overflow handling.",
-		slug: "scroll-area",
-	},
-	{
-		name: "Resizable",
-		description: "Resizable panel layout.",
-		slug: "resizable",
-	},
-];
+function matchesQuery(item: (typeof layouts)[number], query: string) {
+	const haystack = `${item.name} ${item.description}`.toLowerCase();
+	return haystack.includes(query.toLowerCase());
+}
 
 export function LayoutsPage() {
+	const { query, setQuery, debouncedQuery, filtered } = useSearch(
+		() => layouts,
+		(item, q) => matchesQuery(item, q),
+	);
+
 	return (
-		<section class="page mx-auto max-w-4xl">
+		<section class="page">
 			<Seo
 				title="Layouts — solid-ui"
 				description="Layout components for building responsive, structured pages with solid-ui."
 				path="/layouts"
 			/>
-			<header class="mb-8">
-				<h2 class="text-2xl font-bold tracking-tight">Layouts</h2>
-				<p class="mt-2 text-sm text-muted-foreground">
-					Structural components to compose responsive, accessible layouts.
-				</p>
-			</header>
+			<PageHeader
+				title="Layouts"
+				description="Structural components to compose responsive, accessible layouts. Each card shows a visual preview of the layout pattern."
+				count={filtered().length}
+			>
+				<SearchInput
+					id="layouts-search"
+					placeholder="Search layouts…"
+					value={query()}
+					onInput={setQuery}
+					label="Search layouts"
+					class="max-w-sm"
+				/>
+			</PageHeader>
 
-			<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-				<For each={layouts}>
-					{(item) => (
-						<article class="flex flex-col gap-2 rounded-xl border border-border bg-surface p-5 shadow-sm">
-							<h3 class="text-lg font-semibold text-foreground">{item.name}</h3>
-							<p class="flex-1 text-sm text-muted-foreground">{item.description}</p>
-							<Link
-								to={`/docs/components/${item.slug}`}
-								class="mt-auto inline-flex h-8 w-fit items-center rounded-md bg-secondary px-3 text-xs font-medium text-secondary-foreground no-underline hover:bg-secondary/80"
-							>
-								View docs
-							</Link>
-						</article>
-					)}
-				</For>
-			</div>
+			<Show when={filtered().length > 0} fallback={<EmptyState query={debouncedQuery()} label="layouts" />}>
+				<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+					<For each={filtered()}>{(item) => <LayoutCard item={item} />}</For>
+				</div>
+			</Show>
 		</section>
 	);
 }
