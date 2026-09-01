@@ -5,7 +5,7 @@ export interface CommandPaletteProps extends JSX.HTMLAttributes<HTMLDivElement> 
 
 export function CommandPalette(props: CommandPaletteProps) {
 	const [local, rest] = splitProps(props, ["class", "children"]);
-	const base = "fixed inset-0 z-modal flex items-start justify-center pt-[10vh] bg-black/50";
+	const base = "w-full rounded-lg border bg-card text-card-foreground shadow-sm p-4";
 	const className = [base, local.class || ""].filter(Boolean).join(" ");
 	return (
 		<div class={className} {...rest}>
