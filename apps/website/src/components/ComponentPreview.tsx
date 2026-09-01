@@ -122,6 +122,24 @@ function SampleCalendar() {
 	);
 }
 
+function SampleTerminal() {
+	return (
+		<SolidUI.Terminal
+			class="max-h-28 w-full overflow-hidden text-[10px]"
+			showPrompt
+			lines={[{ content: "bun run build" }, { content: "✓ built in 3.15s", variant: "success" }]}
+		/>
+	);
+}
+
+function SampleMotion() {
+	return (
+		<SolidUI.Motion initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 600 }}>
+			<div class="rounded bg-primary px-3 py-1.5 text-xs text-primary-foreground">{/* Motion */}</div>
+		</SolidUI.Motion>
+	);
+}
+
 function SampleCommand() {
 	return (
 		<div class="w-full space-y-1.5 text-left">
@@ -196,6 +214,8 @@ function PreviewContent(props: { name: string; tag: string }) {
 	}
 
 	if (props.name === "Accordion") return <SampleAccordion />;
+	if (props.name === "Terminal") return <SampleTerminal />;
+	if (props.name === "Motion") return <SampleMotion />;
 
 	const layout = new Set([
 		"Box",

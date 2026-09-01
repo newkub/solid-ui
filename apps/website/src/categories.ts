@@ -69,6 +69,8 @@ export const categories = [
 			"Toggle",
 			"ToggleGroup",
 			"Resizable",
+			"Terminal",
+			"Motion",
 		],
 	},
 	{

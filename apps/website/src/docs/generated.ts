@@ -144,7 +144,7 @@ export const docs: Record<string, DocPage> = {
 		group: "components",
 		order: 0,
 		content:
-			"# Components\n\nThe following components are available in solid-ui:\n\n- [Card](/docs/components/card)\n- [Box](/docs/components/box)\n- [Flex](/docs/components/flex)\n- [Grid](/docs/components/grid)\n- [Stack](/docs/components/stack)\n- [Separator](/docs/components/separator)\n- [AspectRatio](/docs/components/aspectratio)\n- [Skeleton](/docs/components/skeleton)\n- [Spinner](/docs/components/spinner)\n- [Loading](/docs/components/loading)\n- [Progress](/docs/components/progress)\n- [Avatar](/docs/components/avatar)\n- [Badge](/docs/components/badge)\n- [Breadcrumb](/docs/components/breadcrumb)\n- [Tabs](/docs/components/tabs)\n- [Pagination](/docs/components/pagination)\n- [Steps](/docs/components/steps)\n- [Timeline](/docs/components/timeline)\n- [Menubar](/docs/components/menubar)\n- [NavigationMenu](/docs/components/navigationmenu)\n- [TreeView](/docs/components/treeview)\n- [Dialog](/docs/components/dialog)\n- [Modal](/docs/components/modal)\n- [Sheet](/docs/components/sheet)\n- [Drawer](/docs/components/drawer)\n- [Tooltip](/docs/components/tooltip)\n- [Popover](/docs/components/popover)\n- [Toast](/docs/components/toast)\n- [Toaster](/docs/components/toaster)\n- [Alert](/docs/components/alert)\n- [Command](/docs/components/command)\n- [CommandPalette](/docs/components/commandpalette)\n- [Notification](/docs/components/notification)\n- [Table](/docs/components/table)\n- [DataTable](/docs/components/datatable)\n- [VirtualList](/docs/components/virtuallist)\n- [ScrollArea](/docs/components/scrollarea)\n- [Image](/docs/components/image)\n- [Chart](/docs/components/chart)\n- [Calendar](/docs/components/calendar)\n- [Transition](/docs/components/transition)\n- [Collapsible](/docs/components/collapsible)\n- [Accordion](/docs/components/accordion)\n- [DropdownMenu](/docs/components/dropdownmenu)\n- [Toggle](/docs/components/toggle)\n- [ToggleGroup](/docs/components/togglegroup)\n- [Resizable](/docs/components/resizable)\n",
+			"# Components\n\nThe following components are available in solid-ui:\n\n- [Card](/docs/components/card)\n- [Box](/docs/components/box)\n- [Flex](/docs/components/flex)\n- [Grid](/docs/components/grid)\n- [Stack](/docs/components/stack)\n- [Separator](/docs/components/separator)\n- [AspectRatio](/docs/components/aspectratio)\n- [Skeleton](/docs/components/skeleton)\n- [Spinner](/docs/components/spinner)\n- [Loading](/docs/components/loading)\n- [Progress](/docs/components/progress)\n- [Avatar](/docs/components/avatar)\n- [Badge](/docs/components/badge)\n- [Breadcrumb](/docs/components/breadcrumb)\n- [Tabs](/docs/components/tabs)\n- [Pagination](/docs/components/pagination)\n- [Steps](/docs/components/steps)\n- [Timeline](/docs/components/timeline)\n- [Menubar](/docs/components/menubar)\n- [NavigationMenu](/docs/components/navigationmenu)\n- [TreeView](/docs/components/treeview)\n- [Dialog](/docs/components/dialog)\n- [Modal](/docs/components/modal)\n- [Sheet](/docs/components/sheet)\n- [Drawer](/docs/components/drawer)\n- [Tooltip](/docs/components/tooltip)\n- [Popover](/docs/components/popover)\n- [Toast](/docs/components/toast)\n- [Toaster](/docs/components/toaster)\n- [Alert](/docs/components/alert)\n- [Command](/docs/components/command)\n- [CommandPalette](/docs/components/commandpalette)\n- [Notification](/docs/components/notification)\n- [Table](/docs/components/table)\n- [DataTable](/docs/components/datatable)\n- [VirtualList](/docs/components/virtuallist)\n- [ScrollArea](/docs/components/scrollarea)\n- [Image](/docs/components/image)\n- [Chart](/docs/components/chart)\n- [Calendar](/docs/components/calendar)\n- [Transition](/docs/components/transition)\n- [Collapsible](/docs/components/collapsible)\n- [Accordion](/docs/components/accordion)\n- [DropdownMenu](/docs/components/dropdownmenu)\n- [Toggle](/docs/components/toggle)\n- [ToggleGroup](/docs/components/togglegroup)\n- [Resizable](/docs/components/resizable)\n- [Terminal](/docs/components/terminal)\n- [Motion](/docs/components/motion)\n",
 	},
 	"components/card": {
 		title: "Card",
@@ -445,7 +445,7 @@ export const docs: Record<string, DocPage> = {
 		group: "components",
 		order: 1,
 		content:
-			'# Accordion\n\nRenders a `<div>` element.\n\n## Usage\n\n```tsx\nimport { Accordion } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn <Accordion class="my-accordion">Accordion content</Accordion>;\n}\n```\n## Props\n\n- Extends the standard JSX attributes for `<div>`\n- Accepts `class` for custom styling\n',
+			'# Accordion\n\nA vertically stacked set of expandable panels.\n\n## Usage\n\n```tsx\nimport { Accordion, AccordionItem } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn (\n\t\t<Accordion class="my-accordion">\n\t\t\t<AccordionItem title="Section one">\n\t\t\t\tFirst panel content.\n\t\t\t</AccordionItem>\n\t\t\t<AccordionItem title="Section two" defaultOpen>\n\t\t\t\tSecond panel content.\n\t\t\t</AccordionItem>\n\t\t</Accordion>\n\t);\n}\n```\n\n## Props\n\n- `Accordion` extends the standard JSX attributes for `<div>`\n- `AccordionItem` accepts `title`, `children`, and `defaultOpen`\n',
 	},
 	"components/dropdownmenu": {
 		title: "DropdownMenu",
@@ -474,6 +474,20 @@ export const docs: Record<string, DocPage> = {
 		order: 1,
 		content:
 			'# Resizable\n\nRenders a `<div>` element.\n\n## Usage\n\n```tsx\nimport { Resizable } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn <Resizable class="my-resizable">Resizable content</Resizable>;\n}\n```\n## Props\n\n- Extends the standard JSX attributes for `<div>`\n- Accepts `class` for custom styling\n',
+	},
+	"components/terminal": {
+		title: "Terminal",
+		group: "components",
+		order: 1,
+		content:
+			'# Terminal\n\nRenders a `<div>` element.\n\n## Usage\n\n```tsx\nimport { Terminal } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn <Terminal class="my-terminal">Terminal content</Terminal>;\n}\n```\n## Props\n\n- Extends the standard JSX attributes for `<div>`\n- Accepts `class` for custom styling\n',
+	},
+	"components/motion": {
+		title: "Motion",
+		group: "components",
+		order: 1,
+		content:
+			'# Motion\n\nRenders a `<div>` element.\n\n## Usage\n\n```tsx\nimport { Motion } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn <Motion class="my-motion">Motion content</Motion>;\n}\n```\n## Props\n\n- Extends the standard JSX attributes for `<div>`\n- Accepts `class` for custom styling\n',
 	},
 	templates: {
 		title: "Templates",
