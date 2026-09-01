@@ -142,6 +142,24 @@ export async function analyzeSecurity(
 				recommendation: "Use https://",
 			});
 		}
+
+		const basename = (rel.split(/[\\/]/).pop() ?? "").toLowerCase();
+		const generatedFile = basename === "generated.ts" || basename === "generated.tsx" || basename.endsWith(".d.ts");
+		const configOrTool = rel.startsWith("tools") || rel.split(/[\\/]/).includes("scripts") || rel.endsWith(".json");
+		if (!generatedFile && !configOrTool && /https:\/\//.test(content)) {
+			const line = content.split("\n").findIndex((l) => /https:\/\//.test(l)) + 1;
+			findings.push({
+				categoryId: "no-hardcoded-urls",
+				category: cats.get("no-hardcoded-urls")?.name ?? "",
+				domain: "security",
+				severity: "Low",
+				message: "Hardcoded https URL found",
+				file: rel,
+				line,
+				evidence: `https:// URL in ${rel}`,
+				recommendation: "Move URLs to configuration or constants file",
+			});
+		}
 	}
 
 	if (!findings.some((f) => f.categoryId === "no-private-keys")) passed.add("no-private-keys");
@@ -150,6 +168,7 @@ export async function analyzeSecurity(
 	if (!findings.some((f) => f.categoryId === "no-eval")) passed.add("no-eval");
 	if (!findings.some((f) => f.categoryId === "safe-inner-html")) passed.add("safe-inner-html");
 	if (!findings.some((f) => f.categoryId === "no-http")) passed.add("no-http");
+	if (!findings.some((f) => f.categoryId === "no-hardcoded-urls")) passed.add("no-hardcoded-urls");
 	if (!findings.some((f) => f.categoryId === "wrangler-secrets")) passed.add("wrangler-secrets");
 	if (!findings.some((f) => f.categoryId === "no-secrets-logs")) passed.add("no-secrets-logs");
 	if (!findings.some((f) => f.categoryId === "dependency-vulns")) passed.add("dependency-vulns");

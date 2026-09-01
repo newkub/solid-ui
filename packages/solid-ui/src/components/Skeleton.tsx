@@ -5,9 +5,10 @@ export interface SkeletonProps extends JSX.HTMLAttributes<HTMLDivElement> {}
 
 export function Skeleton(props: SkeletonProps) {
 	const [local, rest] = splitProps(props, ["class", "children"]);
-	const base = "solidui-skeleton";
+	const base = "h-4 w-full animate-pulse rounded-md bg-muted";
+	const className = [base, local.class || ""].filter(Boolean).join(" ");
 	return (
-		<div class={`${base} ${local.class || ""}`.trim()} {...rest}>
+		<div class={className} {...rest}>
 			{local.children}
 		</div>
 	);

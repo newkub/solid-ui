@@ -5,9 +5,10 @@ export interface ToasterProps extends JSX.HTMLAttributes<HTMLDivElement> {}
 
 export function Toaster(props: ToasterProps) {
 	const [local, rest] = splitProps(props, ["class", "children"]);
-	const base = "solidui-toaster";
+	const base = "fixed bottom-4 right-4 z-toast flex flex-col gap-2";
+	const className = [base, local.class || ""].filter(Boolean).join(" ");
 	return (
-		<div class={`${base} ${local.class || ""}`.trim()} {...rest}>
+		<div class={className} {...rest}>
 			{local.children}
 		</div>
 	);

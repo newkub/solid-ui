@@ -176,7 +176,7 @@ export async function analyzeArchitecture(
 
 		for (const match of importMatches) {
 			const specifier = match[1] ?? match[2];
-			if (!specifier || !specifier.startsWith(".")) continue;
+			if (!specifier?.startsWith(".")) continue;
 
 			let resolved = resolve(dir, specifier);
 			if (!existsSync(resolved)) {

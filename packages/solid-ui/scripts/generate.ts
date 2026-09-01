@@ -1,4 +1,6 @@
+// biome-ignore-all lint/suspicious/noTemplateCurlyInString: code generation templates contain template syntax inside strings
 import { mkdir, writeFile } from "node:fs/promises";
+import { componentConfig } from "./classMap.ts";
 
 interface Spec {
 	name: string;
@@ -155,8 +157,16 @@ const components: Spec[] = [
 	{ name: "Resizable", tag: "div", element: "HTMLDivElement" },
 ];
 
-function kebab(name: string) {
-	return name.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
+function getDefaultClasses(spec: Spec): string {
+	const config = componentConfig[spec.name];
+	if (config?.base) return config.base;
+	if (spec.tag === "button") {
+		return "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
+	}
+	if (spec.tag === "input" || spec.tag === "textarea" || spec.tag === "select") {
+		return "flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50";
+	}
+	return "bg-transparent text-foreground";
 }
 
 const tagToAttrInterface: Record<string, string> = {
@@ -182,22 +192,24 @@ const tagToAttrInterface: Record<string, string> = {
 };
 
 function makeComponent(spec: Spec) {
-	const base = `solidui-${kebab(spec.name)}`;
+	const base = getDefaultClasses(spec);
 	const interfaceName = tagToAttrInterface[spec.tag] ?? "HTMLAttributes";
 	const attrInterface = `JSX.${interfaceName}<${spec.element}>`;
 
 	const propsDecl = `export interface ${spec.name}Props extends ${attrInterface} {${spec.extraProps ?? ""}\n}\n`;
 
-	const body =
-		spec.body ??
-		(spec.selfClose
-			? `  return <${spec.tag} class={\`\${base} \${local.class || ''}\`.trim()} {...rest} />`
-			: `  return <${spec.tag} class={\`\${base} \${local.class || ''}\`.trim()} {...rest}>{local.children}</${spec.tag}>`);
+	const config = componentConfig[spec.name];
+	const classNameStmt = "const className = [base, local.class || ''].filter(Boolean).join(' ')";
+	const defaultBody = spec.selfClose
+		? `${classNameStmt}\n  return <${spec.tag} class={className} {...rest} />`
+		: `${classNameStmt}\n  return <${spec.tag} class={className} {...rest}>{local.children}</${spec.tag}>`;
+
+	const body = config?.body ?? spec.body ?? defaultBody;
 
 	const splitKeys = spec.splitKeys ?? (spec.selfClose ? "'class'" : "'class', 'children'");
 
 	return `// Generated component — customize as needed
-import { splitProps, type JSX } from 'solid-js'
+import { type JSX, splitProps } from 'solid-js'
 
 ${propsDecl}
 export function ${spec.name}(props: ${spec.name}Props) {
@@ -226,11 +238,19 @@ const registryLines: string[] = [
 	"export interface RegistryItem { name: string; tag: string; description: string }\nexport const registry: RegistryItem[] = [",
 ];
 
+const generated: { name: string; tag: string }[] = [];
+
 for (const spec of components) {
 	const file = new URL(`./${spec.name}.tsx`, outDir);
 	await writeFile(file, makeComponent(spec));
-	indexLines.push(`export { ${spec.name} } from './components/${spec.name}'`);
-	registryLines.push(`  { name: '${spec.name}', tag: '${spec.tag}', description: '${spec.name} component' },`);
+	generated.push({ name: spec.name, tag: spec.tag });
+}
+
+generated.sort((a, b) => a.name.localeCompare(b.name));
+
+for (const { name, tag } of generated) {
+	indexLines.push(`export { ${name} } from './components/${name}'`);
+	registryLines.push(`  { name: '${name}', tag: '${tag}', description: '${name} component' },`);
 }
 
 indexLines.push(`\nexport { registry } from './registry'`);

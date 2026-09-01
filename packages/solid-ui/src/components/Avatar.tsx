@@ -5,9 +5,10 @@ export interface AvatarProps extends JSX.HTMLAttributes<HTMLDivElement> {}
 
 export function Avatar(props: AvatarProps) {
 	const [local, rest] = splitProps(props, ["class", "children"]);
-	const base = "solidui-avatar";
+	const base = "relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full bg-muted";
+	const className = [base, local.class || ""].filter(Boolean).join(" ");
 	return (
-		<div class={`${base} ${local.class || ""}`.trim()} {...rest}>
+		<div class={className} {...rest}>
 			{local.children}
 		</div>
 	);

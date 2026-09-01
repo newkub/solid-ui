@@ -1,5 +1,6 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import UnoCSS from "unocss/vite";
 import { defineConfig } from "vite";
 import solid from "vite-plugin-solid";
 
@@ -13,7 +14,7 @@ const tableDomain = path.resolve(__dirname, "../../packages/table/src/modules/ta
 const transitionsRoot = path.resolve(__dirname, "../../packages/transitions/src").replace(/\\/g, "/");
 
 export default defineConfig({
-	plugins: [solid()],
+	plugins: [UnoCSS(), solid()],
 	resolve: {
 		alias: [
 			{ find: /^#form$/, replacement: `${formRoot}/index.ts` },

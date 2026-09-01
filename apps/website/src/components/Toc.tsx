@@ -14,13 +14,18 @@ export function Toc(props: { content: string }) {
 	};
 
 	return (
-		<nav class="toc" aria-label="On this page">
-			<h2 class="toc__title">On this page</h2>
-			<ul class="toc__list">
+		<nav class="text-sm" aria-label="On this page">
+			<h2 class="mb-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">On this page</h2>
+			<ul class="space-y-1 border-l border-border">
 				<For each={headings()}>
 					{(h) => (
-						<li class={`toc__item toc__item--level-${h.level}`}>
-							<a href={`#${h.id}`}>{h.text}</a>
+						<li class={`${h.level === 2 ? "pl-3" : h.level === 3 ? "pl-6" : "pl-3"}`}>
+							<a
+								href={`#${h.id}`}
+								class="block border-l-2 border-transparent py-1 pl-3 -ml-px text-muted-foreground transition-colors hover:border-border hover:text-foreground"
+							>
+								{h.text}
+							</a>
 						</li>
 					)}
 				</For>

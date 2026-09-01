@@ -8,6 +8,13 @@
 		".": {
 			"import": "./src/index.ts",
 			"types": "./dist/index.d.ts"
+		},
+		"./registry": {
+			"import": "./src/registry.ts",
+			"types": "./src/registry.ts"
+		},
+		"./styles/*": {
+			"import": "./src/styles/*"
 		}
 	},
 	"scripts": {

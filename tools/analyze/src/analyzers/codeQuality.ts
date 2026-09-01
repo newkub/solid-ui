@@ -1,4 +1,5 @@
-import { readdirSync, readFileSync, statSync } from "node:fs";
+import { existsSync, mkdtempSync, readdirSync, readFileSync, rmSync, statSync } from "node:fs";
+import { tmpdir } from "node:os";
 import { join, relative } from "node:path";
 import type { CategoryCheck, Finding } from "../types";
 import { runShell } from "./shell";
@@ -73,21 +74,21 @@ export async function analyzeCodeQuality(
 
 	let testCount = 0;
 	let anyFile = false;
-	let maxFileLines = 0;
-	let hugeFile = "";
+	let nonGeneratedMaxFileLines = 0;
+	let nonGeneratedHugeFile = "";
 	const files = walkDir(root);
 	for (const file of files) {
 		anyFile = true;
 		const rel = relative(root, file);
 		const content = readFileSync(file, "utf-8");
 		const lines = content.split("\n").length;
-		if (lines > maxFileLines) {
-			maxFileLines = lines;
-			hugeFile = rel;
-		}
 		const basename = (rel.split(/[\\/]/).pop() ?? "").toLowerCase();
-		const generated = basename === "generated.ts" || basename === "generated.tsx" || basename.endsWith(".d.ts");
-		if (!generated && lines > 500) {
+		const isGeneratedFile = basename === "generated.ts" || basename === "generated.tsx" || basename.endsWith(".d.ts");
+		if (!isGeneratedFile && lines > nonGeneratedMaxFileLines) {
+			nonGeneratedMaxFileLines = lines;
+			nonGeneratedHugeFile = rel;
+		}
+		if (!isGeneratedFile && lines > 500) {
 			findings.push({
 				categoryId: "no-huge-files",
 				category: cats.get("no-huge-files")?.name ?? "",
@@ -178,10 +179,8 @@ export async function analyzeCodeQuality(
 		}
 	}
 
-	if (anyFile && maxFileLines <= 500) passed.add("no-huge-files");
-	const hugeBasename = (hugeFile.split(/[\\/]/).pop() ?? "").toLowerCase();
-	if (maxFileLines <= 250 || hugeBasename === "generated.ts" || hugeBasename === "generated.tsx")
-		passed.add("max-file-length");
+	if (anyFile && nonGeneratedMaxFileLines <= 500) passed.add("no-huge-files");
+	if (nonGeneratedMaxFileLines <= 250) passed.add("max-file-length");
 	else {
 		findings.push({
 			categoryId: "max-file-length",
@@ -189,8 +188,8 @@ export async function analyzeCodeQuality(
 			domain: "code-quality",
 			severity: "Low",
 			message: `File exceeds 250 lines`,
-			file: hugeFile,
-			evidence: `${hugeFile} has ${maxFileLines} lines`,
+			file: nonGeneratedHugeFile,
+			evidence: `${nonGeneratedHugeFile} has ${nonGeneratedMaxFileLines} lines`,
 			recommendation: "Refactor large files",
 		});
 	}
@@ -241,5 +240,204 @@ export async function analyzeCodeQuality(
 
 	if (!findings.some((f) => f.categoryId === "no-console-log")) passed.add("no-console-log");
 
+	await checkUnusedVars(root, cats, findings);
+	await checkDuplicateCode(root, cats, findings);
+	await checkMaxFunctionLength(root, cats, findings);
+	await checkPackageBuilds(root, cats, findings);
+	checkPackageTests(root, cats, findings);
+
+	if (!findings.some((f) => f.categoryId === "no-unused-vars")) passed.add("no-unused-vars");
+	if (!findings.some((f) => f.categoryId === "no-duplicate-code")) passed.add("no-duplicate-code");
+	if (!findings.some((f) => f.categoryId === "max-function-length")) passed.add("max-function-length");
+	if (!findings.some((f) => f.categoryId === "package-builds")) passed.add("package-builds");
+	if (!findings.some((f) => f.categoryId === "package-tests")) passed.add("package-tests");
+
 	return { findings, passed };
+}
+
+async function checkUnusedVars(root: string, cats: Map<string, CategoryCheck>, findings: Finding[]) {
+	const tsconfigs: string[] = [];
+	for (const ws of ["packages", "apps", "tools"]) {
+		const wsPath = join(root, ws);
+		if (!existsSync(wsPath)) continue;
+		for (const entry of readdirSync(wsPath)) {
+			const tsconfigPath = join(wsPath, entry, "tsconfig.json");
+			if (existsSync(tsconfigPath)) tsconfigs.push(tsconfigPath);
+		}
+	}
+
+	const failing: string[] = [];
+	await Promise.all(
+		tsconfigs.map(async (tsconfigPath) => {
+			const result = await runShell(
+				"bunx",
+				["tsc", "--noEmit", "--noUnusedLocals", "--noUnusedParameters", "-p", tsconfigPath],
+				root,
+			);
+			if (result.exitCode !== 0) {
+				failing.push(`${relative(root, tsconfigPath)}: ${result.stdout.slice(0, 120) || result.stderr.slice(0, 120)}`);
+			}
+		}),
+	);
+
+	if (failing.length > 0) {
+		findings.push({
+			categoryId: "no-unused-vars",
+			category: cats.get("no-unused-vars")?.name ?? "",
+			domain: "code-quality",
+			severity: "Medium",
+			message: `Unused variables or parameters found in ${failing.length} workspace(s)`,
+			evidence: failing.join("; ").slice(0, 500),
+			recommendation: "Remove unused variables or enable stricter tsconfig checks",
+		});
+	}
+}
+
+async function checkDuplicateCode(root: string, cats: Map<string, CategoryCheck>, findings: Finding[]) {
+	const tmpDir = mkdtempSync(join(tmpdir(), "jscpd-"));
+	const reportPath = join(tmpDir, "jscpd-report.json");
+	await runShell(
+		"bunx",
+		[
+			"jscpd",
+			"--min-lines",
+			"5",
+			"--min-tokens",
+			"25",
+			"--reporters",
+			"json",
+			"--output",
+			tmpDir,
+			"packages",
+			"apps",
+			"tools",
+		],
+		root,
+	);
+	let percentage = 0;
+	try {
+		const report = JSON.parse(readFileSync(reportPath, "utf-8")) as {
+			statistics?: { total?: { percentage?: number } };
+		};
+		percentage = report.statistics?.total?.percentage ?? 0;
+	} catch {
+		// ignore missing/invalid report
+	} finally {
+		try {
+			rmSync(tmpDir, { recursive: true, force: true });
+		} catch {
+			// ignore cleanup errors
+		}
+	}
+
+	if (percentage > 5) {
+		findings.push({
+			categoryId: "no-duplicate-code",
+			category: cats.get("no-duplicate-code")?.name ?? "",
+			domain: "code-quality",
+			severity: "Medium",
+			message: `High code duplication detected (${percentage.toFixed(2)}%)`,
+			evidence: `jscpd reported ${percentage.toFixed(2)}% duplicated lines across packages/apps/tools`,
+			recommendation: "Extract shared helpers or use factories to reduce duplication",
+		});
+	}
+}
+
+async function checkMaxFunctionLength(root: string, cats: Map<string, CategoryCheck>, findings: Finding[]) {
+	const result = await runShell(
+		"ast-grep",
+		["run", "-p", "function $NAME($$$ARGS) { $$$BODY }", "--json", "packages", "apps", "tools"],
+		root,
+	);
+	if (result.exitCode !== 0 && result.stdout.trim() === "") return;
+
+	let matches: Array<{
+		file?: string;
+		range?: { start?: { line?: number }; end?: { line?: number } };
+		metaVariables?: { single?: { NAME?: { text?: string } } };
+	}> = [];
+	try {
+		matches = JSON.parse(result.stdout) as typeof matches;
+	} catch {
+		return;
+	}
+
+	const longFunctions: string[] = [];
+	for (const match of matches) {
+		const start = match.range?.start?.line ?? 0;
+		const end = match.range?.end?.line ?? 0;
+		const length = end - start + 1;
+		if (length > 60) {
+			const name = match.metaVariables?.single?.NAME?.text ?? "anonymous";
+			const file = match.file ?? "unknown";
+			longFunctions.push(`${file}: ${name} (${length} lines)`);
+			if (longFunctions.length >= 10) break;
+		}
+	}
+
+	if (longFunctions.length > 0) {
+		findings.push({
+			categoryId: "max-function-length",
+			category: cats.get("max-function-length")?.name ?? "",
+			domain: "code-quality",
+			severity: "Low",
+			message: `${longFunctions.length} function(s) exceed 60 lines`,
+			evidence: longFunctions.join("; ").slice(0, 500),
+			recommendation: "Refactor long functions into smaller helpers",
+		});
+	}
+}
+
+async function checkPackageBuilds(root: string, cats: Map<string, CategoryCheck>, findings: Finding[]) {
+	const result = await runShell("bun", ["run", "--filter", "./packages/*", "build"], root);
+	if (result.exitCode === 0) return;
+
+	const failed: string[] = [];
+	const regex = /^(@[\w/-]+)\s+build:\s+Exited with code (\d+)$/gm;
+	let m: RegExpExecArray | null = regex.exec(result.stdout);
+	while (m !== null) {
+		if (Number(m[2]) !== 0) failed.push(m[1]);
+		m = regex.exec(result.stdout);
+	}
+
+	findings.push({
+		categoryId: "package-builds",
+		category: cats.get("package-builds")?.name ?? "",
+		domain: "code-quality",
+		severity: "High",
+		message: `Package build(s) failed: ${failed.join(", ") || "unknown"}`,
+		evidence: result.stdout.slice(0, 500),
+		recommendation: "Fix package build errors and ensure all optional peer deps are installed",
+	});
+}
+
+function checkPackageTests(root: string, cats: Map<string, CategoryCheck>, findings: Finding[]) {
+	const skipped: string[] = [];
+	const packagesPath = join(root, "packages");
+	if (!existsSync(packagesPath)) return;
+
+	for (const entry of readdirSync(packagesPath)) {
+		const pkgJsonPath = join(packagesPath, entry, "package.json");
+		if (!existsSync(pkgJsonPath)) continue;
+		try {
+			const pkg = JSON.parse(readFileSync(pkgJsonPath, "utf-8")) as { scripts?: { test?: string } };
+			if (!pkg.scripts?.test || pkg.scripts.test.includes("test skipped")) {
+				skipped.push(entry);
+			}
+		} catch {
+			// ignore invalid package.json
+		}
+	}
+
+	if (skipped.length > 0) {
+		findings.push({
+			categoryId: "package-tests",
+			category: cats.get("package-tests")?.name ?? "",
+			domain: "code-quality",
+			severity: "Medium",
+			message: `${skipped.length} package(s) have no real tests`,
+			evidence: `Packages with skipped/missing tests: ${skipped.join(", ")}`,
+			recommendation: "Add test suites to all library packages",
+		});
+	}
 }

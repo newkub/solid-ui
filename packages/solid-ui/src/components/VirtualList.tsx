@@ -5,9 +5,10 @@ export interface VirtualListProps extends JSX.HTMLAttributes<HTMLDivElement> {}
 
 export function VirtualList(props: VirtualListProps) {
 	const [local, rest] = splitProps(props, ["class", "children"]);
-	const base = "solidui-virtual-list";
+	const base = "relative h-full w-full overflow-auto";
+	const className = [base, local.class || ""].filter(Boolean).join(" ");
 	return (
-		<div class={`${base} ${local.class || ""}`.trim()} {...rest}>
+		<div class={className} {...rest}>
 			{local.children}
 		</div>
 	);

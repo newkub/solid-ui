@@ -5,9 +5,10 @@ export interface ScrollAreaProps extends JSX.HTMLAttributes<HTMLDivElement> {}
 
 export function ScrollArea(props: ScrollAreaProps) {
 	const [local, rest] = splitProps(props, ["class", "children"]);
-	const base = "solidui-scroll-area";
+	const base = "relative h-full w-full overflow-auto rounded-md border";
+	const className = [base, local.class || ""].filter(Boolean).join(" ");
 	return (
-		<div class={`${base} ${local.class || ""}`.trim()} {...rest}>
+		<div class={className} {...rest}>
 			{local.children}
 		</div>
 	);

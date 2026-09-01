@@ -5,6 +5,7 @@ export interface ImageProps extends JSX.ImgHTMLAttributes<HTMLImageElement> {}
 
 export function Image(props: ImageProps) {
 	const [local, rest] = splitProps(props, ["class", "alt"]);
-	const base = "solidui-image";
-	return <img class={`${base} ${local.class || ""}`.trim()} alt={local.alt} {...rest} />;
+	const base = "max-w-full h-auto rounded-md object-cover";
+	const className = [base, local.class || ""].filter(Boolean).join(" ");
+	return <img class={className} alt={local.alt} {...rest} />;
 }

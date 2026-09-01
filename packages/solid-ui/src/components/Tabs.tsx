@@ -5,9 +5,10 @@ export interface TabsProps extends JSX.HTMLAttributes<HTMLDivElement> {}
 
 export function Tabs(props: TabsProps) {
 	const [local, rest] = splitProps(props, ["class", "children"]);
-	const base = "solidui-tabs";
+	const base = "w-full";
+	const className = [base, local.class || ""].filter(Boolean).join(" ");
 	return (
-		<div class={`${base} ${local.class || ""}`.trim()} {...rest}>
+		<div class={className} {...rest}>
 			{local.children}
 		</div>
 	);

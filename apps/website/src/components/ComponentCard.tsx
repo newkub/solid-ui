@@ -11,25 +11,32 @@ export function ComponentCard(props: { name: string }) {
 	const importText = () => `import { ${props.name} } from "@wrikka/solid-ui";`;
 
 	return (
-		<div class="component-card solidui-card">
-			<div class="component-card__preview" aria-hidden="true">
-				<Show when={item()} fallback={<span class="component-card__no-preview">—</span>}>
+		<div class="group flex flex-col gap-4 rounded-xl border border-border bg-surface p-4 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md">
+			<div class="flex min-h-[100px] items-center justify-center rounded-lg bg-muted/50 p-3" aria-hidden="true">
+				<Show when={item()} fallback={<span class="text-sm text-muted-foreground">—</span>}>
 					{(i) => <ComponentPreview name={i().name} tag={i().tag} />}
 				</Show>
 			</div>
-			<div class="component-card__meta">
-				<div class="component-card__header">
-					<h3 class="component-card__name">{props.name}</h3>
-					<span class="component-card__badge">{group()?.label ?? "Component"}</span>
+			<div class="flex flex-col gap-1">
+				<div class="flex items-start justify-between gap-2">
+					<h3 class="text-base font-semibold">{props.name}</h3>
+					<span class="inline-flex rounded-full border border-border bg-muted px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">
+						{group()?.label ?? "Component"}
+					</span>
 				</div>
-				<p class="component-card__tag">{item()?.tag ?? "—"}</p>
-				<p class="component-card__desc">{item()?.description ?? ""}</p>
+				<p class="text-xs text-muted-foreground">{item()?.tag ?? "—"}</p>
+				<p class="text-sm text-muted-foreground line-clamp-2">{item()?.description ?? ""}</p>
 			</div>
-			<div class="component-card__actions">
-				<CopyButton text={importText()} label="Copy" class="solidui-button solidui-button--sm" />
+			<div class="mt-auto flex items-center gap-2">
+				<CopyButton
+					text={importText()}
+					label={`Copy ${props.name} import`}
+					class="inline-flex h-8 flex-1 items-center justify-center rounded-md border border-border bg-background text-xs font-medium hover:bg-muted"
+				/>
 				<Link
 					to={`/docs/${group()?.id ?? "components"}/${props.name.toLowerCase()}`}
-					class="solidui-button solidui-button--sm solidui-button--secondary"
+					class="inline-flex h-8 items-center rounded-md bg-secondary px-3 text-xs font-medium text-secondary-foreground hover:bg-secondary/80"
+					aria-label={`View ${props.name} documentation`}
 				>
 					View
 				</Link>

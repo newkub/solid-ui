@@ -5,9 +5,10 @@ export interface TimelineProps extends JSX.HTMLAttributes<HTMLDivElement> {}
 
 export function Timeline(props: TimelineProps) {
 	const [local, rest] = splitProps(props, ["class", "children"]);
-	const base = "solidui-timeline";
+	const base = "relative pl-4 border-l border-border";
+	const className = [base, local.class || ""].filter(Boolean).join(" ");
 	return (
-		<div class={`${base} ${local.class || ""}`.trim()} {...rest}>
+		<div class={className} {...rest}>
 			{local.children}
 		</div>
 	);

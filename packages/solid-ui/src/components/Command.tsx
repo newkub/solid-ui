@@ -5,9 +5,10 @@ export interface CommandProps extends JSX.HTMLAttributes<HTMLDivElement> {}
 
 export function Command(props: CommandProps) {
 	const [local, rest] = splitProps(props, ["class", "children"]);
-	const base = "solidui-command";
+	const base = "rounded-lg border bg-card text-card-foreground shadow-sm p-1";
+	const className = [base, local.class || ""].filter(Boolean).join(" ");
 	return (
-		<div class={`${base} ${local.class || ""}`.trim()} {...rest}>
+		<div class={className} {...rest}>
 			{local.children}
 		</div>
 	);

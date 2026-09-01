@@ -5,9 +5,10 @@ export interface ToggleGroupProps extends JSX.HTMLAttributes<HTMLDivElement> {}
 
 export function ToggleGroup(props: ToggleGroupProps) {
 	const [local, rest] = splitProps(props, ["class", "children"]);
-	const base = "solidui-toggle-group";
+	const base = "flex items-center gap-1 rounded-lg border bg-card p-1";
+	const className = [base, local.class || ""].filter(Boolean).join(" ");
 	return (
-		<div class={`${base} ${local.class || ""}`.trim()} {...rest}>
+		<div class={className} {...rest}>
 			{local.children}
 		</div>
 	);

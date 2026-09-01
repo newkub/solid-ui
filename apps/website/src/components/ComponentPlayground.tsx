@@ -16,29 +16,22 @@ function SelectControl(props: { label: string; value: string; options: string[];
 			<label for={id} class="playground-control__label">
 				{props.label}
 			</label>
-			<select
-				id={id}
-				class="solidui-select"
-				value={props.value}
-				onChange={(e) => props.onChange(e.currentTarget.value)}
-			>
+			<SolidUI.Select id={id} value={props.value} onChange={(e) => props.onChange(e.currentTarget.value)}>
 				<For each={props.options}>{(opt) => <option value={opt}>{opt}</option>}</For>
-			</select>
+			</SolidUI.Select>
 		</div>
 	);
 }
 
 function BoolControl(props: { label: string; checked: boolean; onChange: (value: boolean) => void }) {
+	const id = controlId(props.label);
 	return (
-		<label class="playground-control playground-control--inline">
-			<input
-				type="checkbox"
-				class="solidui-checkbox"
-				checked={props.checked}
-				onChange={(e) => props.onChange(e.currentTarget.checked)}
-			/>
-			<span>{props.label}</span>
-		</label>
+		<div class="playground-control playground-control--inline">
+			<SolidUI.Checkbox id={id} checked={props.checked} onChange={(e) => props.onChange(e.currentTarget.checked)} />
+			<label for={id} class="playground-control__label">
+				{props.label}
+			</label>
+		</div>
 	);
 }
 
@@ -49,13 +42,7 @@ function TextControl(props: { label: string; value: string; onChange: (value: st
 			<label for={id} class="playground-control__label">
 				{props.label}
 			</label>
-			<input
-				id={id}
-				type="text"
-				class="solidui-input"
-				value={props.value}
-				onInput={(e) => props.onChange(e.currentTarget.value)}
-			/>
+			<SolidUI.Input id={id} type="text" value={props.value} onInput={(e) => props.onChange(e.currentTarget.value)} />
 		</div>
 	);
 }

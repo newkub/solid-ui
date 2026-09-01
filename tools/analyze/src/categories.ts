@@ -86,6 +86,20 @@ export const categories: CategoryCheck[] = [
 		description: "At least one test file exists",
 		weight: 1,
 	},
+	{
+		id: "package-builds",
+		name: "Package builds pass",
+		domain: "code-quality",
+		description: "All library package builds succeed",
+		weight: 1,
+	},
+	{
+		id: "package-tests",
+		name: "Package tests run",
+		domain: "code-quality",
+		description: "All library packages have real, non-skipping tests",
+		weight: 1,
+	},
 
 	// Architecture
 	{

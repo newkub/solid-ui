@@ -10,9 +10,9 @@ import { Toc } from "./Toc";
 
 export function DocsLayout(props: { children: JSX.Element }) {
 	return (
-		<div class="docs-layout">
+		<div class="flex flex-col gap-8 lg:flex-row lg:items-start">
 			<Sidebar />
-			<main class="docs-main">{props.children}</main>
+			<main class="min-w-0 flex-1">{props.children}</main>
 		</div>
 	);
 }
@@ -37,22 +37,22 @@ export function DocsPage() {
 
 	return (
 		<DocsLayout>
-			<Show when={page()} fallback={<div class="page">Docs page not found</div>}>
+			<Show when={page()} fallback={<div class="page text-muted-foreground">Docs page not found</div>}>
 				{(page) => (
-					<article class="docs-article">
-						<header class="docs-article__header">
-							<h1 class="docs-article__title">{page().title}</h1>
-							<p class="docs-article__group">{page().group}</p>
+					<article class="max-w-3xl">
+						<header class="mb-6 border-b border-border pb-6">
+							<h1 class="text-3xl font-bold tracking-tight">{page().title}</h1>
+							<p class="text-sm text-muted-foreground capitalize">{page().group}</p>
 						</header>
-						<div class="docs-article__body">
-							<div class="docs-article__content">
+						<div class="grid gap-8 lg:grid-cols-[1fr_180px]">
+							<div class="min-w-0">
 								<Markdown content={page().content} />
 								<Show when={isComponent() && componentName()}>
-									<h2 class="docs-article__subtitle">Playground</h2>
+									<h2 class="mt-10 text-xl font-semibold mb-4">Playground</h2>
 									<ComponentPlayground name={componentName() as string} />
 								</Show>
 							</div>
-							<aside class="docs-article__toc">
+							<aside class="lg:sticky lg:top-24">
 								<Toc content={page().content} />
 							</aside>
 						</div>

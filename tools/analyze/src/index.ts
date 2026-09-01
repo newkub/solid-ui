@@ -8,13 +8,45 @@ import type { AnalyzerResult, DomainResult, Finding } from "./types";
 
 export * from "./types";
 
+type AnalyzerOutput = { findings: Finding[]; passed: Set<string> };
+
+async function runSafe(
+	name: string,
+	domain: string,
+	fn: (cats: typeof categories) => Promise<AnalyzerOutput>,
+	cats: typeof categories,
+	log: { errors: number },
+): Promise<AnalyzerOutput> {
+	try {
+		return await fn(cats);
+	} catch (err) {
+		log.errors++;
+		const message = err instanceof Error ? err.message : String(err);
+		return {
+			findings: [
+				{
+					categoryId: `${name}-error`,
+					category: `${name} analyzer error`,
+					domain,
+					severity: "High",
+					message: `${name} analyzer crashed`,
+					evidence: message,
+					recommendation: "Fix analyzer implementation and re-run",
+				},
+			],
+			passed: new Set<string>(),
+		};
+	}
+}
+
 export async function runAllAnalyzers(): Promise<AnalyzerResult> {
+	const log = { errors: 0 };
 	const [codeQuality, architecture, dependencies, security, documentation] = await Promise.all([
-		analyzeCodeQuality(categories),
-		analyzeArchitecture(categories),
-		analyzeDependencies(categories),
-		analyzeSecurity(categories),
-		analyzeDocumentation(categories),
+		runSafe("code-quality", "code-quality", analyzeCodeQuality, categories, log),
+		runSafe("architecture", "architecture", analyzeArchitecture, categories, log),
+		runSafe("dependencies", "dependencies", analyzeDependencies, categories, log),
+		runSafe("security", "security", analyzeSecurity, categories, log),
+		runSafe("documentation", "documentation", analyzeDocumentation, categories, log),
 	]);
 
 	const allFindings: Finding[] = [
@@ -33,7 +65,7 @@ export async function runAllAnalyzers(): Promise<AnalyzerResult> {
 		...documentation.passed,
 	]);
 
-	const analyzerErrors = 0;
+	const analyzerErrors = log.errors;
 	const domainResults: DomainResult[] = [];
 
 	for (const domain of domains) {

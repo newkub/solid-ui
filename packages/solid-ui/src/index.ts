@@ -1,11 +1,10 @@
-/**
- * Solid UI component library exports
- */
+// Solid UI component library exports
 
 export * from "@wrikka/form";
 export * from "@wrikka/image";
 export * from "@wrikka/table";
 export * from "@wrikka/transitions";
+
 export { Accordion } from "./components/Accordion";
 export { Alert } from "./components/Alert";
 export { AspectRatio } from "./components/AspectRatio";

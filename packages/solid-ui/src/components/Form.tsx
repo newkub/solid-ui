@@ -5,9 +5,10 @@ export interface FormProps extends JSX.FormHTMLAttributes<HTMLFormElement> {}
 
 export function Form(props: FormProps) {
 	const [local, rest] = splitProps(props, ["class", "children"]);
-	const base = "solidui-form";
+	const base = "w-full";
+	const className = [base, local.class || ""].filter(Boolean).join(" ");
 	return (
-		<form class={`${base} ${local.class || ""}`.trim()} {...rest}>
+		<form class={className} {...rest}>
 			{local.children}
 		</form>
 	);

@@ -37,27 +37,27 @@ export function Sidebar() {
 	});
 
 	return (
-		<aside class="docs-sidebar" aria-label="Docs sidebar">
+		<aside class="lg:sticky lg:top-24 lg:w-64 lg:shrink-0" aria-label="Docs sidebar">
 			<For each={sections()}>
 				{(section) => (
-					<div class="docs-sidebar__section">
+					<div class="mb-6">
 						<h3
-							class={
-								section.group === activeGroup()
-									? "docs-sidebar__title docs-sidebar__title--active"
-									: "docs-sidebar__title"
-							}
+							class={`mb-2 text-xs font-semibold uppercase tracking-wide ${
+								section.group === activeGroup() ? "text-foreground" : "text-muted-foreground"
+							}`}
 						>
 							{section.label}
 						</h3>
-						<ul class="docs-sidebar__list">
+						<ul class="space-y-1">
 							<For each={section.items}>
 								{(item) => (
 									<li>
 										<Link
 											to={pagePath(item.id)}
-											class="docs-sidebar__link"
-											activeProps={() => ({ class: "docs-sidebar__link docs-sidebar__link--active" })}
+											class="block rounded-md px-2 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+											activeProps={() => ({
+												class: "block rounded-md px-2 py-1.5 text-sm font-medium bg-muted text-foreground",
+											})}
 											activeOptions={{ exact: true }}
 										>
 											{item.title}

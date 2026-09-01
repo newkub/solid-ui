@@ -5,6 +5,7 @@ export interface SeparatorProps extends JSX.HTMLAttributes<HTMLHRElement> {}
 
 export function Separator(props: SeparatorProps) {
 	const [local, rest] = splitProps(props, ["class"]);
-	const base = "solidui-separator";
-	return <hr class={`${base} ${local.class || ""}`.trim()} {...rest} />;
+	const base = "w-full border-0 border-t border-border";
+	const className = [base, local.class || ""].filter(Boolean).join(" ");
+	return <hr class={className} {...rest} />;
 }

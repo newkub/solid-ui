@@ -5,9 +5,10 @@ export interface ResizableProps extends JSX.HTMLAttributes<HTMLDivElement> {}
 
 export function Resizable(props: ResizableProps) {
 	const [local, rest] = splitProps(props, ["class", "children"]);
-	const base = "solidui-resizable";
+	const base = "flex h-64 w-full gap-2";
+	const className = [base, local.class || ""].filter(Boolean).join(" ");
 	return (
-		<div class={`${base} ${local.class || ""}`.trim()} {...rest}>
+		<div class={className} {...rest}>
 			{local.children}
 		</div>
 	);

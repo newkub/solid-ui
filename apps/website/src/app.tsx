@@ -1,12 +1,11 @@
 import { createRootRoute, createRoute, createRouter, Link, Navigate, Outlet } from "@tanstack/solid-router";
 import * as SolidUI from "@wrikka/solid-ui";
-import { registry } from "@wrikka/solid-ui";
-import { createSignal, For, Show } from "solid-js";
-import { categories } from "./categories";
+import { createSignal, For } from "solid-js";
 import { CodeBlock } from "./components/CodeBlock";
-import { ComponentCard } from "./components/ComponentCard";
+import { ComponentGallery } from "./components/ComponentGallery";
 import { DocsPage } from "./components/DocsPage";
-import { ThemeToggle } from "./components/ThemeToggle";
+import { ThemePage } from "./components/ThemePage";
+import { ThemePicker } from "./components/ThemePicker";
 
 function setPageTitle(title: string) {
 	if (typeof document !== "undefined") {
@@ -21,159 +20,96 @@ function Root() {
 	const links = [
 		{ to: "/", label: "Home" },
 		{ to: "/components", label: "Components" },
-		{ to: "/docs/theme", label: "Theme" },
+		{ to: "/theme", label: "Theme" },
 		{ to: "/docs/templates", label: "Template" },
 		{ to: "/docs/mcp", label: "MCP" },
 		{ to: "/docs/intro", label: "Docs" },
 	];
 
 	return (
-		<div class="app">
-			<a class="skip-link" href="#main-content">
+		<div class="min-h-screen flex flex-col bg-background text-foreground font-sans">
+			<a
+				class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-foreground"
+				href="#main-content"
+			>
 				Skip to main content
 			</a>
-			<header class="site-header">
-				<h1 class="site-title">
-					<Link to="/">solid-ui</Link>
-				</h1>
-				<nav id={menuId} class={menuOpen() ? "site-nav open" : "site-nav"} aria-label="Main navigation">
-					<For each={links}>
-						{(link) => (
-							<Link
-								to={link.to}
-								class="site-link"
-								activeProps={() => ({ class: "site-link--active" })}
-								activeOptions={{ exact: link.to === "/" }}
-								onClick={() => setMenuOpen(false)}
-							>
-								{link.label}
-							</Link>
-						)}
-					</For>
-				</nav>
-				<div class="header-actions">
-					<ThemeToggle />
-					<button
-						type="button"
-						class="menu-toggle"
-						aria-label={menuOpen() ? "Close menu" : "Open menu"}
-						aria-expanded={menuOpen()}
-						aria-controls={menuId}
-						onClick={() => setMenuOpen((v) => !v)}
+			<header class="sticky top-0 z-sticky border-b border-border bg-surface/95 backdrop-blur supports-[not(backdrop-filter:blur(0))]:bg-surface">
+				<div class="mx-auto flex h-16 max-w-7xl items-center gap-4 px-4 sm:px-6 lg:px-8">
+					<h1 class="text-xl font-bold tracking-tight">
+						<Link to="/" class="text-foreground hover:text-primary transition-colors">
+							solid-ui
+						</Link>
+					</h1>
+					<nav
+						id={menuId}
+						class={`absolute left-0 right-0 top-full flex-col border-b border-border bg-surface p-4 shadow-lg md:static md:flex md:flex-row md:items-center md:gap-1 md:border-0 md:bg-transparent md:p-0 md:shadow-none ${
+							menuOpen() ? "flex" : "hidden"
+						}`}
+						aria-label="Main navigation"
 					>
-						<span aria-hidden="true">☰</span>
-					</button>
+						<For each={links}>
+							{(link) => (
+								<Link
+									to={link.to}
+									class="rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+									activeProps={() => ({
+										class: "rounded-md px-3 py-2 text-sm font-medium bg-primary text-primary-foreground",
+									})}
+									activeOptions={{ exact: link.to === "/" }}
+									onClick={() => setMenuOpen(false)}
+								>
+									{link.label}
+								</Link>
+							)}
+						</For>
+					</nav>
+					<div class="ml-auto flex items-center gap-2">
+						<ThemePicker />
+						<button
+							type="button"
+							class="inline-flex h-9 w-9 items-center justify-center rounded-md border border-border bg-background text-foreground md:hidden"
+							aria-label={menuOpen() ? "Close menu" : "Open menu"}
+							aria-expanded={menuOpen()}
+							aria-controls={menuId}
+							onClick={() => setMenuOpen((v) => !v)}
+						>
+							<span aria-hidden="true">☰</span>
+						</button>
+					</div>
 				</div>
 			</header>
-			<main id="main-content" class="site-main">
-				<Outlet />
+			<main id="main-content" class="flex-1 px-4 py-6 sm:px-6 lg:px-8">
+				<div class="mx-auto max-w-7xl">
+					<Outlet />
+				</div>
 			</main>
-			<footer class="site-footer">
-				<p>
-					Built with Solid + TanStack Router, deployed on Cloudflare Workers. Source on{" "}
-					<a href="https://github.com/newkub/solid-ui" target="_blank" rel="noreferrer">
-						GitHub
-					</a>
-					.
-				</p>
+			<footer class="border-t border-border bg-surface py-6 text-center text-sm text-muted-foreground">
+				<div class="mx-auto max-w-7xl px-4">
+					<p>
+						Built with Solid + TanStack Router, deployed on Cloudflare Workers. Source on{" "}
+						<a
+							href="https://github.com/newkub/solid-ui"
+							target="_blank"
+							rel="noreferrer"
+							class="text-foreground underline underline-offset-4 hover:text-primary"
+						>
+							GitHub
+						</a>
+						.
+					</p>
+				</div>
 			</footer>
 		</div>
 	);
 }
 
-function Hero() {
-	return (
-		<section class="hero">
-			<h2 class="hero__title">A comprehensive SolidJS UI library</h2>
-			<p class="hero__lead">
-				solid-ui ships with 60+ components, real form/table/image/transition packages, and the docs website you are
-				viewing now.
-			</p>
-			<div class="hero__actions">
-				<Link to="/components" class="solidui-button solidui-button--primary">
-					Browse components
-				</Link>
-				<Link to="/docs/intro" class="solidui-button solidui-button--secondary">
-					Read docs
-				</Link>
-			</div>
-		</section>
-	);
-}
-
-function Gallery(props: { withHero?: boolean }) {
-	setPageTitle(props.withHero ? "Home" : "Components");
-	const [query, setQuery] = createSignal("");
-	const [group, setGroup] = createSignal("all");
-
-	const filtered = () => {
-		const q = query().trim().toLowerCase();
-		return registry.filter((r) => {
-			const matchesQuery = !q || r.name.toLowerCase().includes(q) || r.tag.toLowerCase().includes(q);
-			const matchesGroup = group() === "all" || categories.some((c) => c.id === group() && c.items.includes(r.name));
-			return matchesQuery && matchesGroup;
-		});
-	};
-
-	const groupOptions = () => [
-		{ value: "all", label: "All groups" },
-		...categories.map((c) => ({ value: c.id, label: c.label })),
-	];
-
-	return (
-		<section class="page">
-			<Show when={props.withHero}>
-				<Hero />
-			</Show>
-			<div class="page-header">
-				<h2 class="page-title">Components ({filtered().length})</h2>
-			</div>
-			<p class="page-lead">
-				Each component is importable from <code>@wrikka/solid-ui</code>.
-			</p>
-
-			<div class="gallery-toolbar">
-				<input
-					type="search"
-					class="solidui-input search-input"
-					placeholder="Search components…"
-					value={query()}
-					onInput={(e) => setQuery(e.currentTarget.value)}
-					aria-label="Search components"
-					autocomplete="off"
-				/>
-				<select
-					class="solidui-select group-select"
-					value={group()}
-					onChange={(e) => setGroup(e.currentTarget.value)}
-					aria-label="Filter by group"
-				>
-					<For each={groupOptions()}>{(opt) => <option value={opt.value}>{opt.label}</option>}</For>
-				</select>
-			</div>
-
-			<Show
-				when={filtered().length > 0}
-				fallback={
-					<div class="gallery-empty">
-						<p>No components match your search.</p>
-					</div>
-				}
-			>
-				<div class="gallery-grid gallery-grid--all">
-					<For each={filtered()}>{(item) => <ComponentCard name={item.name} />}</For>
-				</div>
-			</Show>
-		</section>
-	);
-}
-
 function Home() {
-	return <Gallery withHero />;
+	return <ComponentGallery withHero />;
 }
 
 function ComponentsPage() {
-	return <Gallery withHero={false} />;
+	return <ComponentGallery withHero={false} />;
 }
 
 function FormDemo() {
@@ -184,8 +120,8 @@ function FormDemo() {
 	const payload = JSON.stringify(field, null, 2);
 	return (
 		<section class="page">
-			<h2 class="page-title">Form field factory</h2>
-			<div class="demo-stage">
+			<h2 class="text-2xl font-bold tracking-tight mb-4">Form field factory</h2>
+			<div class="rounded-xl border border-border bg-surface p-6 mb-4">
 				<SolidUI.FormField label={field.label}>
 					<SolidUI.Input type="email" placeholder={field.placeholder} aria-label="Email" />
 				</SolidUI.FormField>
@@ -207,18 +143,20 @@ function TableDemo() {
 	const payload = JSON.stringify(columns, null, 2);
 	return (
 		<section class="page">
-			<h2 class="page-title">Table column builder</h2>
-			<SolidUI.Table class="demo-table">
+			<h2 class="text-2xl font-bold tracking-tight mb-4">Table column builder</h2>
+			<SolidUI.Table class="w-full text-sm">
 				<thead>
 					<tr>
-						<For each={columns}>{(col) => <th>{col.header}</th>}</For>
+						<For each={columns}>{(col) => <th class="border-b px-4 py-3 text-left font-medium">{col.header}</th>}</For>
 					</tr>
 				</thead>
 				<tbody>
 					<For each={rows}>
 						{(row) => (
-							<tr>
-								<For each={columns}>{(col) => <td>{(row as Record<string, string>)[col.key]}</td>}</For>
+							<tr class="border-b">
+								<For each={columns}>
+									{(col) => <td class="px-4 py-3">{(row as Record<string, string>)[col.key]}</td>}
+								</For>
 							</tr>
 						)}
 					</For>
@@ -239,8 +177,15 @@ function ImageDemo() {
 	const url = SolidUI.buildIpxUrl("https://picsum.photos/800/600", transform);
 	return (
 		<section class="page">
-			<h2 class="page-title">Image URL builder</h2>
-			<SolidUI.Image src={url} alt="Demo" class="demo-image" width={400} height={300} loading="lazy" />
+			<h2 class="text-2xl font-bold tracking-tight mb-4">Image URL builder</h2>
+			<SolidUI.Image
+				src={url}
+				alt="Demo"
+				class="rounded-lg border border-border max-w-full"
+				width={400}
+				height={300}
+				loading="lazy"
+			/>
 			<CodeBlock code={url} language="text" />
 		</section>
 	);
@@ -251,8 +196,8 @@ function TransitionsDemo() {
 	const css = SolidUI.buildCssTransition(SolidUI.mergeTransitionOptions({ duration: 300, easing: "ease-in-out" }));
 	return (
 		<section class="page">
-			<h2 class="page-title">Transition CSS</h2>
-			<SolidUI.Transition class="demo-transition" style={css}>
+			<h2 class="text-2xl font-bold tracking-tight mb-4">Transition CSS</h2>
+			<SolidUI.Transition class="rounded-xl border border-border bg-surface p-6" style={css}>
 				<SolidUI.Card>Fades with CSS transition</SolidUI.Card>
 			</SolidUI.Transition>
 			<CodeBlock code={css} language="css" />
@@ -278,6 +223,12 @@ const componentsRoute = createRoute({
 	getParentRoute: () => rootRoute,
 	path: "/components",
 	component: ComponentsPage,
+});
+
+const themeRoute = createRoute({
+	getParentRoute: () => rootRoute,
+	path: "/theme",
+	component: ThemePage,
 });
 
 const formRoute = createRoute({
@@ -325,6 +276,7 @@ const docsComponentRoute = createRoute({
 export const routeTree = rootRoute.addChildren([
 	homeRoute,
 	componentsRoute,
+	themeRoute,
 	formRoute,
 	tableRoute,
 	imageRoute,

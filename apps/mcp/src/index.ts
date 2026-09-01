@@ -1,44 +1,62 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
-import { registry } from "@wrikka/solid-ui";
 import { z } from "zod";
+import { type RegistryItem, registry } from "./registry.ts";
 
-type McpToolServer = {
-	tool: (name: string, description: string, params: unknown, cb: (args: { name: string }) => Promise<unknown>) => void;
-};
+const nameSchema = z.object({ name: z.string() });
+const querySchema = z.object({ query: z.string() });
+
+function renderComponentTemplate(item: RegistryItem): string {
+	return `import { ${item.name} } from "@wrikka/solid-ui";
+
+// Basic usage
+<${item.name} />
+
+// HTML tag equivalent
+<${item.tag} class="solidui-${item.name.toLowerCase()}" />`;
+}
+
+function findComponent(name: string): RegistryItem | undefined {
+	return registry.find((r) => r.name.toLowerCase() === name.toLowerCase());
+}
+
+function formatComponent(item: RegistryItem): string {
+	return `• ${item.name} — <${item.tag}>\n  ${item.description}`;
+}
 
 const server = new McpServer({
 	name: "solid-ui-mcp",
 	version: "0.0.1",
 });
 
-const template = (name: string, tag: string) => `import { splitProps, type JSX } from 'solid-js'
+server.registerTool(
+	"list-components",
+	{
+		description: "List every component available in @wrikka/solid-ui with its tag and description.",
+	},
+	async () => {
+		const lines = registry.map(formatComponent).join("\n\n");
+		return {
+			content: [
+				{
+					type: "text",
+					text: `Solid UI component registry (${registry.length} components):\n\n${lines}`,
+				},
+			],
+		};
+	},
+);
 
-export interface ${name}Props extends JSX.HTMLAttributes<HTML${tag[0].toUpperCase() + tag.slice(1)}Element> {}
-
-export function ${name}(props: ${name}Props) {
-  const [local, rest] = splitProps(props, ['class', 'children'])
-  return <${tag} class={\`solidui-${name.toLowerCase()} \${local.class || ''}\`.trim()} {...rest}>{local.children}</${tag}>
-}`;
-
-server.tool("list-components", "List all components available in @wrikka/solid-ui", async () => {
-	const components = registry.map((r) => `${r.name} (${r.tag})`).join("\n");
-	return {
-		content: [
-			{
-				type: "text",
-				text: `Solid UI component registry (${registry.length} components):\n\n${components}`,
-			},
-		],
-	};
-});
-
-(server as McpToolServer).tool(
+server.registerTool(
 	"get-component",
-	"Get component details and a code template",
-	{ name: z.string() },
-	async ({ name }) => {
-		const item = registry.find((r) => r.name.toLowerCase() === name.toLowerCase());
+	{
+		description: "Get details, usage template, and import path for a single solid-ui component.",
+		inputSchema: nameSchema,
+		// biome-ignore lint/suspicious/noExplicitAny: SDK registerTool generic causes tsc OOM
+	} as any,
+	async (args: unknown) => {
+		const { name } = nameSchema.parse(args);
+		const item = findComponent(name);
 		if (!item) {
 			return {
 				content: [{ type: "text", text: `Component "${name}" not found.` }],
@@ -49,21 +67,107 @@ server.tool("list-components", "List all components available in @wrikka/solid-u
 			content: [
 				{
 					type: "text",
-					text: `Component: ${item.name}\nTag: <${item.tag}>\n\nTemplate:\n${template(item.name, item.tag)}`,
+					text: `Component: ${item.name}\nTag: <${item.tag}>\nDescription: ${item.description}\n\nUsage template:\n${renderComponentTemplate(item)}`,
 				},
 			],
 		};
 	},
 );
 
-server.tool("count-components", "Return the number of components in solid-ui", async () => ({
-	content: [
-		{
-			type: "text",
-			text: `There are ${registry.length} components in @wrikka/solid-ui.`,
-		},
-	],
-}));
+server.registerTool(
+	"search-components",
+	{
+		description: "Search the solid-ui component registry by name, tag, or description.",
+		inputSchema: querySchema,
+		// biome-ignore lint/suspicious/noExplicitAny: SDK registerTool generic causes tsc OOM
+	} as any,
+	async (args: unknown) => {
+		const { query } = querySchema.parse(args);
+		const q = query.toLowerCase();
+		const matches = registry.filter(
+			(r) =>
+				r.name.toLowerCase().includes(q) || r.tag.toLowerCase().includes(q) || r.description.toLowerCase().includes(q),
+		);
+		if (matches.length === 0) {
+			return {
+				content: [{ type: "text", text: `No components found for "${query}".` }],
+			};
+		}
+		return {
+			content: [
+				{
+					type: "text",
+					text: `Found ${matches.length} component(s) for "${query}":\n\n${matches.map(formatComponent).join("\n\n")}`,
+				},
+			],
+		};
+	},
+);
+
+server.registerTool(
+	"count-components",
+	{
+		description: "Return the total number of components in the solid-ui registry.",
+	},
+	async () => ({
+		content: [
+			{
+				type: "text",
+				text: `There are ${registry.length} components in @wrikka/solid-ui.`,
+			},
+		],
+	}),
+);
+
+server.registerTool(
+	"check-component-exists",
+	{
+		description: "Verify whether a component exists in the solid-ui registry.",
+		inputSchema: nameSchema,
+		// biome-ignore lint/suspicious/noExplicitAny: SDK registerTool generic causes tsc OOM
+	} as any,
+	async (args: unknown) => {
+		const { name } = nameSchema.parse(args);
+		const item = findComponent(name);
+		return {
+			content: [
+				{
+					type: "text",
+					text: item
+						? `Yes, ${item.name} exists in @wrikka/solid-ui (tag: <${item.tag}>).`
+						: `No component named "${name}" was found.`,
+				},
+			],
+		};
+	},
+);
+
+server.registerTool(
+	"get-usage-snippet",
+	{
+		description: "Generate a SolidJS import and usage snippet for a component.",
+		inputSchema: nameSchema,
+		// biome-ignore lint/suspicious/noExplicitAny: SDK registerTool generic causes tsc OOM
+	} as any,
+	async (args: unknown) => {
+		const { name } = nameSchema.parse(args);
+		const item = findComponent(name);
+		if (!item) {
+			return {
+				content: [{ type: "text", text: `Component "${name}" not found.` }],
+				isError: true,
+			};
+		}
+		return {
+			content: [
+				{
+					type: "text",
+					text: `import { ${item.name} } from "@wrikka/solid-ui";\n\nfunction App() {\n  return (\n    <${item.name}>\n      Content\n    </${item.name}>\n  );\n}`,
+				},
+			],
+		};
+	},
+);
 
 async function main() {
 	const transport = new StdioServerTransport();

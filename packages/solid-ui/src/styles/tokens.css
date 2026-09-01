@@ -1,0 +1,185 @@
+/**
+ * Solid UI design tokens
+ *
+ * Core token layer for colors, spacing, radius, shadows, typography,
+ * z-index and motion. Import once at the root of the application.
+ */
+
+:root {
+	/* Color primitives */
+	--su-white: #ffffff;
+	--su-black: #000000;
+	--su-slate-50: #f8fafc;
+	--su-slate-100: #f1f5f9;
+	--su-slate-200: #e2e8f0;
+	--su-slate-300: #cbd5e1;
+	--su-slate-400: #94a3b8;
+	--su-slate-500: #64748b;
+	--su-slate-600: #475569;
+	--su-slate-700: #334155;
+	--su-slate-800: #1e293b;
+	--su-slate-900: #0f172a;
+	--su-slate-950: #020617;
+	--su-red-500: #ef4444;
+	--su-red-600: #dc2626;
+	--su-red-400: #f87171;
+	--su-green-500: #22c55e;
+	--su-green-600: #16a34a;
+	--su-green-400: #4ade80;
+	--su-amber-500: #f59e0b;
+	--su-amber-600: #d97706;
+	--su-amber-400: #fbbf24;
+	--su-blue-500: #3b82f6;
+	--su-blue-600: #2563eb;
+	--su-blue-400: #60a5fa;
+	--su-sky-400: #38bdf8;
+	--su-sky-500: #0ea5e9;
+	--su-sky-950: #082f49;
+
+	/* Semantic colors - light theme */
+	--su-bg: var(--su-slate-50);
+	--su-background: var(--su-bg);
+	--su-surface: var(--su-white);
+	--su-surface-elevated: var(--su-white);
+	--su-foreground: var(--su-slate-900);
+	--su-text: var(--su-foreground);
+	--su-text-muted: var(--su-slate-500);
+	--su-muted: var(--su-slate-100);
+	--su-muted-foreground: var(--su-slate-500);
+	--su-border: var(--su-slate-200);
+	--su-input: var(--su-slate-200);
+	--su-ring: var(--su-slate-900);
+	--su-primary: var(--su-slate-900);
+	--su-primary-text: var(--su-white);
+	--su-primary-foreground: var(--su-primary-text);
+	--su-secondary: var(--su-slate-100);
+	--su-secondary-foreground: var(--su-slate-900);
+	--su-accent: var(--su-slate-100);
+	--su-accent-foreground: var(--su-slate-900);
+	--su-destructive: var(--su-red-500);
+	--su-destructive-foreground: var(--su-white);
+	--su-success: var(--su-green-500);
+	--su-success-foreground: var(--su-white);
+	--su-warning: var(--su-amber-500);
+	--su-warning-foreground: var(--su-white);
+	--su-info: var(--su-blue-500);
+	--su-info-foreground: var(--su-white);
+
+	/* Radius */
+	--su-radius: 0.5rem;
+	--su-radius-sm: 0.25rem;
+	--su-radius-md: 0.5rem;
+	--su-radius-lg: 0.75rem;
+	--su-radius-xl: 1rem;
+	--su-radius-full: 9999px;
+
+	/* Spacing */
+	--su-space-0: 0;
+	--su-space-1: 0.25rem;
+	--su-space-2: 0.5rem;
+	--su-space-3: 0.75rem;
+	--su-space-4: 1rem;
+	--su-space-5: 1.25rem;
+	--su-space-6: 1.5rem;
+	--su-space-7: 1.75rem;
+	--su-space-8: 2rem;
+	--su-space-10: 2.5rem;
+	--su-space-12: 3rem;
+	--su-space-16: 4rem;
+
+	/* Shadows */
+	--su-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+	--su-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+	--su-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+	--su-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+	--su-shadow-glow: 0 0 0 2px var(--su-ring);
+
+	/* Typography */
+	--su-font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+	--su-font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+	--su-text-xs: 0.75rem;
+	--su-text-sm: 0.875rem;
+	--su-text-base: 1rem;
+	--su-text-lg: 1.125rem;
+	--su-text-xl: 1.25rem;
+	--su-text-2xl: 1.5rem;
+	--su-text-3xl: 1.875rem;
+	--su-text-4xl: 2.25rem;
+
+	/* Line heights */
+	--su-leading-none: 1;
+	--su-leading-tight: 1.25;
+	--su-leading-normal: 1.5;
+	--su-leading-relaxed: 1.75;
+
+	/* Z-index */
+	--su-z-base: 0;
+	--su-z-dropdown: 1000;
+	--su-z-sticky: 1020;
+	--su-z-fixed: 1030;
+	--su-z-modal-backdrop: 1040;
+	--su-z-modal: 1050;
+	--su-z-popover: 1060;
+	--su-z-tooltip: 1070;
+	--su-z-toast: 1080;
+
+	/* Motion */
+	--su-transition-fast: 100ms ease;
+	--su-transition-normal: 150ms ease;
+	--su-transition-slow: 250ms ease;
+}
+
+html[data-theme="dark"] {
+	color-scheme: dark;
+
+	/* Semantic colors - dark theme */
+	--su-bg: var(--su-slate-900);
+	--su-background: var(--su-bg);
+	--su-surface: var(--su-slate-800);
+	--su-surface-elevated: var(--su-slate-700);
+	--su-foreground: var(--su-slate-50);
+	--su-text: var(--su-foreground);
+	--su-text-muted: var(--su-slate-400);
+	--su-muted: var(--su-slate-800);
+	--su-muted-foreground: var(--su-slate-400);
+	--su-border: var(--su-slate-700);
+	--su-input: var(--su-slate-700);
+	--su-ring: var(--su-sky-400);
+	--su-primary: var(--su-sky-400);
+	--su-primary-text: var(--su-slate-900);
+	--su-primary-foreground: var(--su-primary-text);
+	--su-secondary: var(--su-slate-700);
+	--su-secondary-foreground: var(--su-slate-50);
+	--su-accent: var(--su-slate-700);
+	--su-accent-foreground: var(--su-slate-50);
+	--su-destructive: var(--su-red-400);
+	--su-destructive-foreground: var(--su-slate-900);
+	--su-success: var(--su-green-400);
+	--su-success-foreground: var(--su-slate-900);
+	--su-warning: var(--su-amber-400);
+	--su-warning-foreground: var(--su-slate-900);
+	--su-info: var(--su-blue-400);
+	--su-info-foreground: var(--su-slate-900);
+
+	/* Shadows in dark mode are slightly stronger for depth */
+	--su-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.25);
+	--su-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
+	--su-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.35), 0 4px 6px -4px rgba(0, 0, 0, 0.35);
+	--su-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.4);
+	--su-shadow-glow: 0 0 0 2px var(--su-ring);
+}
+
+* {
+	box-sizing: border-box;
+}
+
+html {
+	font-family: var(--su-font-sans);
+	color: var(--su-text);
+	background: var(--su-bg);
+	line-height: var(--su-leading-normal);
+}
+
+body {
+	margin: 0;
+}

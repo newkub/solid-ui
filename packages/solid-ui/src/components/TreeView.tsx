@@ -5,9 +5,10 @@ export interface TreeViewProps extends JSX.HTMLAttributes<HTMLUListElement> {}
 
 export function TreeView(props: TreeViewProps) {
 	const [local, rest] = splitProps(props, ["class", "children"]);
-	const base = "solidui-tree-view";
+	const base = "list-none p-0 m-0 space-y-1";
+	const className = [base, local.class || ""].filter(Boolean).join(" ");
 	return (
-		<ul class={`${base} ${local.class || ""}`.trim()} {...rest}>
+		<ul class={className} {...rest}>
 			{local.children}
 		</ul>
 	);

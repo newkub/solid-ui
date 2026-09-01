@@ -3,6 +3,7 @@ import { render } from "solid-js/web";
 import { router } from "./app";
 import { initTheme } from "./lib/theme";
 import "./index.css";
+import "virtual:uno.css";
 
 initTheme();
 

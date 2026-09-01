@@ -5,9 +5,10 @@ export interface DataTableProps extends JSX.HTMLAttributes<HTMLDivElement> {}
 
 export function DataTable(props: DataTableProps) {
 	const [local, rest] = splitProps(props, ["class", "children"]);
-	const base = "solidui-data-table";
+	const base = "w-full rounded-lg border bg-card text-card-foreground shadow-sm";
+	const className = [base, local.class || ""].filter(Boolean).join(" ");
 	return (
-		<div class={`${base} ${local.class || ""}`.trim()} {...rest}>
+		<div class={className} {...rest}>
 			{local.children}
 		</div>
 	);
