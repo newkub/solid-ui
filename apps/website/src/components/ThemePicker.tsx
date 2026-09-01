@@ -40,156 +40,195 @@ const radiusOptions: ThemeRadius[] = ["none", "small", "medium", "large"];
 
 function PresetSection(props: { state: ThemeState; onSelect: () => void }) {
 	return (
-		<section class="mb-4">
-			<h3 class="mb-2 text-xs font-semibold uppercase text-muted-foreground tracking-wide">Presets</h3>
+		<section class="border-b border-border pb-4 last:border-0">
+			<h3 class="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Presets</h3>
 			<div class="grid gap-1">
 				<For each={presets}>
-					{(preset) => (
-						<button
-							type="button"
-							class="flex items-center gap-2 w-full text-left rounded-md px-2 py-2 text-sm hover:bg-muted"
-							role="option"
-							aria-selected={props.state.name === preset.label}
-							classList={{ "bg-muted": props.state.name === preset.label }}
-							onClick={() => {
-								setThemeName(preset.name);
-								props.onSelect();
-							}}
-						>
-							<span
-								class="inline-block w-3 h-3 rounded-full"
-								style={{
-									"background-color": `hsl(${colorSchemes[preset.state.color][preset.state.mode].primary})`,
+					{(preset) => {
+						const active = props.state.name === preset.label;
+						return (
+							<button
+								type="button"
+								class={`flex w-full items-center gap-2 rounded-md px-2 py-2 text-left text-sm transition-colors ${
+									active ? "bg-primary/10 text-primary ring-1 ring-primary/20" : "text-foreground hover:bg-muted"
+								}`}
+								role="option"
+								aria-selected={active}
+								onClick={() => {
+									setThemeName(preset.name);
+									props.onSelect();
 								}}
-							/>
-							<span>{preset.label}</span>
-						</button>
-					)}
+							>
+								<span
+									class="inline-block h-3 w-3 rounded-full"
+									style={{
+										"background-color": `hsl(${colorSchemes[preset.state.color][preset.state.mode].primary})`,
+									}}
+								/>
+								<span>{preset.label}</span>
+							</button>
+						);
+					}}
 				</For>
 			</div>
 		</section>
 	);
 }
 
-function ModeSection(props: { mode: ThemeMode }) {
+function ModeSection(props: { mode: ThemeMode; onSelect: () => void }) {
 	return (
-		<section class="mb-4">
-			<h3 class="mb-2 text-xs font-semibold uppercase text-muted-foreground tracking-wide">Mode</h3>
+		<section class="border-b border-border pb-4 last:border-0">
+			<h3 class="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Mode</h3>
 			<div class="grid grid-cols-2 gap-2">
 				<For each={["light", "dark"] as ThemeMode[]}>
-					{(mode) => (
-						<button
-							type="button"
-							class="rounded-md border border-border px-3 py-2 text-sm hover:bg-muted"
-							role="option"
-							aria-selected={props.mode === mode}
-							classList={{ "bg-primary text-primary-foreground": props.mode === mode }}
-							onClick={() => setThemeMode(mode)}
-						>
-							{mode}
-						</button>
-					)}
+					{(mode) => {
+						const active = props.mode === mode;
+						return (
+							<button
+								type="button"
+								class={`rounded-md border border-border px-3 py-2 text-sm transition-colors ${
+									active ? "bg-primary text-primary-foreground" : "text-foreground hover:bg-muted"
+								}`}
+								role="option"
+								aria-selected={active}
+								onClick={() => {
+									setThemeMode(mode);
+									props.onSelect();
+								}}
+							>
+								{mode}
+							</button>
+						);
+					}}
 				</For>
 			</div>
 		</section>
 	);
 }
 
-function ColorSection(props: { color: ThemeColor; mode: ThemeMode }) {
+function ColorSection(props: { color: ThemeColor; mode: ThemeMode; onSelect: () => void }) {
 	return (
-		<section class="mb-4">
-			<h3 class="mb-2 text-xs font-semibold uppercase text-muted-foreground tracking-wide">Color</h3>
+		<section class="border-b border-border pb-4 last:border-0">
+			<h3 class="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Color</h3>
 			<div class="grid grid-cols-4 gap-2">
 				<For each={colorOptions}>
-					{(color) => (
-						<button
-							type="button"
-							class="flex items-center justify-center rounded-md border border-border p-2 hover:bg-muted"
-							classList={{ "ring-2 ring-ring": props.color === color }}
-							role="option"
-							aria-label={`Color ${color}`}
-							aria-selected={props.color === color}
-							onClick={() => setThemeColor(color)}
-						>
-							<span
-								class="inline-block w-4 h-4 rounded-full"
-								style={{ "background-color": `hsl(${colorSchemes[color][props.mode].primary})` }}
-							/>
-						</button>
-					)}
+					{(color) => {
+						const active = props.color === color;
+						return (
+							<button
+								type="button"
+								class={`flex items-center justify-center rounded-md border border-border p-2 transition-colors ${
+									active ? "bg-primary/10 ring-2 ring-ring" : "hover:bg-muted"
+								}`}
+								role="option"
+								aria-label={`Color ${color}`}
+								aria-selected={active}
+								onClick={() => {
+									setThemeColor(color);
+									props.onSelect();
+								}}
+							>
+								<span
+									class="inline-block h-4 w-4 rounded-full"
+									style={{ "background-color": `hsl(${colorSchemes[color][props.mode].primary})` }}
+								/>
+							</button>
+						);
+					}}
 				</For>
 			</div>
 		</section>
 	);
 }
 
-function FontSection(props: { font: ThemeFont }) {
+function FontSection(props: { font: ThemeFont; onSelect: () => void }) {
 	return (
-		<section class="mb-4">
-			<h3 class="mb-2 text-xs font-semibold uppercase text-muted-foreground tracking-wide">Font</h3>
+		<section class="border-b border-border pb-4 last:border-0">
+			<h3 class="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Font</h3>
 			<div class="grid grid-cols-3 gap-2">
 				<For each={fontOptions}>
-					{(font) => (
-						<button
-							type="button"
-							class="rounded-md border border-border px-3 py-2 text-sm hover:bg-muted"
-							classList={{ "bg-primary text-primary-foreground": props.font === font }}
-							role="option"
-							aria-selected={props.font === font}
-							style={{ "font-family": fontStacks[font] }}
-							onClick={() => setThemeFont(font)}
-						>
-							{font}
-						</button>
-					)}
+					{(font) => {
+						const active = props.font === font;
+						return (
+							<button
+								type="button"
+								class={`rounded-md border border-border px-3 py-2 text-sm transition-colors ${
+									active ? "bg-primary text-primary-foreground" : "text-foreground hover:bg-muted"
+								}`}
+								role="option"
+								aria-selected={active}
+								style={{ "font-family": fontStacks[font] }}
+								onClick={() => {
+									setThemeFont(font);
+									props.onSelect();
+								}}
+							>
+								{font}
+							</button>
+						);
+					}}
 				</For>
 			</div>
 		</section>
 	);
 }
 
-function SpaceSection(props: { space: ThemeSpace }) {
+function SpaceSection(props: { space: ThemeSpace; onSelect: () => void }) {
 	return (
-		<section class="mb-4">
-			<h3 class="mb-2 text-xs font-semibold uppercase text-muted-foreground tracking-wide">Spacing</h3>
+		<section class="border-b border-border pb-4 last:border-0">
+			<h3 class="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Spacing</h3>
 			<div class="grid grid-cols-3 gap-2">
 				<For each={spaceOptions}>
-					{(space) => (
-						<button
-							type="button"
-							class="rounded-md border border-border px-3 py-2 text-sm hover:bg-muted"
-							role="option"
-							aria-selected={props.space === space}
-							classList={{ "bg-primary text-primary-foreground": props.space === space }}
-							onClick={() => setThemeSpace(space)}
-						>
-							{space}
-						</button>
-					)}
+					{(space) => {
+						const active = props.space === space;
+						return (
+							<button
+								type="button"
+								class={`rounded-md border border-border px-3 py-2 text-sm transition-colors ${
+									active ? "bg-primary text-primary-foreground" : "text-foreground hover:bg-muted"
+								}`}
+								role="option"
+								aria-selected={active}
+								onClick={() => {
+									setThemeSpace(space);
+									props.onSelect();
+								}}
+							>
+								{space}
+							</button>
+						);
+					}}
 				</For>
 			</div>
 		</section>
 	);
 }
 
-function RadiusSection(props: { radius: ThemeRadius }) {
+function RadiusSection(props: { radius: ThemeRadius; onSelect: () => void }) {
 	return (
 		<section>
-			<h3 class="mb-2 text-xs font-semibold uppercase text-muted-foreground tracking-wide">Radius</h3>
+			<h3 class="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Radius</h3>
 			<div class="grid grid-cols-4 gap-2">
 				<For each={radiusOptions}>
-					{(radius) => (
-						<button
-							type="button"
-							class="rounded-md border border-border px-2 py-2 text-sm hover:bg-muted"
-							role="option"
-							aria-selected={props.radius === radius}
-							classList={{ "bg-primary text-primary-foreground": props.radius === radius }}
-							onClick={() => setThemeRadius(radius)}
-						>
-							{radius}
-						</button>
-					)}
+					{(radius) => {
+						const active = props.radius === radius;
+						return (
+							<button
+								type="button"
+								class={`rounded-md border border-border px-2 py-2 text-sm transition-colors ${
+									active ? "bg-primary text-primary-foreground" : "text-foreground hover:bg-muted"
+								}`}
+								role="option"
+								aria-selected={active}
+								onClick={() => {
+									setThemeRadius(radius);
+									props.onSelect();
+								}}
+							>
+								{radius}
+							</button>
+						);
+					}}
 				</For>
 			</div>
 		</section>
@@ -199,15 +238,17 @@ function RadiusSection(props: { radius: ThemeRadius }) {
 function ThemeDropdown(props: { state: ThemeState; onSelect: () => void }) {
 	return (
 		<div
-			class="absolute right-0 top-full z-dropdown mt-2 w-80 max-h-96 overflow-y-auto rounded-lg border border-border bg-surface p-4 shadow-lg"
+			class="absolute right-0 top-full z-dropdown mt-2 w-80 max-h-[80vh] max-w-[calc(100vw_-_2rem)] overflow-y-auto rounded-xl border border-border bg-surface p-4 shadow-xl lg:left-full lg:right-auto lg:top-0 lg:mt-0 lg:ml-2 lg:w-96"
 			role="listbox"
 		>
-			<PresetSection state={props.state} onSelect={props.onSelect} />
-			<ModeSection mode={props.state.mode} />
-			<ColorSection color={props.state.color} mode={props.state.mode} />
-			<FontSection font={props.state.font} />
-			<SpaceSection space={props.state.space} />
-			<RadiusSection radius={props.state.radius} />
+			<div class="space-y-4">
+				<PresetSection state={props.state} onSelect={props.onSelect} />
+				<ModeSection mode={props.state.mode} onSelect={props.onSelect} />
+				<ColorSection color={props.state.color} mode={props.state.mode} onSelect={props.onSelect} />
+				<FontSection font={props.state.font} onSelect={props.onSelect} />
+				<SpaceSection space={props.state.space} onSelect={props.onSelect} />
+				<RadiusSection radius={props.state.radius} onSelect={props.onSelect} />
+			</div>
 		</div>
 	);
 }

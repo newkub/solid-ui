@@ -1,8 +1,13 @@
 import { useLocation, useNavigate } from "@tanstack/solid-router";
 import { useSelector } from "@tanstack/solid-store";
-import { createSignal, onCleanup, onMount, Show } from "solid-js";
+import { type Accessor, createSignal, onCleanup, onMount, Show } from "solid-js";
 import { themeStore } from "../lib/theme";
 import { VibeCoding } from "./VibeCoding";
+
+interface DevToolsProps {
+	open: Accessor<boolean>;
+	onOpenChange: (open: boolean) => void;
+}
 
 function useBreakpoint() {
 	const [width, setWidth] = createSignal(0);
@@ -43,7 +48,7 @@ function CloseIcon(props: { class?: string }) {
 	);
 }
 
-function GearIcon(props: { class?: string }) {
+export function GearIcon(props: { class?: string }) {
 	return (
 		<svg
 			class={props.class}
@@ -79,17 +84,30 @@ function VibeIcon(props: { class?: string }) {
 	);
 }
 
-export function DevTools() {
+export function DevTools(props: DevToolsProps) {
 	const navigate = useNavigate();
 	const location = useLocation();
-	const [open, setOpen] = createSignal(false);
 	const [showVibe, setShowVibe] = createSignal(false);
 	const { width, breakpoint } = useBreakpoint();
 	const theme = useSelector(themeStore, (s) => s);
 
-	function nav(to: string) {
-		setOpen(false);
+	onMount(() => {
+		function onKeyDown(e: KeyboardEvent) {
+			if (e.key === "Escape" && props.open()) {
+				close();
+			}
+		}
+		document.addEventListener("keydown", onKeyDown);
+		onCleanup(() => document.removeEventListener("keydown", onKeyDown));
+	});
+
+	function close() {
+		props.onOpenChange(false);
 		setShowVibe(false);
+	}
+
+	function nav(to: string) {
+		close();
 		navigate({ to });
 	}
 
@@ -103,102 +121,89 @@ export function DevTools() {
 	}
 
 	return (
-		<div class="fixed bottom-4 left-4 z-toast">
-			<Show
-				when={open()}
-				fallback={
-					<button
-						type="button"
-						onClick={() => setOpen(true)}
-						class="flex h-10 items-center gap-2 rounded-full border border-border bg-surface px-3 text-sm font-medium text-muted-foreground shadow-lg transition-all hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
-						aria-label="Open developer tools"
-						aria-pressed={open()}
-					>
-						<GearIcon />
-						<span class="hidden sm:inline">Dev tools</span>
+		<Show when={props.open()}>
+			<div
+				class="fixed right-0 top-0 z-toast h-full w-80 max-w-full overflow-y-auto border-l border-border bg-surface p-4 shadow-2xl lg:right-4 lg:top-14 lg:h-auto lg:max-h-[80vh] lg:w-80 lg:rounded-xl lg:border"
+				role="dialog"
+				aria-label="Developer tools"
+			>
+				<div class="mb-3 flex items-center justify-between">
+					<div class="flex items-center gap-1.5">
+						<GearIcon class="h-4 w-4 text-muted-foreground" />
+						<span class="text-sm font-semibold text-foreground">Dev tools</span>
+					</div>
+					<div class="flex items-center gap-1.5">
 						<span class="rounded bg-primary px-1.5 py-0.5 text-[10px] font-semibold text-primary-foreground">
 							{breakpoint()}
 						</span>
-					</button>
-				}
-			>
-				<div class="w-80 rounded-xl border border-border bg-surface p-3 shadow-xl sm:w-96">
-					<div class="mb-3 flex items-center justify-between">
-						<div class="flex items-center gap-1.5">
-							<GearIcon class="text-muted-foreground" />
-							<span class="text-sm font-semibold">Dev tools</span>
-						</div>
 						<button
 							type="button"
-							onClick={() => {
-								setOpen(false);
-								setShowVibe(false);
-							}}
+							onClick={close}
 							class="inline-flex h-6 w-6 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
 							aria-label="Close developer tools"
 						>
 							<CloseIcon />
 						</button>
 					</div>
-
-					<div class="space-y-2">
-						<InfoRow label="Route" value={location().pathname} />
-						<InfoRow label="Viewport" value={`${width()}px · ${breakpoint()}`} />
-						<InfoRow label="Theme" value={theme().name} />
-					</div>
-
-					<Show
-						when={showVibe()}
-						fallback={
-							<div class="mt-3 grid grid-cols-2 gap-2">
-								<button
-									type="button"
-									onClick={() => nav("/settings")}
-									class="rounded-md border border-border bg-background px-2 py-1.5 text-xs font-medium text-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
-								>
-									Settings
-								</button>
-								<button
-									type="button"
-									onClick={() => nav("/plugins")}
-									class="rounded-md border border-border bg-background px-2 py-1.5 text-xs font-medium text-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
-								>
-									Plugins
-								</button>
-								<button
-									type="button"
-									onClick={() => nav("/components")}
-									class="rounded-md border border-border bg-background px-2 py-1.5 text-xs font-medium text-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
-								>
-									Components
-								</button>
-								<button
-									type="button"
-									onClick={() => setShowVibe(true)}
-									class="inline-flex items-center justify-center gap-1 rounded-md border border-border bg-background px-2 py-1.5 text-xs font-medium text-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
-								>
-									<VibeIcon />
-									Vibe coding
-								</button>
-							</div>
-						}
-					>
-						<div class="mt-3">
-							<div class="mb-2 flex items-center justify-between">
-								<span class="text-sm font-semibold">Vibe coding</span>
-								<button
-									type="button"
-									onClick={() => setShowVibe(false)}
-									class="rounded-md border border-border bg-background px-2 py-1 text-xs text-foreground hover:bg-muted"
-								>
-									Back
-								</button>
-							</div>
-							<VibeCoding />
-						</div>
-					</Show>
 				</div>
-			</Show>
-		</div>
+
+				<div class="space-y-2">
+					<InfoRow label="Route" value={location().pathname} />
+					<InfoRow label="Viewport" value={`${width()}px · ${breakpoint()}`} />
+					<InfoRow label="Theme" value={theme().name} />
+				</div>
+
+				<Show
+					when={showVibe()}
+					fallback={
+						<div class="mt-3 grid grid-cols-2 gap-2">
+							<button
+								type="button"
+								onClick={() => nav("/settings")}
+								class="rounded-md border border-border bg-background px-2 py-1.5 text-xs font-medium text-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+							>
+								Settings
+							</button>
+							<button
+								type="button"
+								onClick={() => nav("/plugins")}
+								class="rounded-md border border-border bg-background px-2 py-1.5 text-xs font-medium text-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+							>
+								Plugins
+							</button>
+							<button
+								type="button"
+								onClick={() => nav("/components")}
+								class="rounded-md border border-border bg-background px-2 py-1.5 text-xs font-medium text-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+							>
+								Components
+							</button>
+							<button
+								type="button"
+								onClick={() => setShowVibe(true)}
+								class="inline-flex items-center justify-center gap-1 rounded-md border border-border bg-background px-2 py-1.5 text-xs font-medium text-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+							>
+								<VibeIcon />
+								Vibe coding
+							</button>
+						</div>
+					}
+				>
+					<div class="mt-3">
+						<div class="mb-2 flex items-center justify-between">
+							<span class="text-sm font-semibold text-foreground">Vibe coding</span>
+							<button
+								type="button"
+								onClick={() => setShowVibe(false)}
+								class="rounded-md border border-border bg-background px-2 py-1 text-xs text-foreground hover:bg-muted"
+							>
+								Back
+							</button>
+						</div>
+						<VibeCoding />
+					</div>
+				</Show>
+			</div>
+		</Show>
 	);
 }

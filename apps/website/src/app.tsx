@@ -5,7 +5,6 @@ import { CliPage } from "./components/CliPage";
 import { CodeBlock } from "./components/CodeBlock";
 import { ComponentGallery } from "./components/ComponentGallery";
 import { ComponentSidebar } from "./components/ComponentSidebar";
-import { DevTools } from "./components/DevTools";
 import { DocsLayout } from "./components/DocsLayout";
 import { DocsPage } from "./components/DocsPage";
 import { Footer } from "./components/Footer";
@@ -74,7 +73,6 @@ function Root() {
 					</main>
 				</NavLayout>
 				<Footer />
-				<DevTools />
 			</ErrorBoundary>
 		</div>
 	);

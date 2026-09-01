@@ -3,6 +3,7 @@ import { createSignal, For, type JSX, onCleanup, onMount, Show } from "solid-js"
 import { toggleThemeMode } from "../lib/theme";
 import { CommandPalette } from "./CommandPalette";
 import { ContextMenu } from "./ContextMenu";
+import { DevTools, GearIcon } from "./DevTools";
 import { Logo } from "./Logo";
 import { ThemePicker } from "./ThemePicker";
 
@@ -133,25 +134,25 @@ const navGroups: NavGroup[] = [
 		label: "Core",
 		links: [
 			{ to: "/", label: "Home", icon: "home" },
-			{ to: "/components", label: "Components", icon: "components" },
 			{ to: "/docs/intro", label: "Docs", icon: "docs" },
 			{ to: "/theme", label: "Theme", icon: "theme" },
 		],
 	},
 	{
-		id: "build",
-		label: "Build",
+		id: "apis",
+		label: "APIs",
 		links: [
+			{ to: "/components", label: "Components", icon: "components" },
 			{ to: "/templates", label: "Templates", icon: "template" },
 			{ to: "/layouts", label: "Layouts", icon: "layouts" },
 			{ to: "/hooks", label: "Hooks", icon: "hooks" },
-			{ to: "/cli", label: "CLI", icon: "cli" },
 		],
 	},
 	{
-		id: "integrate",
-		label: "Integrate",
+		id: "development",
+		label: "Development",
 		links: [
+			{ to: "/cli", label: "CLI", icon: "cli" },
 			{ to: "/skills", label: "Skills", icon: "skills" },
 			{ to: "/plugins", label: "Plugins", icon: "plugins" },
 			{ to: "/docs/integrations/mcp", label: "MCP", icon: "mcp" },
@@ -271,6 +272,21 @@ function MenuButton(props: { open: boolean; onClick: () => void }) {
 	);
 }
 
+function DevToolsButton(props: { open: boolean; onToggle: () => void }) {
+	return (
+		<button
+			type="button"
+			onClick={props.onToggle}
+			class="inline-flex h-9 w-9 items-center justify-center rounded-md border border-border bg-surface text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+			aria-label="Toggle developer tools"
+			aria-pressed={props.open}
+			title="Developer tools"
+		>
+			<GearIcon class="h-4 w-4" />
+		</button>
+	);
+}
+
 function Brand() {
 	return (
 		<LogoContextMenu>
@@ -302,6 +318,7 @@ function NavGroup(props: { group: NavGroup; onClick?: () => void }) {
 export function NavLayout(props: { children: JSX.Element }) {
 	const [menuOpen, setMenuOpen] = createSignal(false);
 	const [commandOpen, setCommandOpen] = createSignal(false);
+	const [devToolsOpen, setDevToolsOpen] = createSignal(false);
 
 	onMount(() => {
 		function onKeyDown(e: KeyboardEvent) {
@@ -331,6 +348,7 @@ export function NavLayout(props: { children: JSX.Element }) {
 						onClick={() => setCommandOpen(true)}
 						class="inline-flex h-9 w-9 items-center justify-center p-0 sm:hidden"
 					/>
+					<DevToolsButton open={devToolsOpen()} onToggle={() => setDevToolsOpen((v) => !v)} />
 					<ThemePicker />
 				</div>
 			</header>
@@ -344,7 +362,10 @@ export function NavLayout(props: { children: JSX.Element }) {
 				>
 					<div class="mb-6 hidden items-center justify-between lg:flex">
 						<Brand />
-						<ThemePicker />
+						<div class="flex items-center gap-2">
+							<DevToolsButton open={devToolsOpen()} onToggle={() => setDevToolsOpen((v) => !v)} />
+							<ThemePicker />
+						</div>
 					</div>
 
 					<div class="mb-4 lg:hidden">
@@ -389,6 +410,7 @@ export function NavLayout(props: { children: JSX.Element }) {
 				<div class="min-w-0 flex-1">{props.children}</div>
 			</div>
 
+			<DevTools open={devToolsOpen} onOpenChange={(open) => setDevToolsOpen(open)} />
 			<CommandPalette open={commandOpen()} onClose={() => setCommandOpen(false)} onToggleTheme={toggleThemeMode} />
 		</>
 	);
