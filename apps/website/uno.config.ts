@@ -15,7 +15,7 @@ export default defineConfig({
 				light: 'html[data-theme="light"]',
 			},
 			preflights: {
-				reset: false,
+				reset: true,
 			},
 		}),
 	],

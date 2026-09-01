@@ -28,6 +28,7 @@ code {
 
 a {
 	color: inherit;
+	text-decoration: none;
 }
 
 ul:not([class~="list-disc"]) {

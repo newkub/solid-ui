@@ -1,5 +1,6 @@
 import { Link, useParams } from "@tanstack/solid-router";
-import { type Accessor, createMemo, createSignal, For, type JSX } from "solid-js";
+import { Accordion, AccordionItem } from "@wrikka/solid-ui";
+import { type Accessor, createMemo, For, type JSX } from "solid-js";
 import { docs } from "../docs/generated";
 
 interface DocGroupMeta {
@@ -86,10 +87,10 @@ function PlugIcon(props: { class?: string }) {
 	);
 }
 
-function ChevronIcon(props: { class?: string }) {
+function BoxIcon(props: { class?: string }) {
 	return (
 		<svg class={props.class} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-			<path stroke-linecap="round" stroke-linejoin="round" d="m9 6 6 6-6 6" />
+			<rect x="3" y="3" width="18" height="18" rx="2" />
 		</svg>
 	);
 }
@@ -121,34 +122,24 @@ function buildSections(): SidebarSection[] {
 	}
 	return groupOrder
 		.map((group) => {
-			const meta = groupMeta[group] ?? { label: group, icon: LayoutIcon };
+			const meta = groupMeta[group] ?? { label: group, icon: BoxIcon };
 			return { group, label: meta.label, icon: meta.icon, items: byGroup[group] ?? [] };
 		})
 		.filter((s) => s.items.length > 0);
 }
 
-function SidebarGroup(props: { section: SidebarSection; activeGroup: string; activeId?: string }) {
-	const isActiveGroup = () => props.section.group === props.activeGroup;
-	const [expanded, setExpanded] = createSignal(isActiveGroup());
-	const panelId = `docs-group-${props.section.group}`;
+function SidebarGroup(props: { section: SidebarSection; activeId?: string }) {
 	const Icon = props.section.icon;
+	const title = () => (
+		<span class="flex items-center gap-2 text-sm font-semibold">
+			<Icon class="h-4 w-4 shrink-0" />
+			{props.section.label}
+		</span>
+	);
 
 	return (
-		<div class="mb-4">
-			<button
-				type="button"
-				class={`flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-xs font-semibold uppercase tracking-wide transition-colors hover:bg-muted ${
-					isActiveGroup() ? "text-foreground" : "text-muted-foreground"
-				}`}
-				aria-expanded={expanded()}
-				aria-controls={panelId}
-				onClick={() => setExpanded((v) => !v)}
-			>
-				<Icon class="h-4 w-4 shrink-0" />
-				<span class="flex-1 text-left">{props.section.label}</span>
-				<ChevronIcon class={`h-3.5 w-3.5 shrink-0 transition-transform ${expanded() ? "rotate-90" : ""}`} />
-			</button>
-			<ul id={panelId} class={`mt-1 space-y-1 ${expanded() ? "block" : "hidden"}`}>
+		<AccordionItem title={title()} defaultOpen={props.section.items.some((item) => item.id === props.activeId)}>
+			<ul class="space-y-0.5 border-l border-border pl-2">
 				<For each={props.section.items}>
 					{(item) => {
 						const active = item.id === props.activeId;
@@ -156,14 +147,11 @@ function SidebarGroup(props: { section: SidebarSection; activeGroup: string; act
 							<li>
 								<Link
 									to={pagePath(item.id)}
-									class={`block rounded-md border-l-2 py-1.5 pl-4 pr-2 text-sm transition-colors hover:bg-muted hover:text-foreground ${
-										active
-											? "border-primary bg-muted font-medium text-primary"
-											: "border-transparent text-muted-foreground"
+									class={`block rounded-md px-2 py-1.5 text-sm transition-colors hover:bg-muted ${
+										active ? "bg-primary/10 font-medium text-primary" : "text-muted-foreground hover:text-foreground"
 									}`}
 									activeProps={() => ({
-										class:
-											"block rounded-md border-l-2 border-primary bg-muted py-1.5 pl-4 pr-2 text-sm font-medium text-primary",
+										class: "block rounded-md px-2 py-1.5 text-sm font-medium bg-primary/10 text-primary",
 									})}
 									activeOptions={{ exact: true }}
 									aria-current={active ? "page" : undefined}
@@ -175,22 +163,20 @@ function SidebarGroup(props: { section: SidebarSection; activeGroup: string; act
 					}}
 				</For>
 			</ul>
-		</div>
+		</AccordionItem>
 	);
 }
 
 export function Sidebar() {
 	const params = useParams({ strict: false }) as Accessor<{ group: string; name?: string }>;
-	const activeGroup = () => params().group;
 	const activeId = () => (params().name ? `${params().group}/${params().name}` : params().group);
-
 	const sections = createMemo(() => buildSections());
 
 	return (
-		<aside class="lg:sticky lg:top-24 lg:w-64 lg:shrink-0" aria-label="Docs sidebar">
-			<For each={sections()}>
-				{(section) => <SidebarGroup section={section} activeGroup={activeGroup()} activeId={activeId()} />}
-			</For>
+		<aside class="h-screen overflow-y-auto pr-2" aria-label="Docs sidebar">
+			<Accordion class="space-y-1 border-0 bg-transparent shadow-none">
+				<For each={sections()}>{(section) => <SidebarGroup section={section} activeId={activeId()} />}</For>
+			</Accordion>
 		</aside>
 	);
 }

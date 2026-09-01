@@ -118,10 +118,10 @@ function SimpleLink(props: { to: string; label: string; icon: IconName; onClick?
 	return (
 		<Link
 			to={props.to}
-			class="flex items-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium text-muted-foreground no-underline transition-colors hover:bg-muted hover:text-foreground"
+			class="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
 			activeProps={() => ({
 				class:
-					"flex items-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground",
+					"flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium bg-primary/10 text-primary hover:bg-primary/10",
 			})}
 			activeOptions={{ exact: true }}
 			onClick={props.onClick}
@@ -151,10 +151,94 @@ function LogoContextMenu(props: { children: JSX.Element }) {
 	return <ContextMenu items={items}>{props.children}</ContextMenu>;
 }
 
-export function Nav() {
+function SearchButton(props: { onClick: () => void; class?: string }) {
+	return (
+		<button
+			type="button"
+			onClick={props.onClick}
+			class={`inline-flex h-9 items-center gap-2 rounded-md border border-border bg-background px-3 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring ${props.class ?? ""}`}
+		>
+			<svg
+				width="16"
+				height="16"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2"
+				aria-hidden="true"
+			>
+				<circle cx="11" cy="11" r="8" />
+				<path d="m21 21-4.3-4.3" />
+			</svg>
+			<span class="hidden sm:inline">Search…</span>
+			<kbd class="hidden rounded bg-muted px-1.5 py-0.5 text-[10px] font-semibold text-muted-foreground lg:inline">
+				{isApplePlatform() ? "⌘K" : "Ctrl+K"}
+			</kbd>
+		</button>
+	);
+}
+
+function MenuButton(props: { open: boolean; onClick: () => void }) {
+	return (
+		<button
+			type="button"
+			class="inline-flex h-9 w-9 items-center justify-center rounded-md border border-border bg-background text-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+			aria-label={props.open ? "Close menu" : "Open menu"}
+			aria-expanded={props.open}
+			onClick={props.onClick}
+		>
+			<Show
+				when={props.open}
+				fallback={
+					<svg
+						width="18"
+						height="18"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						aria-hidden="true"
+					>
+						<line x1="4" y1="6" x2="20" y2="6" />
+						<line x1="4" y1="12" x2="20" y2="12" />
+						<line x1="4" y1="18" x2="20" y2="18" />
+					</svg>
+				}
+			>
+				<svg
+					width="18"
+					height="18"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					aria-hidden="true"
+				>
+					<path d="M18 6 6 18M6 6l12 12" />
+				</svg>
+			</Show>
+		</button>
+	);
+}
+
+function Brand() {
+	return (
+		<LogoContextMenu>
+			<Link
+				to="/"
+				class="flex items-center gap-2 text-foreground no-underline hover:text-primary transition-colors"
+				onContextMenu={(e) => e.preventDefault()}
+			>
+				<Logo class="text-primary" />
+				<span class="font-sans font-semibold">solid-ui</span>
+			</Link>
+		</LogoContextMenu>
+	);
+}
+
+export function NavLayout(props: { children: JSX.Element }) {
 	const [menuOpen, setMenuOpen] = createSignal(false);
 	const [commandOpen, setCommandOpen] = createSignal(false);
-	const menuId = "site-nav";
 
 	onMount(() => {
 		function onKeyDown(e: KeyboardEvent) {
@@ -167,102 +251,48 @@ export function Nav() {
 		onCleanup(() => document.removeEventListener("keydown", onKeyDown));
 	});
 
-	return (
-		<header class="sticky top-0 z-sticky border-b border-border bg-surface/95 font-sans backdrop-blur supports-[not(backdrop-filter:blur(0))]:bg-surface">
-			<div class="mx-auto flex h-16 max-w-7xl items-center gap-4 px-4 sm:px-6 lg:px-8">
-				<h1 class="text-xl font-bold tracking-tight">
-					<LogoContextMenu>
-						<Link
-							to="/"
-							class="flex items-center gap-2 text-foreground no-underline hover:text-primary transition-colors"
-							onContextMenu={(e) => e.preventDefault()}
-						>
-							<Logo class="text-primary" />
-							<span class="font-sans">solid-ui</span>
-						</Link>
-					</LogoContextMenu>
-				</h1>
+	function closeMenu() {
+		setMenuOpen(false);
+	}
 
-				<nav
-					id={menuId}
-					class={`absolute left-0 right-0 top-full flex-col border-b border-border bg-surface p-4 shadow-lg md:static md:flex-1 md:flex md:flex-row md:items-center md:justify-center md:gap-1 md:border-0 md:bg-transparent md:p-0 md:shadow-none ${
-						menuOpen() ? "flex" : "hidden"
-					} max-h-[calc(100vh-4rem)] overflow-y-auto`}
+	return (
+		<>
+			<header class="sticky top-0 z-sticky flex h-14 items-center justify-between border-b border-border bg-surface/95 px-4 backdrop-blur lg:hidden">
+				<div class="flex items-center gap-3">
+					<MenuButton open={menuOpen()} onClick={() => setMenuOpen((v) => !v)} />
+					<Brand />
+				</div>
+				<div class="flex items-center gap-2">
+					<SearchButton onClick={() => setCommandOpen(true)} class="hidden sm:inline-flex" />
+					<SearchButton
+						onClick={() => setCommandOpen(true)}
+						class="inline-flex h-9 w-9 items-center justify-center p-0 sm:hidden"
+					/>
+					<ThemePicker />
+				</div>
+			</header>
+
+			<div class="flex min-h-screen">
+				<aside
+					class={`fixed inset-y-0 left-0 z-modal w-64 transform border-r border-border bg-surface p-4 transition-transform lg:static lg:translate-x-0 ${
+						menuOpen() ? "translate-x-0" : "-translate-x-full"
+					} flex h-screen flex-col overflow-y-auto`}
 					aria-label="Main navigation"
 				>
-					<div class="flex flex-col gap-1 md:flex-row md:items-center">
-						<For each={simpleLinks}>
-							{(link) => (
-								<SimpleLink to={link.to} label={link.label} icon={link.icon} onClick={() => setMenuOpen(false)} />
-							)}
-						</For>
+					<div class="mb-6 hidden items-center justify-between lg:flex">
+						<Brand />
+						<ThemePicker />
 					</div>
-				</nav>
 
-				<div class="flex items-center gap-2">
-					<button
-						type="button"
-						onClick={() => setCommandOpen(true)}
-						class="hidden h-10 items-center gap-2 rounded-md border border-border bg-background px-3 text-sm font-medium text-muted-foreground transition-all hover:border-border-hover hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring md:inline-flex"
-					>
-						<svg
-							width="16"
-							height="16"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							stroke-width="2"
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							aria-hidden="true"
-						>
-							<circle cx="11" cy="11" r="8" />
-							<path d="m21 21-4.3-4.3" />
-						</svg>
-						<span class="hidden sm:inline">Search…</span>
-						<kbd class="ml-1 hidden rounded bg-muted px-1.5 py-0.5 text-[10px] font-semibold text-muted-foreground lg:inline">
-							{isApplePlatform() ? "⌘K" : "Ctrl+K"}
-						</kbd>
-					</button>
-					<button
-						type="button"
-						onClick={() => setCommandOpen(true)}
-						class="inline-flex h-9 w-9 items-center justify-center rounded-md border border-border bg-background text-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring md:hidden"
-						aria-label="Search"
-					>
-						<svg
-							width="18"
-							height="18"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							stroke-width="2"
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							aria-hidden="true"
-						>
-							<circle cx="11" cy="11" r="8" />
-							<path d="m21 21-4.3-4.3" />
-						</svg>
-					</button>
-					<Link
-						to="/docs/intro"
-						class="hidden md:inline-flex h-10 items-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground no-underline shadow-sm transition-all hover:bg-primary-hover hover:shadow-md focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
-					>
-						Get Started
-					</Link>
-					<ThemePicker />
-					<button
-						type="button"
-						class="inline-flex h-9 w-9 items-center justify-center rounded-md border border-border bg-background text-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring md:hidden"
-						aria-label={menuOpen() ? "Close menu" : "Open menu"}
-						aria-expanded={menuOpen()}
-						aria-controls={menuId}
-						onClick={() => setMenuOpen((v) => !v)}
-					>
-						<Show
-							when={menuOpen()}
-							fallback={
+					<div class="mb-4 lg:hidden">
+						<div class="mb-3 flex items-center justify-between">
+							<span class="font-sans font-semibold">solid-ui</span>
+							<button
+								type="button"
+								onClick={closeMenu}
+								class="inline-flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground hover:bg-muted"
+								aria-label="Close menu"
+							>
 								<svg
 									width="18"
 									height="18"
@@ -270,34 +300,35 @@ export function Nav() {
 									fill="none"
 									stroke="currentColor"
 									stroke-width="2"
-									stroke-linecap="round"
-									stroke-linejoin="round"
 									aria-hidden="true"
 								>
-									<line x1="4" y1="6" x2="20" y2="6" />
-									<line x1="4" y1="12" x2="20" y2="12" />
-									<line x1="4" y1="18" x2="20" y2="18" />
+									<path d="M18 6 6 18M6 6l12 12" />
 								</svg>
-							}
-						>
-							<svg
-								width="18"
-								height="18"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								aria-hidden="true"
-							>
-								<path d="M18 6 6 18M6 6l12 12" />
-							</svg>
-						</Show>
-					</button>
-				</div>
+							</button>
+						</div>
+						<SearchButton
+							onClick={() => {
+								setCommandOpen(true);
+								closeMenu();
+							}}
+						/>
+					</div>
+
+					<nav class="flex-1 space-y-1">
+						<For each={simpleLinks}>
+							{(link) => <SimpleLink to={link.to} label={link.label} icon={link.icon} onClick={closeMenu} />}
+						</For>
+					</nav>
+
+					<div class="mt-4 hidden border-t border-border pt-4 lg:block">
+						<SearchButton onClick={() => setCommandOpen(true)} class="w-full justify-start" />
+					</div>
+				</aside>
+
+				<div class="min-w-0 flex-1">{props.children}</div>
 			</div>
+
 			<CommandPalette open={commandOpen()} onClose={() => setCommandOpen(false)} onToggleTheme={toggleThemeMode} />
-		</header>
+		</>
 	);
 }

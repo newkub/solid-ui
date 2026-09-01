@@ -13,7 +13,7 @@ import { HooksPage } from "./components/HooksPage";
 import { LayoutsPage } from "./components/LayoutsPage";
 import { LlmTxtPage } from "./components/LlmTxtPage";
 import { McpPage } from "./components/McpPage";
-import { Nav } from "./components/Nav";
+import { NavLayout } from "./components/Nav";
 import { PageLayout } from "./components/PageLayout";
 import { PluginsPage } from "./components/PluginsPage";
 import { Seo } from "./components/Seo";
@@ -65,12 +65,13 @@ function Root() {
 		<div class="min-h-screen flex flex-col bg-background text-foreground font-sans">
 			<ErrorBoundary fallback={(err, reset) => <FallbackError error={err as Error} reset={reset} />}>
 				<SkipLink />
-				<Nav />
-				<main id="main-content" class="flex-1 px-4 py-6 sm:px-6 lg:px-8">
-					<div class="mx-auto max-w-7xl">
-						<Outlet />
-					</div>
-				</main>
+				<NavLayout>
+					<main id="main-content" class="flex-1 px-4 py-6 sm:px-6 lg:px-8">
+						<div class="mx-auto max-w-7xl">
+							<Outlet />
+						</div>
+					</main>
+				</NavLayout>
 				<Footer />
 				<DevTools />
 			</ErrorBoundary>
