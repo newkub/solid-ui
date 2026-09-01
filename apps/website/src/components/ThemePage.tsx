@@ -87,7 +87,7 @@ export function ThemePage() {
 							>
 								<span
 									class="inline-block w-4 h-4 rounded-full"
-									style={{ "background-color": colorSchemes[preset.state.color][preset.state.mode].primary }}
+									style={{ "background-color": `hsl(${colorSchemes[preset.state.color][preset.state.mode].primary})` }}
 								/>
 								<div>
 									<div class="font-medium">{preset.label}</div>
@@ -121,7 +121,7 @@ export function ThemePage() {
 							>
 								<span
 									class="inline-block w-6 h-6 rounded-full"
-									style={{ "background-color": colorSchemes[color][state().mode].primary }}
+									style={{ "background-color": `hsl(${colorSchemes[color][state().mode].primary})` }}
 								/>
 								<span class="text-xs capitalize">{color}</span>
 							</button>

@@ -1,5 +1,5 @@
 import { useSelector } from "@tanstack/solid-store";
-import { createSignal, For, Show } from "solid-js";
+import { createSignal, For, onCleanup, onMount, Show } from "solid-js";
 import {
 	colorSchemes,
 	presets,
@@ -39,9 +39,27 @@ const radiusOptions: ThemeRadius[] = ["none", "small", "medium", "large"];
 export function ThemePicker() {
 	const [open, setOpen] = createSignal(false);
 	const state = useSelector(themeStore, (s) => s);
+	let ref: HTMLDivElement | undefined;
+
+	onMount(() => {
+		function onClick(event: MouseEvent) {
+			if (ref && !ref.contains(event.target as Node) && open()) {
+				setOpen(false);
+			}
+		}
+		function onKey(event: KeyboardEvent) {
+			if (event.key === "Escape") setOpen(false);
+		}
+		document.addEventListener("mousedown", onClick);
+		document.addEventListener("keydown", onKey);
+		onCleanup(() => {
+			document.removeEventListener("mousedown", onClick);
+			document.removeEventListener("keydown", onKey);
+		});
+	});
 
 	return (
-		<div class="relative inline-block">
+		<div ref={ref} class="relative inline-block">
 			<button
 				type="button"
 				class="inline-flex items-center gap-2 rounded-md border border-border bg-surface px-3 py-2 text-sm font-medium text-foreground hover:bg-muted transition-colors"
@@ -51,7 +69,7 @@ export function ThemePicker() {
 			>
 				<span
 					class="inline-block w-3 h-3 rounded-full"
-					style={{ "background-color": colorSchemes[state().color][state().mode].primary }}
+					style={{ "background-color": `hsl(${colorSchemes[state().color][state().mode].primary})` }}
 				/>
 				<span>Theme: {state().name}</span>
 				<svg
@@ -90,7 +108,9 @@ export function ThemePicker() {
 									>
 										<span
 											class="inline-block w-3 h-3 rounded-full"
-											style={{ "background-color": colorSchemes[preset.state.color][preset.state.mode].primary }}
+											style={{
+												"background-color": `hsl(${colorSchemes[preset.state.color][preset.state.mode].primary})`,
+											}}
 										/>
 										<span>{preset.label}</span>
 									</button>
@@ -131,7 +151,7 @@ export function ThemePicker() {
 									>
 										<span
 											class="inline-block w-4 h-4 rounded-full"
-											style={{ "background-color": colorSchemes[color][state().mode].primary }}
+											style={{ "background-color": `hsl(${colorSchemes[color][state().mode].primary})` }}
 										/>
 									</button>
 								)}
