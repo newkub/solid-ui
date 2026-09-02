@@ -1,12 +1,11 @@
 import { Link, useLocation, useNavigate } from "@tanstack/solid-router";
-import { createSignal, For, type JSX, Match, onCleanup, onMount, Show, Switch } from "solid-js";
+import { createEffect, createMemo, createSignal, For, type JSX, onCleanup, onMount, Show } from "solid-js";
 import { GITHUB_REPO_URL } from "../lib/config";
 import { toggleThemeMode } from "../lib/theme";
 import { CommandPalette } from "./CommandPalette";
 import { ComponentSidebar } from "./ComponentSidebar";
 import { ContextMenu } from "./ContextMenu";
 import { DevTools, GearIcon } from "./DevTools";
-import { DocsModule } from "./DocsModule";
 import { Logo } from "./Logo";
 import { ThemePicker } from "./ThemePicker";
 
@@ -137,7 +136,7 @@ const navGroups: NavGroup[] = [
 		label: "Core",
 		links: [
 			{ to: "/", label: "Home", icon: "home" },
-			{ to: "/docs/intro", label: "Docs", icon: "docs" },
+			{ to: "/docs/intro", label: "Get started", icon: "docs" },
 			{ to: "/theme", label: "Theme", icon: "theme" },
 		],
 	},
@@ -168,20 +167,30 @@ const navGroups: NavGroup[] = [
 	},
 ];
 
-function SimpleLink(props: { to: string; label: string; icon: IconName; onClick?: () => void }) {
+function SimpleLink(props: { to: string; label: string; icon: IconName; onClick?: () => void; collapsed?: boolean }) {
+	const collapsed = () => !!props.collapsed;
+	const baseClass = () =>
+		`rounded-md text-sm font-medium transition-colors ${
+			collapsed()
+				? "flex h-9 w-9 items-center justify-center p-0 text-muted-foreground hover:bg-muted hover:text-foreground"
+				: "flex items-center gap-2 px-3 py-2 text-muted-foreground hover:bg-muted hover:text-foreground"
+		}`;
+	const activeClass = () =>
+		`rounded-md text-sm font-medium bg-primary/10 text-primary hover:bg-primary/10 ${
+			collapsed() ? "flex h-9 w-9 items-center justify-center p-0" : "flex items-center gap-2 px-3 py-2"
+		}`;
+
 	return (
 		<Link
 			to={props.to}
-			class="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-			activeProps={() => ({
-				class:
-					"flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium bg-primary/10 text-primary hover:bg-primary/10",
-			})}
+			class={baseClass()}
+			activeProps={() => ({ class: activeClass() })}
 			activeOptions={{ exact: true }}
 			onClick={props.onClick}
+			title={props.label}
 		>
 			<NavIcon name={props.icon} />
-			{props.label}
+			<span class={collapsed() ? "sr-only" : ""}>{props.label}</span>
 		</Link>
 	);
 }
@@ -270,12 +279,16 @@ function LogoContextMenu(props: { children: JSX.Element }) {
 	return <ContextMenu items={items}>{props.children}</ContextMenu>;
 }
 
-function SearchButton(props: { onClick: () => void; class?: string }) {
+function SearchButton(props: { onClick: () => void; class?: string; collapsed?: boolean }) {
 	return (
 		<button
 			type="button"
 			onClick={props.onClick}
-			class={`inline-flex h-9 items-center gap-2 rounded-md border border-border bg-background px-3 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring ${props.class ?? ""}`}
+			class={`inline-flex h-9 items-center gap-2 rounded-md border border-border bg-background text-sm font-medium text-muted-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring ${
+				props.collapsed ? "w-9 justify-center p-0" : "px-3"
+			} ${props.class ?? ""}`}
+			aria-label="Search"
+			title="Search"
 		>
 			<svg
 				width="16"
@@ -289,10 +302,12 @@ function SearchButton(props: { onClick: () => void; class?: string }) {
 				<circle cx="11" cy="11" r="8" />
 				<path d="m21 21-4.3-4.3" />
 			</svg>
-			<span class="hidden sm:inline">Search…</span>
-			<kbd class="hidden rounded bg-muted px-1.5 py-0.5 text-[10px] font-semibold text-muted-foreground lg:inline">
-				{isApplePlatform() ? "⌘K" : "Ctrl+K"}
-			</kbd>
+			<Show when={!props.collapsed}>
+				<span class="hidden sm:inline">Search…</span>
+				<kbd class="hidden rounded bg-muted px-1.5 py-0.5 text-[10px] font-semibold text-muted-foreground lg:inline">
+					{isApplePlatform() ? "⌘K" : "Ctrl+K"}
+				</kbd>
+			</Show>
 		</button>
 	);
 }
@@ -355,54 +370,163 @@ function DevToolsButton(props: { open: boolean; onToggle: () => void }) {
 	);
 }
 
-function Brand() {
+function ChevronIcon(props: { direction: "left" | "right" | "down"; class?: string }) {
+	const path = () => {
+		switch (props.direction) {
+			case "left":
+				return "M15 18l-6-6 6-6";
+			case "right":
+				return "M9 18l6-6-6-6";
+			case "down":
+				return "M6 9l6 6 6-6";
+		}
+	};
+	return (
+		<svg
+			width="16"
+			height="16"
+			viewBox="0 0 24 24"
+			fill="none"
+			stroke="currentColor"
+			stroke-width="2"
+			stroke-linecap="round"
+			stroke-linejoin="round"
+			aria-hidden="true"
+			class={props.class}
+		>
+			<path d={path()} />
+		</svg>
+	);
+}
+
+function CollapseToggle(props: { collapsed: boolean; onClick: () => void }) {
+	return (
+		<button
+			type="button"
+			onClick={props.onClick}
+			class="inline-flex h-8 w-8 items-center justify-center rounded-md border border-border bg-surface text-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+			aria-label={props.collapsed ? "Expand sidebar" : "Collapse sidebar"}
+			title={props.collapsed ? "Expand sidebar" : "Collapse sidebar"}
+		>
+			<ChevronIcon direction={props.collapsed ? "right" : "left"} />
+		</button>
+	);
+}
+
+function Brand(props: { collapsed?: boolean }) {
+	const collapsed = () => !!props.collapsed;
 	return (
 		<LogoContextMenu>
 			<Link
 				to="/"
-				class="flex items-center gap-2 text-foreground no-underline hover:text-primary transition-colors"
+				class={`flex items-center text-foreground no-underline hover:text-primary transition-colors ${
+					collapsed() ? "justify-center" : "gap-2"
+				}`}
 				onContextMenu={(e) => e.preventDefault()}
+				title="Home"
 			>
 				<Logo class="text-primary" />
-				<span class="font-sans font-semibold">solid-ui</span>
+				<span class={collapsed() ? "sr-only" : "font-sans font-semibold"}>solid-ui</span>
 			</Link>
 		</LogoContextMenu>
 	);
 }
 
-function NavGroup(props: { group: NavGroup; onClick?: () => void }) {
+function NavGroup(props: { group: NavGroup; onClick?: () => void; collapsed?: boolean }) {
+	const collapsed = () => !!props.collapsed;
 	return (
 		<div class="space-y-1">
-			<p class="px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-muted-foreground">{props.group.label}</p>
+			<p
+				class={
+					collapsed() ? "sr-only" : "px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-muted-foreground"
+				}
+			>
+				{props.group.label}
+			</p>
 			<div class="space-y-0.5">
 				<For each={props.group.links}>
-					{(link) => <SimpleLink to={link.to} label={link.label} icon={link.icon} onClick={props.onClick} />}
+					{(link) =>
+						link.to === "/components" ? (
+							<ComponentsAccordion
+								icon={link.icon}
+								label={link.label}
+								collapsed={props.collapsed}
+								onClick={props.onClick}
+							/>
+						) : (
+							<SimpleLink
+								to={link.to}
+								label={link.label}
+								icon={link.icon}
+								onClick={props.onClick}
+								collapsed={props.collapsed}
+							/>
+						)
+					}
 				</For>
 			</div>
 		</div>
 	);
 }
 
-function SidebarModule(props: { onClose: () => void }) {
+function ComponentsAccordion(props: { icon: IconName; label: string; collapsed?: boolean; onClick?: () => void }) {
 	const location = useLocation();
-	const path = () => location().pathname;
+	const path = createMemo(() => location().pathname);
+	const isComponentsRoute = createMemo(
+		() => path() === "/components" || path() === "/docs/components" || path().startsWith("/docs/components/"),
+	);
+	const [open, setOpen] = createSignal(isComponentsRoute());
+	const collapsed = () => !!props.collapsed;
 
-	const isComponents = () => path() === "/components";
-	const isDocs = () => path() === "/docs" || path().startsWith("/docs/");
+	createEffect(() => {
+		setOpen(isComponentsRoute());
+	});
+
+	const baseClass = () =>
+		`rounded-md text-sm font-medium transition-colors ${
+			collapsed()
+				? "flex h-9 w-9 items-center justify-center p-0 text-muted-foreground hover:bg-muted hover:text-foreground"
+				: "flex flex-1 items-center gap-2 px-3 py-2 text-muted-foreground hover:bg-muted hover:text-foreground"
+		}`;
+	const activeClass = () =>
+		`rounded-md text-sm font-medium bg-primary/10 text-primary hover:bg-primary/10 ${
+			collapsed() ? "flex h-9 w-9 items-center justify-center p-0" : "flex flex-1 items-center gap-2 px-3 py-2"
+		}`;
 
 	return (
-		<Show when={isComponents() || isDocs()}>
-			<div class="mt-6 shrink-0 border-t border-border pt-4">
-				<Switch>
-					<Match when={isComponents()}>
-						<ComponentSidebar as="module" onClick={props.onClose} />
-					</Match>
-					<Match when={isDocs()}>
-						<DocsModule onClick={props.onClose} />
-					</Match>
-				</Switch>
+		<div class="space-y-1">
+			<div class={collapsed() ? "" : "flex items-center gap-1"}>
+				<Link
+					to="/components"
+					class={baseClass()}
+					activeProps={() => ({ class: activeClass() })}
+					activeOptions={{ exact: true }}
+					onClick={props.onClick}
+					title={props.label}
+				>
+					<NavIcon name={props.icon} />
+					<span class={collapsed() ? "sr-only" : ""}>{props.label}</span>
+				</Link>
+				<Show when={isComponentsRoute() && !collapsed()}>
+					<button
+						type="button"
+						onClick={() => setOpen((v) => !v)}
+						aria-expanded={open()}
+						aria-controls="component-accordion-panel"
+						aria-label={`${open() ? "Collapse" : "Expand"} component categories`}
+						title={`${open() ? "Collapse" : "Expand"} component categories`}
+						class="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+					>
+						<ChevronIcon direction="down" class={`transition-transform ${open() ? "rotate-180" : ""}`} />
+					</button>
+				</Show>
 			</div>
-		</Show>
+			<Show when={open() && isComponentsRoute() && !collapsed()}>
+				<div id="component-accordion-panel" class="border-l border-border pl-3">
+					<ComponentSidebar as="module" onClick={props.onClick} />
+				</div>
+			</Show>
+		</div>
 	);
 }
 
@@ -410,6 +534,7 @@ export function NavLayout(props: { children: JSX.Element }) {
 	const [menuOpen, setMenuOpen] = createSignal(false);
 	const [commandOpen, setCommandOpen] = createSignal(false);
 	const [devToolsOpen, setDevToolsOpen] = createSignal(false);
+	const [collapsed, setCollapsed] = createSignal(false);
 
 	onMount(() => {
 		function onKeyDown(e: KeyboardEvent) {
@@ -429,6 +554,8 @@ export function NavLayout(props: { children: JSX.Element }) {
 	function closeMenu() {
 		setMenuOpen(false);
 	}
+
+	const isCollapsed = () => collapsed() && !menuOpen();
 
 	return (
 		<>
@@ -456,14 +583,21 @@ export function NavLayout(props: { children: JSX.Element }) {
 					/>
 				</Show>
 				<aside
-					class={`fixed inset-y-0 left-0 z-modal w-64 transform border-r border-border bg-surface p-4 transition-transform lg:sticky lg:top-0 lg:h-screen lg:translate-x-0 lg:overflow-y-auto ${
+					class={`fixed inset-y-0 left-0 z-modal transform border-r border-border bg-surface transition-all duration-200 lg:sticky lg:top-0 lg:h-screen lg:translate-x-0 lg:overflow-y-auto ${
 						menuOpen() ? "translate-x-0" : "-translate-x-full"
-					} flex flex-col`}
+					} w-64 p-4 ${isCollapsed() ? "lg:w-16 lg:p-2" : ""} flex flex-col`}
 					aria-label="Main navigation"
 				>
-					<div class="mb-6 hidden items-center justify-between lg:flex">
-						<Brand />
-						<div class="flex items-center gap-2">
+					<div
+						class={`mb-6 hidden lg:flex ${
+							isCollapsed() ? "flex-col items-center gap-2" : "items-center justify-between"
+						}`}
+					>
+						<div class={isCollapsed() ? "flex flex-col items-center gap-1" : "flex items-center gap-2"}>
+							<Brand collapsed={isCollapsed()} />
+							<CollapseToggle collapsed={isCollapsed()} onClick={() => setCollapsed((v) => !v)} />
+						</div>
+						<div class={isCollapsed() ? "flex flex-col items-center gap-2" : "flex items-center gap-2"}>
 							<DevToolsButton open={devToolsOpen()} onToggle={() => setDevToolsOpen((v) => !v)} />
 							<ThemePicker />
 						</div>
@@ -499,14 +633,16 @@ export function NavLayout(props: { children: JSX.Element }) {
 								setCommandOpen(true);
 								closeMenu();
 							}}
-							class="w-full justify-start"
+							class={isCollapsed() ? undefined : "w-full justify-start"}
+							collapsed={isCollapsed()}
 						/>
 					</div>
 
-					<nav class="flex-1 space-y-5 overflow-y-auto">
-						<For each={navGroups}>{(group) => <NavGroup group={group} onClick={closeMenu} />}</For>
+					<nav class={`flex-1 overflow-y-auto ${isCollapsed() ? "space-y-3" : "space-y-5"}`}>
+						<For each={navGroups}>
+							{(group) => <NavGroup group={group} onClick={closeMenu} collapsed={isCollapsed()} />}
+						</For>
 					</nav>
-					<SidebarModule onClose={closeMenu} />
 				</aside>
 
 				<div class="min-w-0 flex-1">{props.children}</div>

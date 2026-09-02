@@ -1,5 +1,24 @@
+import {
+	columnFilteringFeature,
+	columnGroupingFeature,
+	columnVisibilityFeature,
+	createColumnHelper,
+	createExpandedRowModel,
+	createFilteredRowModel,
+	createGroupedRowModel,
+	createSortedRowModel,
+	createTable,
+	FlexRender,
+	filterFn_includesString,
+	globalFilteringFeature,
+	rowExpandingFeature,
+	rowSortingFeature,
+	sortFn_alphanumeric,
+	tableFeatures,
+} from "@tanstack/solid-table";
 import { createEffect, createSignal, For, Show } from "solid-js";
-import { useSearch } from "../hooks/useSearch";
+import { useDebounce } from "../hooks/useDebounce";
+import { CodeBlock } from "./CodeBlock";
 import { EmptyState } from "./EmptyState";
 import { PageHeader } from "./PageHeader";
 import { SearchInput } from "./SearchInput";
@@ -8,191 +27,313 @@ import { Seo } from "./Seo";
 export interface HookItem {
 	name: string;
 	description: string;
-	example: string;
+	category: "solid-ui" | "website" | "primitive";
+	categoryLabel: string;
+	source?: string;
+	example?: string;
+	isExternal: boolean;
 }
 
-export const hooks: HookItem[] = [
-	{
-		name: "useDebounce",
-		description: "Delay updating a value until the user stops changing it.",
-		example: "const debounced = useDebounce(() => query, 300);",
-	},
-	{
-		name: "useSearch",
-		description: "Filter an array by a debounced query string.",
-		example: "const { query, setQuery, filtered } = useSearch(() => items, (item, q) => ...);",
-	},
-	{
-		name: "useMediaQuery",
-		description: "Reactively track a CSS media query (e.g., prefers-color-scheme, min-width).",
-		example: "const isDesktop = useMediaQuery('(min-width: 1024px)');",
-	},
-	{
-		name: "useLocalStorage",
-		description: "Persist and sync state with localStorage.",
-		example: "const [value, setValue] = useLocalStorage('key', initial);",
-	},
-	{
-		name: "useClassName",
-		description: "Merge base, variant and custom class strings into a single className.",
-		example: "const { className, rest } = useClassName(props, base);",
-	},
-	{
-		name: "useButton",
-		description: "Resolve button variant and size classes.",
-		example: "const { className, rest } = useButton(props);",
-	},
-	{
-		name: "createSignal",
-		description: "Reactive primitive for a single mutable value.",
-		example: "const [count, setCount] = createSignal(0);",
-	},
-	{
-		name: "createEffect",
-		description: "Run side effects when signals used inside change.",
-		example: "createEffect(() => { track(count()); });",
-	},
-	{
-		name: "createMemo",
-		description: "Derived signal that caches its value and only re-runs when dependencies change.",
-		example: "const double = createMemo(() => count() * 2);",
-	},
-	{
-		name: "createResource",
-		description: "Async signal with loading, error, and refetch support.",
-		example: "const [data] = createResource(fetcher);",
-	},
-	{
-		name: "createStore",
-		description: "Nested reactivity for objects and arrays.",
-		example: "const [state, setState] = createStore({ list: [] });",
-	},
-	{
-		name: "useContext",
-		description: "Read a value from Solid context.",
-		example: "const theme = useContext(ThemeContext);",
-	},
-	{
-		name: "onMount",
-		description: "Run code once when the component mounts.",
-		example: "onMount(() => { /* init */ });",
-	},
-	{
-		name: "onCleanup",
-		description: "Register cleanup to run when the component unmounts or scope disposes.",
-		example: "onCleanup(() => clearInterval(id));",
-	},
+const CATEGORY_OPTIONS = [
+	{ id: "", label: "All" },
+	{ id: "solid-ui", label: "solid-ui" },
+	{ id: "website", label: "Website" },
+	{ id: "primitive", label: "SolidJS primitive" },
 ];
 
-function matchesQuery(hook: HookItem, query: string): boolean {
-	const haystack = `${hook.name} ${hook.description}`.toLowerCase();
-	return haystack.includes(query.toLowerCase());
+const descriptions: Record<string, string> = {
+	useButton: "Resolve button variant and size classes.",
+	useClassName: "Merge base, variant and custom class strings into a single className.",
+	useFocusTrap: "Trap focus inside a container for accessible dialogs and modals.",
+	useDebounce: "Delay updating a value until the user stops changing it.",
+	useLocalStorage: "Persist and sync state with localStorage.",
+	useMediaQuery: "Reactively track a CSS media query (e.g., prefers-color-scheme, min-width).",
+	useSearch: "Filter an array by a debounced query string.",
+	createSignal: "Reactive primitive for a single mutable value.",
+	createEffect: "Run side effects when signals used inside change.",
+	createMemo: "Derived signal that caches its value and only re-runs when dependencies change.",
+	createResource: "Async signal with loading, error, and refetch support.",
+	createStore: "Nested reactivity for objects and arrays.",
+	useContext: "Read a value from Solid context.",
+	onMount: "Run code once when the component mounts.",
+	onCleanup: "Register cleanup to run when the component unmounts or scope disposes.",
+};
+
+const primitiveExamples: Record<string, string> = {
+	createSignal: "const [count, setCount] = createSignal(0);",
+	createEffect: "createEffect(() => { track(count()); });",
+	createMemo: "const double = createMemo(() => count() * 2);",
+	createResource: "const [data] = createResource(fetcher);",
+	createStore: "const [state, setState] = createStore({ list: [] });",
+	useContext: "const theme = useContext(ThemeContext);",
+	onMount: "onMount(() => { /* init */ });",
+	onCleanup: "onCleanup(() => clearInterval(id));",
+};
+
+const packageHookSources = import.meta.glob("../../../../packages/solid-ui/src/hooks/*.ts", {
+	query: "?raw",
+	import: "default",
+	eager: true,
+}) as Record<string, string>;
+
+const websiteHookSources = import.meta.glob("../hooks/*.ts", {
+	query: "?raw",
+	import: "default",
+	eager: true,
+}) as Record<string, string>;
+
+function extractHookName(path: string): string | undefined {
+	const parts = path.split(/[/\\]/);
+	const file = parts[parts.length - 1];
+	if (!file || file === "index.ts") return undefined;
+	return file.replace(/\.ts$/, "");
 }
 
-function hookId(name: string) {
-	return `hook-${name}`;
+function collectLocalHooks(
+	sources: Record<string, string>,
+	category: HookItem["category"],
+	categoryLabel: string,
+): HookItem[] {
+	return Object.entries(sources)
+		.filter(([path]) => !path.endsWith("/index.ts"))
+		.map(([path, source]) => {
+			const name = extractHookName(path) ?? path;
+			return {
+				name,
+				description: descriptions[name] ?? "Hook from source.",
+				category,
+				categoryLabel,
+				source,
+				isExternal: false,
+			};
+		});
 }
 
-function HookSidebar(props: {
-	hooks: HookItem[];
-	active: string;
-	onSelect: (name: string) => void;
-	query: string;
-	onQueryChange: (value: string) => void;
-}) {
+function buildAllItems(): HookItem[] {
+	const locals: HookItem[] = [
+		...collectLocalHooks(packageHookSources, "solid-ui", "solid-ui"),
+		...collectLocalHooks(websiteHookSources, "website", "Website"),
+	];
+	const externals: HookItem[] = Object.entries(primitiveExamples).map(([name, example]) => ({
+		name,
+		description: descriptions[name] ?? "SolidJS primitive.",
+		category: "primitive" as const,
+		categoryLabel: "SolidJS primitive",
+		example,
+		isExternal: true,
+	}));
+	const all = [...locals, ...externals];
+	all.sort((a, b) => a.name.localeCompare(b.name));
+	return all;
+}
+
+const allItems = buildAllItems();
+
+const features = tableFeatures({
+	columnVisibilityFeature,
+	columnFilteringFeature,
+	globalFilteringFeature,
+	filteredRowModel: createFilteredRowModel(),
+	filterFns: { includesString: filterFn_includesString },
+	rowSortingFeature,
+	sortedRowModel: createSortedRowModel(),
+	sortFns: { alphanumeric: sortFn_alphanumeric },
+	columnGroupingFeature,
+	groupedRowModel: createGroupedRowModel(),
+	rowExpandingFeature,
+	expandedRowModel: createExpandedRowModel(),
+});
+
+const columnHelper = createColumnHelper<typeof features, HookItem>();
+
+const columns = columnHelper.columns([
+	columnHelper.accessor("name", {
+		header: "Name",
+		cell: (info) => <span class="font-medium">{info.getValue()}</span>,
+		enableSorting: true,
+	}),
+	columnHelper.accessor("categoryLabel", {
+		header: "Category",
+		cell: (info) => (
+			<span
+				class={`inline-flex rounded-full border border-border bg-muted px-2 py-0.5 text-xs ${
+					info.row.original.isExternal ? "text-amber-600" : ""
+				}`}
+			>
+				{info.getValue()}
+			</span>
+		),
+		enableSorting: true,
+		enableGrouping: true,
+		enableColumnFilter: true,
+		filterFn: "includesString",
+	}),
+	columnHelper.accessor("description", {
+		header: "Description",
+		cell: (info) => info.getValue(),
+		enableColumnFilter: true,
+		filterFn: "includesString",
+	}),
+	columnHelper.display({
+		id: "source",
+		header: "Source / Snippet",
+		cell: ({ row }) => (
+			<div class="min-w-[20rem]">
+				<Show when={row.original.isExternal}>
+					<div class="mb-1 text-xs text-muted-foreground">Example usage</div>
+				</Show>
+				<CodeBlock code={row.original.source ?? row.original.example ?? ""} language="ts" />
+			</div>
+		),
+	}),
+]);
+
+function sortIcon(state: "asc" | "desc" | false) {
+	if (state === "asc") return "↑";
+	if (state === "desc") return "↓";
+	return "⇅";
+}
+
+function HooksListView(props: { table: ReturnType<typeof createTable<typeof features, HookItem>> }) {
 	return (
-		<div class="space-y-4">
-			<SearchInput
-				id="hooks-search"
-				placeholder="Search hooks…"
-				value={props.query}
-				onInput={props.onQueryChange}
-				label="Search hooks"
-			/>
-			<nav aria-label="Hooks" class="max-h-[60vh] overflow-y-auto rounded-xl border border-border bg-surface p-2">
-				<ul class="space-y-0.5">
-					<For each={props.hooks}>
-						{(hook) => {
-							const active = () => hook.name === props.active;
-							return (
-								<li>
-									<button
-										type="button"
-										onClick={() => props.onSelect(hook.name)}
-										class={`block w-full rounded-md border-l-2 px-3 py-1.5 text-left text-sm transition-colors ${
-											active()
-												? "border-primary bg-muted font-medium text-primary"
-												: "border-transparent text-muted-foreground hover:bg-muted hover:text-foreground"
-										}`}
-										aria-current={active() ? "true" : undefined}
-									>
-										{hook.name}
-									</button>
-								</li>
-							);
-						}}
+		<div class="overflow-x-auto rounded-xl border border-border">
+			<table class="w-full min-w-[900px] text-sm">
+				<thead class="bg-muted">
+					<For each={props.table.getHeaderGroups()}>
+						{(headerGroup) => (
+							<tr>
+								<For each={headerGroup.headers}>
+									{(header) => (
+										<th
+											class="px-4 py-3 text-left font-semibold text-foreground cursor-pointer select-none hover:text-primary"
+											onClick={header.column.getToggleSortingHandler()}
+										>
+											<span class="inline-flex items-center gap-1">
+												<FlexRender header={header} />
+												<span class="text-muted-foreground">{sortIcon(header.column.getIsSorted())}</span>
+											</span>
+										</th>
+									)}
+								</For>
+							</tr>
+						)}
 					</For>
-				</ul>
-			</nav>
+				</thead>
+				<tbody class="divide-y divide-border">
+					<For each={props.table.getRowModel().rows}>
+						{(row) => (
+							<Show
+								when={row.getIsGrouped()}
+								fallback={
+									<tr class="hover:bg-muted/50">
+										<For each={row.getVisibleCells()}>
+											{(cell) => (
+												<td class={`px-4 py-3 align-top ${cell.column.id === "source" ? "min-w-[20rem]" : ""}`}>
+													<FlexRender cell={cell} />
+												</td>
+											)}
+										</For>
+									</tr>
+								}
+							>
+								<tr class="bg-muted/30">
+									<td colSpan={row.getAllCells().length} class="px-4 py-2">
+										<button
+											type="button"
+											class="flex items-center gap-2 font-semibold text-sm"
+											onClick={row.getToggleExpandedHandler()}
+										>
+											<span>{row.getIsExpanded() ? "−" : "+"}</span>
+											<span>{row.getValue("categoryLabel") as string}</span>
+											<span class="text-muted-foreground text-xs">({row.subRows.length})</span>
+										</button>
+									</td>
+								</tr>
+							</Show>
+						)}
+					</For>
+				</tbody>
+			</table>
 		</div>
 	);
 }
 
-function HookDetail(props: { hook: HookItem }) {
-	const [copied, setCopied] = createSignal(false);
-
-	async function copy() {
-		try {
-			await navigator.clipboard.writeText(props.hook.example);
-			setCopied(true);
-			setTimeout(() => setCopied(false), 1500);
-		} catch {}
-	}
-
+function HooksToolbar(props: {
+	globalFilter: string;
+	onFilterChange: (value: string) => void;
+	categoryFilter: string;
+	onCategoryFilterChange: (value: string) => void;
+	groupBy: boolean;
+	onGroupByChange: (enabled: boolean) => void;
+}) {
 	return (
-		<article
-			id={hookId(props.hook.name)}
-			class="scroll-mt-24 space-y-4 rounded-xl border border-border bg-surface p-5 shadow-sm"
-		>
-			<header>
-				<h3 class="text-lg font-semibold text-foreground">{props.hook.name}</h3>
-				<p class="text-sm text-muted-foreground">{props.hook.description}</p>
-			</header>
-			<div class="relative rounded-lg border border-border bg-background p-3">
-				<pre class="overflow-x-auto font-mono text-xs leading-relaxed text-foreground">
-					<code>{props.hook.example}</code>
-				</pre>
-				<button
-					type="button"
-					onClick={copy}
-					class="absolute right-2 top-2 inline-flex h-7 items-center rounded-md bg-secondary px-2 text-xs font-medium text-secondary-foreground hover:bg-secondary/80"
+		<div class="mb-6 flex flex-col gap-3 rounded-xl border border-border bg-surface p-4 sm:flex-row sm:items-center sm:justify-between">
+			<div class="flex flex-1 flex-col gap-3 sm:flex-row sm:items-center">
+				<SearchInput
+					id="hooks-search"
+					value={props.globalFilter}
+					onInput={props.onFilterChange}
+					placeholder="Search hooks…"
+					label="Search hooks"
+					class="sm:w-64"
+				/>
+				<select
+					class="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring sm:w-40"
+					value={props.categoryFilter}
+					onChange={(e) => props.onCategoryFilterChange(e.currentTarget.value)}
+					aria-label="Filter by category"
 				>
-					{copied() ? "Copied" : "Copy"}
-				</button>
+					<For each={CATEGORY_OPTIONS}>{(opt) => <option value={opt.id}>{opt.label}</option>}</For>
+				</select>
+				<select
+					class="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring sm:w-44"
+					value={props.groupBy ? "category" : "none"}
+					onChange={(e) => props.onGroupByChange(e.currentTarget.value === "category")}
+					aria-label="Group by"
+				>
+					<option value="none">No grouping</option>
+					<option value="category">Group by category</option>
+				</select>
 			</div>
-		</article>
+		</div>
 	);
 }
 
 export function HooksBrowser() {
-	const { query, setQuery, debouncedQuery, filtered } = useSearch(
-		() => hooks,
-		(hook, q) => matchesQuery(hook, q),
-	);
-	const [active, setActive] = createSignal(hooks[0]?.name ?? "");
+	const [data] = createSignal(allItems);
+	const [groupBy, setGroupBy] = createSignal(true);
+	const [globalFilter, setGlobalFilter] = createSignal("");
+	const [categoryFilter, setCategoryFilter] = createSignal("");
+	const debouncedFilter = useDebounce(globalFilter, 150);
 
-	createEffect(() => {
-		const first = filtered()[0];
-		if (first && !filtered().some((h) => h.name === active())) {
-			setActive(first.name);
-		}
+	const table = createTable({
+		features,
+		columns,
+		get data() {
+			return data();
+		},
+		initialState: {
+			grouping: ["categoryLabel"],
+			expanded: true,
+		},
 	});
 
-	const onSelect = (name: string) => {
-		setActive(name);
-		const el = document.getElementById(hookId(name));
-		if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-	};
+	function applyCategoryFilter(id: string) {
+		const label = CATEGORY_OPTIONS.find((c) => c.id === id)?.label;
+		table.setColumnFilters(id && label ? [{ id: "categoryLabel", value: label }] : []);
+	}
+
+	createEffect(() => {
+		table.setGlobalFilter(debouncedFilter());
+	});
+
+	createEffect(() => {
+		applyCategoryFilter(categoryFilter());
+	});
+
+	createEffect(() => {
+		table.setGrouping(groupBy() ? ["categoryLabel"] : []);
+	});
 
 	return (
 		<section class="page">
@@ -203,26 +344,22 @@ export function HooksBrowser() {
 			/>
 			<PageHeader
 				title="Hooks"
-				description="Reactive primitives and patterns that power solid-ui. Select a hook to see its usage example."
-				count={filtered().length}
+				description="Reactive primitives and patterns that power solid-ui. Browse source-backed local hooks and SolidJS primitives."
+				count={table.getPreFilteredRowModel().rows.length}
 			/>
-			<Show when={filtered().length > 0} fallback={<EmptyState query={debouncedQuery()} label="hooks" />}>
-				<div class="flex flex-col gap-6 lg:flex-row lg:items-stretch">
-					<div class="shrink-0 lg:sticky lg:top-0 lg:h-screen lg:w-64">
-						<HookSidebar
-							hooks={filtered()}
-							active={active()}
-							onSelect={onSelect}
-							query={query()}
-							onQueryChange={setQuery}
-						/>
-					</div>
-					<main class="min-w-0 flex-1 py-4">
-						<div class="space-y-6">
-							<For each={filtered()}>{(hook) => <HookDetail hook={hook} />}</For>
-						</div>
-					</main>
-				</div>
+			<HooksToolbar
+				globalFilter={globalFilter()}
+				onFilterChange={setGlobalFilter}
+				categoryFilter={categoryFilter()}
+				onCategoryFilterChange={setCategoryFilter}
+				groupBy={groupBy()}
+				onGroupByChange={setGroupBy}
+			/>
+			<Show
+				when={table.getRowModel().rows.length > 0}
+				fallback={<EmptyState query={debouncedFilter()} label="hooks" />}
+			>
+				<HooksListView table={table} />
 			</Show>
 		</section>
 	);

@@ -1,3 +1,4 @@
+import "@shikijs/twoslash/style-rich.css";
 import { createRootRoute, createRoute, createRouter, Navigate, Outlet } from "@tanstack/solid-router";
 import * as SolidUI from "@wrikka/solid-ui";
 import { ErrorBoundary, For } from "solid-js";

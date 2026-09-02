@@ -8,7 +8,7 @@ interface CodeTab {
 	language?: string;
 }
 
-export function CodeBlock(props: { code: string; language?: string; tabs?: CodeTab[] }) {
+export function CodeBlock(props: { code: string; language?: string; tabs?: CodeTab[]; twoslash?: boolean }) {
 	const initialTabs = () =>
 		props.tabs && props.tabs.length > 0
 			? props.tabs
@@ -52,7 +52,7 @@ export function CodeBlock(props: { code: string; language?: string; tabs?: CodeT
 					initialTabs().length > 1 ? "top-10" : "top-2"
 				}`}
 			/>
-			<ShikiCode code={activeTab().code} lang={activeTab().language} />
+			<ShikiCode code={activeTab().code} lang={activeTab().language} twoslash={props.twoslash} />
 		</div>
 	);
 }
