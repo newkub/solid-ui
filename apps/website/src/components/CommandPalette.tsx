@@ -1,7 +1,12 @@
 import { useLocation, useNavigate } from "@tanstack/solid-router";
-import { createEffect, createMemo, createSignal, For, type JSX, Show } from "solid-js";
+import { createEffect, createMemo, createSignal, For, type JSX, lazy, Show, Suspense } from "solid-js";
 import { buildCommands, type Command } from "../lib/commands";
-import { ComponentPreview } from "./ComponentPreview";
+import { GITHUB_REPO_URL } from "../lib/config";
+
+const ComponentPreview = lazy(async () => {
+	const mod = await import("./ComponentPreview");
+	return { default: mod.ComponentPreview };
+});
 
 interface CommandPaletteProps {
 	open: boolean;
@@ -187,17 +192,17 @@ function CommandPreviewCard(props: {
 								<div class="flex flex-wrap items-center gap-2">
 									<h3 class="text-lg font-semibold text-foreground">{command().label}</h3>
 									<Show when={props.current}>
-										<span class="rounded bg-primary px-1.5 py-0.5 text-[10px] font-semibold text-primary-foreground">
+										<span class="rounded bg-primary px-1.5 py-0.5 text-2xs font-semibold text-primary-foreground">
 											Current
 										</span>
 									</Show>
 								</div>
 								<div class="mt-1 flex flex-wrap items-center gap-2">
-									<span class="inline-flex rounded-full border border-border bg-muted px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">
+									<span class="inline-flex rounded-full border border-border bg-muted px-2 py-0.5 text-2xs font-semibold uppercase tracking-wide text-muted-foreground">
 										{command().group}
 									</span>
 									<span
-										class={`inline-flex rounded-full px-2 py-0.5 text-[10px] font-medium ${
+										class={`inline-flex rounded-full px-2 py-0.5 text-2xs font-medium ${
 											isExec() ? "bg-accent text-accent-foreground" : "bg-secondary text-secondary-foreground"
 										}`}
 									>
@@ -219,7 +224,9 @@ function CommandPreviewCard(props: {
 									}`}
 								>
 									<div class="mb-2 text-xs font-semibold text-muted-foreground">Component preview</div>
-									<ComponentPreview name={component().name} tag={component().tag} />
+									<Suspense fallback={<div class="text-sm text-muted-foreground">Loading preview…</div>}>
+										<ComponentPreview name={component().name} tag={component().tag} />
+									</Suspense>
 								</div>
 							)}
 						</Show>
@@ -237,7 +244,7 @@ function CommandPreviewCard(props: {
 									<div class="min-w-0 flex-1">
 										<p class="truncate text-sm font-medium text-foreground">{command().label}</p>
 										<Show when={navigateTo()}>
-											<code class="block truncate text-[10px] text-muted-foreground">{navigateTo()}</code>
+											<code class="block truncate text-2xs text-muted-foreground">{navigateTo()}</code>
 										</Show>
 									</div>
 								</div>
@@ -260,7 +267,7 @@ function CommandPreviewCard(props: {
 								<div class="flex flex-wrap gap-1.5">
 									<For each={keywordList()}>
 										{(kw) => (
-											<span class="inline-flex rounded-full border border-border bg-muted px-2 py-0.5 text-[10px] text-muted-foreground">
+											<span class="inline-flex rounded-full border border-border bg-muted px-2 py-0.5 text-2xs text-muted-foreground">
 												{kw}
 											</span>
 										)}
@@ -325,7 +332,7 @@ export function CommandPalette(props: CommandPaletteProps) {
 			description: "Open the solid-ui repository on GitHub",
 			action: {
 				type: "exec",
-				handler: () => window.open("https://github.com/newkub/solid-ui", "_blank", "noopener,noreferrer"),
+				handler: () => window.open(GITHUB_REPO_URL, "_blank", "noopener,noreferrer"),
 			},
 		},
 	];
@@ -443,7 +450,7 @@ export function CommandPalette(props: CommandPaletteProps) {
 	return (
 		<Show when={props.open}>
 			<div
-				class="fixed inset-0 z-modal flex items-start justify-center bg-overlay/60 p-4 pt-20 backdrop-blur-sm sm:pt-24"
+				class="fixed inset-0 z-modal flex items-start justify-center bg-overlay/60 p-4 pt-16 backdrop-blur-sm sm:pt-20"
 				role="dialog"
 				aria-modal="true"
 				aria-label="Command palette"
@@ -452,7 +459,7 @@ export function CommandPalette(props: CommandPaletteProps) {
 				}}
 				onKeyDown={onKeyDown}
 			>
-				<div class="w-full max-w-4xl overflow-hidden rounded-xl border border-border bg-surface shadow-2xl">
+				<div class="w-full max-w-3xl overflow-hidden rounded-xl border border-border bg-surface shadow-2xl">
 					<div class="flex items-center gap-3 border-b border-border px-4 py-3">
 						<SearchIcon />
 						<input
@@ -479,7 +486,7 @@ export function CommandPalette(props: CommandPaletteProps) {
 						</kbd>
 					</div>
 
-					<div class="grid max-h-[70vh] grid-cols-1 grid-rows-[1fr,auto] divide-y divide-border sm:grid-cols-[1fr,320px] sm:grid-rows-1 lg:grid-cols-[1fr,380px] sm:divide-x sm:divide-y-0">
+					<div class="grid max-h-[60vh] grid-cols-1 grid-rows-[1fr,auto] divide-y divide-border sm:grid-cols-[1fr,260px] sm:grid-rows-1 sm:divide-x sm:divide-y-0">
 						<div class="min-h-0 overflow-y-auto p-2">
 							<Show
 								when={filtered().length > 0}
@@ -526,6 +533,10 @@ export function CommandPalette(props: CommandPaletteProps) {
 																				aria-hidden="true"
 																			/>
 																		</Show>
+																		<KindIcon
+																			kind={commandKind(command)}
+																			class={`h-4 w-4 shrink-0 ${active ? "text-primary-foreground/80" : "text-muted-foreground"}`}
+																		/>
 																		{highlightText(command.label, query(), active)}
 																	</div>
 																	<Show when={current()}>

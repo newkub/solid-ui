@@ -98,7 +98,7 @@ export function PaginationItem(props: PaginationItemProps) {
 	const active = () => ctx.page() === local.page;
 	const className = () => {
 		const base =
-			"inline-flex h-8 w-8 items-center justify-center rounded-md border text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
+			"inline-flex h-11 w-11 items-center justify-center rounded-md border text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
 		return [
 			base,
 			active()
@@ -146,7 +146,7 @@ export function PaginationPrevious(props: PaginationPreviousProps) {
 	const disabled = () => local.disabled || ctx.page() === 1;
 	const className = () =>
 		[
-			"inline-flex h-8 items-center justify-center gap-1 rounded-md border border-input bg-background px-3 text-sm font-medium transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
+			"inline-flex h-11 items-center justify-center gap-1 rounded-md border border-input bg-background px-4 text-sm font-medium transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
 			local.class ?? "",
 		]
 			.filter(Boolean)
@@ -209,7 +209,7 @@ export function PaginationNext(props: PaginationNextProps) {
 	const disabled = () => local.disabled || ctx.page() === ctx.totalPages();
 	const className = () =>
 		[
-			"inline-flex h-8 items-center justify-center gap-1 rounded-md border border-input bg-background px-3 text-sm font-medium transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
+			"inline-flex h-11 items-center justify-center gap-1 rounded-md border border-input bg-background px-4 text-sm font-medium transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
 			local.class ?? "",
 		]
 			.filter(Boolean)

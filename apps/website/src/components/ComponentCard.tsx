@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/solid-router";
-import { registry } from "@wrikka/solid-ui";
+import { registry } from "@wrikka/solid-ui/registry";
 import { ErrorBoundary, Show } from "solid-js";
 import { categories } from "../categories";
 import { ComponentPreview, PreviewFallback } from "./ComponentPreview";
@@ -18,7 +18,7 @@ function TagChip(props: { label: string; color?: "default" | "primary" | "second
 
 	return (
 		<span
-			class={`inline-flex rounded-full border px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${colorClass()}`}
+			class={`inline-flex rounded-full border px-2 py-0.5 text-2xs font-semibold uppercase tracking-wide ${colorClass()}`}
 		>
 			{props.label}
 		</span>

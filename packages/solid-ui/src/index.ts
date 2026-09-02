@@ -16,6 +16,7 @@ export * from "@wrikka/transitions";
 
 export { Accordion, AccordionItem } from "./components/Accordion";
 export { Alert } from "./components/Alert";
+export { AlertDialog } from "./components/AlertDialog";
 export { AspectRatio } from "./components/AspectRatio";
 export { Avatar, AvatarFallback, AvatarImage } from "./components/Avatar";
 export { Badge } from "./components/Badge";
@@ -33,10 +34,13 @@ export { Calendar } from "./components/Calendar";
 export { Card, CardContent, CardFooter, CardHeader } from "./components/Card";
 export { Chart } from "./components/Chart";
 export { Checkbox } from "./components/Checkbox";
+export { CheckboxGroup } from "./components/CheckboxGroup";
 export { Code } from "./components/Code";
 export { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./components/Collapsible";
+export { Combobox } from "./components/Combobox";
 export { Command } from "./components/Command";
 export { CommandPalette } from "./components/CommandPalette";
+export { ContextMenu } from "./components/ContextMenu";
 export { DataTable } from "./components/DataTable";
 export { DatePicker } from "./components/DatePicker";
 export { Dialog } from "./components/Dialog";
@@ -53,6 +57,7 @@ export { Flex } from "./components/Flex";
 export { Form } from "./components/Form";
 export { FormField } from "./components/FormField";
 export { Grid } from "./components/Grid";
+export { HoverCard } from "./components/HoverCard";
 export { Image } from "./components/Image";
 export { Input } from "./components/Input";
 export { Kbd } from "./components/Kbd";
@@ -64,6 +69,7 @@ export { Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarTrigger } fro
 export { Meter } from "./components/Meter";
 export { Modal } from "./components/Modal";
 export { Motion } from "./components/Motion";
+export { MultiSelect } from "./components/MultiSelect";
 export {
 	NavigationMenu,
 	NavigationMenuContent,
@@ -72,16 +78,19 @@ export {
 } from "./components/NavigationMenu";
 export { Notification } from "./components/Notification";
 export { Pagination, PaginationItem, PaginationNext, PaginationPrevious } from "./components/Pagination";
+export { PinInput } from "./components/PinInput";
 export { Popover } from "./components/Popover";
 export { Progress } from "./components/Progress";
 export { ProgressCircle } from "./components/ProgressCircle";
 export { Radio } from "./components/Radio";
+export { RadioGroup } from "./components/RadioGroup";
 export { Resizable, ResizableHandle, ResizablePanel } from "./components/Resizable";
 export { ScrollArea } from "./components/ScrollArea";
 export { Select } from "./components/Select";
 export { Separator } from "./components/Separator";
 export { Sheet } from "./components/Sheet";
 export { Skeleton } from "./components/Skeleton";
+export { SkeletonCircle } from "./components/SkeletonCircle";
 export { SkeletonText } from "./components/SkeletonText";
 export { Slider } from "./components/Slider";
 export { Spinner } from "./components/Spinner";
@@ -91,6 +100,7 @@ export { Step, StepItem, Steps } from "./components/Steps";
 export { Switch } from "./components/Switch";
 export { Table } from "./components/Table";
 export { Tabs, TabsContent, TabsList, TabsTrigger } from "./components/Tabs";
+export { TagsInput } from "./components/TagsInput";
 export { Terminal } from "./components/Terminal";
 export { Textarea } from "./components/Textarea";
 export { Timeline, TimelineItem } from "./components/Timeline";

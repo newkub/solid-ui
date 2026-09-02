@@ -7,18 +7,18 @@ export interface DocPage {
 }
 export const docs: Record<string, DocPage> = {
 	intro: {
-		title: "Introduction",
+		title: "Get started",
 		group: "getting-started",
 		order: 0,
 		content:
-			"# Introduction\n\n**solid-ui** is a comprehensive, accessible SolidJS component library built for Cloudflare Workers and real-world applications.\n\nIt ships with:\n\n- 60+ reusable UI components\n- Form, table, image, and transition utilities\n- An MCP server for component discovery\n- A CLI for listing and generating component templates\n- Dark mode and responsive design out of the box\n\nThis site is the documentation and showcase for solid-ui. Use the sidebar to navigate through primitives, components, templates, theming, and integrations.\n",
+			'# Get started\n\n**solid-ui** is a SolidJS design system that gives you typed, accessible, and themeable components without rebuilding the basics.\n\n## What you get\n\n- **60+ UI components** — from buttons and inputs to data tables, command palettes, and dialogs.\n- **Composable packages** — form, table, image, and transitions utilities for real-world use cases.\n- **MCP server** — discover components and generate snippets from any MCP client.\n- **CLI** — list, inspect, and scaffold new components from the terminal.\n- **Built-in theming** — switch light/dark mode, pick a color, and tune spacing/radius live.\n\n## Quick start\n\nInstall the workspace and run the docs site:\n\n```bash\nbun install\nbun run dev\n```\n\nImport a component:\n\n```tsx\nimport { Button } from "@wrikka/solid-ui";\n\nfunction App() {\n\treturn <Button>Get started</Button>;\n}\n```\n\nBrowse the [components](/components) gallery, read the [docs](/docs/intro), or customize the [theme](/theme) to see it in action.\n',
 	},
 	installation: {
 		title: "Installation",
 		group: "getting-started",
 		order: 1,
 		content:
-			'# Installation\n\nsolid-ui is organized as a Bun monorepo. Install the website dependencies and build with:\n\n```bash\nbun install\nbun run build\n```\n\nImport components from the workspace package:\n\n```tsx\nimport { Button, Card } from "@wrikka/solid-ui";\n```\n',
+			'# Installation\n\nsolid-ui is a Bun monorepo. Make sure you have [Bun](https://bun.sh) installed, then run:\n\n```bash\nbun install\nbun run build\n```\n\nImport components from the workspace package:\n\n```tsx\nimport { Button, Card } from "@wrikka/solid-ui";\n```\n',
 	},
 	theme: {
 		title: "Theming",
@@ -46,7 +46,7 @@ export const docs: Record<string, DocPage> = {
 		group: "primitives",
 		order: 0,
 		content:
-			"# Primitives\n\nThe following primitives are available in solid-ui:\n\n- [Button](/docs/primitives/button)\n- [Input](/docs/primitives/input)\n- [Textarea](/docs/primitives/textarea)\n- [Select](/docs/primitives/select)\n- [Checkbox](/docs/primitives/checkbox)\n- [Radio](/docs/primitives/radio)\n- [Switch](/docs/primitives/switch)\n- [Label](/docs/primitives/label)\n- [Form](/docs/primitives/form)\n- [FormField](/docs/primitives/formfield)\n- [FileInput](/docs/primitives/fileinput)\n- [Slider](/docs/primitives/slider)\n- [DatePicker](/docs/primitives/datepicker)\n",
+			"# Primitives\n\nThe following primitives are available in solid-ui:\n\n- [Button](/docs/primitives/button)\n- [Input](/docs/primitives/input)\n- [Textarea](/docs/primitives/textarea)\n- [Select](/docs/primitives/select)\n- [Checkbox](/docs/primitives/checkbox)\n- [Radio](/docs/primitives/radio)\n- [Switch](/docs/primitives/switch)\n- [Label](/docs/primitives/label)\n- [Form](/docs/primitives/form)\n- [FormField](/docs/primitives/formfield)\n- [FileInput](/docs/primitives/fileinput)\n- [Slider](/docs/primitives/slider)\n- [DatePicker](/docs/primitives/datepicker)\n- [CheckboxGroup](/docs/primitives/checkboxgroup)\n- [Combobox](/docs/primitives/combobox)\n- [MultiSelect](/docs/primitives/multiselect)\n- [PinInput](/docs/primitives/pininput)\n- [RadioGroup](/docs/primitives/radiogroup)\n- [TagsInput](/docs/primitives/tagsinput)\n",
 	},
 	"primitives/button": {
 		title: "Button",
@@ -139,12 +139,54 @@ export const docs: Record<string, DocPage> = {
 		content:
 			'# DatePicker\n\nRenders a `<input>` element.\n\n## Usage\n\n```tsx\nimport { DatePicker } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn <DatePicker class="my-datepicker" />;\n}\n```\n\n## Variants\n\nMany primitive components accept a `class` prop. Higher-level components such as `Button` accept `variant` and `size`.\n\n```tsx\n<Button variant="primary" size="lg">Primary large</Button>\n<Button variant="ghost" size="sm">Ghost small</Button>\n```\n## Props\n\n- Extends the standard JSX attributes for `<input>`\n- Accepts `class` for custom styling\n',
 	},
+	"primitives/checkboxgroup": {
+		title: "CheckboxGroup",
+		group: "primitives",
+		order: 1,
+		content:
+			'# CheckboxGroup\n\nRenders a `<div>` element.\n\n## Usage\n\n```tsx\nimport { CheckboxGroup } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn <CheckboxGroup class="my-checkboxgroup">CheckboxGroup content</CheckboxGroup>;\n}\n```\n\n## Variants\n\nMany primitive components accept a `class` prop. Higher-level components such as `Button` accept `variant` and `size`.\n\n```tsx\n<Button variant="primary" size="lg">Primary large</Button>\n<Button variant="ghost" size="sm">Ghost small</Button>\n```\n## Props\n\n- Extends the standard JSX attributes for `<div>`\n- Accepts `class` for custom styling\n',
+	},
+	"primitives/combobox": {
+		title: "Combobox",
+		group: "primitives",
+		order: 1,
+		content:
+			'# Combobox\n\nRenders a `<div>` element.\n\n## Usage\n\n```tsx\nimport { Combobox } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn <Combobox class="my-combobox">Combobox content</Combobox>;\n}\n```\n\n## Variants\n\nMany primitive components accept a `class` prop. Higher-level components such as `Button` accept `variant` and `size`.\n\n```tsx\n<Button variant="primary" size="lg">Primary large</Button>\n<Button variant="ghost" size="sm">Ghost small</Button>\n```\n## Props\n\n- Extends the standard JSX attributes for `<div>`\n- Accepts `class` for custom styling\n',
+	},
+	"primitives/multiselect": {
+		title: "MultiSelect",
+		group: "primitives",
+		order: 1,
+		content:
+			'# MultiSelect\n\nRenders a `<div>` element.\n\n## Usage\n\n```tsx\nimport { MultiSelect } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn <MultiSelect class="my-multiselect">MultiSelect content</MultiSelect>;\n}\n```\n\n## Variants\n\nMany primitive components accept a `class` prop. Higher-level components such as `Button` accept `variant` and `size`.\n\n```tsx\n<Button variant="primary" size="lg">Primary large</Button>\n<Button variant="ghost" size="sm">Ghost small</Button>\n```\n## Props\n\n- Extends the standard JSX attributes for `<div>`\n- Accepts `class` for custom styling\n',
+	},
+	"primitives/pininput": {
+		title: "PinInput",
+		group: "primitives",
+		order: 1,
+		content:
+			'# PinInput\n\nRenders a `<div>` element.\n\n## Usage\n\n```tsx\nimport { PinInput } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn <PinInput class="my-pininput">PinInput content</PinInput>;\n}\n```\n\n## Variants\n\nMany primitive components accept a `class` prop. Higher-level components such as `Button` accept `variant` and `size`.\n\n```tsx\n<Button variant="primary" size="lg">Primary large</Button>\n<Button variant="ghost" size="sm">Ghost small</Button>\n```\n## Props\n\n- Extends the standard JSX attributes for `<div>`\n- Accepts `class` for custom styling\n',
+	},
+	"primitives/radiogroup": {
+		title: "RadioGroup",
+		group: "primitives",
+		order: 1,
+		content:
+			'# RadioGroup\n\nRenders a `<div>` element.\n\n## Usage\n\n```tsx\nimport { RadioGroup } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn <RadioGroup class="my-radiogroup">RadioGroup content</RadioGroup>;\n}\n```\n\n## Variants\n\nMany primitive components accept a `class` prop. Higher-level components such as `Button` accept `variant` and `size`.\n\n```tsx\n<Button variant="primary" size="lg">Primary large</Button>\n<Button variant="ghost" size="sm">Ghost small</Button>\n```\n## Props\n\n- Extends the standard JSX attributes for `<div>`\n- Accepts `class` for custom styling\n',
+	},
+	"primitives/tagsinput": {
+		title: "TagsInput",
+		group: "primitives",
+		order: 1,
+		content:
+			'# TagsInput\n\nRenders a `<div>` element.\n\n## Usage\n\n```tsx\nimport { TagsInput } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn <TagsInput class="my-tagsinput">TagsInput content</TagsInput>;\n}\n```\n\n## Variants\n\nMany primitive components accept a `class` prop. Higher-level components such as `Button` accept `variant` and `size`.\n\n```tsx\n<Button variant="primary" size="lg">Primary large</Button>\n<Button variant="ghost" size="sm">Ghost small</Button>\n```\n## Props\n\n- Extends the standard JSX attributes for `<div>`\n- Accepts `class` for custom styling\n',
+	},
 	components: {
 		title: "Components",
 		group: "components",
 		order: 0,
 		content:
-			"# Components\n\nThe following components are available in solid-ui:\n\n- [Card](/docs/components/card)\n- [Box](/docs/components/box)\n- [Flex](/docs/components/flex)\n- [Grid](/docs/components/grid)\n- [Stack](/docs/components/stack)\n- [Separator](/docs/components/separator)\n- [AspectRatio](/docs/components/aspectratio)\n- [Skeleton](/docs/components/skeleton)\n- [Spinner](/docs/components/spinner)\n- [Loading](/docs/components/loading)\n- [Progress](/docs/components/progress)\n- [Avatar](/docs/components/avatar)\n- [Badge](/docs/components/badge)\n- [Breadcrumb](/docs/components/breadcrumb)\n- [Tabs](/docs/components/tabs)\n- [Pagination](/docs/components/pagination)\n- [Steps](/docs/components/steps)\n- [Timeline](/docs/components/timeline)\n- [Menubar](/docs/components/menubar)\n- [NavigationMenu](/docs/components/navigationmenu)\n- [TreeView](/docs/components/treeview)\n- [Dialog](/docs/components/dialog)\n- [Modal](/docs/components/modal)\n- [Sheet](/docs/components/sheet)\n- [Drawer](/docs/components/drawer)\n- [Tooltip](/docs/components/tooltip)\n- [Popover](/docs/components/popover)\n- [Toast](/docs/components/toast)\n- [Toaster](/docs/components/toaster)\n- [Alert](/docs/components/alert)\n- [Command](/docs/components/command)\n- [CommandPalette](/docs/components/commandpalette)\n- [Notification](/docs/components/notification)\n- [Table](/docs/components/table)\n- [DataTable](/docs/components/datatable)\n- [VirtualList](/docs/components/virtuallist)\n- [ScrollArea](/docs/components/scrollarea)\n- [Image](/docs/components/image)\n- [Chart](/docs/components/chart)\n- [Calendar](/docs/components/calendar)\n- [Transition](/docs/components/transition)\n- [Collapsible](/docs/components/collapsible)\n- [Accordion](/docs/components/accordion)\n- [DropdownMenu](/docs/components/dropdownmenu)\n- [Toggle](/docs/components/toggle)\n- [ToggleGroup](/docs/components/togglegroup)\n- [Resizable](/docs/components/resizable)\n- [Terminal](/docs/components/terminal)\n- [Motion](/docs/components/motion)\n",
+			"# Components\n\nThe following components are available in solid-ui:\n\n- [Card](/docs/components/card)\n- [Box](/docs/components/box)\n- [Flex](/docs/components/flex)\n- [Grid](/docs/components/grid)\n- [Stack](/docs/components/stack)\n- [Separator](/docs/components/separator)\n- [AspectRatio](/docs/components/aspectratio)\n- [Skeleton](/docs/components/skeleton)\n- [Spinner](/docs/components/spinner)\n- [Loading](/docs/components/loading)\n- [Progress](/docs/components/progress)\n- [Avatar](/docs/components/avatar)\n- [Badge](/docs/components/badge)\n- [Breadcrumb](/docs/components/breadcrumb)\n- [Tabs](/docs/components/tabs)\n- [Pagination](/docs/components/pagination)\n- [Steps](/docs/components/steps)\n- [Timeline](/docs/components/timeline)\n- [Menubar](/docs/components/menubar)\n- [NavigationMenu](/docs/components/navigationmenu)\n- [TreeView](/docs/components/treeview)\n- [Dialog](/docs/components/dialog)\n- [Modal](/docs/components/modal)\n- [Sheet](/docs/components/sheet)\n- [Drawer](/docs/components/drawer)\n- [Tooltip](/docs/components/tooltip)\n- [Popover](/docs/components/popover)\n- [Toast](/docs/components/toast)\n- [Toaster](/docs/components/toaster)\n- [Alert](/docs/components/alert)\n- [Command](/docs/components/command)\n- [CommandPalette](/docs/components/commandpalette)\n- [Notification](/docs/components/notification)\n- [Table](/docs/components/table)\n- [DataTable](/docs/components/datatable)\n- [VirtualList](/docs/components/virtuallist)\n- [ScrollArea](/docs/components/scrollarea)\n- [Image](/docs/components/image)\n- [Chart](/docs/components/chart)\n- [Calendar](/docs/components/calendar)\n- [Transition](/docs/components/transition)\n- [Collapsible](/docs/components/collapsible)\n- [Accordion](/docs/components/accordion)\n- [DropdownMenu](/docs/components/dropdownmenu)\n- [Toggle](/docs/components/toggle)\n- [ToggleGroup](/docs/components/togglegroup)\n- [Resizable](/docs/components/resizable)\n- [Terminal](/docs/components/terminal)\n- [Motion](/docs/components/motion)\n- [Kbd](/docs/components/kbd)\n- [Code](/docs/components/code)\n- [Blockquote](/docs/components/blockquote)\n- [List](/docs/components/list)\n- [ListItem](/docs/components/listitem)\n- [VisuallyHidden](/docs/components/visuallyhidden)\n- [ProgressCircle](/docs/components/progresscircle)\n- [Meter](/docs/components/meter)\n- [Stat](/docs/components/stat)\n- [SkeletonText](/docs/components/skeletontext)\n- [AlertDialog](/docs/components/alertdialog)\n- [HoverCard](/docs/components/hovercard)\n- [ContextMenu](/docs/components/contextmenu)\n- [SkeletonCircle](/docs/components/skeletoncircle)\n",
 	},
 	"components/card": {
 		title: "Card",
@@ -221,7 +263,7 @@ export const docs: Record<string, DocPage> = {
 		group: "components",
 		order: 1,
 		content:
-			'# Progress\n\nRenders a `<progress>` element.\n\n## Usage\n\n```tsx\nimport { Progress } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn <Progress class="my-progress" />;\n}\n```\n## Props\n\n- Extends the standard JSX attributes for `<progress>`\n- Accepts `class` for custom styling\n',
+			'# Progress\n\nRenders a `<div>` element.\n\n## Usage\n\n```tsx\nimport { Progress } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn <Progress class="my-progress">Progress content</Progress>;\n}\n```\n## Props\n\n- Extends the standard JSX attributes for `<div>`\n- Accepts `class` for custom styling\n',
 	},
 	"components/avatar": {
 		title: "Avatar",
@@ -361,14 +403,14 @@ export const docs: Record<string, DocPage> = {
 		group: "components",
 		order: 1,
 		content:
-			'# Command\n\nA searchable list for command selection.\n\n## Usage\n\n```tsx\nimport { Command } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn (\n\t\t<Command\n\t\t\titems={[\n\t\t\t\t{ value: "profile", label: "Profile" },\n\t\t\t\t{ value: "settings", label: "Settings" },\n\t\t\t]}\n\t\t\tonSelect={(item) => console.log(item.value)}\n\t\t/>\n\t);\n}\n```\n\n## Props\n\n- `items` — array of { value, label, shortcut?, onSelect? }\n- `placeholder` — input placeholder\n- `emptyText` — message when no results match\n',
+			'# Command\n\nA searchable list for command selection.\n\n## Usage\n\n```tsx\nimport { Command } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn (\n\t\t<Command\n\t\t\titems={[\n\t\t\t\t{ value: "profile", label: "Profile" },\n\t\t\t\t{ value: "settings", label: "Settings" },\n\t\t\t]}\n\t\t\tonSelect={(item) => void item.value}\n\t\t/>\n\t);\n}\n```\n\n## Props\n\n- `items` — array of { value, label, shortcut?, onSelect? }\n- `placeholder` — input placeholder\n- `emptyText` — message when no results match\n',
 	},
 	"components/commandpalette": {
 		title: "CommandPalette",
 		group: "components",
 		order: 1,
 		content:
-			'# Command Palette\n\nA full-screen overlay with a searchable command list.\n\n## Usage\n\n```tsx\nimport { CommandPalette } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn (\n\t\t<CommandPalette\n\t\t\titems={[\n\t\t\t\t{ value: "home", label: "Go home" },\n\t\t\t\t{ value: "docs", label: "Open docs" },\n\t\t\t]}\n\t\t\tonSelect={(item) => console.log(item.value)}\n\t\t/>\n\t);\n}\n```\n\n## Props\n\n- `open` — controlled open state\n- `onOpenChange` — called when the overlay is toggled\n- Toggle with `Cmd+K` (macOS) or `Ctrl+K` (Windows/Linux)\n',
+			'# Command Palette\n\nA full-screen overlay with a searchable command list.\n\n## Usage\n\n```tsx\nimport { CommandPalette } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn (\n\t\t<CommandPalette\n\t\t\titems={[\n\t\t\t\t{ value: "home", label: "Go home" },\n\t\t\t\t{ value: "docs", label: "Open docs" },\n\t\t\t]}\n\t\t\tonSelect={(item) => void item.value}\n\t\t/>\n\t);\n}\n```\n\n## Props\n\n- `open` — controlled open state\n- `onOpenChange` — called when the overlay is toggled\n- Toggle with `Cmd+K` (macOS) or `Ctrl+K` (Windows/Linux)\n',
 	},
 	"components/notification": {
 		title: "Notification",
@@ -424,7 +466,7 @@ export const docs: Record<string, DocPage> = {
 		group: "components",
 		order: 1,
 		content:
-			'# Calendar\n\nA month grid with previous/next navigation.\n\n## Usage\n\n```tsx\nimport { Calendar } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn <Calendar value={new Date()} onChange={(date) => console.log(date)} />;\n}\n```\n\n## Props\n\n- `value` — selected date\n- `onChange` — called when a day is selected\n- Accepts `class` for custom styling\n',
+			'# Calendar\n\nA month grid with previous/next navigation.\n\n## Usage\n\n```tsx\nimport { Calendar } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn <Calendar value={new Date()} onChange={(date) => void date} />;\n}\n```\n\n## Props\n\n- `value` — selected date\n- `onChange` — called when a day is selected\n- Accepts `class` for custom styling\n',
 	},
 	"components/transition": {
 		title: "Transition",
@@ -489,6 +531,104 @@ export const docs: Record<string, DocPage> = {
 		content:
 			'# Motion\n\nRenders a `<div>` element.\n\n## Usage\n\n```tsx\nimport { Motion } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn <Motion class="my-motion">Motion content</Motion>;\n}\n```\n## Props\n\n- Extends the standard JSX attributes for `<div>`\n- Accepts `class` for custom styling\n',
 	},
+	"components/kbd": {
+		title: "Kbd",
+		group: "components",
+		order: 1,
+		content:
+			'# Kbd\n\nRenders a `<kbd>` element.\n\n## Usage\n\n```tsx\nimport { Kbd } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn <Kbd class="my-kbd">Kbd content</Kbd>;\n}\n```\n## Props\n\n- Extends the standard JSX attributes for `<kbd>`\n- Accepts `class` for custom styling\n',
+	},
+	"components/code": {
+		title: "Code",
+		group: "components",
+		order: 1,
+		content:
+			'# Code\n\nRenders a `<code>` element.\n\n## Usage\n\n```tsx\nimport { Code } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn <Code class="my-code">Code content</Code>;\n}\n```\n## Props\n\n- Extends the standard JSX attributes for `<code>`\n- Accepts `class` for custom styling\n',
+	},
+	"components/blockquote": {
+		title: "Blockquote",
+		group: "components",
+		order: 1,
+		content:
+			'# Blockquote\n\nRenders a `<blockquote>` element.\n\n## Usage\n\n```tsx\nimport { Blockquote } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn <Blockquote class="my-blockquote">Blockquote content</Blockquote>;\n}\n```\n## Props\n\n- Extends the standard JSX attributes for `<blockquote>`\n- Accepts `class` for custom styling\n',
+	},
+	"components/list": {
+		title: "List",
+		group: "components",
+		order: 1,
+		content:
+			'# List\n\nRenders a `<ul>` element.\n\n## Usage\n\n```tsx\nimport { List } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn <List class="my-list">List content</List>;\n}\n```\n## Props\n\n- Extends the standard JSX attributes for `<ul>`\n- Accepts `class` for custom styling\n',
+	},
+	"components/listitem": {
+		title: "ListItem",
+		group: "components",
+		order: 1,
+		content:
+			'# ListItem\n\nRenders a `<li>` element.\n\n## Usage\n\n```tsx\nimport { ListItem } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn <ListItem class="my-listitem">ListItem content</ListItem>;\n}\n```\n## Props\n\n- Extends the standard JSX attributes for `<li>`\n- Accepts `class` for custom styling\n',
+	},
+	"components/visuallyhidden": {
+		title: "VisuallyHidden",
+		group: "components",
+		order: 1,
+		content:
+			'# VisuallyHidden\n\nRenders a `<span>` element.\n\n## Usage\n\n```tsx\nimport { VisuallyHidden } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn <VisuallyHidden class="my-visuallyhidden">VisuallyHidden content</VisuallyHidden>;\n}\n```\n## Props\n\n- Extends the standard JSX attributes for `<span>`\n- Accepts `class` for custom styling\n',
+	},
+	"components/progresscircle": {
+		title: "ProgressCircle",
+		group: "components",
+		order: 1,
+		content:
+			'# ProgressCircle\n\nRenders a `<svg>` element.\n\n## Usage\n\n```tsx\nimport { ProgressCircle } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn <ProgressCircle class="my-progresscircle">ProgressCircle content</ProgressCircle>;\n}\n```\n## Props\n\n- Extends the standard JSX attributes for `<svg>`\n- Accepts `class` for custom styling\n',
+	},
+	"components/meter": {
+		title: "Meter",
+		group: "components",
+		order: 1,
+		content:
+			'# Meter\n\nRenders a `<meter>` element.\n\n## Usage\n\n```tsx\nimport { Meter } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn <Meter class="my-meter">Meter content</Meter>;\n}\n```\n## Props\n\n- Extends the standard JSX attributes for `<meter>`\n- Accepts `class` for custom styling\n',
+	},
+	"components/stat": {
+		title: "Stat",
+		group: "components",
+		order: 1,
+		content:
+			'# Stat\n\nRenders a `<div>` element.\n\n## Usage\n\n```tsx\nimport { Stat } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn <Stat class="my-stat">Stat content</Stat>;\n}\n```\n## Props\n\n- Extends the standard JSX attributes for `<div>`\n- Accepts `class` for custom styling\n',
+	},
+	"components/skeletontext": {
+		title: "SkeletonText",
+		group: "components",
+		order: 1,
+		content:
+			'# SkeletonText\n\nRenders a `<div>` element.\n\n## Usage\n\n```tsx\nimport { SkeletonText } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn <SkeletonText class="my-skeletontext">SkeletonText content</SkeletonText>;\n}\n```\n## Props\n\n- Extends the standard JSX attributes for `<div>`\n- Accepts `class` for custom styling\n',
+	},
+	"components/alertdialog": {
+		title: "AlertDialog",
+		group: "components",
+		order: 1,
+		content:
+			'# AlertDialog\n\nRenders a `<div>` element.\n\n## Usage\n\n```tsx\nimport { AlertDialog } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn <AlertDialog class="my-alertdialog">AlertDialog content</AlertDialog>;\n}\n```\n## Props\n\n- Extends the standard JSX attributes for `<div>`\n- Accepts `class` for custom styling\n',
+	},
+	"components/hovercard": {
+		title: "HoverCard",
+		group: "components",
+		order: 1,
+		content:
+			'# HoverCard\n\nRenders a `<div>` element.\n\n## Usage\n\n```tsx\nimport { HoverCard } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn <HoverCard class="my-hovercard">HoverCard content</HoverCard>;\n}\n```\n## Props\n\n- Extends the standard JSX attributes for `<div>`\n- Accepts `class` for custom styling\n',
+	},
+	"components/contextmenu": {
+		title: "ContextMenu",
+		group: "components",
+		order: 1,
+		content:
+			'# ContextMenu\n\nRenders a `<div>` element.\n\n## Usage\n\n```tsx\nimport { ContextMenu } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn <ContextMenu class="my-contextmenu">ContextMenu content</ContextMenu>;\n}\n```\n## Props\n\n- Extends the standard JSX attributes for `<div>`\n- Accepts `class` for custom styling\n',
+	},
+	"components/skeletoncircle": {
+		title: "SkeletonCircle",
+		group: "components",
+		order: 1,
+		content:
+			'# SkeletonCircle\n\nRenders a `<div>` element.\n\n## Usage\n\n```tsx\nimport { SkeletonCircle } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn <SkeletonCircle class="my-skeletoncircle">SkeletonCircle content</SkeletonCircle>;\n}\n```\n## Props\n\n- Extends the standard JSX attributes for `<div>`\n- Accepts `class` for custom styling\n',
+	},
 	templates: {
 		title: "Templates",
 		group: "templates",
@@ -523,5 +663,33 @@ export const docs: Record<string, DocPage> = {
 		order: 4,
 		content:
 			'# Transitions template\n\nUse `buildCssTransition` and `mergeTransitionOptions` from `@wrikka/transitions`.\n\n```tsx\nimport { buildCssTransition, mergeTransitionOptions } from "@wrikka/solid-ui";\n\nconst css = buildCssTransition(mergeTransitionOptions({ duration: 300, easing: "ease-in-out" }));\n```\n',
+	},
+	"templates/chatbot": {
+		title: "Chatbot template",
+		group: "templates",
+		order: 5,
+		content:
+			'# Chatbot template\n\nA minimal chatbot UI built from solid-ui primitives.\n\n```tsx\nimport { createSignal, For } from "solid-js";\nimport { Button, Input, Card } from "@wrikka/solid-ui";\n\nfunction Chatbot() {\n\tconst [messages, setMessages] = createSignal([{ role: "assistant", text: "How can I help you?" }]);\n\tconst [input, setInput] = createSignal("");\n\n\tfunction send() {\n\t\tconst text = input().trim();\n\t\tif (!text) return;\n\t\tsetMessages((prev) => [...prev, { role: "user", text }]);\n\t\tsetInput("");\n\t\tsetTimeout(() => {\n\t\t\tsetMessages((prev) => [...prev, { role: "assistant", text: "This is a placeholder reply." }]);\n\t\t}, 600);\n\t}\n\n\treturn (\n\t\t<Card class="flex h-[600px] flex-col">\n\t\t\t<div class="flex-1 space-y-3 overflow-y-auto p-4">\n\t\t\t\t<For each={messages()}>\n\t\t\t\t\t{(msg) => (\n\t\t\t\t\t\t<div class={["rounded-lg px-3 py-2", msg.role === "user" ? "ml-auto bg-primary text-primary-foreground" : "bg-muted"].join(" ")}>\n\t\t\t\t\t\t\t{msg.text}\n\t\t\t\t\t\t</div>\n\t\t\t\t\t)}\n\t\t\t\t</For>\n\t\t\t</div>\n\t\t\t<div class="flex gap-2 border-t border-border p-3">\n\t\t\t\t<Input value={input()} onInput={(e) => setInput(e.currentTarget.value)} placeholder="Type a message…" />\n\t\t\t\t<Button onClick={send}>Send</Button>\n\t\t\t</div>\n\t\t</Card>\n\t);\n}\n```\n',
+	},
+	principles: {
+		title: "Principles",
+		group: "core",
+		order: 0,
+		content:
+			"# Principles\n\nsolid-ui is built on a small set of principles that guide every component and API decision.\n\n## Composability first\n\nComponents are small, focused, and easy to compose. Higher-level patterns are built from primitives, not hard-coded.\n\n## Type safety\n\nEvery component is written in TypeScript and ships with typed props. Form, table, and image helpers use type inference so you catch mistakes early.\n\n## Accessibility\n\nKeyboard navigation, focus management, ARIA roles, and color contrast are considered by default. Components work with screen readers and reduced-motion preferences.\n\n## Themeability\n\nColors, fonts, spacing, and radius are driven by CSS custom properties. Switch presets or fine-tune tokens without touching component internals.\n\n## SolidJS native\n\nThe library uses SolidJS primitives — signals, stores, and fine-grained reactivity — without extra abstraction layers.\n",
+	},
+	"key-concepts": {
+		title: "Key concepts",
+		group: "core",
+		order: 1,
+		content:
+			"# Key concepts\n\nA few concepts make solid-ui easier to work with.\n\n## Primitives and components\n\n**Primitives** are low-level controls like `Button`, `Input`, and `Select`. **Components** are higher-level patterns like `CommandPalette`, `DataTable`, and `NavigationMenu`.\n\n## The theme system\n\nThe site and components read from CSS custom properties. The `ThemePicker` in the header writes to these tokens so every preview updates live.\n\n## Registry-driven docs\n\nThe component registry powers the docs, the MCP server, and the CLI. Adding a component to the registry and a category makes it discoverable everywhere.\n\n## Workspace packages\n\n- `@wrikka/solid-ui` — UI components\n- `@wrikka/form` — form field helpers\n- `@wrikka/table` — typed table columns\n- `@wrikka/image` — image transform URLs\n- `@wrikka/transitions` — CSS transition utilities\n",
+	},
+	comparison: {
+		title: "Comparison",
+		group: "core",
+		order: 2,
+		content:
+			"# Comparison\n\nHow solid-ui compares to common alternatives.\n\n## vs. shadcn/ui\n\nshadcn/ui is a collection of copy-paste React components. solid-ui is a SolidJS design system with a registry, MCP server, CLI, and built-in docs.\n\n## vs. other SolidJS libraries\n\nMany SolidJS libraries are small sets of primitives. solid-ui adds higher-level components, real-world packages, and an AI-ready MCP layer.\n\n## When to use solid-ui\n\nChoose solid-ui when you want:\n\n- A single, consistent design system\n- SolidJS-native, fine-grained reactivity\n- Typed form, table, and image helpers\n- Component discovery through MCP or CLI\n- Live theme customization out of the box\n",
 	},
 };

@@ -71,7 +71,7 @@ A month grid with previous/next navigation.
 import { Calendar } from "@wrikka/solid-ui";
 
 function Example() {
-	return <Calendar value={new Date()} onChange={(date) => console.log(date)} />;
+	return <Calendar value={new Date()} onChange={(date) => void date} />;
 }
 \`\`\`
 
@@ -129,7 +129,7 @@ function Example() {
 				{ value: "profile", label: "Profile" },
 				{ value: "settings", label: "Settings" },
 			]}
-			onSelect={(item) => console.log(item.value)}
+			onSelect={(item) => void item.value}
 		/>
 	);
 }
@@ -159,7 +159,7 @@ function Example() {
 				{ value: "home", label: "Go home" },
 				{ value: "docs", label: "Open docs" },
 			]}
-			onSelect={(item) => console.log(item.value)}
+			onSelect={(item) => void item.value}
 		/>
 	);
 }
@@ -194,22 +194,41 @@ ${variants}## Props
 
 add(
 	"intro",
-	"Introduction",
+	"Get started",
 	"getting-started",
 	0,
-	`# Introduction
+	`# Get started
 
-**solid-ui** is a comprehensive, accessible SolidJS component library built for Cloudflare Workers and real-world applications.
+**solid-ui** is a SolidJS design system that gives you typed, accessible, and themeable components without rebuilding the basics.
 
-It ships with:
+## What you get
 
-- 60+ reusable UI components
-- Form, table, image, and transition utilities
-- An MCP server for component discovery
-- A CLI for listing and generating component templates
-- Dark mode and responsive design out of the box
+- **60+ UI components** — from buttons and inputs to data tables, command palettes, and dialogs.
+- **Composable packages** — form, table, image, and transitions utilities for real-world use cases.
+- **MCP server** — discover components and generate snippets from any MCP client.
+- **CLI** — list, inspect, and scaffold new components from the terminal.
+- **Built-in theming** — switch light/dark mode, pick a color, and tune spacing/radius live.
 
-This site is the documentation and showcase for solid-ui. Use the sidebar to navigate through primitives, components, templates, theming, and integrations.
+## Quick start
+
+Install the workspace and run the docs site:
+
+\`\`\`bash
+bun install
+bun run dev
+\`\`\`
+
+Import a component:
+
+\`\`\`tsx
+import { Button } from "@wrikka/solid-ui";
+
+function App() {
+	return <Button>Get started</Button>;
+}
+\`\`\`
+
+Browse the [components](/components) gallery, read the [docs](/docs/intro), or customize the [theme](/theme) to see it in action.
 `,
 );
 
@@ -220,7 +239,7 @@ add(
 	1,
 	`# Installation
 
-solid-ui is organized as a Bun monorepo. Install the website dependencies and build with:
+solid-ui is a Bun monorepo. Make sure you have [Bun](https://bun.sh) installed, then run:
 
 \`\`\`bash
 bun install
@@ -414,6 +433,146 @@ const css = buildCssTransition(mergeTransitionOptions({ duration: 300, easing: "
 `,
 );
 
+add(
+	"templates/chatbot",
+	"Chatbot template",
+	"templates",
+	5,
+	`# Chatbot template
+
+A minimal chatbot UI built from solid-ui primitives.
+
+\`\`\`tsx
+import { createSignal, For } from "solid-js";
+import { Button, Input, Card } from "@wrikka/solid-ui";
+
+function Chatbot() {
+	const [messages, setMessages] = createSignal([{ role: "assistant", text: "How can I help you?" }]);
+	const [input, setInput] = createSignal("");
+
+	function send() {
+		const text = input().trim();
+		if (!text) return;
+		setMessages((prev) => [...prev, { role: "user", text }]);
+		setInput("");
+		setTimeout(() => {
+			setMessages((prev) => [...prev, { role: "assistant", text: "This is a placeholder reply." }]);
+		}, 600);
+	}
+
+	return (
+		<Card class="flex h-[600px] flex-col">
+			<div class="flex-1 space-y-3 overflow-y-auto p-4">
+				<For each={messages()}>
+					{(msg) => (
+						<div class={["rounded-lg px-3 py-2", msg.role === "user" ? "ml-auto bg-primary text-primary-foreground" : "bg-muted"].join(" ")}>
+							{msg.text}
+						</div>
+					)}
+				</For>
+			</div>
+			<div class="flex gap-2 border-t border-border p-3">
+				<Input value={input()} onInput={(e) => setInput(e.currentTarget.value)} placeholder="Type a message…" />
+				<Button onClick={send}>Send</Button>
+			</div>
+		</Card>
+	);
+}
+\`\`\`
+`,
+);
+
+add(
+	"principles",
+	"Principles",
+	"core",
+	0,
+	`# Principles
+
+solid-ui is built on a small set of principles that guide every component and API decision.
+
+## Composability first
+
+Components are small, focused, and easy to compose. Higher-level patterns are built from primitives, not hard-coded.
+
+## Type safety
+
+Every component is written in TypeScript and ships with typed props. Form, table, and image helpers use type inference so you catch mistakes early.
+
+## Accessibility
+
+Keyboard navigation, focus management, ARIA roles, and color contrast are considered by default. Components work with screen readers and reduced-motion preferences.
+
+## Themeability
+
+Colors, fonts, spacing, and radius are driven by CSS custom properties. Switch presets or fine-tune tokens without touching component internals.
+
+## SolidJS native
+
+The library uses SolidJS primitives — signals, stores, and fine-grained reactivity — without extra abstraction layers.
+`,
+);
+
+add(
+	"key-concepts",
+	"Key concepts",
+	"core",
+	1,
+	`# Key concepts
+
+A few concepts make solid-ui easier to work with.
+
+## Primitives and components
+
+**Primitives** are low-level controls like \`Button\`, \`Input\`, and \`Select\`. **Components** are higher-level patterns like \`CommandPalette\`, \`DataTable\`, and \`NavigationMenu\`.
+
+## The theme system
+
+The site and components read from CSS custom properties. The \`ThemePicker\` in the header writes to these tokens so every preview updates live.
+
+## Registry-driven docs
+
+The component registry powers the docs, the MCP server, and the CLI. Adding a component to the registry and a category makes it discoverable everywhere.
+
+## Workspace packages
+
+- \`@wrikka/solid-ui\` — UI components
+- \`@wrikka/form\` — form field helpers
+- \`@wrikka/table\` — typed table columns
+- \`@wrikka/image\` — image transform URLs
+- \`@wrikka/transitions\` — CSS transition utilities
+`,
+);
+
+add(
+	"comparison",
+	"Comparison",
+	"core",
+	2,
+	`# Comparison
+
+How solid-ui compares to common alternatives.
+
+## vs. shadcn/ui
+
+shadcn/ui is a collection of copy-paste React components. solid-ui is a SolidJS design system with a registry, MCP server, CLI, and built-in docs.
+
+## vs. other SolidJS libraries
+
+Many SolidJS libraries are small sets of primitives. solid-ui adds higher-level components, real-world packages, and an AI-ready MCP layer.
+
+## When to use solid-ui
+
+Choose solid-ui when you want:
+
+- A single, consistent design system
+- SolidJS-native, fine-grained reactivity
+- Typed form, table, and image helpers
+- Component discovery through MCP or CLI
+- Live theme customization out of the box
+`,
+);
+
 const lines = [
 	`// Auto-generated docs content — do not edit manually`,
 	`export interface DocPage { title: string; group: string; order: number; content: string }`,
@@ -421,5 +580,3 @@ const lines = [
 ];
 
 await writeFile(new URL("../src/docs/generated.ts", import.meta.url), lines.join("\n"), "utf8");
-
-console.log(`Generated ${Object.keys(docs).length} docs pages`);

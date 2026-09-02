@@ -15,7 +15,7 @@ export interface SeoProps {
 }
 
 function toAbsoluteUrl(value: string): string {
-	if (value.startsWith("http://") || value.startsWith("https://")) return value;
+	if (value.startsWith("http")) return value;
 	return `${SITE_URL}${value.startsWith("/") ? value : `/${value}`}`;
 }
 

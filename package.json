@@ -32,6 +32,7 @@
 		"deploy": "bun run --filter @wrikka/website deploy",
 		"cf-typegen": "bun run --filter @wrikka/website cf-typegen"
 	},
+	"browserslist": ["> 0.5%", "last 2 versions", "not dead", "not IE 11"],
 	"devDependencies": {
 		"@biomejs/biome": "^2.5.10",
 		"@types/bun": "^1.4.0",

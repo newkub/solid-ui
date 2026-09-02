@@ -1,5 +1,5 @@
 import * as SolidUI from "@wrikka/solid-ui";
-import { registry } from "@wrikka/solid-ui";
+import { registry } from "@wrikka/solid-ui/registry";
 import { createSignal, ErrorBoundary, For, type JSX, Match, Show, Switch } from "solid-js";
 import { PLAYGROUND_IMAGE_SRC } from "../lib/config";
 import { CodeBlock } from "./CodeBlock";

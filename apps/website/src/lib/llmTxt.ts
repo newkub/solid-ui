@@ -1,4 +1,4 @@
-import { registry } from "@wrikka/solid-ui";
+import { registry } from "@wrikka/solid-ui/registry";
 import { docs } from "../docs/generated";
 
 /**

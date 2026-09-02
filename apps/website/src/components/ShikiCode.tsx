@@ -2,13 +2,13 @@ import { useSelector } from "@tanstack/solid-store";
 import { createResource, Show } from "solid-js";
 import { themeStore } from "../lib/theme";
 
-export function ShikiCode(props: { code: string; lang?: string }) {
+export function ShikiCode(props: { code: string; lang?: string; twoslash?: boolean }) {
 	const themeMode = useSelector(themeStore, (state) => state.mode);
 	const [html] = createResource(
-		() => ({ code: props.code, lang: props.lang, t: themeMode() }),
-		async ({ code, lang, t }) => {
+		() => ({ code: props.code, lang: props.lang, t: themeMode(), twoslash: props.twoslash }),
+		async ({ code, lang, t, twoslash }) => {
 			const { highlightCode } = await import("../lib/shiki");
-			return highlightCode(code, lang, t);
+			return highlightCode(code, lang, t, twoslash);
 		},
 	);
 

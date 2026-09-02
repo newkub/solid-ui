@@ -16,6 +16,7 @@
 		"@shikijs/engine-javascript": "^3.23.0",
 		"@shikijs/langs": "^3.23.0",
 		"@shikijs/themes": "^3.23.0",
+		"@shikijs/twoslash": "3.23.0",
 		"@tanstack/solid-router": "^1.15.0",
 		"@tanstack/solid-store": "^0.11.1",
 		"@tanstack/solid-table": "^9.2.4",
@@ -25,6 +26,7 @@
 	"devDependencies": {
 		"@types/bun": "^1.4.0",
 		"@types/node": "^26.4.0",
+		"babel-preset-solid": "^1.9.15",
 		"typescript": "catalog:",
 		"unocss": "^66.8.1",
 		"vite": "catalog:",

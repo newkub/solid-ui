@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from "@tanstack/solid-router";
 import { useSelector } from "@tanstack/solid-store";
-import { type Accessor, createSignal, onCleanup, onMount, Show } from "solid-js";
+import { type Accessor, createSignal, type JSX, onCleanup, onMount, Show } from "solid-js";
 import { themeStore } from "../lib/theme";
 import { VibeCoding } from "./VibeCoding";
 
@@ -120,6 +120,19 @@ export function DevTools(props: DevToolsProps) {
 		);
 	}
 
+	function ToolButton(props: { onClick: () => void; label: string; icon: JSX.Element }) {
+		return (
+			<button
+				type="button"
+				onClick={props.onClick}
+				class="inline-flex items-center justify-center gap-1.5 rounded-md border border-border bg-background px-2 py-1.5 text-xs font-medium text-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+			>
+				{props.icon}
+				{props.label}
+			</button>
+		);
+	}
+
 	return (
 		<Show when={props.open()}>
 			<div
@@ -133,7 +146,7 @@ export function DevTools(props: DevToolsProps) {
 						<span class="text-sm font-semibold text-foreground">Dev tools</span>
 					</div>
 					<div class="flex items-center gap-1.5">
-						<span class="rounded bg-primary px-1.5 py-0.5 text-[10px] font-semibold text-primary-foreground">
+						<span class="rounded bg-primary px-1.5 py-0.5 text-2xs font-semibold text-primary-foreground">
 							{breakpoint()}
 						</span>
 						<button
@@ -156,36 +169,68 @@ export function DevTools(props: DevToolsProps) {
 				<Show
 					when={showVibe()}
 					fallback={
-						<div class="mt-3 grid grid-cols-2 gap-2">
-							<button
-								type="button"
+						<div class="mt-4 grid grid-cols-2 gap-2">
+							<ToolButton
 								onClick={() => nav("/settings")}
-								class="rounded-md border border-border bg-background px-2 py-1.5 text-xs font-medium text-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
-							>
-								Settings
-							</button>
-							<button
-								type="button"
+								label="Settings"
+								icon={
+									<svg
+										class="h-3.5 w-3.5"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2"
+										aria-hidden="true"
+									>
+										<circle cx="12" cy="12" r="3" />
+										<path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h.09a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h.09a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V12a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z" />
+									</svg>
+								}
+							/>
+							<ToolButton
 								onClick={() => nav("/plugins")}
-								class="rounded-md border border-border bg-background px-2 py-1.5 text-xs font-medium text-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
-							>
-								Plugins
-							</button>
-							<button
-								type="button"
+								label="Plugins"
+								icon={
+									<svg
+										class="h-3.5 w-3.5"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2"
+										aria-hidden="true"
+									>
+										<path d="M12 22v-5" />
+										<path d="M9 8V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2" />
+										<path d="M12 11v2a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-2" />
+										<path d="M9 17H7a2 2 0 0 1-2-2v-2" />
+										<path d="M15 17h2a2 2 0 0 0 2-2v-2" />
+									</svg>
+								}
+							/>
+							<ToolButton
 								onClick={() => nav("/components")}
-								class="rounded-md border border-border bg-background px-2 py-1.5 text-xs font-medium text-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
-							>
-								Components
-							</button>
-							<button
-								type="button"
+								label="Components"
+								icon={
+									<svg
+										class="h-3.5 w-3.5"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2"
+										aria-hidden="true"
+									>
+										<rect x="3" y="3" width="7" height="7" rx="1" />
+										<rect x="14" y="3" width="7" height="7" rx="1" />
+										<rect x="14" y="14" width="7" height="7" rx="1" />
+										<rect x="3" y="14" width="7" height="7" rx="1" />
+									</svg>
+								}
+							/>
+							<ToolButton
 								onClick={() => setShowVibe(true)}
-								class="inline-flex items-center justify-center gap-1 rounded-md border border-border bg-background px-2 py-1.5 text-xs font-medium text-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
-							>
-								<VibeIcon />
-								Vibe coding
-							</button>
+								label="Vibe coding"
+								icon={<VibeIcon class="h-3.5 w-3.5" />}
+							/>
 						</div>
 					}
 				>

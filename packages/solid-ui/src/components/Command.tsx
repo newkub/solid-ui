@@ -46,6 +46,8 @@ export function Command(props: CommandProps) {
 		}
 	}
 
+	const activeId = () => (filtered()[active()] ? `command-option-${active()}` : undefined);
+
 	return (
 		<div class={`w-full rounded-xl border border-border bg-surface p-2 shadow-sm ${props.class ?? ""}`}>
 			<Input
@@ -58,10 +60,14 @@ export function Command(props: CommandProps) {
 				onKeyDown={onKeyDown}
 				placeholder={merged.placeholder}
 				class="h-9 border-0 bg-transparent px-2 focus-visible:ring-0"
+				role="combobox"
 				aria-autocomplete="list"
 				aria-label="Command search"
+				aria-expanded={filtered().length > 0}
+				aria-controls="command-listbox"
+				aria-activedescendant={activeId()}
 			/>
-			<div class="mt-1 max-h-64 overflow-y-auto">
+			<div id="command-listbox" class="mt-1 max-h-64 overflow-y-auto" role="listbox">
 				<Show
 					when={filtered().length > 0}
 					fallback={<p class="px-2 py-3 text-xs text-muted-foreground">{merged.emptyText}</p>}
@@ -70,6 +76,9 @@ export function Command(props: CommandProps) {
 						{(item, index) => (
 							<button
 								type="button"
+								id={`command-option-${index()}`}
+								role="option"
+								aria-selected={index() === active()}
 								onClick={() => select(item, index())}
 								class={`flex w-full items-center justify-between rounded-md px-2 py-1.5 text-left text-sm transition-colors ${
 									index() === active() ? "bg-primary text-primary-foreground" : "text-foreground hover:bg-muted"
@@ -77,7 +86,7 @@ export function Command(props: CommandProps) {
 							>
 								<span>{item.label}</span>
 								<Show when={item.shortcut}>
-									<kbd class="rounded border border-border px-1.5 py-0.5 text-[10px] opacity-80">{item.shortcut}</kbd>
+									<kbd class="rounded border border-border px-1.5 py-0.5 text-xs opacity-80">{item.shortcut}</kbd>
 								</Show>
 							</button>
 						)}

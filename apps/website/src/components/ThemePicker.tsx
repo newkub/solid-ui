@@ -238,7 +238,7 @@ function RadiusSection(props: { radius: ThemeRadius; onSelect: () => void }) {
 function ThemeDropdown(props: { state: ThemeState; onSelect: () => void }) {
 	return (
 		<div
-			class="absolute right-0 top-full z-dropdown mt-2 w-80 max-h-[80vh] max-w-[calc(100vw_-_2rem)] overflow-y-auto rounded-xl border border-border bg-surface p-4 shadow-xl lg:left-full lg:right-auto lg:top-0 lg:mt-0 lg:ml-2 lg:w-96"
+			class="absolute right-0 top-full z-dropdown mt-2 w-72 max-h-[80vh] max-w-[calc(100vw_-_2rem)] overflow-y-auto rounded-xl border border-border bg-surface p-4 shadow-xl sm:w-80"
 			role="listbox"
 		>
 			<div class="space-y-4">
@@ -250,6 +250,43 @@ function ThemeDropdown(props: { state: ThemeState; onSelect: () => void }) {
 				<RadiusSection radius={props.state.radius} onSelect={props.onSelect} />
 			</div>
 		</div>
+	);
+}
+
+function SunIcon() {
+	return (
+		<svg
+			width="18"
+			height="18"
+			viewBox="0 0 24 24"
+			fill="none"
+			stroke="currentColor"
+			stroke-width="2"
+			stroke-linecap="round"
+			stroke-linejoin="round"
+			aria-hidden="true"
+		>
+			<circle cx="12" cy="12" r="5" />
+			<path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+		</svg>
+	);
+}
+
+function MoonIcon() {
+	return (
+		<svg
+			width="18"
+			height="18"
+			viewBox="0 0 24 24"
+			fill="none"
+			stroke="currentColor"
+			stroke-width="2"
+			stroke-linecap="round"
+			stroke-linejoin="round"
+			aria-hidden="true"
+		>
+			<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+		</svg>
 	);
 }
 
@@ -275,32 +312,27 @@ export function ThemePicker() {
 		});
 	});
 
+	const activeColor = () => `hsl(${colorSchemes[state().color][state().mode].primary})`;
+
 	return (
 		<div ref={ref} class="relative inline-block">
 			<button
 				type="button"
-				class="inline-flex h-9 w-9 items-center justify-center rounded-md border border-border bg-surface text-foreground hover:bg-muted transition-colors"
+				class="relative inline-flex h-9 w-9 items-center justify-center rounded-md border border-border bg-surface text-foreground transition-colors hover:bg-muted"
 				onClick={() => setOpen((v) => !v)}
 				aria-haspopup="listbox"
 				aria-expanded={open()}
 				aria-label={`Theme: ${state().name}`}
 				title={`Theme: ${state().name}`}
 			>
-				<svg
-					width="18"
-					height="18"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="2"
-					stroke-linecap="round"
-					stroke-linejoin="round"
+				<Show when={state().mode === "light"} fallback={<MoonIcon />}>
+					<SunIcon />
+				</Show>
+				<span
+					class="absolute right-1 top-1 h-2 w-2 rounded-full border border-surface"
+					style={{ "background-color": activeColor() }}
 					aria-hidden="true"
-				>
-					<circle cx="12" cy="12" r="10" />
-					<path d="M12 2a10 10 0 0 1 0 20 10 10 0 0 1 0-20" />
-					<path d="M12 12a4 4 0 0 0 4-4 4 4 0 0 0-4-4" />
-				</svg>
+				/>
 			</button>
 			<Show when={open()}>
 				<ThemeDropdown state={state()} onSelect={() => setOpen(false)} />

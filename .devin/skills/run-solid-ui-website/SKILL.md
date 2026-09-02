@@ -34,7 +34,7 @@ This skill targets `apps/website` in the `solid-ui` monorepo. It covers dev serv
 > Goal: Start the Vite dev server
 
 1. Run `bun run --filter @wrikka/website dev`
-2. Wait for the `Local:` URL in the output (default `http://localhost:5173`)
+2. Wait for the `Local:` URL in the output (default `localhost:5173`)
 3. Open `browser_preview` with the local URL
 4. Watch terminal for build errors or HMR issues
 5. Stop the server with `kill_shell` when finished

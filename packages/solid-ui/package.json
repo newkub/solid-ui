@@ -3,6 +3,7 @@
 	"version": "0.0.1",
 	"private": true,
 	"type": "module",
+	"sideEffects": false,
 	"description": "Solid UI component library — comprehensive, accessible, and production-ready",
 	"exports": {
 		".": {
@@ -35,8 +36,12 @@
 		"solid-js": "catalog:"
 	},
 	"devDependencies": {
+		"@solidjs/testing-library": "^0.8.10",
+		"@vitest/coverage-v8": "3.2.7",
+		"jsdom": "^30.0.1",
 		"tsdown": "catalog:",
 		"typescript": "catalog:",
+		"vite-plugin-solid": "^2.11.14",
 		"vitest": "catalog:"
 	},
 	"repository": {

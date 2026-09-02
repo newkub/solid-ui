@@ -49,29 +49,138 @@ function downloadFile(filename: string, content: string, type: string) {
 	URL.revokeObjectURL(url);
 }
 
-export function VibeCoding() {
+function useVibeEntries() {
 	const [entries, setEntries] = createSignal<VibeEntry[]>(loadEntries());
-	const [input, setInput] = createSignal("");
-	const [copied, setCopied] = createSignal(false);
 
-	function add(type: VibeEntry["type"]) {
-		const message = input().trim();
-		if (!message) return;
+	function add(message: string, type: VibeEntry["type"]) {
+		const trimmed = message.trim();
+		if (!trimmed) return;
 		const next: VibeEntry = {
 			id: crypto.randomUUID(),
 			type,
-			message,
+			message: trimmed,
 			timestamp: Date.now(),
 		};
 		const updated = [next, ...entries()];
 		setEntries(updated);
 		saveEntries(updated);
-		setInput("");
 	}
 
 	function clear() {
 		setEntries([]);
 		saveEntries([]);
+	}
+
+	return { entries, setEntries, add, clear };
+}
+
+function VibeToolbar(props: {
+	input: string;
+	onInput: (value: string) => void;
+	onAdd: (type: VibeEntry["type"]) => void;
+	onClear: () => void;
+	onCopy: () => void;
+	onDownload: () => void;
+	copied: boolean;
+}) {
+	return (
+		<div class="rounded-lg border border-border bg-background p-2">
+			<div class="flex flex-col gap-2">
+				<textarea
+					value={props.input}
+					onInput={(e) => props.onInput(e.currentTarget.value)}
+					placeholder="Type instructions, observations, or actions for the AI to watch..."
+					class="h-20 w-full resize-none rounded-md border border-border bg-surface p-2 text-sm text-foreground outline-none focus-visible:ring-1 focus-visible:ring-ring"
+				/>
+				<div class="flex flex-wrap gap-2">
+					<button
+						type="button"
+						onClick={() => props.onAdd("user")}
+						class="inline-flex h-8 items-center rounded-md bg-primary px-3 text-xs font-medium text-primary-foreground hover:bg-primary-hover"
+					>
+						Add instruction
+					</button>
+					<button
+						type="button"
+						onClick={() => props.onAdd("observation")}
+						class="inline-flex h-8 items-center rounded-md border border-border bg-background px-3 text-xs font-medium text-foreground hover:bg-muted"
+					>
+						Add log
+					</button>
+					<button
+						type="button"
+						onClick={props.onCopy}
+						class="inline-flex h-8 items-center rounded-md border border-border bg-background px-3 text-xs font-medium text-foreground hover:bg-muted"
+					>
+						{props.copied ? "Copied" : "Copy markdown"}
+					</button>
+					<button
+						type="button"
+						onClick={props.onDownload}
+						class="inline-flex h-8 items-center rounded-md border border-border bg-background px-3 text-xs font-medium text-foreground hover:bg-muted"
+					>
+						Download feedback.md
+					</button>
+					<button
+						type="button"
+						onClick={props.onClear}
+						class="ml-auto inline-flex h-8 items-center rounded-md border border-border bg-background px-3 text-xs font-medium text-muted-foreground hover:bg-muted"
+					>
+						Clear
+					</button>
+				</div>
+			</div>
+		</div>
+	);
+}
+
+function VibeEntryCard(props: { entry: VibeEntry }) {
+	const { entry } = props;
+	const borderClass = () =>
+		entry.type === "user"
+			? "border-primary bg-primary/5"
+			: entry.type === "action"
+				? "border-warning bg-warning/5"
+				: entry.type === "observation"
+					? "border-info bg-info/5"
+					: "border-border bg-muted";
+
+	return (
+		<div class={`rounded-md border-l-2 p-2 text-xs ${borderClass()}`}>
+			<div class="mb-1 flex items-center justify-between">
+				<span class="font-semibold uppercase tracking-wide text-muted-foreground">{entry.type}</span>
+				<span class="text-2xs text-muted-foreground">{new Date(entry.timestamp).toLocaleTimeString()}</span>
+			</div>
+			<p class="whitespace-pre-wrap text-foreground">{entry.message}</p>
+		</div>
+	);
+}
+
+function VibeEntryList(props: { entries: VibeEntry[] }) {
+	return (
+		<div class="max-h-48 space-y-1.5 overflow-y-auto rounded-lg border border-border bg-background p-2">
+			<Show
+				when={props.entries.length > 0}
+				fallback={
+					<p class="py-4 text-center text-xs text-muted-foreground">
+						No entries yet. Add the first instruction or observation.
+					</p>
+				}
+			>
+				<For each={props.entries}>{(entry) => <VibeEntryCard entry={entry} />}</For>
+			</Show>
+		</div>
+	);
+}
+
+export function VibeCoding() {
+	const [input, setInput] = createSignal("");
+	const [copied, setCopied] = createSignal(false);
+	const { entries, add, clear } = useVibeEntries();
+
+	function handleAdd(type: VibeEntry["type"]) {
+		add(input(), type);
+		setInput("");
 	}
 
 	async function copy() {
@@ -88,88 +197,16 @@ export function VibeCoding() {
 
 	return (
 		<div class="space-y-3 text-sm">
-			<div class="rounded-lg border border-border bg-background p-2">
-				<div class="flex flex-col gap-2">
-					<textarea
-						value={input()}
-						onInput={(e) => setInput(e.currentTarget.value)}
-						placeholder="Type instructions, observations, or actions for the AI to watch..."
-						class="h-20 w-full resize-none rounded-md border border-border bg-surface p-2 text-sm text-foreground outline-none focus-visible:ring-1 focus-visible:ring-ring"
-					/>
-					<div class="flex flex-wrap gap-2">
-						<button
-							type="button"
-							onClick={() => add("user")}
-							class="inline-flex h-8 items-center rounded-md bg-primary px-3 text-xs font-medium text-primary-foreground hover:bg-primary-hover"
-						>
-							Add instruction
-						</button>
-						<button
-							type="button"
-							onClick={() => add("observation")}
-							class="inline-flex h-8 items-center rounded-md border border-border bg-background px-3 text-xs font-medium text-foreground hover:bg-muted"
-						>
-							Add log
-						</button>
-						<button
-							type="button"
-							onClick={copy}
-							class="inline-flex h-8 items-center rounded-md border border-border bg-background px-3 text-xs font-medium text-foreground hover:bg-muted"
-						>
-							{copied() ? "Copied" : "Copy markdown"}
-						</button>
-						<button
-							type="button"
-							onClick={download}
-							class="inline-flex h-8 items-center rounded-md border border-border bg-background px-3 text-xs font-medium text-foreground hover:bg-muted"
-						>
-							Download feedback.md
-						</button>
-						<button
-							type="button"
-							onClick={clear}
-							class="ml-auto inline-flex h-8 items-center rounded-md border border-border bg-background px-3 text-xs font-medium text-muted-foreground hover:bg-muted"
-						>
-							Clear
-						</button>
-					</div>
-				</div>
-			</div>
-
-			<div class="max-h-48 space-y-1.5 overflow-y-auto rounded-lg border border-border bg-background p-2">
-				<Show
-					when={entries().length > 0}
-					fallback={
-						<p class="py-4 text-center text-xs text-muted-foreground">
-							No entries yet. Add the first instruction or observation.
-						</p>
-					}
-				>
-					<For each={entries()}>
-						{(entry) => (
-							<div
-								class={`rounded-md border-l-2 p-2 text-xs ${
-									entry.type === "user"
-										? "border-primary bg-primary/5"
-										: entry.type === "action"
-											? "border-warning bg-warning/5"
-											: entry.type === "observation"
-												? "border-info bg-info/5"
-												: "border-border bg-muted"
-								}`}
-							>
-								<div class="mb-1 flex items-center justify-between">
-									<span class="font-semibold uppercase tracking-wide text-muted-foreground">{entry.type}</span>
-									<span class="text-[10px] text-muted-foreground">
-										{new Date(entry.timestamp).toLocaleTimeString()}
-									</span>
-								</div>
-								<p class="whitespace-pre-wrap text-foreground">{entry.message}</p>
-							</div>
-						)}
-					</For>
-				</Show>
-			</div>
+			<VibeToolbar
+				input={input()}
+				onInput={setInput}
+				onAdd={handleAdd}
+				onClear={clear}
+				onCopy={copy}
+				onDownload={download}
+				copied={copied()}
+			/>
+			<VibeEntryList entries={entries()} />
 		</div>
 	);
 }

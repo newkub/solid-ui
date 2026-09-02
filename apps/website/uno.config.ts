@@ -91,6 +91,7 @@ export default defineConfig({
 			mono: "var(--su-font-mono)",
 		},
 		fontSize: {
+			"2xs": "var(--su-text-2xs)",
 			xs: "var(--su-text-xs)",
 			sm: "var(--su-text-sm)",
 			base: "var(--su-text-base)",

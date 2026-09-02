@@ -29,7 +29,7 @@ export function Chart(props: ChartProps) {
 						return (
 							<div class="flex flex-1 flex-col items-center gap-1">
 								<div
-									class="w-full max-w-[3rem] rounded-t bg-primary transition-all"
+									class="w-full max-w-12 rounded-t bg-primary transition-all"
 									style={{
 										height: h(),
 										"background-color": point.color ? `hsl(${point.color})` : undefined,
@@ -37,7 +37,7 @@ export function Chart(props: ChartProps) {
 									role="img"
 									aria-label={`${point.label}: ${point.value}`}
 								/>
-								<span class="text-[10px] text-muted-foreground">{point.label}</span>
+								<span class="text-xs text-muted-foreground">{point.label}</span>
 							</div>
 						);
 					}}

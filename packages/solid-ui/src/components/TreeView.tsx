@@ -6,6 +6,8 @@ interface TreeViewContextValue {
 
 const TreeViewContext = createContext<TreeViewContextValue>();
 
+let treeItemId = 0;
+
 export interface TreeViewProps extends JSX.HTMLAttributes<HTMLUListElement> {}
 
 export function TreeView(props: TreeViewProps) {
@@ -17,7 +19,8 @@ export function TreeView(props: TreeViewProps) {
 
 	return (
 		<TreeViewContext.Provider value={{ depth }}>
-			<ul class={className()} {...rest}>
+			{/* biome-ignore lint/a11y/noNoninteractiveElementToInteractiveRole: explicit ARIA tree role */}
+			<ul class={className()} role="tree" {...rest}>
 				{local.children}
 			</ul>
 		</TreeViewContext.Provider>
@@ -35,18 +38,23 @@ export function TreeItem(props: TreeItemProps) {
 	const ctx = useContext(TreeViewContext);
 	const hasChildren = () => !!local.children;
 	const indent = () => (ctx ? ctx.depth() * 0.75 : 0);
+	const id = `tree-item-${++treeItemId}`;
+	const groupId = `${id}-group`;
 
 	const onToggle = () => setExpanded(!expanded());
 
 	const className = () => ["space-y-1", local.class ?? ""].filter(Boolean).join(" ");
 
 	return (
-		<li class={className()} {...rest}>
+		<li class={className()} role="treeitem" tabIndex={-1} aria-level={ctx ? ctx.depth() + 1 : 1} {...rest}>
 			<button
 				type="button"
+				id={id}
 				class="inline-flex w-full items-center gap-1 rounded-md px-2 py-1 text-left text-sm transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
 				onClick={onToggle}
 				style={{ "padding-left": `${1 + indent()}rem` }}
+				aria-expanded={hasChildren() ? expanded() : undefined}
+				aria-owns={hasChildren() && expanded() ? groupId : undefined}
 			>
 				<Show when={hasChildren()}>
 					<svg
@@ -64,7 +72,11 @@ export function TreeItem(props: TreeItemProps) {
 				</Show>
 				<span class="text-foreground">{local.label}</span>
 			</button>
-			<Show when={expanded()}>{local.children}</Show>
+			<Show when={expanded()}>
+				<ul id={groupId} class="list-none p-0 m-0 space-y-1">
+					{local.children}
+				</ul>
+			</Show>
 		</li>
 	);
 }
