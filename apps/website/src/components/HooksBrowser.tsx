@@ -1,10 +1,10 @@
-import { createColumnHelper, createTable } from "@tanstack/solid-table";
-import { createEffect, createSignal, Show } from "solid-js";
-import { useDebounce } from "../hooks/useDebounce";
+import { createColumnHelper } from "@tanstack/solid-table";
+import { createEffect, Show } from "solid-js";
+import { useResourceTable } from "../hooks/useResourceTable";
 import { CodeBlock } from "./CodeBlock";
 import { EmptyState } from "./EmptyState";
 import { PageHeader } from "./PageHeader";
-import { ResourceListView, ResourceToolbar, resourceFeatures } from "./ResourceBrowser";
+import { ResourceListView, ResourceToolbar, type resourceFeatures } from "./ResourceBrowser";
 import { Seo } from "./Seo";
 
 export interface HookItem {
@@ -161,22 +161,19 @@ function cellClass(cell: { column: { id: string } }) {
 }
 
 export function HooksBrowser() {
-	const [data] = createSignal(allItems);
-	const [groupBy, setGroupBy] = createSignal(true);
-	const [globalFilter, setGlobalFilter] = createSignal("");
-	const [categoryFilter, setCategoryFilter] = createSignal("");
-	const debouncedFilter = useDebounce(globalFilter, 150);
-
-	const table = createTable({
-		features: resourceFeatures,
+	const {
+		table,
+		globalFilter,
+		setGlobalFilter,
+		categoryFilter,
+		setCategoryFilter,
+		groupBy,
+		setGroupBy,
+		debouncedFilter,
+	} = useResourceTable({
+		data: allItems,
 		columns,
-		get data() {
-			return data();
-		},
-		initialState: {
-			grouping: ["categoryLabel"],
-			expanded: true,
-		},
+		groupByColumn: "categoryLabel",
 	});
 
 	function applyCategoryFilter(id: string) {
@@ -185,15 +182,7 @@ export function HooksBrowser() {
 	}
 
 	createEffect(() => {
-		table.setGlobalFilter(debouncedFilter());
-	});
-
-	createEffect(() => {
 		applyCategoryFilter(categoryFilter());
-	});
-
-	createEffect(() => {
-		table.setGrouping(groupBy() ? ["categoryLabel"] : []);
 	});
 
 	return (
