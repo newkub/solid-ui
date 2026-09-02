@@ -4,6 +4,7 @@
 	"private": true,
 	"description": "Image and media components for Solid UI",
 	"type": "module",
+	"sideEffects": false,
 	"exports": {
 		".": {
 			"import": "./src/index.ts",

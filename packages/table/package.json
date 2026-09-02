@@ -4,6 +4,7 @@
 	"private": true,
 	"description": "Table and data-grid components for Solid UI",
 	"type": "module",
+	"sideEffects": false,
 	"exports": {
 		".": {
 			"import": "./src/index.ts",

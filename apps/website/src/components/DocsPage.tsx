@@ -1,14 +1,18 @@
 import { Link, useParams } from "@tanstack/solid-router";
-import { registry } from "@wrikka/solid-ui";
-import { type Accessor, createMemo, Show } from "solid-js";
+import { registry } from "@wrikka/solid-ui/registry";
+import { type Accessor, createMemo, lazy, Show, Suspense } from "solid-js";
 import { categories } from "../categories";
 import { docs } from "../docs/generated";
-import { ComponentPlayground } from "./ComponentPlayground";
 import { DocsLayout } from "./DocsLayout";
 import { Markdown } from "./Markdown";
 import { PageSection } from "./PageSection";
 import { Seo } from "./Seo";
 import { Toc } from "./Toc";
+
+const ComponentPlayground = lazy(async () => {
+	const mod = await import("./ComponentPlayground");
+	return { default: mod.ComponentPlayground };
+});
 
 /** Strips markdown syntax down to a plain-text excerpt suitable for a meta description. */
 function toPlainExcerpt(markdown: string, maxLength = 160): string {
@@ -79,7 +83,9 @@ export function DocsPage() {
 								<Markdown content={page().content} />
 								<Show when={isComponent() && componentName()}>
 									<h2 class="mt-10 text-xl font-semibold mb-4">Playground</h2>
-									<ComponentPlayground name={componentName() as string} />
+									<Suspense fallback={<div class="text-sm text-muted-foreground">Loading playground…</div>}>
+										<ComponentPlayground name={componentName() as string} />
+									</Suspense>
 								</Show>
 							</div>
 							<aside class="lg:sticky lg:top-24">

@@ -1,4 +1,4 @@
-import { registry } from "@wrikka/solid-ui";
+import { registry } from "@wrikka/solid-ui/registry";
 import { categories } from "../categories";
 import skillsData from "../data/skills.json";
 import { docs } from "../docs/generated";

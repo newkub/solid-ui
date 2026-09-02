@@ -27,6 +27,9 @@ export default defineConfig({
 		UnoCSS(),
 		solid(),
 	],
+	build: {
+		chunkSizeWarningLimit: 4000,
+	},
 	resolve: {
 		alias: [
 			{ find: /^#form$/, replacement: `${formRoot}/index.ts` },

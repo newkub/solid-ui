@@ -1,5 +1,5 @@
 import { useSelector } from "@tanstack/solid-store";
-import * as SolidUI from "@wrikka/solid-ui";
+import { Badge, Button, Input, Select } from "@wrikka/solid-ui";
 import { For, type JSX } from "solid-js";
 import {
 	colorSchemes,
@@ -205,16 +205,16 @@ export function LivePreviewSection() {
 			<h2 class="mb-2 text-lg font-semibold">Live preview</h2>
 			<p class="mb-4 text-sm text-muted-foreground">This card uses the current theme tokens.</p>
 			<div class="mb-4 flex flex-wrap items-center gap-3">
-				<SolidUI.Button variant="primary">Primary</SolidUI.Button>
-				<SolidUI.Button variant="secondary">Secondary</SolidUI.Button>
-				<SolidUI.Button variant="ghost">Ghost</SolidUI.Button>
-				<SolidUI.Badge>Badge</SolidUI.Badge>
+				<Button variant="primary">Primary</Button>
+				<Button variant="secondary">Secondary</Button>
+				<Button variant="ghost">Ghost</Button>
+				<Badge>Badge</Badge>
 			</div>
 			<div class="grid gap-3 sm:grid-cols-2">
-				<SolidUI.Input type="text" placeholder="Input preview" readOnly />
-				<SolidUI.Select>
+				<Input type="text" placeholder="Input preview" readOnly />
+				<Select>
 					<option>Select preview</option>
-				</SolidUI.Select>
+				</Select>
 			</div>
 		</section>
 	);

@@ -1,6 +1,19 @@
 import "@shikijs/twoslash/style-rich.css";
 import { createRootRoute, createRoute, createRouter, Navigate, Outlet } from "@tanstack/solid-router";
-import * as SolidUI from "@wrikka/solid-ui";
+import {
+	buildCssTransition,
+	buildIpxUrl,
+	buildTransformString,
+	Card,
+	createTextField,
+	FormField,
+	Image,
+	Input,
+	mergeTransitionOptions,
+	Table,
+	Transition,
+	textColumn,
+} from "@wrikka/solid-ui";
 import { ErrorBoundary, For } from "solid-js";
 import { CliPage } from "./components/CliPage";
 import { CodeBlock } from "./components/CodeBlock";
@@ -106,7 +119,7 @@ function SkillsPageWrapper() {
 }
 
 function FormDemo() {
-	const field = SolidUI.createTextField("email", "Email", {
+	const field = createTextField("email", "Email", {
 		placeholder: "Enter your email",
 	});
 	const payload = JSON.stringify(field, null, 2);
@@ -119,9 +132,9 @@ function FormDemo() {
 			/>
 			<h2 class="text-2xl font-bold tracking-tight mb-4">Form field factory</h2>
 			<div class="rounded-xl border border-border bg-surface p-6 mb-4">
-				<SolidUI.FormField label={field.label} htmlFor="email">
-					<SolidUI.Input id="email" type="email" placeholder={field.placeholder} />
-				</SolidUI.FormField>
+				<FormField label={field.label} htmlFor="email">
+					<Input id="email" type="email" placeholder={field.placeholder} />
+				</FormField>
 			</div>
 			<CodeBlock code={payload} language="json" />
 		</section>
@@ -129,8 +142,8 @@ function FormDemo() {
 }
 
 function TableDemo() {
-	const column = SolidUI.textColumn("email", "Email");
-	const columns = [column, SolidUI.textColumn("name", "Name"), SolidUI.textColumn("role", "Role")];
+	const column = textColumn("email", "Email");
+	const columns = [column, textColumn("name", "Name"), textColumn("role", "Role")];
 	const rows = [
 		{ email: "a@example.com", name: "Alice", role: "Admin" },
 		{ email: "b@example.com", name: "Bob", role: "Editor" },
@@ -145,7 +158,7 @@ function TableDemo() {
 				path="/table"
 			/>
 			<h2 class="text-2xl font-bold tracking-tight mb-4">Table column builder</h2>
-			<SolidUI.Table class="w-full text-sm">
+			<Table class="w-full text-sm">
 				<thead>
 					<tr>
 						<For each={columns}>{(col) => <th class="border-b px-4 py-3 text-left font-medium">{col.header}</th>}</For>
@@ -162,19 +175,19 @@ function TableDemo() {
 						)}
 					</For>
 				</tbody>
-			</SolidUI.Table>
+			</Table>
 			<CodeBlock code={payload} language="json" />
 		</section>
 	);
 }
 
 function ImageDemo() {
-	const transform = SolidUI.buildTransformString({
+	const transform = buildTransformString({
 		width: 400,
 		format: "webp",
 		quality: 80,
 	});
-	const url = SolidUI.buildIpxUrl(PLACEHOLDER_IMAGE_SRC, transform);
+	const url = buildIpxUrl(PLACEHOLDER_IMAGE_SRC, transform);
 	return (
 		<section class="page">
 			<Seo
@@ -183,7 +196,7 @@ function ImageDemo() {
 				path="/image"
 			/>
 			<h2 class="text-2xl font-bold tracking-tight mb-4">Image URL builder</h2>
-			<SolidUI.Image
+			<Image
 				src={url}
 				alt="Demo"
 				class="rounded-lg border border-border max-w-full"
@@ -197,7 +210,7 @@ function ImageDemo() {
 }
 
 function TransitionsDemo() {
-	const css = SolidUI.buildCssTransition(SolidUI.mergeTransitionOptions({ duration: 300, easing: "ease-in-out" }));
+	const css = buildCssTransition(mergeTransitionOptions({ duration: 300, easing: "ease-in-out" }));
 	return (
 		<section class="page">
 			<Seo
@@ -206,9 +219,9 @@ function TransitionsDemo() {
 				path="/transitions"
 			/>
 			<h2 class="text-2xl font-bold tracking-tight mb-4">Transition CSS</h2>
-			<SolidUI.Transition class="rounded-xl border border-border bg-surface p-6" style={css}>
-				<SolidUI.Card>Fades with CSS transition</SolidUI.Card>
-			</SolidUI.Transition>
+			<Transition class="rounded-xl border border-border bg-surface p-6" style={css}>
+				<Card>Fades with CSS transition</Card>
+			</Transition>
 			<CodeBlock code={css} language="css" />
 		</section>
 	);

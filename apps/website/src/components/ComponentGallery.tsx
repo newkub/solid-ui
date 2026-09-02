@@ -17,7 +17,7 @@ import {
 	sortFn_alphanumeric,
 	tableFeatures,
 } from "@tanstack/solid-table";
-import { registry } from "@wrikka/solid-ui";
+import { registry } from "@wrikka/solid-ui/registry";
 import { createEffect, createSignal, For, Show } from "solid-js";
 import { categories } from "../categories";
 import { useDebounce } from "../hooks/useDebounce";

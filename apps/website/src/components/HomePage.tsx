@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/solid-router";
-import { registry } from "@wrikka/solid-ui";
+import { registry } from "@wrikka/solid-ui/registry";
 import { For } from "solid-js";
 import { categories } from "../categories";
 import { Seo } from "./Seo";

@@ -1,8 +1,12 @@
 import { useLocation, useNavigate } from "@tanstack/solid-router";
-import { createEffect, createMemo, createSignal, For, type JSX, Show } from "solid-js";
+import { createEffect, createMemo, createSignal, For, type JSX, lazy, Show, Suspense } from "solid-js";
 import { buildCommands, type Command } from "../lib/commands";
 import { GITHUB_REPO_URL } from "../lib/config";
-import { ComponentPreview } from "./ComponentPreview";
+
+const ComponentPreview = lazy(async () => {
+	const mod = await import("./ComponentPreview");
+	return { default: mod.ComponentPreview };
+});
 
 interface CommandPaletteProps {
 	open: boolean;
@@ -220,7 +224,9 @@ function CommandPreviewCard(props: {
 									}`}
 								>
 									<div class="mb-2 text-xs font-semibold text-muted-foreground">Component preview</div>
-									<ComponentPreview name={component().name} tag={component().tag} />
+									<Suspense fallback={<div class="text-sm text-muted-foreground">Loading preview…</div>}>
+										<ComponentPreview name={component().name} tag={component().tag} />
+									</Suspense>
 								</div>
 							)}
 						</Show>
