@@ -304,7 +304,7 @@ function SearchButton(props: { onClick: () => void; class?: string; collapsed?: 
 			</svg>
 			<Show when={!props.collapsed}>
 				<span class="hidden sm:inline">Search…</span>
-				<kbd class="hidden rounded bg-muted px-1.5 py-0.5 text-[10px] font-semibold text-muted-foreground lg:inline">
+				<kbd class="hidden rounded bg-muted px-1.5 py-0.5 text-2xs font-semibold text-muted-foreground lg:inline">
 					{isApplePlatform() ? "⌘K" : "Ctrl+K"}
 				</kbd>
 			</Show>

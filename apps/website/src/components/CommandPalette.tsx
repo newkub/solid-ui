@@ -192,17 +192,17 @@ function CommandPreviewCard(props: {
 								<div class="flex flex-wrap items-center gap-2">
 									<h3 class="text-lg font-semibold text-foreground">{command().label}</h3>
 									<Show when={props.current}>
-										<span class="rounded bg-primary px-1.5 py-0.5 text-[10px] font-semibold text-primary-foreground">
+										<span class="rounded bg-primary px-1.5 py-0.5 text-2xs font-semibold text-primary-foreground">
 											Current
 										</span>
 									</Show>
 								</div>
 								<div class="mt-1 flex flex-wrap items-center gap-2">
-									<span class="inline-flex rounded-full border border-border bg-muted px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">
+									<span class="inline-flex rounded-full border border-border bg-muted px-2 py-0.5 text-2xs font-semibold uppercase tracking-wide text-muted-foreground">
 										{command().group}
 									</span>
 									<span
-										class={`inline-flex rounded-full px-2 py-0.5 text-[10px] font-medium ${
+										class={`inline-flex rounded-full px-2 py-0.5 text-2xs font-medium ${
 											isExec() ? "bg-accent text-accent-foreground" : "bg-secondary text-secondary-foreground"
 										}`}
 									>
@@ -244,7 +244,7 @@ function CommandPreviewCard(props: {
 									<div class="min-w-0 flex-1">
 										<p class="truncate text-sm font-medium text-foreground">{command().label}</p>
 										<Show when={navigateTo()}>
-											<code class="block truncate text-[10px] text-muted-foreground">{navigateTo()}</code>
+											<code class="block truncate text-2xs text-muted-foreground">{navigateTo()}</code>
 										</Show>
 									</div>
 								</div>
@@ -267,7 +267,7 @@ function CommandPreviewCard(props: {
 								<div class="flex flex-wrap gap-1.5">
 									<For each={keywordList()}>
 										{(kw) => (
-											<span class="inline-flex rounded-full border border-border bg-muted px-2 py-0.5 text-[10px] text-muted-foreground">
+											<span class="inline-flex rounded-full border border-border bg-muted px-2 py-0.5 text-2xs text-muted-foreground">
 												{kw}
 											</span>
 										)}

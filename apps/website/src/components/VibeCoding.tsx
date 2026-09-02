@@ -160,9 +160,7 @@ export function VibeCoding() {
 							>
 								<div class="mb-1 flex items-center justify-between">
 									<span class="font-semibold uppercase tracking-wide text-muted-foreground">{entry.type}</span>
-									<span class="text-[10px] text-muted-foreground">
-										{new Date(entry.timestamp).toLocaleTimeString()}
-									</span>
+									<span class="text-2xs text-muted-foreground">{new Date(entry.timestamp).toLocaleTimeString()}</span>
 								</div>
 								<p class="whitespace-pre-wrap text-foreground">{entry.message}</p>
 							</div>

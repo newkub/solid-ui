@@ -146,7 +146,7 @@ export function DevTools(props: DevToolsProps) {
 						<span class="text-sm font-semibold text-foreground">Dev tools</span>
 					</div>
 					<div class="flex items-center gap-1.5">
-						<span class="rounded bg-primary px-1.5 py-0.5 text-[10px] font-semibold text-primary-foreground">
+						<span class="rounded bg-primary px-1.5 py-0.5 text-2xs font-semibold text-primary-foreground">
 							{breakpoint()}
 						</span>
 						<button

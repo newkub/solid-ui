@@ -214,7 +214,7 @@ function SampleCalendar() {
 function SampleTerminal() {
 	return (
 		<SolidUI.Terminal
-			class="max-h-28 w-full overflow-hidden text-[10px]"
+			class="max-h-28 w-full overflow-hidden text-2xs"
 			showPrompt
 			lines={[{ content: "bun run build" }, { content: "✓ built in 3.15s", variant: "success" }]}
 		/>
@@ -245,7 +245,7 @@ function SampleCommand() {
 function SampleForm() {
 	return (
 		<div class="w-full space-y-1.5 text-left">
-			<div class="text-[10px] font-medium text-muted-foreground">Label</div>
+			<div class="text-2xs font-medium text-muted-foreground">Label</div>
 			<div class="h-7 w-full rounded border border-border bg-background" />
 		</div>
 	);
@@ -564,7 +564,7 @@ function SampleScrollArea(C: AnyComp) {
 function SampleResizable(C: AnyComp) {
 	const [sizes, setSizes] = createSignal<number[]>([40, 60]);
 	return (
-		<C direction="horizontal" onResize={setSizes} class="h-24 w-full" style={{ height: "96px" }}>
+		<C direction="horizontal" onResize={setSizes} class="h-24 w-full">
 			<SolidUI.ResizablePanel defaultSize={sizes()[0]} class="flex items-center justify-center text-xs">
 				Panel A
 			</SolidUI.ResizablePanel>
