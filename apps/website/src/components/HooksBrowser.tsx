@@ -178,7 +178,7 @@ const columns = columnHelper.columns([
 		id: "source",
 		header: "Source / Snippet",
 		cell: ({ row }) => (
-			<div class="min-w-[20rem]">
+			<div class="min-w-80">
 				<Show when={row.original.isExternal}>
 					<div class="mb-1 text-xs text-muted-foreground">Example usage</div>
 				</Show>
@@ -228,7 +228,7 @@ function HooksListView(props: { table: ReturnType<typeof createTable<typeof feat
 									<tr class="hover:bg-muted/50">
 										<For each={row.getVisibleCells()}>
 											{(cell) => (
-												<td class={`px-4 py-3 align-top ${cell.column.id === "source" ? "min-w-[20rem]" : ""}`}>
+												<td class={`px-4 py-3 align-top ${cell.column.id === "source" ? "min-w-80" : ""}`}>
 													<FlexRender cell={cell} />
 												</td>
 											)}

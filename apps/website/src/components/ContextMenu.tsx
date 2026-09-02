@@ -47,7 +47,7 @@ export function ContextMenu(props: ContextMenuProps) {
 			{props.children}
 			<Show when={open()}>
 				<ul
-					class="fixed z-popover min-w-[10rem] rounded-lg border border-border bg-surface p-1 shadow-lg"
+					class="fixed z-popover min-w-40 rounded-lg border border-border bg-surface p-1 shadow-lg"
 					style={{
 						left: `${pos().x}px`,
 						top: `${pos().y}px`,

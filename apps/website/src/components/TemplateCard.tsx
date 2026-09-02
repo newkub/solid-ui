@@ -38,7 +38,7 @@ export function TemplateCard(props: { entry: TemplateEntry }) {
 			</div>
 			{snippet() && (
 				<div class="overflow-hidden rounded-lg border border-border bg-background p-3">
-					<pre class="overflow-x-auto font-mono text-[11px] leading-relaxed text-foreground">
+					<pre class="overflow-x-auto font-mono text-2xs leading-relaxed text-foreground">
 						<code>{snippet()}</code>
 					</pre>
 				</div>
