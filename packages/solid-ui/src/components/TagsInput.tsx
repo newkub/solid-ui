@@ -81,7 +81,7 @@ export function TagsInput(props: TagsInputProps) {
 				onChange={setInput}
 				onKeyDown={onKeyDown}
 				placeholder={local.placeholder}
-				class={`min-w-[80px] flex-1 border-0 bg-transparent p-0 focus-visible:ring-0 ${local.inputClass ?? ""}`}
+				class={`min-w-20 flex-1 border-0 bg-transparent p-0 focus-visible:ring-0 ${local.inputClass ?? ""}`}
 				aria-label="Add a tag"
 			/>
 		</div>

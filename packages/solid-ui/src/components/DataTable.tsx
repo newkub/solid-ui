@@ -78,21 +78,28 @@ export function DataTable(props: DataTableProps) {
 								<tr>
 									<For each={headerGroup.headers}>
 										{(header) => (
-											<th
-												class="px-4 py-3 text-left font-semibold text-foreground"
-												classList={{
-													"cursor-pointer select-none hover:text-primary": local.sortable,
-												}}
-												onClick={local.sortable ? header.column.getToggleSortingHandler() : undefined}
-											>
-												<span class="inline-flex items-center gap-1">
-													<FlexRender header={header as any} />
-													<Show when={local.sortable && header.column.getIsSorted()}>
-														<span class="text-muted-foreground">
-															{sortIcon(header.column.getIsSorted() as "asc" | "desc" | false)}
-														</span>
-													</Show>
-												</span>
+											<th class="px-4 py-3 text-left">
+												<button
+													type="button"
+													disabled={!local.sortable}
+													class="w-full bg-transparent p-0 text-left font-semibold text-foreground"
+													classList={{
+														"cursor-pointer select-none hover:text-primary": local.sortable,
+													}}
+													onClick={local.sortable ? header.column.getToggleSortingHandler() : undefined}
+													aria-label={
+														local.sortable ? `Sort by ${String(header.column.columnDef.header ?? "column")}` : undefined
+													}
+												>
+													<span class="inline-flex items-center gap-1">
+														<FlexRender header={header as any} />
+														<Show when={local.sortable && header.column.getIsSorted()}>
+															<span class="text-muted-foreground">
+																{sortIcon(header.column.getIsSorted() as "asc" | "desc" | false)}
+															</span>
+														</Show>
+													</span>
+												</button>
 											</th>
 										)}
 									</For>
@@ -101,19 +108,30 @@ export function DataTable(props: DataTableProps) {
 						</For>
 					</thead>
 					<tbody class="divide-y divide-border">
-						<For each={anyTable.getRowModel().rows}>
-							{(row) => (
-								<tr class="hover:bg-muted/50">
-									<For each={row.getVisibleCells()}>
-										{(cell) => (
-											<td class="px-4 py-3 align-top">
-												<FlexRender cell={cell as any} />
-											</td>
-										)}
-									</For>
+						<Show
+							when={anyTable.getRowModel().rows.length > 0}
+							fallback={
+								<tr>
+									<td class="px-4 py-3 text-center text-muted-foreground" colSpan={anyTable.getAllColumns().length}>
+										No data
+									</td>
 								</tr>
-							)}
-						</For>
+							}
+						>
+							<For each={anyTable.getRowModel().rows}>
+								{(row) => (
+									<tr class="hover:bg-muted/50">
+										<For each={row.getVisibleCells()}>
+											{(cell) => (
+												<td class="px-4 py-3 align-top">
+													<FlexRender cell={cell as any} />
+												</td>
+											)}
+										</For>
+									</tr>
+								)}
+							</For>
+						</Show>
 					</tbody>
 				</table>
 			</div>

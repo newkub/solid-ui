@@ -1,5 +1,6 @@
 import { createSignal, type JSX, mergeProps, onCleanup, onMount, Show } from "solid-js";
 import { Portal } from "solid-js/web";
+import { createFocusTrap } from "../hooks/useFocusTrap";
 
 export type DrawerSide = "left" | "right" | "top" | "bottom";
 
@@ -45,6 +46,7 @@ const sideMap: Record<DrawerSide, SideStyle> = {
 function DrawerPanel(props: DrawerProps) {
 	const [mounted, setMounted] = createSignal(false);
 	const style = () => sideMap[props.side ?? "right"];
+	let contentRef: HTMLDivElement | undefined;
 
 	onMount(() => {
 		setMounted(true);
@@ -54,7 +56,14 @@ function DrawerPanel(props: DrawerProps) {
 			}
 		}
 		document.addEventListener("keydown", onKeyDown);
-		onCleanup(() => document.removeEventListener("keydown", onKeyDown));
+
+		const trap = contentRef ? createFocusTrap(contentRef) : null;
+		trap?.activate();
+
+		onCleanup(() => {
+			document.removeEventListener("keydown", onKeyDown);
+			trap?.deactivate();
+		});
 	});
 
 	return (
@@ -65,6 +74,8 @@ function DrawerPanel(props: DrawerProps) {
 				aria-hidden="true"
 			/>
 			<div
+				ref={(el) => (contentRef = el)}
+				tabIndex={-1}
 				class={`fixed z-modal rounded-xl border border-border bg-surface p-6 shadow-lg transition-transform duration-300 ease-out ${style().container} ${mounted() ? style().open : style().closed} ${props.class ?? ""}`}
 				role="dialog"
 				aria-modal="true"

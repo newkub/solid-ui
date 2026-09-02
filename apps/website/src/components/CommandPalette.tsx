@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from "@tanstack/solid-router";
 import { createEffect, createMemo, createSignal, For, type JSX, Show } from "solid-js";
 import { buildCommands, type Command } from "../lib/commands";
+import { GITHUB_REPO_URL } from "../lib/config";
 import { ComponentPreview } from "./ComponentPreview";
 
 interface CommandPaletteProps {
@@ -325,7 +326,7 @@ export function CommandPalette(props: CommandPaletteProps) {
 			description: "Open the solid-ui repository on GitHub",
 			action: {
 				type: "exec",
-				handler: () => window.open("https://github.com/newkub/solid-ui", "_blank", "noopener,noreferrer"),
+				handler: () => window.open(GITHUB_REPO_URL, "_blank", "noopener,noreferrer"),
 			},
 		},
 	];
@@ -452,7 +453,7 @@ export function CommandPalette(props: CommandPaletteProps) {
 				}}
 				onKeyDown={onKeyDown}
 			>
-				<div class="w-full max-w-4xl overflow-hidden rounded-xl border border-border bg-surface shadow-2xl">
+				<div class="w-full max-w-5xl overflow-hidden rounded-2xl border border-border bg-surface shadow-2xl">
 					<div class="flex items-center gap-3 border-b border-border px-4 py-3">
 						<SearchIcon />
 						<input
@@ -526,6 +527,10 @@ export function CommandPalette(props: CommandPaletteProps) {
 																				aria-hidden="true"
 																			/>
 																		</Show>
+																		<KindIcon
+																			kind={commandKind(command)}
+																			class={`h-4 w-4 shrink-0 ${active ? "text-primary-foreground/80" : "text-muted-foreground"}`}
+																		/>
 																		{highlightText(command.label, query(), active)}
 																	</div>
 																	<Show when={current()}>

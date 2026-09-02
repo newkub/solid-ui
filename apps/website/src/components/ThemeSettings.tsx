@@ -230,7 +230,6 @@ export function ThemeSettings() {
 			<FontSection font={state().font} />
 			<SpaceSection space={state().space} />
 			<RadiusSection radius={state().radius} />
-			<LivePreviewSection />
 		</>
 	);
 }

@@ -57,8 +57,23 @@ export function Calendar(props: CalendarProps) {
 
 	const weekDays = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
 
+	const onDayKeyDown = (e: KeyboardEvent, day: number) => {
+		if (!["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(e.key)) return;
+		e.preventDefault();
+		const total = days();
+		const moves: Record<string, number> = { ArrowLeft: -1, ArrowRight: 1, ArrowUp: -7, ArrowDown: 7 };
+		let next = day + (moves[e.key] ?? 0);
+		if (next < 1) next = 1;
+		if (next > total) next = total;
+		const el = document.getElementById(`calendar-day-${next}`);
+		el?.focus();
+	};
+
 	return (
-		<div class={`w-full rounded-xl border border-border bg-surface p-4 shadow-sm ${props.class ?? ""}`}>
+		<section
+			class={`w-full rounded-xl border border-border bg-surface p-4 shadow-sm ${props.class ?? ""}`}
+			aria-label="Calendar"
+		>
 			<div class="mb-3 flex items-center justify-between">
 				<button
 					type="button"
@@ -79,7 +94,7 @@ export function Calendar(props: CalendarProps) {
 				</button>
 			</div>
 			<div class="grid grid-cols-7 gap-1 text-center text-xs text-muted-foreground">
-				<For each={weekDays}>{(d) => <div>{d}</div>}</For>
+				<For each={weekDays}>{(d) => <div aria-hidden="true">{d}</div>}</For>
 			</div>
 			<div class="mt-1 grid grid-cols-7 gap-1 text-center text-sm">
 				<For each={weeks()}>
@@ -93,7 +108,9 @@ export function Calendar(props: CalendarProps) {
 								return (
 									<button
 										type="button"
+										id={`calendar-day-${day}`}
 										onClick={() => selectDate(day)}
+										onKeyDown={(e) => onDayKeyDown(e, day)}
 										class={`inline-flex h-8 w-8 items-center justify-center rounded-full text-xs transition-colors ${
 											isSelected
 												? "bg-primary text-primary-foreground"
@@ -101,6 +118,9 @@ export function Calendar(props: CalendarProps) {
 													? "border border-primary text-primary"
 													: "text-foreground hover:bg-muted"
 										}`}
+										aria-label={`${monthLabel()} ${day}`}
+										aria-pressed={isSelected}
+										aria-current={isToday ? "date" : undefined}
 									>
 										{day}
 									</button>
@@ -110,6 +130,6 @@ export function Calendar(props: CalendarProps) {
 					)}
 				</For>
 			</div>
-		</div>
+		</section>
 	);
 }

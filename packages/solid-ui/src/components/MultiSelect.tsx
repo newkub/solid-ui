@@ -105,7 +105,7 @@ export function MultiSelect(props: MultiSelectProps) {
 							<button
 								type="button"
 								aria-label={`Remove ${option.label}`}
-								class="ml-0.5 inline-flex h-3.5 w-3.5 items-center justify-center rounded-full text-primary-foreground hover:bg-primary-foreground/20"
+								class="ml-0.5 inline-flex h-4 w-4 items-center justify-center rounded-full p-1 text-primary-foreground transition-colors hover:bg-primary-foreground/20 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary-foreground focus-visible:ring-offset-1 focus-visible:ring-offset-primary"
 								onClick={() => toggle(option.value)}
 							>
 								×

@@ -21,7 +21,6 @@ export function Image(props: ImageProps) {
 	};
 
 	const fallbackContent = () => {
-		if (local.fallback === undefined) return null;
 		if (typeof local.fallback === "string") {
 			return (
 				<div class="flex h-full w-full items-center justify-center rounded-md bg-muted text-muted-foreground">
@@ -29,12 +28,17 @@ export function Image(props: ImageProps) {
 				</div>
 			);
 		}
-		return local.fallback;
+		if (local.fallback !== undefined) return local.fallback;
+		return (
+			<div class="flex h-full w-full items-center justify-center rounded-md border border-dashed border-border bg-muted text-sm text-muted-foreground">
+				Image failed to load
+			</div>
+		);
 	};
 
 	return (
 		<Show when={!error() && local.src} fallback={fallbackContent()}>
-			<img class={className()} src={local.src} alt={local.alt} onError={handleError} {...rest} />
+			<img class={className()} src={local.src} alt={local.alt ?? ""} onError={handleError} {...rest} />
 		</Show>
 	);
 }

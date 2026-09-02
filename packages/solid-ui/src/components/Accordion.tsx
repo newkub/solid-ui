@@ -1,5 +1,7 @@
 import { children, createSignal, type JSX, Show, splitProps } from "solid-js";
 
+let accordionId = 0;
+
 export interface AccordionItemProps {
 	title: JSX.Element;
 	children: JSX.Element;
@@ -9,14 +11,19 @@ export interface AccordionItemProps {
 export function AccordionItem(props: AccordionItemProps) {
 	const [open, setOpen] = createSignal(props.defaultOpen ?? false);
 	const content = children(() => props.children);
+	const id = `accordion-item-${++accordionId}`;
+	const triggerId = `${id}-trigger`;
+	const contentId = `${id}-content`;
 
 	return (
 		<div class="border-b border-border last:border-b-0">
 			<button
 				type="button"
+				id={triggerId}
 				class="flex w-full items-center justify-between py-3 text-sm font-medium transition-colors hover:text-foreground"
 				onClick={() => setOpen((v) => !v)}
 				aria-expanded={open()}
+				aria-controls={contentId}
 			>
 				<span class="text-foreground">{props.title}</span>
 				<svg
@@ -31,7 +38,9 @@ export function AccordionItem(props: AccordionItemProps) {
 				</svg>
 			</button>
 			<Show when={open()}>
-				<div class="pb-3 text-sm text-muted-foreground">{content()}</div>
+				<section id={contentId} class="pb-3 text-sm text-muted-foreground" aria-labelledby={triggerId}>
+					{content()}
+				</section>
 			</Show>
 		</div>
 	);

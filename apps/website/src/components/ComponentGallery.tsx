@@ -21,7 +21,6 @@ import { registry } from "@wrikka/solid-ui";
 import { createEffect, createSignal, For, Show } from "solid-js";
 import { categories } from "../categories";
 import { useDebounce } from "../hooks/useDebounce";
-import { ComponentCard } from "./ComponentCard";
 
 interface ComponentItem {
 	name: string;
@@ -157,16 +156,7 @@ function GalleryToolbar(props: {
 	onCategoryFilterChange: (value: string) => void;
 	groupBy: boolean;
 	onGroupByChange: (enabled: boolean) => void;
-	view: "grid" | "list" | "timeline" | "pinterest";
-	onViewChange: (view: "grid" | "list" | "timeline" | "pinterest") => void;
 }) {
-	const viewOptions: { id: "grid" | "list" | "timeline" | "pinterest"; label: string }[] = [
-		{ id: "grid", label: "Grid" },
-		{ id: "list", label: "List" },
-		{ id: "timeline", label: "Timeline" },
-		{ id: "pinterest", label: "Pinterest" },
-	];
-
 	return (
 		<div class="mb-6 flex flex-col gap-3 rounded-xl border border-border bg-surface p-4 sm:flex-row sm:items-center sm:justify-between">
 			<div class="flex flex-1 flex-col gap-3 sm:flex-row sm:items-center">
@@ -196,23 +186,6 @@ function GalleryToolbar(props: {
 					<option value="none">No grouping</option>
 					<option value="category">Group by category</option>
 				</select>
-			</div>
-			<div class="grid grid-cols-2 gap-1 rounded-lg border border-border bg-background p-1 sm:flex sm:items-center">
-				<For each={viewOptions}>
-					{(opt) => (
-						<button
-							type="button"
-							class={`rounded-md px-3 py-1.5 text-sm font-medium transition-colors w-full sm:w-auto ${
-								props.view === opt.id ? "bg-primary text-primary-foreground" : "text-foreground hover:bg-muted"
-							}`}
-							onClick={() => props.onViewChange(opt.id)}
-							aria-pressed={props.view === opt.id}
-							aria-label={`Switch to ${opt.label} view`}
-						>
-							{opt.label}
-						</button>
-					)}
-				</For>
 			</div>
 		</div>
 	);
@@ -282,90 +255,6 @@ function GalleryListView(props: { table: ReturnType<typeof createTable<typeof fe
 	);
 }
 
-function GalleryGridView(props: { table: ReturnType<typeof createTable<typeof features, ComponentItem>> }) {
-	return (
-		<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-			<For each={props.table.getRowModel().rows}>
-				{(row) => (
-					<Show when={!row.getParentRow()}>
-						<Show when={row.getIsGrouped()} fallback={<ComponentCard name={row.original.name} />}>
-							<div class="col-span-full w-full">
-								<button
-									type="button"
-									class="my-3 flex w-full items-center gap-2 text-left text-lg font-semibold"
-									onClick={row.getToggleExpandedHandler()}
-								>
-									<span>{row.getIsExpanded() ? "−" : "+"}</span>
-									<span>{row.getValue("categoryLabel") as string}</span>
-									<span class="text-sm text-muted-foreground">({row.subRows.length})</span>
-								</button>
-								<Show when={row.getIsExpanded()}>
-									<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-										<For each={row.subRows}>{(sub) => <ComponentCard name={sub.original.name} />}</For>
-									</div>
-								</Show>
-							</div>
-						</Show>
-					</Show>
-				)}
-			</For>
-		</div>
-	);
-}
-
-function flatLeafRows(table: ReturnType<typeof createTable<typeof features, ComponentItem>>) {
-	const rows = table.getRowModel().rows;
-	const result: { original: ComponentItem }[] = [];
-	function walk(sub: typeof rows) {
-		for (const row of sub) {
-			if (row.subRows.length) {
-				walk(row.subRows);
-			} else {
-				result.push({ original: row.original });
-			}
-		}
-	}
-	walk(rows);
-	return result;
-}
-
-function GalleryPinterestView(props: { table: ReturnType<typeof createTable<typeof features, ComponentItem>> }) {
-	const items = () => flatLeafRows(props.table);
-	return (
-		<div class="columns-1 gap-4 sm:columns-2 lg:columns-3 xl:columns-4">
-			<For each={items()}>
-				{({ original }) => (
-					<div class="break-inside-avoid mb-4">
-						<ComponentCard name={original.name} />
-					</div>
-				)}
-			</For>
-		</div>
-	);
-}
-
-function GalleryTimelineView(props: { table: ReturnType<typeof createTable<typeof features, ComponentItem>> }) {
-	const items = () => flatLeafRows(props.table);
-	return (
-		<div class="relative pl-4 md:pl-6">
-			<div class="absolute bottom-0 left-4 top-0 w-px bg-border md:left-6" aria-hidden="true" />
-			<div class="space-y-6 pl-8 md:pl-12">
-				<For each={items()}>
-					{({ original }) => (
-						<div class="relative">
-							<div
-								class="absolute -left-10 top-4 h-3 w-3 -translate-x-1/2 rounded-full border-2 border-surface bg-primary md:-left-12"
-								aria-hidden="true"
-							/>
-							<ComponentCard name={original.name} />
-						</div>
-					)}
-				</For>
-			</div>
-		</div>
-	);
-}
-
 function GalleryHeading(props: { table: ReturnType<typeof createTable<typeof features, ComponentItem>> }) {
 	const count = () => props.table.getPreFilteredRowModel().rows.length;
 	return (
@@ -415,26 +304,11 @@ function EmptyState(props: { onClear: () => void }) {
 
 function GalleryResults(props: {
 	table: ReturnType<typeof createTable<typeof features, ComponentItem>>;
-	view: "grid" | "list" | "timeline" | "pinterest";
 	onClear: () => void;
 }) {
 	return (
 		<Show when={props.table.getRowModel().rows.length > 0} fallback={<EmptyState onClear={props.onClear} />}>
-			<Show when={props.view === "list"}>
-				<GalleryListView table={props.table} />
-			</Show>
-
-			<Show when={props.view === "grid"}>
-				<GalleryGridView table={props.table} />
-			</Show>
-
-			<Show when={props.view === "timeline"}>
-				<GalleryTimelineView table={props.table} />
-			</Show>
-
-			<Show when={props.view === "pinterest"}>
-				<GalleryPinterestView table={props.table} />
-			</Show>
+			<GalleryListView table={props.table} />
 		</Show>
 	);
 }
@@ -445,7 +319,6 @@ export function ComponentGallery(props: { withHero?: boolean }) {
 	const search = useSearch({ strict: false });
 
 	const [data] = createSignal(allItems);
-	const [view, setView] = createSignal<"grid" | "list" | "timeline" | "pinterest">("grid");
 	const [groupBy, setGroupBy] = createSignal(true);
 	const [globalFilter, setGlobalFilter] = createSignal("");
 	const [categoryFilter, setCategoryFilter] = createSignal(search().category ?? "");
@@ -518,11 +391,9 @@ export function ComponentGallery(props: { withHero?: boolean }) {
 				onCategoryFilterChange={updateCategoryFilter}
 				groupBy={groupBy()}
 				onGroupByChange={toggleGroupBy}
-				view={view()}
-				onViewChange={setView}
 			/>
 
-			<GalleryResults table={table} view={view()} onClear={clearFilters} />
+			<GalleryResults table={table} onClear={clearFilters} />
 		</section>
 	);
 }

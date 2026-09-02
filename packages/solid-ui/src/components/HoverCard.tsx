@@ -17,6 +17,7 @@ export function HoverCard(props: HoverCardProps) {
 	const [pos, setPos] = createSignal({ top: 0, left: 0 });
 	let triggerRef: HTMLButtonElement | undefined;
 	let closeTimer: number | undefined;
+	const contentId = "hover-card-content";
 
 	const open = () => (local.open !== undefined ? local.open : internal());
 
@@ -55,6 +56,10 @@ export function HoverCard(props: HoverCardProps) {
 
 	const className = () => ["relative inline-block", local.class ?? ""].filter(Boolean).join(" ");
 
+	const onContentKeyDown = (e: KeyboardEvent) => {
+		if (e.key === "Escape") setOpen(false);
+	};
+
 	return (
 		<div class={className()} {...rest}>
 			<button
@@ -64,18 +69,23 @@ export function HoverCard(props: HoverCardProps) {
 				onMouseLeave={onLeave}
 				onFocus={onEnter}
 				onBlur={onLeave}
+				aria-haspopup="dialog"
+				aria-expanded={open()}
+				aria-controls={contentId}
 			>
 				{local.children}
 			</button>
 			<Show when={open()}>
 				<Portal>
 					<div
+						id={contentId}
 						class="fixed z-popover min-w-[12rem] max-w-xs rounded-xl border border-border bg-surface p-4 shadow-md"
 						style={{ top: `${pos().top}px`, left: `${pos().left}px` }}
 						onMouseEnter={onEnter}
 						onMouseLeave={onLeave}
 						onFocus={onEnter}
 						onBlur={onLeave}
+						onKeyDown={onContentKeyDown}
 						role="dialog"
 						aria-label="Hover card"
 					>

@@ -1,5 +1,6 @@
 import { type JSX, mergeProps, onCleanup, onMount, Show } from "solid-js";
 import { Portal } from "solid-js/web";
+import { createFocusTrap } from "../hooks/useFocusTrap";
 import { Button } from "./Button";
 
 export interface AlertDialogProps {
@@ -18,6 +19,8 @@ export interface AlertDialogProps {
 function AlertDialogContent(
 	props: Required<Pick<AlertDialogProps, "confirmLabel" | "cancelLabel">> & AlertDialogProps,
 ) {
+	let contentRef: HTMLDivElement | undefined;
+
 	onMount(() => {
 		function onKeyDown(e: KeyboardEvent) {
 			if (e.key === "Escape") {
@@ -26,7 +29,14 @@ function AlertDialogContent(
 			}
 		}
 		document.addEventListener("keydown", onKeyDown);
-		onCleanup(() => document.removeEventListener("keydown", onKeyDown));
+
+		const trap = contentRef ? createFocusTrap(contentRef) : null;
+		trap?.activate();
+
+		onCleanup(() => {
+			document.removeEventListener("keydown", onKeyDown);
+			trap?.deactivate();
+		});
 	});
 
 	const handleConfirm = () => {
@@ -44,6 +54,8 @@ function AlertDialogContent(
 			<div class="fixed inset-0 z-modal-backdrop bg-overlay/80" onClick={handleCancel} aria-hidden="true" />
 			<div class="fixed inset-0 z-modal flex items-center justify-center p-4 pointer-events-none" role="presentation">
 				<div
+					ref={(el) => (contentRef = el)}
+					tabIndex={-1}
 					class={`pointer-events-auto relative max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-xl border border-border bg-surface p-6 shadow-lg ${props.class ?? ""}`}
 					role="alertdialog"
 					aria-modal="true"

@@ -71,6 +71,21 @@ export function ContextMenu(props: ContextMenuProps) {
 
 	const className = () => ["inline-block", local.class ?? ""].filter(Boolean).join(" ");
 
+	const updatePositionFromTrigger = () => {
+		const rect = areaRef?.getBoundingClientRect();
+		if (rect) {
+			setPos({ x: rect.left, y: rect.bottom });
+		}
+	};
+
+	const onTriggerKeyDown = (e: KeyboardEvent) => {
+		if (e.key === "Enter" || e.key === " ") {
+			e.preventDefault();
+			updatePositionFromTrigger();
+			setOpen(true);
+		}
+	};
+
 	return (
 		<>
 			<button
@@ -78,7 +93,9 @@ export function ContextMenu(props: ContextMenuProps) {
 				class={className()}
 				ref={areaRef}
 				onContextMenu={onContextMenu}
+				onKeyDown={onTriggerKeyDown}
 				aria-haspopup="menu"
+				aria-expanded={open()}
 				{...rest}
 			>
 				{local.children}
@@ -90,6 +107,7 @@ export function ContextMenu(props: ContextMenuProps) {
 						style={{ top: `${pos().y}px`, left: `${pos().x}px` }}
 						ref={contentRef}
 						role="menu"
+						aria-label="Context menu"
 						aria-orientation="vertical"
 					>
 						<For each={local.items}>

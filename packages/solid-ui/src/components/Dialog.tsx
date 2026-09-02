@@ -1,5 +1,6 @@
 import { type JSX, mergeProps, onCleanup, onMount, Show } from "solid-js";
 import { Portal } from "solid-js/web";
+import { createFocusTrap } from "../hooks/useFocusTrap";
 
 export interface DialogProps {
 	open?: boolean;
@@ -11,6 +12,8 @@ export interface DialogProps {
 }
 
 function DialogContent(props: DialogProps) {
+	let contentRef: HTMLDivElement | undefined;
+
 	onMount(() => {
 		function onKeyDown(e: KeyboardEvent) {
 			if (e.key === "Escape") {
@@ -18,7 +21,14 @@ function DialogContent(props: DialogProps) {
 			}
 		}
 		document.addEventListener("keydown", onKeyDown);
-		onCleanup(() => document.removeEventListener("keydown", onKeyDown));
+
+		const trap = contentRef ? createFocusTrap(contentRef) : null;
+		trap?.activate();
+
+		onCleanup(() => {
+			document.removeEventListener("keydown", onKeyDown);
+			trap?.deactivate();
+		});
 	});
 
 	return (
@@ -30,6 +40,8 @@ function DialogContent(props: DialogProps) {
 			/>
 			<div class="fixed inset-0 z-modal flex items-center justify-center p-4 pointer-events-none" role="presentation">
 				<div
+					ref={(el) => (contentRef = el)}
+					tabIndex={-1}
 					class={`pointer-events-auto relative max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-xl border border-border bg-surface p-6 shadow-lg ${props.class ?? ""}`}
 					role="dialog"
 					aria-modal="true"

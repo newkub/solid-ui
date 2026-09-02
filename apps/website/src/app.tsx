@@ -6,6 +6,7 @@ import { CodeBlock } from "./components/CodeBlock";
 import { ComponentGallery } from "./components/ComponentGallery";
 import { DocsPage } from "./components/DocsPage";
 import { Footer } from "./components/Footer";
+import { HomePage } from "./components/HomePage";
 import { HooksPage } from "./components/HooksPage";
 import { LayoutsPage } from "./components/LayoutsPage";
 import { LlmTxtPage } from "./components/LlmTxtPage";
@@ -80,7 +81,7 @@ function Home() {
 	return (
 		<PageLayout>
 			<Seo title="solid-ui — SolidJS component library" description={HOME_DESCRIPTION} path="/" />
-			<ComponentGallery withHero />
+			<HomePage />
 		</PageLayout>
 	);
 }
@@ -117,8 +118,8 @@ function FormDemo() {
 			/>
 			<h2 class="text-2xl font-bold tracking-tight mb-4">Form field factory</h2>
 			<div class="rounded-xl border border-border bg-surface p-6 mb-4">
-				<SolidUI.FormField label={field.label}>
-					<SolidUI.Input type="email" placeholder={field.placeholder} aria-label="Email" />
+				<SolidUI.FormField label={field.label} htmlFor="email">
+					<SolidUI.Input id="email" type="email" placeholder={field.placeholder} />
 				</SolidUI.FormField>
 			</div>
 			<CodeBlock code={payload} language="json" />
