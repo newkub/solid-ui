@@ -1,27 +1,10 @@
-import {
-	columnFilteringFeature,
-	columnGroupingFeature,
-	columnVisibilityFeature,
-	createColumnHelper,
-	createExpandedRowModel,
-	createFilteredRowModel,
-	createGroupedRowModel,
-	createSortedRowModel,
-	createTable,
-	FlexRender,
-	filterFn_includesString,
-	globalFilteringFeature,
-	rowExpandingFeature,
-	rowSortingFeature,
-	sortFn_alphanumeric,
-	tableFeatures,
-} from "@tanstack/solid-table";
-import { createEffect, createSignal, For, Show } from "solid-js";
+import { createColumnHelper, createTable } from "@tanstack/solid-table";
+import { createEffect, createSignal, Show } from "solid-js";
 import { useDebounce } from "../hooks/useDebounce";
 import { CodeBlock } from "./CodeBlock";
 import { EmptyState } from "./EmptyState";
 import { PageHeader } from "./PageHeader";
-import { SearchInput } from "./SearchInput";
+import { ResourceListView, ResourceToolbar, resourceFeatures } from "./ResourceBrowser";
 import { Seo } from "./Seo";
 
 export interface HookItem {
@@ -129,22 +112,7 @@ function buildAllItems(): HookItem[] {
 
 const allItems = buildAllItems();
 
-const features = tableFeatures({
-	columnVisibilityFeature,
-	columnFilteringFeature,
-	globalFilteringFeature,
-	filteredRowModel: createFilteredRowModel(),
-	filterFns: { includesString: filterFn_includesString },
-	rowSortingFeature,
-	sortedRowModel: createSortedRowModel(),
-	sortFns: { alphanumeric: sortFn_alphanumeric },
-	columnGroupingFeature,
-	groupedRowModel: createGroupedRowModel(),
-	rowExpandingFeature,
-	expandedRowModel: createExpandedRowModel(),
-});
-
-const columnHelper = createColumnHelper<typeof features, HookItem>();
+const columnHelper = createColumnHelper<typeof resourceFeatures, HookItem>();
 
 const columns = columnHelper.columns([
 	columnHelper.accessor("name", {
@@ -188,115 +156,8 @@ const columns = columnHelper.columns([
 	}),
 ]);
 
-function sortIcon(state: "asc" | "desc" | false) {
-	if (state === "asc") return "↑";
-	if (state === "desc") return "↓";
-	return "⇅";
-}
-
-function HooksListView(props: { table: ReturnType<typeof createTable<typeof features, HookItem>> }) {
-	return (
-		<div class="overflow-x-auto rounded-xl border border-border">
-			<table class="w-full min-w-[900px] text-sm">
-				<thead class="bg-muted">
-					<For each={props.table.getHeaderGroups()}>
-						{(headerGroup) => (
-							<tr>
-								<For each={headerGroup.headers}>
-									{(header) => (
-										<th
-											class="px-4 py-3 text-left font-semibold text-foreground cursor-pointer select-none hover:text-primary"
-											onClick={header.column.getToggleSortingHandler()}
-										>
-											<span class="inline-flex items-center gap-1">
-												<FlexRender header={header} />
-												<span class="text-muted-foreground">{sortIcon(header.column.getIsSorted())}</span>
-											</span>
-										</th>
-									)}
-								</For>
-							</tr>
-						)}
-					</For>
-				</thead>
-				<tbody class="divide-y divide-border">
-					<For each={props.table.getRowModel().rows}>
-						{(row) => (
-							<Show
-								when={row.getIsGrouped()}
-								fallback={
-									<tr class="hover:bg-muted/50">
-										<For each={row.getVisibleCells()}>
-											{(cell) => (
-												<td class={`px-4 py-3 align-top ${cell.column.id === "source" ? "min-w-80" : ""}`}>
-													<FlexRender cell={cell} />
-												</td>
-											)}
-										</For>
-									</tr>
-								}
-							>
-								<tr class="bg-muted/30">
-									<td colSpan={row.getAllCells().length} class="px-4 py-2">
-										<button
-											type="button"
-											class="flex items-center gap-2 font-semibold text-sm"
-											onClick={row.getToggleExpandedHandler()}
-										>
-											<span>{row.getIsExpanded() ? "−" : "+"}</span>
-											<span>{row.getValue("categoryLabel") as string}</span>
-											<span class="text-muted-foreground text-xs">({row.subRows.length})</span>
-										</button>
-									</td>
-								</tr>
-							</Show>
-						)}
-					</For>
-				</tbody>
-			</table>
-		</div>
-	);
-}
-
-function HooksToolbar(props: {
-	globalFilter: string;
-	onFilterChange: (value: string) => void;
-	categoryFilter: string;
-	onCategoryFilterChange: (value: string) => void;
-	groupBy: boolean;
-	onGroupByChange: (enabled: boolean) => void;
-}) {
-	return (
-		<div class="mb-6 flex flex-col gap-3 rounded-xl border border-border bg-surface p-4 sm:flex-row sm:items-center sm:justify-between">
-			<div class="flex flex-1 flex-col gap-3 sm:flex-row sm:items-center">
-				<SearchInput
-					id="hooks-search"
-					value={props.globalFilter}
-					onInput={props.onFilterChange}
-					placeholder="Search hooks…"
-					label="Search hooks"
-					class="sm:w-64"
-				/>
-				<select
-					class="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring sm:w-40"
-					value={props.categoryFilter}
-					onChange={(e) => props.onCategoryFilterChange(e.currentTarget.value)}
-					aria-label="Filter by category"
-				>
-					<For each={CATEGORY_OPTIONS}>{(opt) => <option value={opt.id}>{opt.label}</option>}</For>
-				</select>
-				<select
-					class="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring sm:w-44"
-					value={props.groupBy ? "category" : "none"}
-					onChange={(e) => props.onGroupByChange(e.currentTarget.value === "category")}
-					aria-label="Group by"
-				>
-					<option value="none">No grouping</option>
-					<option value="category">Group by category</option>
-				</select>
-			</div>
-		</div>
-	);
+function cellClass(cell: { column: { id: string } }) {
+	return cell.column.id === "source" ? "min-w-80" : "";
 }
 
 export function HooksBrowser() {
@@ -307,7 +168,7 @@ export function HooksBrowser() {
 	const debouncedFilter = useDebounce(globalFilter, 150);
 
 	const table = createTable({
-		features,
+		features: resourceFeatures,
 		columns,
 		get data() {
 			return data();
@@ -347,19 +208,23 @@ export function HooksBrowser() {
 				description="Reactive primitives and patterns that power solid-ui. Browse source-backed local hooks and SolidJS primitives."
 				count={table.getPreFilteredRowModel().rows.length}
 			/>
-			<HooksToolbar
+			<ResourceToolbar
 				globalFilter={globalFilter()}
 				onFilterChange={setGlobalFilter}
 				categoryFilter={categoryFilter()}
 				onCategoryFilterChange={setCategoryFilter}
 				groupBy={groupBy()}
 				onGroupByChange={setGroupBy}
+				categoryOptions={CATEGORY_OPTIONS}
+				searchPlaceholder="Search hooks…"
+				searchLabel="Search hooks"
+				searchId="hooks-search"
 			/>
 			<Show
 				when={table.getRowModel().rows.length > 0}
 				fallback={<EmptyState query={debouncedFilter()} label="hooks" />}
 			>
-				<HooksListView table={table} />
+				<ResourceListView table={table} tableClass="min-w-[900px]" cellClass={cellClass} />
 			</Show>
 		</section>
 	);
