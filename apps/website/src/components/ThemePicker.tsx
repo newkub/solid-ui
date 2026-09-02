@@ -238,7 +238,7 @@ function RadiusSection(props: { radius: ThemeRadius; onSelect: () => void }) {
 function ThemeDropdown(props: { state: ThemeState; onSelect: () => void }) {
 	return (
 		<div
-			class="absolute right-0 top-full z-dropdown mt-2 w-80 max-h-[80vh] max-w-[calc(100vw_-_2rem)] overflow-y-auto rounded-xl border border-border bg-surface p-4 shadow-xl lg:left-full lg:right-auto lg:top-0 lg:mt-0 lg:ml-2 lg:w-96"
+			class="absolute right-0 top-full z-dropdown mt-2 w-72 max-h-[80vh] max-w-[calc(100vw_-_2rem)] overflow-y-auto rounded-xl border border-border bg-surface p-4 shadow-xl sm:w-80"
 			role="listbox"
 		>
 			<div class="space-y-4">

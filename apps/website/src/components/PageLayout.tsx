@@ -6,5 +6,5 @@ interface PageLayoutProps {
 }
 
 export function PageLayout(props: PageLayoutProps) {
-	return <div class={`space-y-8 ${props.class ?? ""}`}>{props.children}</div>;
+	return <div class={`mx-auto max-w-7xl space-y-8 ${props.class ?? ""}`}>{props.children}</div>;
 }

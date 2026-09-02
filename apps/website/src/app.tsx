@@ -19,6 +19,7 @@ import { CliPage } from "./components/CliPage";
 import { CodeBlock } from "./components/CodeBlock";
 import { ComponentGallery } from "./components/ComponentGallery";
 import { DocsPage } from "./components/DocsPage";
+import { ExamplesPage } from "./components/ExamplesPage";
 import { Footer } from "./components/Footer";
 import { HomePage } from "./components/HomePage";
 import { HooksPage } from "./components/HooksPage";
@@ -29,7 +30,6 @@ import { NavLayout } from "./components/Nav";
 import { PageLayout } from "./components/PageLayout";
 import { PluginsPage } from "./components/PluginsPage";
 import { Seo } from "./components/Seo";
-import { SettingsPage } from "./components/SettingsPage";
 import { SkillDetailPage } from "./components/SkillDetailPage";
 import { SkillsPage } from "./components/SkillsPage";
 import { TemplatesPage } from "./components/TemplatesPage";
@@ -80,9 +80,7 @@ function Root() {
 				<SkipLink />
 				<NavLayout>
 					<main id="main-content" class="flex-1 px-4 py-6 sm:px-6 lg:px-8">
-						<div class="mx-auto max-w-7xl">
-							<Outlet />
-						</div>
+						<Outlet />
 					</main>
 				</NavLayout>
 				<Footer />
@@ -253,12 +251,6 @@ const themeRoute = createRoute({
 	component: ThemePage,
 });
 
-const settingsRoute = createRoute({
-	getParentRoute: () => rootRoute,
-	path: "/settings",
-	component: SettingsPage,
-});
-
 const formRoute = createRoute({
 	getParentRoute: () => rootRoute,
 	path: "/form",
@@ -337,6 +329,12 @@ const templatesRoute = createRoute({
 	component: TemplatesPage,
 });
 
+const examplesRoute = createRoute({
+	getParentRoute: () => rootRoute,
+	path: "/examples",
+	component: ExamplesPage,
+});
+
 const layoutsRoute = createRoute({
 	getParentRoute: () => rootRoute,
 	path: "/layouts",
@@ -365,7 +363,6 @@ export const routeTree = rootRoute.addChildren([
 	homeRoute,
 	componentsRoute,
 	themeRoute,
-	settingsRoute,
 	formRoute,
 	tableRoute,
 	imageRoute,
@@ -376,6 +373,7 @@ export const routeTree = rootRoute.addChildren([
 	mcpRoute,
 	docsMcpRoute,
 	templatesRoute,
+	examplesRoute,
 	layoutsRoute,
 	hooksRoute,
 	cliRoute,

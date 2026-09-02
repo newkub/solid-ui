@@ -25,7 +25,7 @@ export function CodeBlock(props: { code: string; language?: string; tabs?: CodeT
 	const activeTab = () => initialTabs()[active()];
 
 	return (
-		<div class="relative overflow-hidden rounded-xl border border-border bg-surface">
+		<div class="group relative overflow-hidden rounded-xl border border-border bg-surface">
 			<Show when={initialTabs().length > 1}>
 				<div class="flex items-center gap-1 border-b border-border bg-muted/50 px-2 py-1.5">
 					<For each={initialTabs()}>
@@ -48,7 +48,7 @@ export function CodeBlock(props: { code: string; language?: string; tabs?: CodeT
 			</Show>
 			<CopyButton
 				text={activeTab().code}
-				class={`absolute right-2 z-10 inline-flex h-7 items-center rounded-md border border-border bg-background px-2.5 text-xs font-medium hover:bg-muted ${
+				class={`absolute right-2 z-10 inline-flex h-7 items-center rounded-md border border-border bg-background px-2.5 text-xs font-medium opacity-0 transition-opacity hover:bg-muted group-hover:opacity-100 ${
 					initialTabs().length > 1 ? "top-10" : "top-2"
 				}`}
 			/>

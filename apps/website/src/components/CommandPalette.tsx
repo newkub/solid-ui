@@ -450,7 +450,7 @@ export function CommandPalette(props: CommandPaletteProps) {
 	return (
 		<Show when={props.open}>
 			<div
-				class="fixed inset-0 z-modal flex items-start justify-center bg-overlay/60 p-4 pt-20 backdrop-blur-sm sm:pt-24"
+				class="fixed inset-0 z-modal flex items-start justify-center bg-overlay/60 p-4 pt-16 backdrop-blur-sm sm:pt-20"
 				role="dialog"
 				aria-modal="true"
 				aria-label="Command palette"
@@ -459,7 +459,7 @@ export function CommandPalette(props: CommandPaletteProps) {
 				}}
 				onKeyDown={onKeyDown}
 			>
-				<div class="w-full max-w-5xl overflow-hidden rounded-2xl border border-border bg-surface shadow-2xl">
+				<div class="w-full max-w-3xl overflow-hidden rounded-xl border border-border bg-surface shadow-2xl">
 					<div class="flex items-center gap-3 border-b border-border px-4 py-3">
 						<SearchIcon />
 						<input
@@ -486,7 +486,7 @@ export function CommandPalette(props: CommandPaletteProps) {
 						</kbd>
 					</div>
 
-					<div class="grid max-h-[70vh] grid-cols-1 grid-rows-[1fr,auto] divide-y divide-border sm:grid-cols-[1fr,320px] sm:grid-rows-1 lg:grid-cols-[1fr,380px] sm:divide-x sm:divide-y-0">
+					<div class="grid max-h-[60vh] grid-cols-1 grid-rows-[1fr,auto] divide-y divide-border sm:grid-cols-[1fr,260px] sm:grid-rows-1 sm:divide-x sm:divide-y-0">
 						<div class="min-h-0 overflow-y-auto p-2">
 							<Show
 								when={filtered().length > 0}

@@ -22,7 +22,10 @@ function matchesQuery(entry: TemplateEntry, query: string) {
 	return haystack.includes(query.toLowerCase());
 }
 
-function ViewToggle(props: { view: "grid" | "list"; onChange: (view: "grid" | "list") => void }) {
+function ViewToggle(props: {
+	view: "grid" | "masonry" | "list";
+	onChange: (view: "grid" | "masonry" | "list") => void;
+}) {
 	return (
 		<div class="flex rounded-lg border border-border bg-background p-1">
 			<button
@@ -33,6 +36,15 @@ function ViewToggle(props: { view: "grid" | "list"; onChange: (view: "grid" | "l
 				aria-pressed={props.view === "grid"}
 			>
 				Grid
+			</button>
+			<button
+				type="button"
+				class="rounded-md px-3 py-1.5 text-sm"
+				classList={{ "bg-primary text-primary-foreground": props.view === "masonry" }}
+				onClick={() => props.onChange("masonry")}
+				aria-pressed={props.view === "masonry"}
+			>
+				Masonry
 			</button>
 			<button
 				type="button"
@@ -48,7 +60,7 @@ function ViewToggle(props: { view: "grid" | "list"; onChange: (view: "grid" | "l
 }
 
 export function TemplateGallery() {
-	const [view, setView] = createSignal<"grid" | "list">("grid");
+	const [view, setView] = createSignal<"grid" | "masonry" | "list">("masonry");
 	const { query, setQuery, debouncedQuery, filtered } = useSearch(
 		() => templateEntries(),
 		(entry, q) => matchesQuery(entry, q),
@@ -84,6 +96,17 @@ export function TemplateGallery() {
 				<Show when={view() === "grid"}>
 					<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
 						<For each={filtered()}>{(entry) => <TemplateCard entry={entry} />}</For>
+					</div>
+				</Show>
+				<Show when={view() === "masonry"}>
+					<div class="columns-1 gap-4 space-y-4 sm:columns-2 lg:columns-3">
+						<For each={filtered()}>
+							{(entry) => (
+								<div class="break-inside-avoid">
+									<TemplateCard entry={entry} />
+								</div>
+							)}
+						</For>
 					</div>
 				</Show>
 				<Show when={view() === "list"}>

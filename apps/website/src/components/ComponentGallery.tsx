@@ -1,10 +1,12 @@
 import { Link, useLocation, useNavigate, useSearch } from "@tanstack/solid-router";
 import { createColumnHelper, createTable } from "@tanstack/solid-table";
 import { registry } from "@wrikka/solid-ui/registry";
-import { createEffect, createSignal, Show } from "solid-js";
+import { createEffect, createSignal, For, Show } from "solid-js";
 import { categories } from "../categories";
 import { useDebounce } from "../hooks/useDebounce";
-import { ResourceListView, ResourceToolbar, resourceFeatures } from "./ResourceBrowser";
+import { ComponentCard } from "./ComponentCard";
+import { ResourceListView, resourceFeatures } from "./ResourceBrowser";
+import { SearchInput } from "./SearchInput";
 
 interface ComponentItem {
 	name: string;
@@ -158,6 +160,31 @@ function EmptyState(props: { onClear: () => void }) {
 	);
 }
 
+function ViewToggle(props: { view: "table" | "masonry"; onChange: (view: "table" | "masonry") => void }) {
+	return (
+		<div class="flex rounded-lg border border-border bg-background p-1">
+			<button
+				type="button"
+				class="rounded-md px-3 py-1.5 text-sm"
+				classList={{ "bg-primary text-primary-foreground": props.view === "table" }}
+				onClick={() => props.onChange("table")}
+				aria-pressed={props.view === "table"}
+			>
+				Table
+			</button>
+			<button
+				type="button"
+				class="rounded-md px-3 py-1.5 text-sm"
+				classList={{ "bg-primary text-primary-foreground": props.view === "masonry" }}
+				onClick={() => props.onChange("masonry")}
+				aria-pressed={props.view === "masonry"}
+			>
+				Masonry
+			</button>
+		</div>
+	);
+}
+
 export function ComponentGallery(props: { withHero?: boolean }) {
 	const navigate = useNavigate();
 	const location = useLocation();
@@ -167,6 +194,7 @@ export function ComponentGallery(props: { withHero?: boolean }) {
 	const [groupBy, setGroupBy] = createSignal(true);
 	const [globalFilter, setGlobalFilter] = createSignal("");
 	const [categoryFilter, setCategoryFilter] = createSignal(search().category ?? "");
+	const [view, setView] = createSignal<"table" | "masonry">("masonry");
 	const debouncedFilter = useDebounce(globalFilter, 150);
 
 	const table = createTable({
@@ -229,21 +257,54 @@ export function ComponentGallery(props: { withHero?: boolean }) {
 
 			<GalleryHeading count={table.getPreFilteredRowModel().rows.length} />
 
-			<ResourceToolbar
-				globalFilter={globalFilter()}
-				onFilterChange={updateFilter}
-				categoryFilter={categoryFilter()}
-				onCategoryFilterChange={updateCategoryFilter}
-				groupBy={groupBy()}
-				onGroupByChange={toggleGroupBy}
-				categoryOptions={CATEGORY_OPTIONS}
-				searchPlaceholder="Search components…"
-				searchLabel="Search components"
-				searchId="components-search"
-			/>
+			<div class="mb-6 rounded-xl border border-border bg-surface p-4">
+				<div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+					<div class="flex flex-1 flex-col gap-3 sm:flex-row sm:items-center">
+						<SearchInput
+							id="components-search"
+							value={globalFilter()}
+							onInput={updateFilter}
+							placeholder="Search components…"
+							label="Search components"
+							class="w-full"
+						/>
+						<select
+							class="h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring sm:w-40"
+							value={categoryFilter()}
+							onChange={(e) => updateCategoryFilter(e.currentTarget.value)}
+							aria-label="Filter by category"
+						>
+							<For each={CATEGORY_OPTIONS}>{(opt) => <option value={opt.id}>{opt.label}</option>}</For>
+						</select>
+						<select
+							class="h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring sm:w-44"
+							value={groupBy() ? "category" : "none"}
+							onChange={(e) => toggleGroupBy(e.currentTarget.value === "category")}
+							aria-label="Group by"
+						>
+							<option value="none">No grouping</option>
+							<option value="category">Group by category</option>
+						</select>
+					</div>
+					<ViewToggle view={view()} onChange={setView} />
+				</div>
+			</div>
 
 			<Show when={table.getRowModel().rows.length > 0} fallback={<EmptyState onClear={clearFilters} />}>
-				<ResourceListView table={table} tableClass="min-w-[640px]" />
+				<Show when={view() === "table"}>
+					<ResourceListView table={table} tableClass="min-w-[640px]" />
+				</Show>
+				<Show when={view() === "masonry"}>
+					<div class="columns-1 gap-4 space-y-4 sm:columns-2 lg:columns-3">
+						<For each={table.getPreGroupedRowModel().rows}>
+							{(row) => (
+								<div class="break-inside-avoid">
+									<ComponentCard name={row.original.name} />
+								</div>
+							)}
+						</For>
+					</div>
+				</Show>
 			</Show>
 		</section>
 	);

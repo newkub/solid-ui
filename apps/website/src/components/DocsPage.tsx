@@ -1,8 +1,10 @@
 import { Link, useParams } from "@tanstack/solid-router";
 import { registry } from "@wrikka/solid-ui/registry";
-import { type Accessor, createMemo, lazy, Show, Suspense } from "solid-js";
+import { type Accessor, createMemo, ErrorBoundary, lazy, Show, Suspense } from "solid-js";
 import { categories } from "../categories";
 import { docs } from "../docs/generated";
+import { CodeBlock } from "./CodeBlock";
+import { ComponentPreview, PreviewFallback } from "./ComponentPreview";
 import { DocsLayout } from "./DocsLayout";
 import { Markdown } from "./Markdown";
 import { PageSection } from "./PageSection";
@@ -43,6 +45,11 @@ export function DocsPage() {
 		return p.name ? p.name.charAt(0).toUpperCase() + p.name.slice(1) : null;
 	});
 	const registryEntry = createMemo(() => registry.find((r) => r.name === componentName()));
+	const usageSnippet = createMemo(() => {
+		const entry = registryEntry();
+		if (!entry) return "";
+		return `import { ${entry.name} } from "@wrikka/solid-ui";\n\nfunction App() {\n  return <${entry.name} />;\n}`;
+	});
 	const seoTitle = createMemo(() => {
 		const entry = registryEntry();
 		const current = page();
@@ -57,10 +64,10 @@ export function DocsPage() {
 	});
 
 	return (
-		<DocsLayout>
-			<Show
-				when={page()}
-				fallback={
+		<Show
+			when={page()}
+			fallback={
+				<DocsLayout>
 					<PageSection title="Page not found">
 						<div class="space-y-4">
 							<p class="text-muted-foreground">The requested docs page does not exist.</p>
@@ -69,32 +76,49 @@ export function DocsPage() {
 							</Link>
 						</div>
 					</PageSection>
-				}
-			>
-				{(page) => (
+				</DocsLayout>
+			}
+		>
+			{(page) => (
+				<DocsLayout rightSidebar={<Toc content={page().content} />}>
 					<article class="mx-auto w-full max-w-5xl">
 						<Seo title={seoTitle()} description={seoDescription()} />
 						<header class="mb-6 border-b border-border pb-6">
 							<h1 class="text-3xl font-bold tracking-tight">{page().title}</h1>
 							<p class="text-sm text-muted-foreground capitalize">{page().group}</p>
 						</header>
-						<div class="grid gap-8 lg:grid-cols-[1fr_180px]">
-							<div class="min-w-0">
-								<Markdown content={page().content} />
-								<Show when={isComponent() && componentName()}>
+						<Markdown content={page().content} />
+						<Show when={isComponent() && componentName()}>
+							{(name) => (
+								<>
+									<PageSection title="Preview">
+										<div class="overflow-hidden rounded-xl border border-border bg-surface p-6">
+											<div class="flex min-h-[160px] items-center justify-center rounded-lg bg-muted/50 p-4">
+												<ErrorBoundary
+													fallback={(_err: Error) => (
+														<PreviewFallback name={name()} tag={registryEntry()?.tag ?? name()} />
+													)}
+												>
+													<ComponentPreview name={name()} tag={registryEntry()?.tag ?? name()} />
+												</ErrorBoundary>
+											</div>
+										</div>
+									</PageSection>
+
+									<PageSection title="Usage">
+										<CodeBlock code={usageSnippet()} language="tsx" />
+									</PageSection>
+
 									<h2 class="mt-10 text-xl font-semibold mb-4">Playground</h2>
 									<Suspense fallback={<div class="text-sm text-muted-foreground">Loading playground…</div>}>
-										<ComponentPlayground name={componentName() as string} />
+										<ComponentPlayground name={name()} />
 									</Suspense>
-								</Show>
-							</div>
-							<aside class="lg:sticky lg:top-24">
-								<Toc content={page().content} />
-							</aside>
-						</div>
+								</>
+							)}
+						</Show>
 					</article>
-				)}
-			</Show>
-		</DocsLayout>
+				</DocsLayout>
+			)}
+		</Show>
 	);
 }

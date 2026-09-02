@@ -95,16 +95,23 @@ function BoxIcon(props: { class?: string }) {
 	);
 }
 
-const groupMeta: Record<string, DocGroupMeta> = {
-	"getting-started": { label: "Getting started", icon: RocketIcon },
-	primitives: { label: "Primitives", icon: PuzzleIcon },
-	components: { label: "Components", icon: LayoutIcon },
-	templates: { label: "Templates", icon: LayersIcon },
-	theming: { label: "Theming", icon: PaintbrushIcon },
-	integrations: { label: "Integrations", icon: PlugIcon },
+import { sidebarGroups } from "../data/navigation";
+
+const groupIcons: Record<string, DocGroupMeta["icon"]> = {
+	"getting-started": RocketIcon,
+	core: BoxIcon,
+	primitives: PuzzleIcon,
+	components: LayoutIcon,
+	templates: LayersIcon,
+	theming: PaintbrushIcon,
+	integrations: PlugIcon,
 };
 
-const groupOrder = Object.keys(groupMeta);
+const groupMeta: Record<string, DocGroupMeta> = Object.fromEntries(
+	Object.entries(sidebarGroups).map(([key, { label }]) => [key, { label, icon: groupIcons[key] ?? BoxIcon }]),
+);
+
+const groupOrder = ["getting-started", "core", "primitives", "components", "templates", "theming", "integrations"];
 
 function pagePath(id: string) {
 	const [group, ...rest] = id.split("/");
