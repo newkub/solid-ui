@@ -2,6 +2,7 @@ import { useParams } from "@tanstack/solid-router";
 import { createSignal, Show } from "solid-js";
 import skillsData from "../data/skills.json";
 import { skillsContent } from "../data/skills-content";
+import { GITHUB_REPO_URL } from "../lib/config";
 import { Markdown } from "./Markdown";
 import { PageHeader } from "./PageHeader";
 import { Seo } from "./Seo";
@@ -54,7 +55,7 @@ export function SkillDetailPage() {
 								{copied() ? "Copied" : "Copy command"}
 							</button>
 							<a
-								href={`https://github.com/newkub/solid-ui/tree/main/${s().source}/${s().name}`}
+								href={`${GITHUB_REPO_URL}/tree/main/${s().source}/${s().name}`}
 								target="_blank"
 								rel="noopener noreferrer"
 								class="inline-flex h-10 items-center rounded-md border border-border bg-background px-4 text-sm font-medium transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"

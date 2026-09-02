@@ -71,7 +71,7 @@ A month grid with previous/next navigation.
 import { Calendar } from "@wrikka/solid-ui";
 
 function Example() {
-	return <Calendar value={new Date()} onChange={(date) => console.log(date)} />;
+	return <Calendar value={new Date()} onChange={(date) => void date} />;
 }
 \`\`\`
 
@@ -129,7 +129,7 @@ function Example() {
 				{ value: "profile", label: "Profile" },
 				{ value: "settings", label: "Settings" },
 			]}
-			onSelect={(item) => console.log(item.value)}
+			onSelect={(item) => void item.value}
 		/>
 	);
 }
@@ -159,7 +159,7 @@ function Example() {
 				{ value: "home", label: "Go home" },
 				{ value: "docs", label: "Open docs" },
 			]}
-			onSelect={(item) => console.log(item.value)}
+			onSelect={(item) => void item.value}
 		/>
 	);
 }
@@ -421,5 +421,3 @@ const lines = [
 ];
 
 await writeFile(new URL("../src/docs/generated.ts", import.meta.url), lines.join("\n"), "utf8");
-
-console.log(`Generated ${Object.keys(docs).length} docs pages`);

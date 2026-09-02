@@ -6,9 +6,9 @@ describe("Code", () => {
 	afterEach(cleanup);
 
 	it("renders as a <code> element with children", () => {
-		render(() => <Code>console.log("hello")</Code>);
+		render(() => <Code>const hello = "hello"</Code>);
 
-		const el = screen.getByText('console.log("hello")');
+		const el = screen.getByText('const hello = "hello"');
 		expect(el.tagName).toBe("CODE");
 	});
 

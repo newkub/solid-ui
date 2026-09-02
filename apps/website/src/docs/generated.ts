@@ -46,7 +46,7 @@ export const docs: Record<string, DocPage> = {
 		group: "primitives",
 		order: 0,
 		content:
-			"# Primitives\n\nThe following primitives are available in solid-ui:\n\n- [Button](/docs/primitives/button)\n- [Input](/docs/primitives/input)\n- [Textarea](/docs/primitives/textarea)\n- [Select](/docs/primitives/select)\n- [Checkbox](/docs/primitives/checkbox)\n- [Radio](/docs/primitives/radio)\n- [Switch](/docs/primitives/switch)\n- [Label](/docs/primitives/label)\n- [Form](/docs/primitives/form)\n- [FormField](/docs/primitives/formfield)\n- [FileInput](/docs/primitives/fileinput)\n- [Slider](/docs/primitives/slider)\n- [DatePicker](/docs/primitives/datepicker)\n",
+			"# Primitives\n\nThe following primitives are available in solid-ui:\n\n- [Button](/docs/primitives/button)\n- [Input](/docs/primitives/input)\n- [Textarea](/docs/primitives/textarea)\n- [Select](/docs/primitives/select)\n- [Checkbox](/docs/primitives/checkbox)\n- [Radio](/docs/primitives/radio)\n- [Switch](/docs/primitives/switch)\n- [Label](/docs/primitives/label)\n- [Form](/docs/primitives/form)\n- [FormField](/docs/primitives/formfield)\n- [FileInput](/docs/primitives/fileinput)\n- [Slider](/docs/primitives/slider)\n- [DatePicker](/docs/primitives/datepicker)\n- [CheckboxGroup](/docs/primitives/checkboxgroup)\n- [Combobox](/docs/primitives/combobox)\n- [MultiSelect](/docs/primitives/multiselect)\n- [PinInput](/docs/primitives/pininput)\n- [RadioGroup](/docs/primitives/radiogroup)\n- [TagsInput](/docs/primitives/tagsinput)\n",
 	},
 	"primitives/button": {
 		title: "Button",
@@ -139,12 +139,54 @@ export const docs: Record<string, DocPage> = {
 		content:
 			'# DatePicker\n\nRenders a `<input>` element.\n\n## Usage\n\n```tsx\nimport { DatePicker } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn <DatePicker class="my-datepicker" />;\n}\n```\n\n## Variants\n\nMany primitive components accept a `class` prop. Higher-level components such as `Button` accept `variant` and `size`.\n\n```tsx\n<Button variant="primary" size="lg">Primary large</Button>\n<Button variant="ghost" size="sm">Ghost small</Button>\n```\n## Props\n\n- Extends the standard JSX attributes for `<input>`\n- Accepts `class` for custom styling\n',
 	},
+	"primitives/checkboxgroup": {
+		title: "CheckboxGroup",
+		group: "primitives",
+		order: 1,
+		content:
+			'# CheckboxGroup\n\nRenders a `<div>` element.\n\n## Usage\n\n```tsx\nimport { CheckboxGroup } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn <CheckboxGroup class="my-checkboxgroup">CheckboxGroup content</CheckboxGroup>;\n}\n```\n\n## Variants\n\nMany primitive components accept a `class` prop. Higher-level components such as `Button` accept `variant` and `size`.\n\n```tsx\n<Button variant="primary" size="lg">Primary large</Button>\n<Button variant="ghost" size="sm">Ghost small</Button>\n```\n## Props\n\n- Extends the standard JSX attributes for `<div>`\n- Accepts `class` for custom styling\n',
+	},
+	"primitives/combobox": {
+		title: "Combobox",
+		group: "primitives",
+		order: 1,
+		content:
+			'# Combobox\n\nRenders a `<div>` element.\n\n## Usage\n\n```tsx\nimport { Combobox } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn <Combobox class="my-combobox">Combobox content</Combobox>;\n}\n```\n\n## Variants\n\nMany primitive components accept a `class` prop. Higher-level components such as `Button` accept `variant` and `size`.\n\n```tsx\n<Button variant="primary" size="lg">Primary large</Button>\n<Button variant="ghost" size="sm">Ghost small</Button>\n```\n## Props\n\n- Extends the standard JSX attributes for `<div>`\n- Accepts `class` for custom styling\n',
+	},
+	"primitives/multiselect": {
+		title: "MultiSelect",
+		group: "primitives",
+		order: 1,
+		content:
+			'# MultiSelect\n\nRenders a `<div>` element.\n\n## Usage\n\n```tsx\nimport { MultiSelect } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn <MultiSelect class="my-multiselect">MultiSelect content</MultiSelect>;\n}\n```\n\n## Variants\n\nMany primitive components accept a `class` prop. Higher-level components such as `Button` accept `variant` and `size`.\n\n```tsx\n<Button variant="primary" size="lg">Primary large</Button>\n<Button variant="ghost" size="sm">Ghost small</Button>\n```\n## Props\n\n- Extends the standard JSX attributes for `<div>`\n- Accepts `class` for custom styling\n',
+	},
+	"primitives/pininput": {
+		title: "PinInput",
+		group: "primitives",
+		order: 1,
+		content:
+			'# PinInput\n\nRenders a `<div>` element.\n\n## Usage\n\n```tsx\nimport { PinInput } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn <PinInput class="my-pininput">PinInput content</PinInput>;\n}\n```\n\n## Variants\n\nMany primitive components accept a `class` prop. Higher-level components such as `Button` accept `variant` and `size`.\n\n```tsx\n<Button variant="primary" size="lg">Primary large</Button>\n<Button variant="ghost" size="sm">Ghost small</Button>\n```\n## Props\n\n- Extends the standard JSX attributes for `<div>`\n- Accepts `class` for custom styling\n',
+	},
+	"primitives/radiogroup": {
+		title: "RadioGroup",
+		group: "primitives",
+		order: 1,
+		content:
+			'# RadioGroup\n\nRenders a `<div>` element.\n\n## Usage\n\n```tsx\nimport { RadioGroup } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn <RadioGroup class="my-radiogroup">RadioGroup content</RadioGroup>;\n}\n```\n\n## Variants\n\nMany primitive components accept a `class` prop. Higher-level components such as `Button` accept `variant` and `size`.\n\n```tsx\n<Button variant="primary" size="lg">Primary large</Button>\n<Button variant="ghost" size="sm">Ghost small</Button>\n```\n## Props\n\n- Extends the standard JSX attributes for `<div>`\n- Accepts `class` for custom styling\n',
+	},
+	"primitives/tagsinput": {
+		title: "TagsInput",
+		group: "primitives",
+		order: 1,
+		content:
+			'# TagsInput\n\nRenders a `<div>` element.\n\n## Usage\n\n```tsx\nimport { TagsInput } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn <TagsInput class="my-tagsinput">TagsInput content</TagsInput>;\n}\n```\n\n## Variants\n\nMany primitive components accept a `class` prop. Higher-level components such as `Button` accept `variant` and `size`.\n\n```tsx\n<Button variant="primary" size="lg">Primary large</Button>\n<Button variant="ghost" size="sm">Ghost small</Button>\n```\n## Props\n\n- Extends the standard JSX attributes for `<div>`\n- Accepts `class` for custom styling\n',
+	},
 	components: {
 		title: "Components",
 		group: "components",
 		order: 0,
 		content:
-			"# Components\n\nThe following components are available in solid-ui:\n\n- [Card](/docs/components/card)\n- [Box](/docs/components/box)\n- [Flex](/docs/components/flex)\n- [Grid](/docs/components/grid)\n- [Stack](/docs/components/stack)\n- [Separator](/docs/components/separator)\n- [AspectRatio](/docs/components/aspectratio)\n- [Skeleton](/docs/components/skeleton)\n- [Spinner](/docs/components/spinner)\n- [Loading](/docs/components/loading)\n- [Progress](/docs/components/progress)\n- [Avatar](/docs/components/avatar)\n- [Badge](/docs/components/badge)\n- [Breadcrumb](/docs/components/breadcrumb)\n- [Tabs](/docs/components/tabs)\n- [Pagination](/docs/components/pagination)\n- [Steps](/docs/components/steps)\n- [Timeline](/docs/components/timeline)\n- [Menubar](/docs/components/menubar)\n- [NavigationMenu](/docs/components/navigationmenu)\n- [TreeView](/docs/components/treeview)\n- [Dialog](/docs/components/dialog)\n- [Modal](/docs/components/modal)\n- [Sheet](/docs/components/sheet)\n- [Drawer](/docs/components/drawer)\n- [Tooltip](/docs/components/tooltip)\n- [Popover](/docs/components/popover)\n- [Toast](/docs/components/toast)\n- [Toaster](/docs/components/toaster)\n- [Alert](/docs/components/alert)\n- [Command](/docs/components/command)\n- [CommandPalette](/docs/components/commandpalette)\n- [Notification](/docs/components/notification)\n- [Table](/docs/components/table)\n- [DataTable](/docs/components/datatable)\n- [VirtualList](/docs/components/virtuallist)\n- [ScrollArea](/docs/components/scrollarea)\n- [Image](/docs/components/image)\n- [Chart](/docs/components/chart)\n- [Calendar](/docs/components/calendar)\n- [Transition](/docs/components/transition)\n- [Collapsible](/docs/components/collapsible)\n- [Accordion](/docs/components/accordion)\n- [DropdownMenu](/docs/components/dropdownmenu)\n- [Toggle](/docs/components/toggle)\n- [ToggleGroup](/docs/components/togglegroup)\n- [Resizable](/docs/components/resizable)\n- [Terminal](/docs/components/terminal)\n- [Motion](/docs/components/motion)\n",
+			"# Components\n\nThe following components are available in solid-ui:\n\n- [Card](/docs/components/card)\n- [Box](/docs/components/box)\n- [Flex](/docs/components/flex)\n- [Grid](/docs/components/grid)\n- [Stack](/docs/components/stack)\n- [Separator](/docs/components/separator)\n- [AspectRatio](/docs/components/aspectratio)\n- [Skeleton](/docs/components/skeleton)\n- [Spinner](/docs/components/spinner)\n- [Loading](/docs/components/loading)\n- [Progress](/docs/components/progress)\n- [Avatar](/docs/components/avatar)\n- [Badge](/docs/components/badge)\n- [Breadcrumb](/docs/components/breadcrumb)\n- [Tabs](/docs/components/tabs)\n- [Pagination](/docs/components/pagination)\n- [Steps](/docs/components/steps)\n- [Timeline](/docs/components/timeline)\n- [Menubar](/docs/components/menubar)\n- [NavigationMenu](/docs/components/navigationmenu)\n- [TreeView](/docs/components/treeview)\n- [Dialog](/docs/components/dialog)\n- [Modal](/docs/components/modal)\n- [Sheet](/docs/components/sheet)\n- [Drawer](/docs/components/drawer)\n- [Tooltip](/docs/components/tooltip)\n- [Popover](/docs/components/popover)\n- [Toast](/docs/components/toast)\n- [Toaster](/docs/components/toaster)\n- [Alert](/docs/components/alert)\n- [Command](/docs/components/command)\n- [CommandPalette](/docs/components/commandpalette)\n- [Notification](/docs/components/notification)\n- [Table](/docs/components/table)\n- [DataTable](/docs/components/datatable)\n- [VirtualList](/docs/components/virtuallist)\n- [ScrollArea](/docs/components/scrollarea)\n- [Image](/docs/components/image)\n- [Chart](/docs/components/chart)\n- [Calendar](/docs/components/calendar)\n- [Transition](/docs/components/transition)\n- [Collapsible](/docs/components/collapsible)\n- [Accordion](/docs/components/accordion)\n- [DropdownMenu](/docs/components/dropdownmenu)\n- [Toggle](/docs/components/toggle)\n- [ToggleGroup](/docs/components/togglegroup)\n- [Resizable](/docs/components/resizable)\n- [Terminal](/docs/components/terminal)\n- [Motion](/docs/components/motion)\n- [Kbd](/docs/components/kbd)\n- [Code](/docs/components/code)\n- [Blockquote](/docs/components/blockquote)\n- [List](/docs/components/list)\n- [ListItem](/docs/components/listitem)\n- [VisuallyHidden](/docs/components/visuallyhidden)\n- [ProgressCircle](/docs/components/progresscircle)\n- [Meter](/docs/components/meter)\n- [Stat](/docs/components/stat)\n- [SkeletonText](/docs/components/skeletontext)\n- [AlertDialog](/docs/components/alertdialog)\n- [HoverCard](/docs/components/hovercard)\n- [ContextMenu](/docs/components/contextmenu)\n- [SkeletonCircle](/docs/components/skeletoncircle)\n",
 	},
 	"components/card": {
 		title: "Card",
@@ -221,7 +263,7 @@ export const docs: Record<string, DocPage> = {
 		group: "components",
 		order: 1,
 		content:
-			'# Progress\n\nRenders a `<progress>` element.\n\n## Usage\n\n```tsx\nimport { Progress } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn <Progress class="my-progress" />;\n}\n```\n## Props\n\n- Extends the standard JSX attributes for `<progress>`\n- Accepts `class` for custom styling\n',
+			'# Progress\n\nRenders a `<div>` element.\n\n## Usage\n\n```tsx\nimport { Progress } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn <Progress class="my-progress">Progress content</Progress>;\n}\n```\n## Props\n\n- Extends the standard JSX attributes for `<div>`\n- Accepts `class` for custom styling\n',
 	},
 	"components/avatar": {
 		title: "Avatar",
@@ -361,14 +403,14 @@ export const docs: Record<string, DocPage> = {
 		group: "components",
 		order: 1,
 		content:
-			'# Command\n\nA searchable list for command selection.\n\n## Usage\n\n```tsx\nimport { Command } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn (\n\t\t<Command\n\t\t\titems={[\n\t\t\t\t{ value: "profile", label: "Profile" },\n\t\t\t\t{ value: "settings", label: "Settings" },\n\t\t\t]}\n\t\t\tonSelect={(item) => console.log(item.value)}\n\t\t/>\n\t);\n}\n```\n\n## Props\n\n- `items` — array of { value, label, shortcut?, onSelect? }\n- `placeholder` — input placeholder\n- `emptyText` — message when no results match\n',
+			'# Command\n\nA searchable list for command selection.\n\n## Usage\n\n```tsx\nimport { Command } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn (\n\t\t<Command\n\t\t\titems={[\n\t\t\t\t{ value: "profile", label: "Profile" },\n\t\t\t\t{ value: "settings", label: "Settings" },\n\t\t\t]}\n\t\t\tonSelect={(item) => void item.value}\n\t\t/>\n\t);\n}\n```\n\n## Props\n\n- `items` — array of { value, label, shortcut?, onSelect? }\n- `placeholder` — input placeholder\n- `emptyText` — message when no results match\n',
 	},
 	"components/commandpalette": {
 		title: "CommandPalette",
 		group: "components",
 		order: 1,
 		content:
-			'# Command Palette\n\nA full-screen overlay with a searchable command list.\n\n## Usage\n\n```tsx\nimport { CommandPalette } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn (\n\t\t<CommandPalette\n\t\t\titems={[\n\t\t\t\t{ value: "home", label: "Go home" },\n\t\t\t\t{ value: "docs", label: "Open docs" },\n\t\t\t]}\n\t\t\tonSelect={(item) => console.log(item.value)}\n\t\t/>\n\t);\n}\n```\n\n## Props\n\n- `open` — controlled open state\n- `onOpenChange` — called when the overlay is toggled\n- Toggle with `Cmd+K` (macOS) or `Ctrl+K` (Windows/Linux)\n',
+			'# Command Palette\n\nA full-screen overlay with a searchable command list.\n\n## Usage\n\n```tsx\nimport { CommandPalette } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn (\n\t\t<CommandPalette\n\t\t\titems={[\n\t\t\t\t{ value: "home", label: "Go home" },\n\t\t\t\t{ value: "docs", label: "Open docs" },\n\t\t\t]}\n\t\t\tonSelect={(item) => void item.value}\n\t\t/>\n\t);\n}\n```\n\n## Props\n\n- `open` — controlled open state\n- `onOpenChange` — called when the overlay is toggled\n- Toggle with `Cmd+K` (macOS) or `Ctrl+K` (Windows/Linux)\n',
 	},
 	"components/notification": {
 		title: "Notification",
@@ -424,7 +466,7 @@ export const docs: Record<string, DocPage> = {
 		group: "components",
 		order: 1,
 		content:
-			'# Calendar\n\nA month grid with previous/next navigation.\n\n## Usage\n\n```tsx\nimport { Calendar } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn <Calendar value={new Date()} onChange={(date) => console.log(date)} />;\n}\n```\n\n## Props\n\n- `value` — selected date\n- `onChange` — called when a day is selected\n- Accepts `class` for custom styling\n',
+			'# Calendar\n\nA month grid with previous/next navigation.\n\n## Usage\n\n```tsx\nimport { Calendar } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn <Calendar value={new Date()} onChange={(date) => void date} />;\n}\n```\n\n## Props\n\n- `value` — selected date\n- `onChange` — called when a day is selected\n- Accepts `class` for custom styling\n',
 	},
 	"components/transition": {
 		title: "Transition",
@@ -488,6 +530,104 @@ export const docs: Record<string, DocPage> = {
 		order: 1,
 		content:
 			'# Motion\n\nRenders a `<div>` element.\n\n## Usage\n\n```tsx\nimport { Motion } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn <Motion class="my-motion">Motion content</Motion>;\n}\n```\n## Props\n\n- Extends the standard JSX attributes for `<div>`\n- Accepts `class` for custom styling\n',
+	},
+	"components/kbd": {
+		title: "Kbd",
+		group: "components",
+		order: 1,
+		content:
+			'# Kbd\n\nRenders a `<kbd>` element.\n\n## Usage\n\n```tsx\nimport { Kbd } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn <Kbd class="my-kbd">Kbd content</Kbd>;\n}\n```\n## Props\n\n- Extends the standard JSX attributes for `<kbd>`\n- Accepts `class` for custom styling\n',
+	},
+	"components/code": {
+		title: "Code",
+		group: "components",
+		order: 1,
+		content:
+			'# Code\n\nRenders a `<code>` element.\n\n## Usage\n\n```tsx\nimport { Code } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn <Code class="my-code">Code content</Code>;\n}\n```\n## Props\n\n- Extends the standard JSX attributes for `<code>`\n- Accepts `class` for custom styling\n',
+	},
+	"components/blockquote": {
+		title: "Blockquote",
+		group: "components",
+		order: 1,
+		content:
+			'# Blockquote\n\nRenders a `<blockquote>` element.\n\n## Usage\n\n```tsx\nimport { Blockquote } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn <Blockquote class="my-blockquote">Blockquote content</Blockquote>;\n}\n```\n## Props\n\n- Extends the standard JSX attributes for `<blockquote>`\n- Accepts `class` for custom styling\n',
+	},
+	"components/list": {
+		title: "List",
+		group: "components",
+		order: 1,
+		content:
+			'# List\n\nRenders a `<ul>` element.\n\n## Usage\n\n```tsx\nimport { List } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn <List class="my-list">List content</List>;\n}\n```\n## Props\n\n- Extends the standard JSX attributes for `<ul>`\n- Accepts `class` for custom styling\n',
+	},
+	"components/listitem": {
+		title: "ListItem",
+		group: "components",
+		order: 1,
+		content:
+			'# ListItem\n\nRenders a `<li>` element.\n\n## Usage\n\n```tsx\nimport { ListItem } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn <ListItem class="my-listitem">ListItem content</ListItem>;\n}\n```\n## Props\n\n- Extends the standard JSX attributes for `<li>`\n- Accepts `class` for custom styling\n',
+	},
+	"components/visuallyhidden": {
+		title: "VisuallyHidden",
+		group: "components",
+		order: 1,
+		content:
+			'# VisuallyHidden\n\nRenders a `<span>` element.\n\n## Usage\n\n```tsx\nimport { VisuallyHidden } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn <VisuallyHidden class="my-visuallyhidden">VisuallyHidden content</VisuallyHidden>;\n}\n```\n## Props\n\n- Extends the standard JSX attributes for `<span>`\n- Accepts `class` for custom styling\n',
+	},
+	"components/progresscircle": {
+		title: "ProgressCircle",
+		group: "components",
+		order: 1,
+		content:
+			'# ProgressCircle\n\nRenders a `<svg>` element.\n\n## Usage\n\n```tsx\nimport { ProgressCircle } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn <ProgressCircle class="my-progresscircle">ProgressCircle content</ProgressCircle>;\n}\n```\n## Props\n\n- Extends the standard JSX attributes for `<svg>`\n- Accepts `class` for custom styling\n',
+	},
+	"components/meter": {
+		title: "Meter",
+		group: "components",
+		order: 1,
+		content:
+			'# Meter\n\nRenders a `<meter>` element.\n\n## Usage\n\n```tsx\nimport { Meter } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn <Meter class="my-meter">Meter content</Meter>;\n}\n```\n## Props\n\n- Extends the standard JSX attributes for `<meter>`\n- Accepts `class` for custom styling\n',
+	},
+	"components/stat": {
+		title: "Stat",
+		group: "components",
+		order: 1,
+		content:
+			'# Stat\n\nRenders a `<div>` element.\n\n## Usage\n\n```tsx\nimport { Stat } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn <Stat class="my-stat">Stat content</Stat>;\n}\n```\n## Props\n\n- Extends the standard JSX attributes for `<div>`\n- Accepts `class` for custom styling\n',
+	},
+	"components/skeletontext": {
+		title: "SkeletonText",
+		group: "components",
+		order: 1,
+		content:
+			'# SkeletonText\n\nRenders a `<div>` element.\n\n## Usage\n\n```tsx\nimport { SkeletonText } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn <SkeletonText class="my-skeletontext">SkeletonText content</SkeletonText>;\n}\n```\n## Props\n\n- Extends the standard JSX attributes for `<div>`\n- Accepts `class` for custom styling\n',
+	},
+	"components/alertdialog": {
+		title: "AlertDialog",
+		group: "components",
+		order: 1,
+		content:
+			'# AlertDialog\n\nRenders a `<div>` element.\n\n## Usage\n\n```tsx\nimport { AlertDialog } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn <AlertDialog class="my-alertdialog">AlertDialog content</AlertDialog>;\n}\n```\n## Props\n\n- Extends the standard JSX attributes for `<div>`\n- Accepts `class` for custom styling\n',
+	},
+	"components/hovercard": {
+		title: "HoverCard",
+		group: "components",
+		order: 1,
+		content:
+			'# HoverCard\n\nRenders a `<div>` element.\n\n## Usage\n\n```tsx\nimport { HoverCard } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn <HoverCard class="my-hovercard">HoverCard content</HoverCard>;\n}\n```\n## Props\n\n- Extends the standard JSX attributes for `<div>`\n- Accepts `class` for custom styling\n',
+	},
+	"components/contextmenu": {
+		title: "ContextMenu",
+		group: "components",
+		order: 1,
+		content:
+			'# ContextMenu\n\nRenders a `<div>` element.\n\n## Usage\n\n```tsx\nimport { ContextMenu } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn <ContextMenu class="my-contextmenu">ContextMenu content</ContextMenu>;\n}\n```\n## Props\n\n- Extends the standard JSX attributes for `<div>`\n- Accepts `class` for custom styling\n',
+	},
+	"components/skeletoncircle": {
+		title: "SkeletonCircle",
+		group: "components",
+		order: 1,
+		content:
+			'# SkeletonCircle\n\nRenders a `<div>` element.\n\n## Usage\n\n```tsx\nimport { SkeletonCircle } from "@wrikka/solid-ui";\n\nfunction Example() {\n\treturn <SkeletonCircle class="my-skeletoncircle">SkeletonCircle content</SkeletonCircle>;\n}\n```\n## Props\n\n- Extends the standard JSX attributes for `<div>`\n- Accepts `class` for custom styling\n',
 	},
 	templates: {
 		title: "Templates",

@@ -65,4 +65,3 @@ writeFileSync(
 	`${["export const skillsContent: Record<string, string> = {", ...Object.entries(sortedContent).map(([name, body]) => `\t${JSON.stringify(name)}: ${JSON.stringify(body)},`), "};", ""].join("\n")}\n`,
 	"utf8",
 );
-console.log(`Wrote ${sorted.length} skills to skills.json and skills-content.ts`);
